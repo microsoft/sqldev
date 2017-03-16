@@ -40,7 +40,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="$(if [ "$OSTYPE" "==" "cygwin" ]; then cygpath -u 'C:\Users\negust\Desktop\ConnectTutorialsV2\deve2e_v2\env'; else echo '/C/Users/negust/Desktop/ConnectTutorialsV2/deve2e_v2/env'; fi;)"
+VIRTUAL_ENV="$(if [ "$OSTYPE" "==" "cygwin" ]; then cygpath -u 'C:\Users\negust\Desktop\ConnectTutorialsV2\sqldev\env'; else echo '/C/Users/negust/Desktop/ConnectTutorialsV2/sqldev/env'; fi;)"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

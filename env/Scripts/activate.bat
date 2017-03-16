@@ -1,5 +1,5 @@
 @echo off
-set "VIRTUAL_ENV=C:\Users\negust\Desktop\ConnectTutorialsV2\deve2e_v2\env"
+set "VIRTUAL_ENV=C:\Users\negust\Desktop\ConnectTutorialsV2\sqldev\env"
 
 if defined _OLD_VIRTUAL_PROMPT (
     set "PROMPT=%_OLD_VIRTUAL_PROMPT%"
