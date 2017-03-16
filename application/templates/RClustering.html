@@ -1,0 +1,549 @@
+{% extends "baseR.html" %}
+{% import "macros.html" as macros %}
+{% import "codemacros.html" as codemacros %}
+{% block tutorialcontent %}
+
+<h2>Customer Clustering with SQL Server R Services</h2>
+                <div style="text-align: center;">
+                    <div style="display: inline-block; text-align: left">
+                        <p>In this tutorial, we are going to get ourselves familiar with clustering. <strong>Clustering</strong> can be explained as organizing data into groups where members of a group are similar in some way.</p>
+                        <p>We will be using the <strong>Kmeans</strong> algorithm to perform the clustering of customers. 
+                           This can for example be used to target a specific group of customers for marketing efforts. 
+                           Kmeans clustering is an unsupervised learning algorithm that tries to group data based on similarities. 
+                           Unsupervised learning means that there is no outcome to be predicted, and the algorithm just tries to find patterns in the data.</p>
+                        
+                        <p>In this tutorial, you will learn how to perform clustering using Kmeans and analyze the results. 
+                        We will also cover how you can deploy a clustering solution using SQL Server.</p>
+                        <p>You can copy code as you follow the tutorial. All code is also available on <a href="https://github.com/Microsoft/sql-server-samples/tree/master/samples/features/r-services/getting-started/customer-clustering"><strong>github</strong></a>.</p>
+                    </div>
+                </div>
+                <ol>
+    <li>
+        <div class="step-item">
+            <span>1</span>
+        </div>
+        <div class="step-body">
+            <div class="step-header collapsible">
+                <h3>Set up your environment <span class="expand-icon">+</span></h3>
+                <p class="step-preview">In this section you will download and install the necessary tools. <span class="see-more">... <strong>See more</strong></span><span class="preview-content">After that you can start using clustering.</span></p>
+            </div>
+            <span class="step-content">
+                <!--install SQL Server on Windows-->
+                {{macros.installSQLServeronWindows()}}
+                <h4>Activate R Services</h4>
+                <p>There are a couple of additional steps during the SQL Server setup to activate SQL Server R services. Follow <b>Step 1</b> in <a href="https://msdn.microsoft.com/en-us/library/mt696069.aspx" style="color: #CC0000">this guide</a> to activate R Services.</p>
+                                                
+                <h4>Install SQL Server Management Studio (SSMS)</h4>
+                <p><a href="https://msdn.microsoft.com/en-us/library/mt238290.aspx">Download and install</a> SSMS.</p>
+
+                <h4>Configure R Services</h4>
+                <p>1. Enable external script: Run SSMS and open a new query window. Execute the script below to enable your instance to run R scripts in SQL Server.</p>
+                <pre><code class="language-SQL">
+                EXEC sp_configure 'external scripts enabled', 1;
+                RECONFIGURE WITH OVERRIDE;</code></pre>
+
+                <p>2. Enable implied authentication: Follow <b>Step 3</b> <a href="https://msdn.microsoft.com/en-us/library/mt696069.aspx" style="color: #CC0000">in this guide</a> to activate R Services.</p></p>
+
+
+                <p><strong>Don't forget to restart your SQL Server Instance after the configuration!</strong> You can restart in SSMS by right clicking on the instance name in the Object Explorer and choose Restart</p>
+                
+                <p><i>Optional: If you want, you can also <a href="https://github.com/Microsoft/sql-server-samples/tree/master/samples/features/r-services/SSMS-Custom-Reports" style="color: #CC0000"git pull>download SSMS custom reports</a> available on github. The report "R Services - Configuration.rdl" for example provides an overview of the R runtime parameters and gives you an option to configure your instance with a button click.
+                To import a report in SSMS, right click on Server Objects in the SSMS Object Explorer and choose Reports -> Custom reports. Upload the .rdl file.</i></p>
+
+                <h4>Install and configure your R development environment</h4>
+                <p>You need to install an R IDE. Here you have some suggestions:</p>
+                <p>R Tools for Visual Studio (RTVS) <a href="https://www.visualstudio.com/vs/rtvs/">Download</a></p>
+                <p>RStudio <a href="https://www.rstudio.com">Download</a></p>
+
+                <p></p>
+                <p>To be able to use some of the functions in this tutorial, you need to configure your R IDE to point to Microsoft R Client, which is an R Runtime provided by Microsoft. This runtime contains MS R Open packages.</p>
+                <p>Follow the steps 1 and 2 <a href="https://msdn.microsoft.com/en-us/microsoft-r/r-client-get-started#configure-ide">here</a> to install R client and configure your R IDE tool.</p>
+
+                <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> Terrific, now your SQL Server 2016 is able to host and run R code and you have the necessary development tools installed and configured! 
+                The next section will walk you through how to do clustering using R.</p>
+    </li>
+    <!-- Clustering in R -->
+    <li>
+        <div class="step-item">
+            <span>2</span>
+        </div>
+        <div class="step-body">
+            <div class="step-header collapsible">
+                <h3>Perform <strong>clustering</strong> in R <span class="expand-icon">+</span></h3>
+                <p class="step-preview">
+                    R is a programming language that makes statistical and math computation easy, and is very useful for any machine learning/predictive analytics/statistics work.
+                    There are lots of tutorials out there on R. This is one example of a <a href="https://www.tutorialspoint.com/r/">tutorial</a> to learn more about R.<br /><br />
+                    
+                    In this specific scenario, we have an online store and we want to group customers based on their order and return behaviour. This information will help us target marketing efforts towards certain groups of customers.
+                    <span class="see-more">... <strong>See more</strong></span><span class="preview-content">Before we go into how you can use R to perform this type of customer grouping using clustering in SQL Server 2016, we will look at the scenario in R.</span>
+                </p>
+            </div>
+            <span class="step-content">
+
+                
+
+                <h4>Load the data</h4>
+                <p>
+                    The dataset used in this tutorial is hosted in several SQL Server tables.
+                    The tables contain purchasing and return data based on orders.
+                </p>
+                <p>
+                    Download the backup (.bak) file <a href="https://sqlchoice.blob.core.windows.net/sqlchoice/static/tpcxbb_1gb.bak"><strong>here</strong></a>, and save it on a location that SQL Server can access.
+                    For example in a sub folder to where SQL Server is installed.
+                    <br />Sample path: C:\Program Files\Microsoft SQL Server\MSSQL13.MSSQLSERVER\MSSQL\Backup
+                </p>
+                <p>
+                    Once you have the file saved, open SSMS and a new query window to run the following commands.
+                    Make sure to modify the file paths in the script.
+                </p>
+
+                <pre><code class="language-SQL">
+-- Before we start, we need to restore the DB for this tutorial. 
+-- Step1: Download the compressed backup file
+-- Save the file on a location where SQL Server can access it. For example: C:\Program Files\Microsoft SQL Server\MSSQL13.MSSQLSERVER\MSSQL\Backup\
+-- In a new query window in SSMS, execute the following restore statement, but REMEMBER TO CHANGE THE FILE PATHS 
+-- to match the directories of your installation!
+USE master;  
+GO  
+RESTORE DATABASE tpcxbb_1gb  
+   FROM DISK = 'C:\Program Files\Microsoft SQL Server\MSSQL13.MSSQLSERVER\MSSQL\Backup\tpcxbb_1gb.bak'
+   WITH 
+                MOVE 'tpcxbb_1gb' TO 'C:\Program Files\Microsoft SQL Server\MSSQL13.MSSQLSERVER\MSSQL\DATA\tpcxbb_1gb.mdf'
+                ,MOVE 'tpcxbb_1gb_log' TO 'C:\Program Files\Microsoft SQL Server\MSSQL13.MSSQLSERVER\MSSQL\DATA\tpcxbb_1gb.ldf';  
+GO  
+</code></pre>
+
+                <p>
+                    You should now be able to see the database and tables store_sales and store_returns in the Object Explorer in SSMS.
+                </p>
+               
+
+                <p>
+
+                    You can also verify this by querying the tables in SSMS. Open a new query window and select the following.
+                </p>
+
+                <pre><code class="language-SQL">
+USE tpcxbb_1gb;
+SELECT TOP (100) * FROM [dbo].[store_sales];
+SELECT TOP (100) * FROM [dbo].[store_returns];
+
+                                </code></pre>
+
+               
+
+                <h4>Access the data in SQL Server using R</h4>
+                <p>
+                    Getting data from SQL Server to R is easy.
+                    Open a new RScript in your R development tool and run the following script.
+                    Don't forget to replace "MyServer" with the name of your database instance.
+                </p>
+                <p>
+                    In the query we are using to select data from SQL Server, we are separating customers along the following dimensions:
+                    <ul>
+                        <li>return frequency</li>
+                        <li>return order ratio (total number of orders partially or fully returned versus the total number of orders)</li>
+                        <li>return item ratio (total number of items returned versus the number of items purchased)</li>
+                        <li>return amount ration (total monetary amount of items returned versus the amount purchased)</li>
+                    </ul>                   
+                </p>
+
+               
+                
+                <pre><code class="language-R">
+#Connection string to connect to SQL Server. Don't forget to replace MyServer with the name of your SQL Server instance
+connStr <- paste("Driver=SQL Server;Server=", " MyServer", ";Database=" , "tpcxbb_1gb" , ";Trusted_Connection=true;" , sep="" );
+
+#The query that we are using to select data from SQL Server
+input_query <- "
+	SELECT
+  ss_customer_sk AS customer,
+  round(CASE WHEN ((orders_count = 0) OR (returns_count IS NULL) OR (orders_count IS NULL) OR ((returns_count / orders_count) IS NULL) ) THEN 0.0 ELSE (cast(returns_count as nchar(10)) / orders_count) END, 7) AS orderRatio,
+  round(CASE WHEN ((orders_items = 0) OR(returns_items IS NULL) OR (orders_items IS NULL) OR ((returns_items / orders_items) IS NULL) ) THEN 0.0 ELSE (cast(returns_items as nchar(10)) / orders_items) END, 7) AS itemsRatio,
+  round(CASE WHEN ((orders_money = 0) OR (returns_money IS NULL) OR (orders_money IS NULL) OR ((returns_money / orders_money) IS NULL) ) THEN 0.0 ELSE (cast(returns_money as nchar(10)) / orders_money) END, 7) AS monetaryRatio,
+  round(CASE WHEN ( returns_count IS NULL                                                                        ) THEN 0.0 ELSE  returns_count                 END, 0) AS frequency
+  --cast(round(cast(CASE WHEN (returns_count IS NULL) THEN 0.0 ELSE  returns_count END as double)) as integer) AS frequency
+FROM
+  (
+    SELECT
+      ss_customer_sk,
+      -- return order ratio
+      COUNT(distinct(ss_ticket_number)) AS orders_count,
+      -- return ss_item_sk ratio
+      COUNT(ss_item_sk) AS orders_items,
+      -- return monetary amount ratio
+      SUM( ss_net_paid ) AS orders_money
+    FROM store_sales s
+    GROUP BY ss_customer_sk
+  ) orders
+  LEFT OUTER JOIN
+  (
+    SELECT
+      sr_customer_sk,
+      -- return order ratio
+      count(distinct(sr_ticket_number)) as returns_count,
+      -- return ss_item_sk ratio
+      COUNT(sr_item_sk) as returns_items,
+      -- return monetary amount ratio
+      SUM( sr_return_amt ) AS returns_money
+    FROM store_returns
+    GROUP BY sr_customer_sk
+  ) returned ON ss_customer_sk=sr_customer_sk
+"
+
+ </code></pre>
+
+                <p>Results from the query are returned to R using the rxSqlServerData function. 
+                <br>This is also where we define the type for columns we want to select (using colClasses), to make sure that the types are correctly transferred to R
+                </p>
+
+<pre><code class="language-R">
+                #Querying SQL Server using the query above and and getting the results back to data frame customer_returns
+                #This is also where we define the type for columns we want to select (using colClasses), to make sure that the types are correctly transferred to R
+                customer_returns <- RxSqlServerData(sqlQuery=input_query,
+                                    colClasses=c(customer ="numeric" , orderRatio="numeric" , itemsRatio="numeric" , monetaryRatio="numeric" , frequency="numeric" ),connectionString=connStr);
+                
+                #Look at the data we just loaded from SQL Sever 
+                head(customer returns)
+              </code></pre>
+
+
+                <pre><code class="language-results">
+    customer orderRatio itemsRatio monetaryRatio frequency
+1    75675          0          0      0.071633         4
+2    86750          0          0      0.000000         0
+3    75343          0          0      0.000000         0
+4    49280          0          0      0.000000         0
+5    89406          0          0      0.000000         0
+6    72426          0          0      0.000000         0
+>
+                 </code></pre>
+
+
+
+                <h4>Determine number of clusters</h4>
+                <p>Using the clustering algorithm <b>Kmeans</b>, is one of the simplest and most well known ways of grouping data.
+                   Now that we have our selected data, we can group the data into clusters using the iterative data mining algorithm called Kmeans.
+                </p>
+                <p>
+                    The algorithm accepts two inputs: The data itself, and a predefined number "k", the number of clusters.
+                    <br>The output is k clusters with input data partitioned among them.
+                </p>
+                <p>
+                    The aim of K-means is to group the items into k clusters such that all items in same cluster are as similar to each other as possible. And items not in same cluster are as different as possible.
+                    It uses the distance measures to calculate similarity and dissimilarity.
+                </p>
+                <p>
+                    <br> This is how the algorithm works:
+                    <br>1. It randomly chooses k points and make them the initial centroids (each cluster has a centroid which basically is the "center" of the cluster)
+                    <br>2. For each point, it finds the nearest centroid and assigns the point to the cluster associated with the nearest centroid
+                    <br>3. Updates the centroid of each cluster based on members in that cluster. Typically, a new centroid will be the average of all members in the cluster
+                    <br>4. Repeats steps 2 and 3, until the clusters are stable
+                </p>
+
+
+                <p>
+                    The number of clusters has to be predefined and the quality of the clusters is heavily dependent on the correctness of the k value specified.
+                    You could just randomly pick a number of clusters, run Kmeans and iterate your way to a good number. 
+                    Or we can use R to evaluate which number of clusters is best for our dataset. Let's determine the number of clusters using R!
+                </p>
+
+                    <pre><code class="language-R">
+#Determine number of clusters
+#Using a plot of the within groups sum of squares, by number of clusters extracted, can help determine the appropriate number of clusters
+#We are looking for a bend in the plot. It is at this "elbow" in the plot that we have the appropriate number of clusters 
+wss <- (nrow(customer_data) - 1) * sum(apply(customer_data, 2, var))
+       for (i in 2:20)
+       wss[i] <- sum(kmeans(customer_data, centers = i)$withinss)
+plot(1:20, wss, type = "b", xlab = "Number of Clusters", ylab = "Within groups sum of squares")
+                    </code></pre>
+
+                <p><img src="https://sqlchoice.blob.core.windows.net/sqlchoice/static/images/Elbow_graph.JPG" alt="Finding the right number of clusters"></p>
+                    
+                <p>Based on the graph above, it looks like <strong>k = 4</strong> would be a good value to try. That will group our customers into 4 clusters.</p>
+                
+                <h4>Perform Clustering</h4>
+                <p>Now it is time to use Kmeans. In this sample, we will be using the function rxKmeans which is the Kmeans function in the RevoScaleR package.
+                </p>
+                <pre><code class="language-R">
+# Output table to hold the customer group mappings. This is a table where the cluster mappings will be saved in the database. 
+return_cluster = RxSqlServerData(table = "return_cluster", connectionString = connStr);
+# Set.seed for random number generator for predictability
+set.seed(10);
+# Generate clusters using rxKmeans and output key / cluster to a table in SQL Server called return_cluster
+clust <- rxKmeans( ~ orderRatio + itemsRatio + monetaryRatio + frequency, customer_returns, numClusters=4
+         , outFile=return_cluster, outColName="cluster" , extraVarsToWrite=c("customer"), overwrite=TRUE);
+
+                </code></pre>
+
+
+                <h4>Analyze results - Plot clusters</h4>
+                <p>R is very useful since it's easy to plot and visualize data for analysis. Now that we have done the clustering using Kmeans, we need to analyze it and see if we can learn anything from it. 
+                Sometimes plotting the clusters might be helpful, so let's do that.</p>
+
+                <pre><code class="language-R">
+#Plot the clusters (you need to install R library "cluster". If you don't have that installed, just uncomment the next line of code)
+#install.packages("cluster")
+library("cluster");
+clusplot(customer_data, customer_cluster$cluster, color=TRUE, shade=TRUE, labels=4, lines=0, plotchar = TRUE);
+                </code></pre>
+
+                <p><img src="https://sqlchoice.blob.core.windows.net/sqlchoice/static/images/Cluster_plot.JPG" alt="Plot of the clusters"></p>
+                <p>Unfortunaltely, this plot does not really tell us anything about how the different clusters are different from each other. 
+                We had 4 different variables and we need to know something about the different characteristics of each cluster to make conclusions. </p>
+                <p>
+                    Using Kmeans is just a data mining method and you still need to spend time on analyzing the results. 
+                    Depending on your data, you might need to use different methods to analyze the result. Here we just want to show that plotting can be one way.
+                    Let's try something else and see if we can get some more insight from that.
+                </p>
+                <h4>Analyze cluster means</h4>
+                <p>The clust object contains the results from our Kmeans clustering. We are going to look at some mean values.</p>
+                <pre><code class="language-R">
+#Look at the clustering details and analyze results
+clust
+                </code></pre>
+                <pre><code class="language-results">
+                           Call:
+rxKmeans(formula = ~orderRatio + itemsRatio + monetaryRatio + 
+    frequency, data = customer_returns, outFile = return_cluster, 
+    outColName = "cluster", extraVarsToWrite = c("customer"), 
+    overwrite = TRUE, numClusters = 4)
+Data: customer_returns
+Number of valid observations: 37336
+Number of missing observations: 0 
+Clustering algorithm:  
+ 
+K-means clustering with 4 clusters of sizes 31675, 671, 2851, 2139
+Cluster means:
+   orderRatio   itemsRatio monetaryRatio frequency
+1 0.000000000 0.0000000000    0.00000000  0.000000
+2 0.007451565 0.0000000000    0.04449653  4.271237
+3 1.008067345 0.2707821817    0.49515232  1.031568
+4 0.000000000 0.0004675082    0.10858272  1.186068
+Within cluster sum of squares by cluster:
+         1          2          3          4 
+    0.0000  1329.0160 18561.3157   363.2188 
+
+                </code></pre>
+
+                <p>Focusing on the cluster mean values, it seems like we can actually interpret something. 
+                Just to refresh our memory, here are the definitions of our variables:</p>
+
+                <p>
+
+                    <ul>
+                        <li>frequency = return frequency</li>
+                        <li>orderRatio = return order ratio (total number of orders partially or fully returned versus the total number of orders)</li>
+                        <li>itemsRatio = return item ratio (total number of items returned versus the number of items purchased)</li>
+                        <li>monetaryRatio = return amount ratio (total monetary amount of items returned versus the amount purchased)</li>
+                    </ul>
+
+               </p>
+
+                <p>Some examples of what the mean values tell us? </p>
+                <p>Well, cluster 1 (the largest cluster) seems to be a group of customers that either don't have any orders placed. All values are zero.</p>
+                <p>And cluster 3 seems to be a group that stands out in terms of return behaviour. It seems to be a group that returns most of orders placed.</p>
+                                  
+                <p>
+                  Data mining using Kmeans often requires further analysis of the results, and further steps to better understand each cluster, 
+                  but it provides some very good leads. Cluster 1 is a set of customers who are clearly not active. Perhaps we can target marketing efforts towards this group to trigger an interest for purchases? 
+                  Let's query the database for their email addresses so that we can send a marketing email to them.
+                </p>
+
+                <p>
+                    Use the following select statement to use the cluster data to select email addresses to customers in a specific cluster. 
+                    Open a new query in SSMS and run the following select statement:
+                </p>
+
+                <pre><code class="language-SQL">
+USE [tpcxbb_1gb]
+SELECT customer.[c_email_address], customer.c_customer_sk
+  FROM dbo.customer
+  JOIN 
+  [dbo].[return_cluster] as r
+  ON r.customer = customer.c_customer_sk
+  WHERE r.cluster = 3
+                </code></pre>
+
+                <p><img src="https://sqlchoice.blob.core.windows.net/sqlchoice/static/images/Email_addresses.JPG" alt="Using customer cluster mappings to select email addresses for customers in a specific cluster."></p>
+
+                
+                <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> Now you know how to use Kmeans in R to group data and use that to learn more about your data.</p>
+            </span>
+        </div>
+    </li>
+    <!-- END R section -->
+    <!-- START Deploy in SQL Server-->
+    <li>
+        <div class="step-item">
+            <span>3</span>
+        </div>
+        <div class="step-body">
+            <div class="step-header collapsible">
+                <h3><strong>Deploy</strong> clustering in SQL Server<span class="expand-icon">+</span></h3>
+                <p class="step-preview">In order to perform clustering on a regular basis, as new customers are registering, we need to be able call our R script from any App. 
+                To do that, we can simply delploy the R Script in SQL Server using R Services. You basically put the R script inside a SQL stored procedure in the database. 
+                A stored procedure is kind of like a function, that takes parameters and can return results and the good thing with these procedures is sthat they can be called from any application. </span></p>
+            </div>
+            <span class="step-content">
+               
+                <h4>Create a stored procedure for clustering</h4>
+                <p>
+                    
+                    We will now move the R code we wrote in the previous section into SQL Server. 
+                    <br>Just open SSMS and execute the following T-SQL code to create the stored procedure:
+                </p>
+                <pre><code class="language-SQL">
+USE [tpcxbb_1gb]
+DROP PROC IF EXISTS generate_customer_return_clusters;
+GO
+CREATE procedure [dbo].[generate_customer_return_clusters]
+AS
+/* 
+  This procedure uses R to classify customers into different groups based on their
+  purchase & return history.
+*/
+BEGIN
+	DECLARE @duration FLOAT
+	, @instance_name NVARCHAR(100) = @@SERVERNAME
+	, @database_name NVARCHAR(128) = db_name()
+-- Input query to generate the purchase history & return metrics
+	, @input_query NVARCHAR(MAX) = N'
+SELECT
+  ss_customer_sk AS customer,
+  round(CASE WHEN ((orders_count = 0) OR (returns_count IS NULL) OR (orders_count IS NULL) OR ((returns_count / orders_count) IS NULL) ) THEN 0.0 ELSE (cast(returns_count as nchar(10)) / orders_count) END, 7) AS orderRatio,
+  round(CASE WHEN ((orders_items = 0) OR(returns_items IS NULL) OR (orders_items IS NULL) OR ((returns_items / orders_items) IS NULL) ) THEN 0.0 ELSE (cast(returns_items as nchar(10)) / orders_items) END, 7) AS itemsRatio,
+  round(CASE WHEN ((orders_money = 0) OR (returns_money IS NULL) OR (orders_money IS NULL) OR ((returns_money / orders_money) IS NULL) ) THEN 0.0 ELSE (cast(returns_money as nchar(10)) / orders_money) END, 7) AS monetaryRatio,
+  round(CASE WHEN ( returns_count IS NULL                                                                        ) THEN 0.0 ELSE  returns_count                 END, 0) AS frequency
+  
+FROM
+  (
+    SELECT
+      ss_customer_sk,
+      -- return order ratio
+      COUNT(distinct(ss_ticket_number)) AS orders_count,
+      -- return ss_item_sk ratio
+      COUNT(ss_item_sk) AS orders_items,
+      -- return monetary amount ratio
+      SUM( ss_net_paid ) AS orders_money
+    FROM store_sales s
+    GROUP BY ss_customer_sk
+  ) orders
+  LEFT OUTER JOIN
+  (
+    SELECT
+      sr_customer_sk,
+      -- return order ratio
+      count(distinct(sr_ticket_number)) as returns_count,
+      -- return ss_item_sk ratio
+      COUNT(sr_item_sk) as returns_items,
+      -- return monetary amount ratio
+      SUM( sr_return_amt ) AS returns_money
+    FROM store_returns
+    GROUP BY sr_customer_sk
+  ) returned ON ss_customer_sk=sr_customer_sk 
+ '
+EXEC sp_execute_external_script
+	  @language = N'R'
+	, @script = N'
+# Define the connection string
+connStr <- paste("Driver=SQL Server;Server=", instance_name, " ;Database=", database_name, " ;Trusted_Connection=true;", sep="" );
+
+# Input customer data that needs to be classified. This is the result we get from our query
+customer_returns <- RxSqlServerData(sqlQuery = input_query,
+									colClasses = c(customer = "numeric", orderRatio = "numeric", itemsRatio = "numeric", monetaryRatio = "numeric", frequency = "numeric"),
+									connectionString = connStr);
+
+# Output table to hold the customer cluster mappings
+return_cluster = RxSqlServerData(table = "customer_return_clusters", connectionString = connStr);
+
+# set.seed for random number generator for predicatability
+set.seed(10);
+
+# generate clusters using rxKmeans and output clusters to a table called "customer_return_clusters".
+clust <- rxKmeans( ~ orderRatio + itemsRatio + monetaryRatio + frequency, customer_returns, numClusters = 4
+                    , outFile = return_cluster, outColName = "cluster", writeModelVars = TRUE , extraVarsToWrite = c("customer"), overwrite = TRUE);
+'
+	, @input_data_1 = N''
+	, @params = N'@instance_name nvarchar(100), @database_name nvarchar(128), @input_query nvarchar(max), @duration float OUTPUT'
+	, @instance_name = @instance_name
+	, @database_name = @database_name
+	, @input_query = @input_query
+	, @duration = @duration OUTPUT;
+END;
+
+GO
+
+                </code></pre>
+
+                <h4>Run the stored procedure</h4>
+
+                <p>
+                    We are now going to execute the stored procedure in SQL Server to perform the clustering 
+                </p>
+
+                <pre><code class="language-SQL">
+--Empty table of the results before running the stored procedure
+TRUNCATE TABLE customer_return_clusters;
+--Execute the clustering. This will load the table customer_return_clusters with cluster mappings
+EXEC [dbo].[generate_customer_return_clusters];
+                                </code></pre>
+
+                <p>Now let's verify that it works and that we actually have the list of customers and their cluster mappings</p>
+                <pre><code class="language-SQL">
+--Now select data from table customer_return_clusters to verify that the clustering data was loaded
+SELECT * FROM customer_return_clusters;
+                </code></pre>
+               
+
+                <h4>Why is it useful to deploy this in SQL Server?</h4>
+
+                <p>
+                   We now have the clustering implemented in SQL Server. Why is that useful?
+                   Well, imagine that you need to perform clustering on you cutomer data on a regular basis as new customers sign up to keep an updated understanding of customer behavior. 
+                    You can perform the clustering in SQL Server and then analyze the clusters using R in your favorite R IDE, by just selecting the cluster mappings from tables in SQL Server.
+                   Then you can schedule jobs that run the stored procedure and automatically send the results to for example a CRM application or a reporting tool. 
+                  
+                    <br />
+
+                </p>
+
+                <pre><code class="language-SQL">
+
+                                </code></pre>
+                <p></p>
+
+               
+
+
+                <p>
+                    <img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> Now you have performed clustering in SQL Server using R Services! 
+                </p>
+            </span>
+
+
+            <p>If you found this tutorial helpful, make sure to check out the <a href="https://www.microsoft.com/en-us/sql-server/developer-get-started/rprediction"><strong>predictive modeling sample</strong></a></p>
+        </div>
+    </li>
+    <!-- END -->
+
+
+
+    <li>
+        <div class="step-body">
+            {{macros.RlangCTA()}}
+            <p></p>
+        </div>
+    </li>
+    <li>
+        <div class="step-item-tools">
+        </div>
+        <div class="step-body">
+            {{macros.feedback()}}
+        </div>
+    </li>
+</ol>
+{{codemacros.discus()}}
+
+{% endblock %}
+

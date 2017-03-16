@@ -1,0 +1,1188 @@
+{% import "macros.html" as macros %}
+
+<!--Node.js Macros-->
+<!--Macro for a Node.js CRUD app on Windows-->
+{% macro nodeWindowsCRUD() %}
+<h4>Create a Node.js app that connects to SQL Server and executes queries</h4>
+                            <p>In a command prompt, create a new project in your home directory and initialize Node dependencies.</p>
+                            <pre class="command-line" data-prompt=">"><code class="language-terminal">md SqlServerSample
+cd SqlServerSample
+npm init -y
+npm install tedious 
+npm install async</code></pre>
+                            <p>Create a database that will be used for the rest of this tutorial by connecting to SQL Server using mssql-cli and executing the following statement. Don't forget to update the username and password with your own.</p>
+                            <pre class="command-line language-terminal" data-prompt=">"><code class="language-terminal">mssql -s localhost -u sa -p your_password -q "CREATE DATABASE SampleDB;"</code></pre>
+
+                            <p>Now you will create a simple Node.js app that connects to SQL Server.</p> 
+                            <p>Using your favorite editor, create a file named <b>connect.js</b> in the <i>SqlServerSample</i> folder. Copy and paste the below contents into the file. Don't forget to update the username and password with your own. Save and close the file. </p>
+                            <pre><code class="language-javascript"> 
+var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+var TYPES = require('tedious').TYPES;
+
+// Create connection to database
+var config = {
+  userName: 'sa', // update me
+  password: 'your_password', // update me
+  server: 'localhost',
+  options: {
+      database: 'SampleDB'
+  }
+}
+var connection = new Connection(config);
+
+// Attempt to connect and execute queries if connection goes through
+connection.on('connect', function(err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('Connected');
+  }
+});
+                            </code></pre>
+                            <p>Run the application.</p>
+                            <pre data-output="2" class="command-line language-terminal" data-output="2" data-prompt=">"><code class="language-terminal">node connect.js</code></pre> 
+                            <pre><code class="language-results">Connected </code></pre>
+<p>Using your favorite text editor, create a file called <b>CreateTestData.sql</b> in the <i>SqlServerSample</i> folder. Copy and paste the following the T-SQL code inside it. This will create a <a href="https://msdn.microsoft.com/en-us/library/aa578080.aspx">schema</a>, <a href="https://msdn.microsoft.com/en-us/library/ms189084.aspx">table</a>, and <a href="https://msdn.microsoft.com/en-us/library/ms174335.aspx">insert</a> a few rows.</p>                            
+                            <pre><code class="language-SQL"> CREATE SCHEMA TestSchema;
+GO
+
+CREATE TABLE TestSchema.Employees (
+  Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
+  Name NVARCHAR(50), 
+  Location NVARCHAR(50)
+); 
+GO
+
+INSERT INTO TestSchema.Employees (Name, Location) VALUES 
+(N'Jared', N'Australia'), 
+(N'Nikita', N'India'), 
+(N'Tom', N'Germany'); 
+GO
+
+SELECT * FROM TestSchema.Employees;
+GO</code></pre>
+
+<p>Connect to the database using sql-cli.</p>
+<pre class="command-line language-terminal" data-output="3-100" data-prompt=">"><code class="language-terminal">mssql -s localhost -u sa -p your_password -d SampleDB -T 60000</code></pre>
+<p>Run the SQL script to create the schema, table, and insert some rows.</p>
+<pre class="command-line language-terminal" data-output="3-100" data-prompt="mssql>"><code class="language-terminal">.run ./CreateTestData.sql</code></pre>
+<pre><code class="language-results">CREATE SCHEMA TestSchema;
+
+Executed in 0 ms
+CREATE TABLE TestSchema.Employees (
+  Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  Name NVARCHAR(50),
+  Location NVARCHAR(50)
+);
+
+Executed in 0 ms
+INSERT INTO TestSchema.Employees (Name, Location) VALUES
+(N'Jared', N'Australia'),
+(N'Nikita', N'India'),
+(N'Tom', N'Germany');
+
+Executed in 0 ms
+SELECT * FROM TestSchema.Employees;
+Id  Name    Location
+--  ------  ---------
+1   Jared   Australia
+2   Nikita  India
+3   Tom     Germany
+
+3 row(s) returned
+
+Executed in 1 ms</code></pre>
+<p>Quit the sql-cli prompt by running the below.</p>
+<pre class="command-line language-terminal" data-output="2,3,5" data-prompt="mssql>"><code class="language-terminal">.quit</code></pre>
+                            <p>Using your favorite text editor, create a new file called <b>crud.js</b> in the <i>SqlServerSample</i> folder. Copy and paste the following code inside it. This will <a href="https://msdn.microsoft.com/en-us/library/ms174335.aspx">insert</a>, <a href="https://msdn.microsoft.com/en-us/library/ms177523.aspx">update</a>, <a href="https://msdn.microsoft.com/en-us/library/ms189835.aspx">delete</a>, and <a href="https://msdn.microsoft.com/en-us/library/ms189499.aspx">read</a> a few rows. Don't forget to update the username and password with your own. Save and close the file. </p>
+                            <pre><code class="language-javascript">var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+var TYPES = require('tedious').TYPES;
+var async = require('async');
+
+// Create connection to database
+var config = {
+  userName: 'sa', // update me
+  password: 'your_password', // update me
+  server: 'localhost',
+  options: {
+    database: 'SampleDB'
+  }
+}
+var connection = new Connection(config);
+
+// Attempt to connect and execute queries if connection goes through
+connection.on('connect', function(err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('Connected');
+
+    // Execute all functions in the array serially
+    async.waterfall([
+      function Start(callback) {
+        console.log('Starting...');
+        callback(null, 'Jake', 'United States');
+      },
+      function Insert(name, location, callback) {
+        console.log("Inserting '" + name + "' into Table...");
+
+        request = new Request(
+          'INSERT INTO TestSchema.Employees (Name, Location) OUTPUT INSERTED.Id VALUES (@Name, @Location);',
+          function(err, rowCount, rows) {
+            if (err) {
+              callback(err);
+            } else {
+              console.log(rowCount + ' row(s) inserted');
+              callback(null, 'Nikita', 'United States');
+            }
+          });
+        request.addParameter('Name', TYPES.NVarChar, name);
+        request.addParameter('Location', TYPES.NVarChar, location);
+
+        // Execute SQL statement
+        connection.execSql(request);
+      },
+      function Update(name, location, callback) {
+        console.log("Updating Location to '" + location + "' for '" + name + "'...");
+
+        // Update the employee record requested
+        request = new Request(
+          'UPDATE TestSchema.Employees SET Location=@Location WHERE Name = @Name;',
+          function(err, rowCount, rows) {
+            if (err) {
+              callback(err);
+            } else {
+              console.log(rowCount + ' row(s) updated');
+              callback(null, 'Jared');
+            }
+          });
+        request.addParameter('Name', TYPES.NVarChar, name);
+        request.addParameter('Location', TYPES.NVarChar, location);
+
+        // Execute SQL statement
+        connection.execSql(request);
+      },
+      function Delete(name, callback) {
+        console.log("Deleting '" + name + "' from Table...");
+
+        // Delete the employee record requested
+        request = new Request(
+          'DELETE FROM TestSchema.Employees WHERE Name = @Name;',
+          function(err, rowCount, rows) {
+            if (err) {
+              callback(err);
+            } else {
+              console.log(rowCount + ' row(s) deleted');
+              callback(null);
+            }
+          });
+        request.addParameter('Name', TYPES.NVarChar, name);
+
+        // Execute SQL statement
+        connection.execSql(request);
+      },
+      function Read(callback) {
+        console.log('Reading rows from the Table...');
+
+        // Read all rows from table
+        request = new Request(
+        'SELECT Id, Name, Location FROM TestSchema.Employees;',
+        function(err, rowCount, rows) {
+          if (err) {
+            callback(err);
+          } else {
+            console.log(rowCount + ' row(s) returned');
+            callback(null);
+          }
+        });
+
+        // Print the rows read
+        var result = ""; request.on('row', function(columns) {
+          columns.forEach(function(column) {
+            if (column.value === null) {
+              console.log('NULL');
+            } else {
+              result += column.value + " ";
+            }
+          });
+          console.log(result);
+          result = "";
+        });
+
+        // Execute SQL statement
+        connection.execSql(request);
+      }
+    ],
+    function Complete(err, result) {
+      if (err) {
+        callback(err);
+      } else {
+        console.log("Done!");
+      }
+    }
+                   )
+  }
+});</code></pre>
+                            <p>Run the crud.js app to see the results</p>
+                            <pre data-output="2-100" class="command-line language-terminal" data-prompt=">"><code class="language-terminal">node crud.js
+
+</code></pre>
+<pre><code class="language-results"> 
+
+Connected
+Starting...
+Inserting 'Jake' into Table...
+1 row(s) inserted
+Updating Location to 'United States' for 'Nikita'...
+1 row(s) updated
+Deleting 'Jared' from Table...
+1 row(s) deleted
+Reading rows from the Table...
+2 Nikita United States
+3 Tom Germany
+4 Jake United States
+3 row(s) returned
+Done!</code></pre> 
+                            <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You created your first Node.js + SQL Server app! Check out the next section to create a Node App using an ORM!</p>
+{% endmacro %}
+
+
+<!-- Mac for Node.js ORM app on Windows -->
+{% macro nodeWindowsORM() %}
+<h4>Create a Node.js app that connects to SQL Server using the popular <a>Sequelize ORM</a></h3>
+                            <P>In a command prompt, create an app directory and initialize Node dependencies.</P>
+                            <pre class="command-line language-terminal" data-prompt=">"><code class="language-terminal">md SqlServerSequelizeSample
+cd SqlServerSequelizeSample
+npm init -y
+npm install tedious
+npm install sequelize</code></pre> 
+<p>a. Open your favourite text editor and create the file <b>orm.js</b> in the directory SqlServerSequelizeSample.
+<br/>b. Paste the contents below into orm.js
+<br/>c. Update the variable for password to use your own password specified in the first module.
+<br/>d. Save and close orm.js</p>
+                            <pre class="code-toolbar"><code class="language-javascript">var Sequelize = require('sequelize');
+
+var userName = 'sa';        
+var password = 'your_password'; // update me 
+var hostName = 'localhost'; 
+var sampleDbName = 'SampleDB';
+ 
+// Initialize Sequelize to connect to sample DB
+var sampleDb = new Sequelize(sampleDbName, userName, password, {
+    dialect: 'mssql',
+    host: hostName,
+    port: 1433, // Default port
+    logging: false, // disable logging; default: console.log
+ 
+    dialectOptions: {
+        requestTimeout: 30000 // timeout = 30 seconds 
+    }
+});
+ 
+// Define the 'User' model
+var User = sampleDb.define('user', {
+    firstName: Sequelize.STRING,
+    lastName: Sequelize.STRING
+});
+ 
+// Define the 'Task' model
+var Task = sampleDb.define('task', {
+    title: Sequelize.STRING,
+    dueDate: Sequelize.DATE,
+    isComplete: Sequelize.BOOLEAN
+});
+ 
+// Model a 1:Many relationship between User and Task
+User.hasMany(Task);
+ 
+console.log('**Node CRUD sample with Sequelize and MSSQL **');
+ 
+// Tell Sequelize to DROP and CREATE tables and relationships in the database
+sampleDb.sync({force: true})
+.then(function() {
+    console.log('\nCreated database schema from model.');
+ 
+    // Create demo: Create a User instance and save it to the database
+    User.create({firstName: 'Anna', lastName: 'Shrestinian'})
+    .then(function(user) {
+        console.log('\nCreated User:', user.get({ plain: true}));
+ 
+        // Create demo: Create a Task instance and save it to the database
+        Task.create({
+            title: 'Ship Helsinki', dueDate: new Date(2017,04,01), isComplete: false
+        })
+        .then(function(task) {
+            console.log('\nCreated Task:', task.get({ plain: true}));
+ 
+            // Association demo: Assign task to user
+            user.setTasks([task])
+            .then(function() {
+                console.log('\nAssigned task \'' 
+            + task.title 
+            + '\' to user ' + user.firstName 
+            + ' ' + user.lastName);
+ 
+                // Read demo: find incomplete tasks assigned to user 'Anna'' 
+                User.findAll({
+                    where: { firstName: 'Anna'},
+                    include: [{
+                        model: Task,
+                        where: { isComplete: false }
+                    }]
+                })
+                .then(function(users) {
+                    console.log('\nIncomplete tasks assigned to Anna:\n', 
+                JSON.stringify(users));
+ 
+                    // Update demo: change the 'dueDate' of a task 
+                    Task.findById(1).then(function(task) {
+                        console.log('\nUpdating task:', 
+                task.title + ' ' + task.dueDate);
+                        task.update({
+                            dueDate: new Date(2016,06,30)
+                        })
+                        .then(function() {
+                            console.log('dueDate changed:', 
+                    task.title + ' ' + task.dueDate);
+ 
+                            // Delete demo: delete all tasks with a dueDate in 2016
+                            console.log('\nDeleting all tasks with with a dueDate in 2016');
+                            Task.destroy({
+                                where: { dueDate: {$lte: new Date(2016,12,31)}}
+                            })
+                            .then(function() {
+                                Task.findAll()
+                                .then(function(tasks) {
+                                    console.log('Tasks in database after delete:', 
+                        JSON.stringify(tasks));
+                                    console.log('\nAll done!');
+                                })
+                            })
+                        })
+                    })
+                })
+            })
+        })
+    })
+})</code></pre>
+<p>Run the orm.js app</p>
+                            <pre data-output="2-100" class="command-line language-terminal" data-prompt=">"><code class="language-terminal">node orm.js
+</code></pre>
+<pre><code class="language-results"> 
+
+**Node CRUD sample with Sequelize and MSSQL **
+
+Created database schema from model.
+
+Created User: { id: 1,
+  firstName: 'Anna',
+  lastName: 'Shrestinian',
+  updatedAt: 2016-10-07T03:40:23.000Z,
+  createdAt: 2016-10-07T03:40:23.000Z }
+
+Created Task: { id: 1,
+  title: 'Ship Helsinki',
+  dueDate: 2017-05-01T07:00:00.000Z,
+  isComplete: false,
+  updatedAt: 2016-10-07T03:40:23.000Z,
+  createdAt: 2016-10-07T03:40:23.000Z }
+
+Assigned task 'Ship Helsinki' to user Anna Shrestinian
+
+Incomplete tasks assigned to Anna:
+ [{"id":1,"firstName":"Anna","lastName":"Shrestinian",
+ "createdAt":"2016-10-07T03:40:23.000Z",
+ "updatedAt":"2016-10-07T03:40:23.000Z",
+ "tasks":[{"id":1,"title":"Ship Helsinki",
+ "dueDate":"2017-05-01T07:00:00.000Z",
+ "isComplete":false,
+ "createdAt":"2016-10-07T03:40:23.000Z",
+ "updatedAt":"2016-10-07T03:40:23.000Z",
+ "userId":1}]}]
+
+Updating task: Ship Helsinki Mon May 01 2017 00:00:00 GMT-0700 (PDT)
+dueDate changed: Ship Helsinki Sat Jul 30 2016 00:00:00 GMT-0700 (PDT)
+
+Deleting all tasks with with a dueDate in 2016
+Tasks in database after delete: []
+
+All done!</code></pre> 
+
+                            <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> Congrats you just created two Node.js apps! Check out the next section to learn about how you can <b>make your Node.js apps shine with SQL Server's Columnstore feature </b></p>
+
+{% endmacro %}
+
+<!-- Mac for Node.js Columnstore app on Windows-->
+{% macro nodeWindowsColumnStore() %}
+{{macros.columnstoreSP1()}}   
+<p>To showcase the capabilities of Columnstore Indexes, let's create a table with 5 million rows using your favorite tool. The following T-SQL code will create a table with 5,000,000 rows of random data.</p>
+<p>In your home directory create a folder for your project.</p>
+
+<pre class="command-line" data-prompt=">"><code class="language-terminal">
+mkdir SqlServerColumnstoreSample
+cd SqlServerColumnstoreSample</code></pre>
+<p>Using your favorite text editor, create a new file called <b>CreateSampleTable.sql</b> in the folder <i>SqlServerColumnstoreSample</i>. Paste the T-SQL code below into your new SQL file. Save and close the file. </p>
+<pre><code class="language-SQL"> WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a))
+SELECT TOP(5000000)
+ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId
+,a.a + b.a + c.a + d.a + e.a + f.a + g.a + h.a AS OrderId 
+,a.a * 10 AS Price
+,CONCAT(a.a, N' ', b.a, N' ', c.a, N' ', d.a, N' ', e.a, N' ', f.a, N' ', g.a, N' ', h.a) AS ProductName
+INTO Table_with_5M_rows
+FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;</code></pre>
+<p>Connect to the database using sql-cli. </p>
+<pre class="command-line language-terminal" data-output="2,3,5" data-prompt=">"><code class="language-terminal">mssql -s localhost -u sa -p your_password -d SampleDB -T 60000 </code></pre>
+<p>Run the SQL script to create the table with 5 million rows. This may take a few minutes to run.</p>
+<pre class="command-line language-terminal" data-output="2,3,5" data-prompt="mssql>"><code class="language-terminal">.run .\CreateSampleTable.sql</code></pre>
+<pre><code class="language-results"> WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a)) 
+SELECT TOP(5000000) 
+ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId
+,a.a + b.a + c.a + d.a + e.a + f.a + g.a + h.a AS OrderId 
+,a.a * 10 AS Price
+,CONCAT(a.a, N' ', b.a, N' ', c.a, N' ', d.a, N' ', e.a, N' ', f.a, N' ', g.a, N' ', h.a) AS ProductName
+INTO Table_with_5M_rows
+FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;
+</code></pre>
+<p>Quit the sql-cli prompt by running the below.</p>
+<pre class="command-line language-terminal" data-output="2,3,5" data-prompt="mssql>"><code class="language-terminal">.quit</code></pre>
+   <P>In your project folder, initialize Node dependencies.</P>
+
+                            <pre class="command-line language-terminal" data-output="8"  data-prompt=">"><code class="language-terminal">npm init -y
+npm install tedious 
+npm install node-uuid 
+npm install async</code></pre>
+<p>Using you favorite text editor, create a file called <b>columnstore.js</b> in the <i>SqlServerColumnstoreSample</i> folder. Don't forget to update the username and password with your own. Save and close the file. </p>
+<pre><code class="language-javascript"> 
+var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+var uuid = require('node-uuid');
+var async = require('async');
+ 
+var config = {
+    userName: 'sa',
+    password: 'your_password',
+    server: 'localhost',
+    options: {
+        database: 'SampleDB'
+    }
+    // When you connect to Azure SQL Database, you need these next options.
+    //options: {encrypt: true, database: 'yourDatabase'}
+};
+ 
+ 
+var connection = new Connection(config);
+function exec(sql) {
+    var timerName = "QueryTime"; 
+  
+    var request = new Request(sql, function(err) {
+        if (err) {
+            console.log(err);
+        }
+    }); 
+    request.on('doneProc', function(rowCount, more, rows) {
+        if(!more){
+            console.timeEnd(timerName);
+        }
+    });
+    request.on('row', function(columns) {
+        columns.forEach(function(column) {
+            console.log("Sum: " +  column.value);
+        });
+    });
+        console.time(timerName);
+    connection.execSql(request);    
+}
+// Open connection and execute query
+connection.on('connect', function(err) {
+    async.waterfall([
+        function(){
+            exec('SELECT SUM(Price) FROM Table_with_5M_rows');
+        },
+    ]);
+});
+</code></pre>
+<p>Run the file and monitor how long the query took
+to complete</p> 
+<pre data-output="2" class="command-line language-terminal" data-prompt=">"><code class="language-terminal">node columnstore.js</code></pre> 
+
+
+<pre><code class="language-results"> 
+                               
+Sum: 50000000 
+QueryTime: 363ms</code></pre>
+<p>Now let's add a columnstore index to your table.</p>
+<pre class="command-line language-terminal" data-output="2-100"data-prompt=">"><code class="language-terminal">mssql -s localhost -u sa -p your_password -d SampleDB -T 60000 -q "CREATE CLUSTERED COLUMNSTORE INDEX Columnstoreindex ON Table_with_5M_rows;"</code></pre>
+<p>Re-run the columnstore.js script and notice how long the query took to complete this time.</p>
+<pre data-output="2" class="command-line language-terminal" data-prompt=">"><code class="language-terminal">node columnstore.js</code></pre>
+
+<pre><code class="language-results"> 
+                                
+Sum: 50000000 
+QueryTime: 5ms</code></pre>
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> The performance of the query was greatly improved! 
+<br>   Now that you've built a few Node.js apps with SQL Server, continue checking out other SQL Server features. </p>
+{% endmacro %}
+
+
+<!-- Macro for a Node.js App on Linux and Mac-->
+{% macro nodeUnixCRUD() %}
+<h4>Create a Node.js app that connects to SQL Server and executes queries</h4>
+                            <p>Create a new project directory and initialize Node dependencies.</p>
+                            <pre class="command-line" data-output="2,5,7,10" data-prompt="$"><code class="language-terminal">cd ~/
+#Create Project Directory
+mkdir SqlServerSample
+cd SqlServerSample
+#Create a Node project.
+npm init -y
+#Install tedious and async module in your project folder
+npm install tedious 
+npm install async
+#done</code></pre>
+                            <p>Create a database that will be used for the rest of this tutorial by connecting to SQL Server using mssql-cli and executing the following statement. Don't forget to update the username and password with your own.</p>
+                            <pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">mssql -s localhost -u sa -p your_password -q "CREATE DATABASE SampleDB;"</code></pre>
+
+                            <p>Now you will create a simple Node.js app that connects to SQL Server.</p> 
+                            <p>Using your favorite editor, create a file named <b>connect.js</b> in the <i>SqlServerSample</i> folder. Copy and paste the below contents into the file. Don't forget to update the username and password with your own. Save and close the file. </p>
+                            <pre><code class="language-javascript"> 
+var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+var TYPES = require('tedious').TYPES;
+
+// Create connection to database
+var config = {
+  userName: 'sa', // update me
+  password: 'your_password', // update me
+  server: 'localhost',
+  options: {
+      database: 'SampleDB'
+  }
+}
+var connection = new Connection(config);
+
+// Attempt to connect and execute queries if connection goes through
+connection.on('connect', function(err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('Connected');
+  }
+});
+                            </code></pre>
+                            <p>Run the application.</p>
+                            <pre data-output="2" class="command-line language-terminal" data-output="2" data-prompt="$"><code class="language-terminal">node connect.js</code></pre> 
+                            <pre><code class="language-results">Connected </code></pre>
+
+                            <p>Using your favorite text editor, create a file called <b>CreateTestData.sql</b> in the <i>SqlServerSample</i> folder. Copy and paste the following the T-SQL code inside it. This will create a <a href="https://msdn.microsoft.com/en-us/library/aa578080.aspx">schema</a>, <a href="https://msdn.microsoft.com/en-us/library/ms189084.aspx">table</a>, and <a href="https://msdn.microsoft.com/en-us/library/ms174335.aspx">insert</a> a few rows. </p>                            
+                            <pre><code class="language-SQL"> CREATE SCHEMA TestSchema;
+GO
+
+CREATE TABLE TestSchema.Employees (
+  Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
+  Name NVARCHAR(50), 
+  Location NVARCHAR(50)
+); 
+GO
+
+INSERT INTO TestSchema.Employees (Name, Location) VALUES 
+(N'Jared', N'Australia'), 
+(N'Nikita', N'India'), 
+(N'Tom', N'Germany'); 
+GO
+
+SELECT * FROM TestSchema.Employees;
+GO</code></pre>
+
+<p>Connect to the database using sql-cli.</p>
+<pre class="command-line language-terminal" data-output="3-100" data-prompt="$"><code class="language-terminal">mssql -s localhost -u sa -p your_password -d SampleDB -T 60000</code></pre>
+<p>Run the SQL script to create the schema, table, and insert some rows.</p>
+<pre class="command-line language-terminal" data-output="3-100" data-prompt="mssql>"><code class="language-terminal">.run ./CreateTestData.sql</code></pre>
+<pre><code class="language-results">CREATE SCHEMA TestSchema;
+
+Executed in 0 ms
+CREATE TABLE TestSchema.Employees (
+  Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  Name NVARCHAR(50),
+  Location NVARCHAR(50)
+);
+
+Executed in 0 ms
+INSERT INTO TestSchema.Employees (Name, Location) VALUES
+(N'Jared', N'Australia'),
+(N'Nikita', N'India'),
+(N'Tom', N'Germany');
+
+Executed in 0 ms
+SELECT * FROM TestSchema.Employees;
+Id  Name    Location
+--  ------  ---------
+1   Jared   Australia
+2   Nikita  India
+3   Tom     Germany
+
+3 row(s) returned
+
+Executed in 1 ms</code></pre>
+<p>Quit the sql-cli prompt by running the below.</p>
+<pre class="command-line language-terminal" data-output="2,3,5" data-prompt="mssql>"><code class="language-terminal">.quit</code></pre>
+                            <p>Using your favorite text editor, create a new file called <b>crud.js</b> in the <i>SqlServerSample</i> folder. Copy and paste the following code inside it. This will <a href="https://msdn.microsoft.com/en-us/library/ms174335.aspx">insert</a>, <a href="https://msdn.microsoft.com/en-us/library/ms177523.aspx">update</a>, <a href="https://msdn.microsoft.com/en-us/library/ms189835.aspx">delete</a>, and <a href="https://msdn.microsoft.com/en-us/library/ms189499.aspx">read</a> a few rows. Don't forget to update the username and password with your own. Save and close the file. </p>
+                            <pre><code class="language-javascript">var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+var TYPES = require('tedious').TYPES;
+var async = require('async');
+
+// Create connection to database
+var config = {
+  userName: 'sa', // update me
+  password: 'your_password', // update me
+  server: 'localhost',
+  options: {
+    database: 'SampleDB'
+  }
+}
+var connection = new Connection(config);
+
+// Attempt to connect and execute queries if connection goes through
+connection.on('connect', function(err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('Connected');
+
+    // Execute all functions in the array serially
+    async.waterfall([
+      function Start(callback) {
+        console.log('Starting...');
+        callback(null, 'Jake', 'United States');
+      },
+      function Insert(name, location, callback) {
+        console.log("Inserting '" + name + "' into Table...");
+
+        request = new Request(
+          'INSERT INTO TestSchema.Employees (Name, Location) OUTPUT INSERTED.Id VALUES (@Name, @Location);',
+          function(err, rowCount, rows) {
+            if (err) {
+              callback(err);
+            } else {
+              console.log(rowCount + ' row(s) inserted');
+              callback(null, 'Nikita', 'United States');
+            }
+          });
+        request.addParameter('Name', TYPES.NVarChar, name);
+        request.addParameter('Location', TYPES.NVarChar, location);
+
+        // Execute SQL statement
+        connection.execSql(request);
+      },
+      function Update(name, location, callback) {
+        console.log("Updating Location to '" + location + "' for '" + name + "'...");
+
+        // Update the employee record requested
+        request = new Request(
+          'UPDATE TestSchema.Employees SET Location=@Location WHERE Name = @Name;',
+          function(err, rowCount, rows) {
+            if (err) {
+              callback(err);
+            } else {
+              console.log(rowCount + ' row(s) updated');
+              callback(null, 'Jared');
+            }
+          });
+        request.addParameter('Name', TYPES.NVarChar, name);
+        request.addParameter('Location', TYPES.NVarChar, location);
+
+        // Execute SQL statement
+        connection.execSql(request);
+      },
+      function Delete(name, callback) {
+        console.log("Deleting '" + name + "' from Table...");
+
+        // Delete the employee record requested
+        request = new Request(
+          'DELETE FROM TestSchema.Employees WHERE Name = @Name;',
+          function(err, rowCount, rows) {
+            if (err) {
+              callback(err);
+            } else {
+              console.log(rowCount + ' row(s) deleted');
+              callback(null);
+            }
+          });
+        request.addParameter('Name', TYPES.NVarChar, name);
+
+        // Execute SQL statement
+        connection.execSql(request);
+      },
+      function Read(callback) {
+        console.log('Reading rows from the Table...');
+
+        // Read all rows from table
+        request = new Request(
+        'SELECT Id, Name, Location FROM TestSchema.Employees;',
+        function(err, rowCount, rows) {
+          if (err) {
+            callback(err);
+          } else {
+            console.log(rowCount + ' row(s) returned');
+            callback(null);
+          }
+        });
+
+        // Print the rows read
+        var result = ""; request.on('row', function(columns) {
+          columns.forEach(function(column) {
+            if (column.value === null) {
+              console.log('NULL');
+            } else {
+              result += column.value + " ";
+            }
+          });
+          console.log(result);
+          result = "";
+        });
+
+        // Execute SQL statement
+        connection.execSql(request);
+      }
+    ],
+    function Complete(err, result) {
+      if (err) {
+        callback(err);
+      } else {
+        console.log("Done!");
+      }
+    }
+                   )
+  }
+});</code></pre>
+                            <p>Run the crud.js app to see the results</p>
+                            <pre data-output="2-100" class="command-line language-terminal" data-prompt="$"><code class="language-terminal">node crud.js
+
+</code></pre>
+<pre><code class="language-results"> Connected
+Starting...
+Inserting 'Jake' into Table...
+1 row(s) inserted
+Updating Location to 'United States' for 'Nikita'...
+1 row(s) updated
+Deleting 'Jared' from Table...
+1 row(s) deleted
+Reading rows from the Table...
+2 Nikita United States
+3 Tom Germany
+4 Jake United States
+3 row(s) returned
+Done!</code></pre> 
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You created your first Node.js + SQL Server app! Check out the next section to create a Node App using an ORM!</p>
+{% endmacro %}
+
+
+<!-- Macro for a Node.js ORM app on Linux and Mac -->
+{% macro nodeUnixORM() %}
+<h4>Create a Node.js app that connects to SQL Server using the popular <a>Sequelize ORM</a></h3>
+                            <P>Create the app directory and initialize Node dependencies.</P>
+                            <pre class="command-line language-terminal" data-output="2,5,7,10" data-prompt="$"><code class="language-terminal">cd ~/
+#Create Project Directory
+mkdir SqlServerSequelizeSample
+cd SqlServerSequelizeSample
+#Create a Node project.
+npm init -y
+#Install tedious and Sequelize module in your project folder
+npm install tedious
+npm install sequelize
+#done</code></pre> 
+<p>a. Open your favourite text editor and create the file <b>orm.js</b> in the directory <i>SqlServerSequelizeSample</i>.
+<br/>b. Paste the contents below into orm.js
+<br/>c. Update the variable for password to use your own password specified in the first module.
+<br/>d. Save and close orm.js</p>
+                            <pre class="code-toolbar"><code class="language-javascript">var Sequelize = require('sequelize');
+
+var userName = 'sa';        
+var password = 'your_password'; // update me 
+var hostName = 'localhost'; 
+var sampleDbName = 'SampleDB';
+ 
+// Initialize Sequelize to connect to sample DB
+var sampleDb = new Sequelize(sampleDbName, userName, password, {
+    dialect: 'mssql',
+    host: hostName,
+    port: 1433, // Default port
+    logging: false, // disable logging; default: console.log
+ 
+    dialectOptions: {
+        requestTimeout: 30000 // timeout = 30 seconds 
+    }
+});
+ 
+// Define the 'User' model
+var User = sampleDb.define('user', {
+    firstName: Sequelize.STRING,
+    lastName: Sequelize.STRING
+});
+ 
+// Define the 'Task' model
+var Task = sampleDb.define('task', {
+    title: Sequelize.STRING,
+    dueDate: Sequelize.DATE,
+    isComplete: Sequelize.BOOLEAN
+});
+ 
+// Model a 1:Many relationship between User and Task
+User.hasMany(Task);
+ 
+console.log('**Node CRUD sample with Sequelize and MSSQL **');
+ 
+// Tell Sequelize to DROP and CREATE tables and relationships in the database
+sampleDb.sync({force: true})
+.then(function() {
+    console.log('\nCreated database schema from model.');
+ 
+    // Create demo: Create a User instance and save it to the database
+    User.create({firstName: 'Anna', lastName: 'Shrestinian'})
+    .then(function(user) {
+        console.log('\nCreated User:', user.get({ plain: true}));
+ 
+        // Create demo: Create a Task instance and save it to the database
+        Task.create({
+            title: 'Ship Helsinki', dueDate: new Date(2017,04,01), isComplete: false
+        })
+        .then(function(task) {
+            console.log('\nCreated Task:', task.get({ plain: true}));
+ 
+            // Association demo: Assign task to user
+            user.setTasks([task])
+            .then(function() {
+                console.log('\nAssigned task \'' 
+            + task.title 
+            + '\' to user ' + user.firstName 
+            + ' ' + user.lastName);
+ 
+                // Read demo: find incomplete tasks assigned to user 'Anna'' 
+                User.findAll({
+                    where: { firstName: 'Anna'},
+                    include: [{
+                        model: Task,
+                        where: { isComplete: false }
+                    }]
+                })
+                .then(function(users) {
+                    console.log('\nIncomplete tasks assigned to Anna:\n', 
+                JSON.stringify(users));
+ 
+                    // Update demo: change the 'dueDate' of a task 
+                    Task.findById(1).then(function(task) {
+                        console.log('\nUpdating task:', 
+                task.title + ' ' + task.dueDate);
+                        task.update({
+                            dueDate: new Date(2016,06,30)
+                        })
+                        .then(function() {
+                            console.log('dueDate changed:', 
+                    task.title + ' ' + task.dueDate);
+ 
+                            // Delete demo: delete all tasks with a dueDate in 2016
+                            console.log('\nDeleting all tasks with with a dueDate in 2016');
+                            Task.destroy({
+                                where: { dueDate: {$lte: new Date(2016,12,31)}}
+                            })
+                            .then(function() {
+                                Task.findAll()
+                                .then(function(tasks) {
+                                    console.log('Tasks in database after delete:', 
+                        JSON.stringify(tasks));
+                                    console.log('\nAll done!');
+                                })
+                            })
+                        })
+                    })
+                })
+            })
+        })
+    })
+})</code></pre>
+                            <p>Run the orm.js app</p>
+                            <pre data-output="2-100" class="command-line language-terminal" data-prompt="$"><code class="language-terminal">node orm.js
+</code></pre>
+<pre><code class="language-results"> 
+
+**Node CRUD sample with Sequelize and MSSQL **
+
+Created database schema from model.
+
+Created User: { id: 1,
+  firstName: 'Anna',
+  lastName: 'Shrestinian',
+  updatedAt: 2016-10-07T03:40:23.000Z,
+  createdAt: 2016-10-07T03:40:23.000Z }
+
+Created Task: { id: 1,
+  title: 'Ship Helsinki',
+  dueDate: 2017-05-01T07:00:00.000Z,
+  isComplete: false,
+  updatedAt: 2016-10-07T03:40:23.000Z,
+  createdAt: 2016-10-07T03:40:23.000Z }
+
+Assigned task 'Ship Helsinki' to user Anna Shrestinian
+
+Incomplete tasks assigned to Anna:
+ [{"id":1,"firstName":"Anna","lastName":"Shrestinian",
+ "createdAt":"2016-10-07T03:40:23.000Z",
+ "updatedAt":"2016-10-07T03:40:23.000Z",
+ "tasks":[{"id":1,"title":"Ship Helsinki",
+ "dueDate":"2017-05-01T07:00:00.000Z",
+ "isComplete":false,
+ "createdAt":"2016-10-07T03:40:23.000Z",
+ "updatedAt":"2016-10-07T03:40:23.000Z",
+ "userId":1}]}]
+
+Updating task: Ship Helsinki Mon May 01 2017 00:00:00 GMT-0700 (PDT)
+dueDate changed: Ship Helsinki Sat Jul 30 2016 00:00:00 GMT-0700 (PDT)
+
+Deleting all tasks with with a dueDate in 2016
+Tasks in database after delete: []
+
+All done!</code></pre> 
+
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> Congrats you just created two Node.js apps! Check out the next section to learn about how you can <b>make your Node.js apps shine with SQL Server's Columnstore feature </b></p>
+{% endmacro %}
+
+<!-- Macro for Node.js ColumnStore app on Linux and Mac -->
+{% macro nodeUnixColumnStore() %}
+{{macros.columnstoreSP1()}}   
+
+<p>To showcase the capabilities of Columnstore Indexes, let's create a table with 5 million rows using your favorite tool. The following T-SQL code will create a table with 5,000,000 rows of random data.</p>
+<p>Change to your home directory and create a folder for your project.</p>
+
+<pre class="command-line" data-output="1,3" data-prompt="$"><code class="language-terminal">#Change to home directory
+cd ~/
+#Create a project directory
+mkdir SqlServerColumnstoreSample
+cd SqlServerColumnstoreSample</code></pre>
+<p>Using your favorite text editor, create a new file called <b>CreateSampleTable.sql</b> in the folder <i>SqlServerColumnstoreSample</i>. Paste the T-SQL code below into your new SQL file. Save and close the file. </p>
+<pre><code class="language-SQL"> WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a))
+SELECT TOP(5000000)
+ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId
+,a.a + b.a + c.a + d.a + e.a + f.a + g.a + h.a AS OrderId 
+,a.a * 10 AS Price
+,CONCAT(a.a, N' ', b.a, N' ', c.a, N' ', d.a, N' ', e.a, N' ', f.a, N' ', g.a, N' ', h.a) AS ProductName
+INTO Table_with_5M_rows
+FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;</code></pre>
+<p>Connect to the database using sql-cli. </p>
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">mssql -s localhost -u sa -p your_password -d SampleDB -T 60000 </code></pre>
+<p>Run the SQL script to create the table with 5 million rows. This may take a few minutes to run.</p>
+<pre class="command-line language-terminal" data-prompt="mssql>"><code class="language-terminal">.run ./CreateSampleTable.sql</code></pre>
+<pre><code class="language-results">WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a)) 
+SELECT TOP(5000000) 
+ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId
+,a.a + b.a + c.a + d.a + e.a + f.a + g.a + h.a AS OrderId 
+,a.a * 10 AS Price
+,CONCAT(a.a, N' ', b.a, N' ', c.a, N' ', d.a, N' ', e.a, N' ', f.a, N' ', g.a, N' ', h.a) AS ProductName
+INTO Table_with_5M_rows
+FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;
+
+Executed in 2ms</code></pre>
+<p>Quit the sql-cli prompt by running the below.</p>
+<pre class="command-line language-terminal" data-prompt="mssql>"><code class="language-terminal">.quit</code></pre>
+   <P>In your project folder, initialize Node dependencies.</P>
+
+                            <pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">npm init -y
+npm install tedious 
+npm install node-uuid 
+npm install async</code></pre>
+<p>Using you favorite text editor, create a file called <b>columnstore.js</b> in the <i>SqlServerColumnstoreSample</i> folder. Don't forget to update the username and password with your own. Save and close the file. </p>
+<pre><code class="language-javascript"> 
+var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+var uuid = require('node-uuid');
+var async = require('async');
+ 
+var config = {
+    userName: 'sa',
+    password: 'your_password',
+    server: 'localhost',
+    options: {
+        database: 'SampleDB'
+    }
+    // When you connect to Azure SQL Database, you need these next options.
+    //options: {encrypt: true, database: 'yourDatabase'}
+};
+ 
+ 
+var connection = new Connection(config);
+function exec(sql) {
+    var timerName = "QueryTime"; 
+  
+    var request = new Request(sql, function(err) {
+        if (err) {
+            console.log(err);
+        }
+    }); 
+    request.on('doneProc', function(rowCount, more, rows) {
+        if(!more){
+            console.timeEnd(timerName);
+        }
+    });
+    request.on('row', function(columns) {
+        columns.forEach(function(column) {
+            console.log("Sum: " +  column.value);
+        });
+    });
+        console.time(timerName);
+    connection.execSql(request);    
+}
+// Open connection and execute query
+connection.on('connect', function(err) {
+    async.waterfall([
+        function(){
+            exec('SELECT SUM(Price) FROM Table_with_5M_rows');
+        },
+    ]);
+});
+</code></pre>
+<p>Run the file and monitor how long the query took
+to complete</p> 
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">node columnstore.js</code></pre> 
+
+
+<pre><code class="language-results"> 
+                               
+Sum: 50000000 
+QueryTime: 363ms</code></pre>
+<p>Now let's add a columnstore index to your table.</p>
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">mssql -s localhost -u sa -p your_password -d SampleDB -T 60000 -q "CREATE CLUSTERED COLUMNSTORE INDEX Columnstoreindex ON Table_with_5M_rows;"</code></pre>
+<p>Re-run the columnstore.js script and notice how long the query took to complete this time.</p>
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">node columnstore.js</code></pre>
+
+<pre><code class="language-results"> 
+                                
+Sum: 50000000 
+QueryTime: 5ms</code></pre>
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> The performance of the query was greatly improved! 
+<br>   Now that you've built a few Node.js apps with SQL Server, continue checking out other SQL Server features. </p>
+{% endmacro %}
+
+
+<!--Ruby CRUD -->
+{% macro rubyCRUD() %}
+<h4>Create a Ruby app that connects to SQL Server and executes queries</h4>
+                            <p>Create a new project directory and install TinyTDS. TinyTDS is used to connect Ruby applications to SQL Server.</p>
+                            <pre class="command-line" data-prompt="$"><code class="language-terminal">cd ~/
+mkdir SqlServerSample
+cd SqlServerSample
+gem install tiny_tds
+</code></pre>
+                            <p>Create a database that will be used for the rest of this tutorial by connecting to SQL Server using sqlcmd and executing the following statement. Don't forget to update the username and password with your own.</p>
+                            <pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">sqlcmd -S localhost -U sa -P your_password -Q "CREATE DATABASE SampleDB;"</code></pre>
+
+                            <p>Using your favorite editor, create a file named <b>connect.rb</b> in the <i>SqlServerSample</i> folder. Copy and paste the below contents into the file. Don't forget to update the username and password with your own. Save and close the file. </p>
+                            <pre><code class="language-ruby">require 'tiny_tds'  
+client = TinyTds::Client.new username: 'sa', password: 'your_password',  
+host: 'localhost', port: 1433, database: 'SampleDB' 
+puts 'Connecting to SQL Server'
+def active(client)
+if client.active? == true then 'Done.' end
+end
+puts active(client)</code></pre>
+                            <p>Run the Ruby script from the terminal.</p>
+                            <pre data-output="2" class="command-line language-terminal" data-output="2" data-prompt="$"><code class="language-terminal">ruby connect.rb</code></pre> 
+                            <pre><code class="language-results">Connecting to SQL Server
+Done.</code></pre>
+                            <p>Connect to SQL Server using sqlcmd and execute the following statements to create a table and add some rows.</p>
+                            <pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE TABLE Employees (Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, Name NVARCHAR(50), Location NVARCHAR(50));"
+sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "INSERT INTO Employees (Name, Location) VALUES (N'Jared', N'Australia'), (N'Nikita', N'India'), (N'Tom', N'Germany');"</code></pre>
+
+                            <p>Using your favorite text editor, create a new file called <b>crud.rb</b> in the <i>SqlServerSample</i> folder. Copy and paste the following code inside it. This will <a href="https://msdn.microsoft.com/en-us/library/ms174335.aspx">insert</a>, <a href="https://msdn.microsoft.com/en-us/library/ms177523.aspx">update</a>, <a href="https://msdn.microsoft.com/en-us/library/ms189835.aspx">delete</a>, and <a href="https://msdn.microsoft.com/en-us/library/ms189499.aspx">read</a> a few rows. Don't forget to update the username and password with your own. Save and close the file.</p>
+                            <pre><code class="language-ruby">require 'tiny_tds'
+client = TinyTds::Client.new username: 'sa', password: 'your_password',  
+    host: 'localhost', port: 1433, database: 'SampleDB' 
+puts 'Connecting to SQL Server'
+def active(client)
+    if client.active? == true then 'Done.' end
+end
+puts active(client)
+
+# insert new employee
+def insert(name, location, client)
+    puts "Inserting new employee #{name} into table"
+    tsql = "INSERT INTO Employees (Name, Location) VALUES (N'#{name}', N'#{location}')"
+    result = client.execute(tsql)
+    result.each
+    puts "#{result.affected_rows} row(s) affected"
+end
+insert('Jake', 'United States', client)
+
+# update location
+def update(name, location, client)
+    puts "Updating Location for #{name}"
+    tsql = "UPDATE Employees SET Location= N'#{location}' WHERE Name = N'#{name}'"
+    result = client.execute(tsql)    
+    result.each
+    puts "#{result.affected_rows} row(s) affected"
+end
+update('Nikita', 'United States', client)
+
+# delete employee
+def delete(name, client)
+    puts "Deleting employee #{name}"
+    tsql = "DELETE FROM Employees WHERE Name = N'#{name}'"
+    result = client.execute(tsql)    
+    result.each
+    puts "#{result.affected_rows} row(s) affected"
+end
+delete('Jared', client)
+
+# read from table
+puts "Reading data from table"
+tsql = "SELECT * FROM Employees"
+result = client.execute(tsql)
+result.each do |row|
+    puts row
+end
+
+puts "All done."
+</code></pre>
+
+                            <p>Run the Ruby script from the terminal.</p>
+                            <pre data-output="2" class="command-line language-terminal" data-output="2" data-prompt="$"><code class="language-terminal">ruby crud.rb</code></pre> 
+                             <pre><code class="language-results">Connecting to SQL Server
+Done.
+Inserting new employee Jake into table
+1 row(s) affected
+Updating Location for Nikita
+1 row(s) affected
+Deleting employee Jared
+1 row(s) affected
+Reading data from table
+{"Id"=>2, "Name"=>"Nikita", "Location"=>"United States"}
+{"Id"=>3, "Name"=>"Tom", "Location"=>"Germany"}
+{"Id"=>4, "Name"=>"Jake", "Location"=>"United States"}
+All done.</code></pre>
+
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You created your first Ruby + SQL Server app! Check out the next section to create an app using Ruby on Rails!</p>
+{% endmacro %}
+
+{% macro discus() %}
+<br></br>
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//sqlchoice.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+               
+{% endmacro %}

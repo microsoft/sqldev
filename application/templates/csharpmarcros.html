@@ -1,0 +1,707 @@
+{% import "macros.html" as macros %}
+
+<!--C# Macros-->
+<!-- Macro for a C# app on Linux and Mac -->
+{% macro csharpCoreCRUD() %}
+<h4>Create a C# app that connects to SQL Server and executes queries</h4>
+<p>Change to your home directory. Create a new .NET Core project. This will create the project directory with a basic .NET Core Program.cs and project.json file.</p>
+<pre class="command-line" data-output="1,3,5,7" data-prompt="$"><code class="language-terminal">#Change to home directory
+cd ~/
+#Create a project directory
+mkdir SqlServerSample
+#Change directories into the project
+cd SqlServerSample
+#Create a .NET Core project
+dotnet new
+</code></pre>
+<pre><code class="language-results">Created new C# project in /Users/usr1/SqlServerSample</code></pre>
+<p>You should already have a file called <b>project.json</b> in your .NET Core project located at: <i>~/SqlServerSample</i></p>
+<p>Open this file in your favorite text editor and replace the contents with the code below to add System.Data.SqlClient to your project. Save and close the file. </p>
+<pre><code class="language-json">{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "debugType": "portable",
+    "emitEntryPoint": true
+  },
+  "dependencies": {
+    "System.Data.SqlClient": "4.3.0"
+  },
+  "frameworks": {
+    "netcoreapp1.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.1.0"
+        }
+      },
+      "imports": "dnxcore50"
+    }
+  }
+}</code></pre>
+<p>You should already have a file called <b>Program.cs</b> in your .NET Core project located at: <i>~/SqlServerSample</i></p>
+<p>Open this file in your favorite text editor and replace the contents with the code below. Don't forget to replace the username and password with your own. Save and close the file. </p>
+<pre><code class="language-csharp">using System;
+using System.Text;
+using System.Data.SqlClient;
+
+namespace SqlServerSample
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                // Build connection string
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+                builder.DataSource = "localhost";   // update me
+                builder.UserID = "sa";              // update me
+                builder.Password = "your_password";      // update me
+                builder.InitialCatalog = "master";
+
+                // Connect to SQL
+                Console.Write("Connecting to SQL Server ... ");
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+                    connection.Open();
+                    Console.WriteLine("Done.");
+                }
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
+            Console.WriteLine("All done. Press any key to finish...");
+            Console.ReadKey(true);
+        }
+    }
+}</code></pre>
+<p>Restore the dependencies in the project.json by running the following commands.</p>
+<pre class="command-line" data-output="1,4,6" data-prompt="$"><code class="language-terminal">#Change directories into your .NET Core project
+cd ~/SqlServerSample
+dotnet restore</code></pre>
+<pre><code class="language-results">log  : Restoring packages for /Users/usr1/SqlServerSample/project.json...
+log  : Writing lock file to disk. Path: /Users/usr1/SqlServerSample/project.lock.json
+log  : /Users/usr1/SqlServerSample/project.json
+log  : Restore completed in 2703ms.</code></pre>
+<p>Now build and run.</p>
+<pre class="command-line" data-output="2" data-prompt="$"><code class="language-terminal">dotnet run</code></pre>
+<pre><code class="language-results">Project SqlServerSample (.NETCoreApp,Version=v1.0) will be compiled because expected outputs are missing
+Compiling SqlServerSample for .NETCoreApp,Version=v1.0
+
+Compilation succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time elapsed 00:00:01.0206380
+
+Connecting to SQL Server ... Done.
+All done. Press any key to finish...</code></pre>
+<p>Now replace the code in <b>Program.cs</b> by opening the file in your favorite text editor and copying and pasting the code below into the file. This will create a database and a <a href="https://msdn.microsoft.com/en-us/library/ms189084.aspx">table</a>, and will <a href="https://msdn.microsoft.com/en-us/library/ms174335.aspx">insert</a>, <a href="https://msdn.microsoft.com/en-us/library/ms177523.aspx">update</a>, <a href="https://msdn.microsoft.com/en-us/library/ms189835.aspx">delete</a>, and <a href="https://msdn.microsoft.com/en-us/library/ms189499.aspx">read</a> a few rows. Don't forget to update the username and password with your own. Save and close the file. </p>
+<pre><code class="language-csharp">using System;
+using System.Text;
+using System.Data.SqlClient;
+
+namespace SqlServerSample
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                Console.WriteLine("Connect to SQL Server and demo Create, Read, Update and Delete operations.");
+
+                // Build connection string
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+                builder.DataSource = "localhost";   // update me
+                builder.UserID = "sa";              // update me
+                builder.Password = "your_password";      // update me
+                builder.InitialCatalog = "master";
+
+                // Connect to SQL
+                Console.Write("Connecting to SQL Server ... ");
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+                    connection.Open();
+                    Console.WriteLine("Done.");
+
+                    // Create a sample database
+                    Console.Write("Dropping and creating database 'SampleDB' ... ");
+                    String sql = "DROP DATABASE IF EXISTS [SampleDB]; CREATE DATABASE [SampleDB]";
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Done.");
+                    }
+
+                    // Create a Table and insert some sample data
+                    Console.Write("Creating sample table with data, press any key to continue...");
+                    Console.ReadKey(true);
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append("USE SampleDB; ");
+                    sb.Append("CREATE TABLE Employees ( ");
+                    sb.Append(" Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ");
+                    sb.Append(" Name NVARCHAR(50), ");
+                    sb.Append(" Location NVARCHAR(50) ");
+                    sb.Append("); ");
+                    sb.Append("INSERT INTO Employees (Name, Location) VALUES ");
+                    sb.Append("(N'Jared', N'Australia'), ");
+                    sb.Append("(N'Nikita', N'India'), ");
+                    sb.Append("(N'Tom', N'Germany'); ");
+                    sql = sb.ToString();
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Done.");
+                    }
+
+                    // INSERT demo
+                    Console.Write("Inserting a new row into table, press any key to continue...");
+                    Console.ReadKey(true);
+                    sb.Clear();
+                    sb.Append("INSERT Employees (Name, Location) ");
+                    sb.Append("VALUES (@name, @location);");
+                    sql = sb.ToString();
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@name", "Jake");
+                        command.Parameters.AddWithValue("@location", "United States");
+                        int rowsAffected = command.ExecuteNonQuery();
+                        Console.WriteLine(rowsAffected + " row(s) inserted");
+                    }
+
+                    // UPDATE demo
+                    String userToUpdate = "Nikita";
+                    Console.Write("Updating 'Location' for user '" + userToUpdate + "', press any key to continue...");
+                    Console.ReadKey(true);
+                    sb.Clear();
+                    sb.Append("UPDATE Employees SET Location = N'United States' WHERE Name = @name");
+                    sql = sb.ToString();
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@name", userToUpdate);
+                        int rowsAffected = command.ExecuteNonQuery();
+                        Console.WriteLine(rowsAffected + " row(s) updated");
+                    }
+
+                    // DELETE demo
+                    String userToDelete = "Jared";
+                    Console.Write("Deleting user '" + userToDelete + "', press any key to continue...");
+                    Console.ReadKey(true);
+                    sb.Clear();
+                    sb.Append("DELETE FROM Employees WHERE Name = @name;");
+                    sql = sb.ToString();
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@name", userToDelete);
+                        int rowsAffected = command.ExecuteNonQuery();
+                        Console.WriteLine(rowsAffected + " row(s) deleted");
+                    }
+
+                    // READ demo
+                    Console.WriteLine("Reading data from table, press any key to continue...");
+                    Console.ReadKey(true);
+                    sql = "SELECT Id, Name, Location FROM Employees;";
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Console.WriteLine("{0} {1} {2}", reader.GetInt32(0), reader.GetString(1), reader.GetString(2));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
+            Console.WriteLine("All done. Press any key to finish...");
+            Console.ReadKey(true);
+        }
+    }
+}</code></pre>
+<p>Build and run your project.</p>
+<pre class="command-line" data-output="2" data-prompt="$"><code class="language-terminal">dotnet run</code></pre>
+<pre><code class="language-results">Project SqlServerSample (.NETCoreApp,Version=v1.0) will be compiled because inputs were modified
+Compiling SqlServerSample for .NETCoreApp,Version=v1.0
+
+Compilation succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time elapsed 00:00:01.0992151
+
+Connect to SQL Server and demo Create, Read, Update and Delete operations.
+Connecting to SQL Server ... Done.
+Dropping and creating database 'SampleDB' ... Done.
+Creating sample table with data, press any key to continue... Done.
+Inserting a new row into table, press any key to continue... 1 row(s) inserted
+Updating 'Location' for user 'Nikita', press any key to continue... 1 row(s) updated
+Deleting user 'Jared', press any key to continue... 1 row(s) deleted
+Reading data from table, press any key to continue...
+2 Nikita United States
+3 Tom Germany
+4 Jake United States
+All done. Press any key to finish...</code></pre>
+{% endmacro %}
+
+<!--Macro for a .NET Core and EF Core app on Linux and Mac-->
+{% macro csharpEFCore()%}
+<h4>Create a C# app that connects to SQL Server using the <a target="new" href="https://docs.efproject.net/en/latest/">Entity Framework Core ORM</a> in .NET Core </h4>
+<p>Change to your home directory. Create a new .NET Core project. This will create the project directory with a basic .NET Core Program.cs and project.json file.</p>
+<pre class="command-line" data-output="1,3,5,7" data-prompt="$"><code class="language-terminal">#Change to home directory
+cd ~/
+#Create a project directory
+mkdir SqlServerEFSample
+#Change directories into the project
+cd SqlServerEFSample
+#Create a .NET Core project
+dotnet new</code></pre>
+<pre><code class="language-results">Created new C# project in /Users/usr1/SqlServerEFSample</code></pre>
+<p>You should already have a file called <b>project.json</b> in your .NET Core project located at: <i>~/SqlServerEFSample</i></p>
+<p>Open this file in your favorite text editor and replace the contents with the code below to add Entity Framework Core to your project. Save and close the file. </p>
+<pre><code class="language-json">{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "debugType": "portable",
+    "emitEntryPoint": true
+  },
+  "dependencies": {
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.1.0"
+  },
+  "frameworks": {
+    "netcoreapp1.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.1.0"
+        }
+      },
+      "imports": "dnxcore50"
+    }
+  }
+}</code></pre>
+<p>For this sample, let's create two tables. The first will hold data about "users". Create a <b>User.cs</b> file in your .NET Core project located at: <i>~/SqlServerEFSample/User.cs</i></p>
+<p>Copy and paste the code below into your newly created <b>User.cs</b> file. Save and close the file. </p>
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+
+namespace SqlServerEFSample
+{
+    public class User
+    {
+        public int UserId { get; set; }
+        public String FirstName { get; set; }
+        public String LastName { get; set; }
+        public virtual IList&ltTask&gt Tasks { get; set; }
+
+        public String GetFullName()
+        {
+            return this.FirstName + " " + this.LastName;
+        }
+        public override string ToString()
+        {
+            return "User [id=" + this.UserId + ", name=" + this.GetFullName() + "]";
+        }
+    }
+}</code></pre>
+<p>Let's create a second table to assign tasks to users. Create a <b>Task.cs</b> file in your .NET Core project located at: <i>~/SqlServerEFSample/Task.cs</i></p
+<p>Copy and paste the code below into your newly created <b>Task.cs</b> file. Save and close the file. </p>
+<pre><code class="language-csharp">using System;
+
+namespace SqlServerEFSample
+{
+    public class Task
+    {
+        public int TaskId { get; set; }
+        public string Title { get; set; }
+        public DateTime DueDate { get; set; }
+        public bool IsComplete { get; set; }
+        public virtual User AssignedTo { get; set; }
+
+        public override string ToString()
+        {
+            return "Task [id=" + this.TaskId + ", title=" + this.Title + ", dueDate=" + this.DueDate.ToString() + ", IsComplete=" + this.IsComplete + "]";
+        }
+    }
+}</code></pre>
+<p>Let's also create a class for the Entity Framework Database context. Use your favorite text editor to create the file <b>EFSampleContext.cs</b> file in your .NET Core project located at: <i>~/SqlServerEFSample/EFSampleContext.cs</i></p
+<p>Copy and paste the code below into your newly created <b>EFSampleContext.cs</b> file. Save and close the file. </p>
+<pre><code class="language-csharp">using Microsoft.EntityFrameworkCore;
+
+namespace SqlServerEFSample
+{
+    public class EFSampleContext : DbContext
+    {
+        string _connectionString;
+        public EFSampleContext(string connectionString)
+        {
+            this._connectionString = connectionString;
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(this._connectionString);
+        }
+        
+        public DbSet&ltUser> Users { get; set; }
+        public DbSet&ltTask> Tasks { get; set; }
+    }
+}</code></pre>
+<p>Replace the code in the <b>Program.cs</b> file in your .NET Core project located at: <i>~/SqlServerEFSample/Program.cs</i></p>
+<p>Open this file in your favorite text editor and replace the contents with the code below. Don't forget to update the username and password with your own. Save and close the file. </p>
+<pre><code class="language-csharp">using System;
+using System.Linq;
+using System.Data.SqlClient;
+using System.Collections.Generic;
+
+namespace SqlServerEFSample
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("** C# CRUD sample with Entity Framework Core and SQL Server **\n");
+            try
+            {
+                // Build connection string
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+                builder.DataSource = "localhost";   // update me
+                builder.UserID = "sa";              // update me
+                builder.Password = "your_password";      // update me
+                builder.InitialCatalog = "EFSampleDB";
+
+                using (EFSampleContext context = new EFSampleContext(builder.ConnectionString))
+                {
+                    context.Database.EnsureDeleted();
+                    context.Database.EnsureCreated();
+                    Console.WriteLine("Created database schema from C# classes.");
+
+                    // Create demo: Create a User instance and save it to the database
+                    User newUser = new User { FirstName = "Anna", LastName = "Shrestinian" };
+                    context.Users.Add(newUser);
+                    context.SaveChanges();
+                    Console.WriteLine("\nCreated User: " + newUser.ToString());
+
+                    // Create demo: Create a Task instance and save it to the database
+                    Task newTask = new Task() { Title = "Ship Helsinki", IsComplete = false, DueDate = DateTime.Parse("04-01-2017") };
+                    context.Tasks.Add(newTask);
+                    context.SaveChanges();
+                    Console.WriteLine("\nCreated Task: " + newTask.ToString());
+
+                    // Association demo: Assign task to user
+                    newTask.AssignedTo = newUser;
+                    context.SaveChanges();
+                    Console.WriteLine("\nAssigned Task: '" + newTask.Title + "' to user '" + newUser.GetFullName() + "'");
+
+                    // Read demo: find incomplete tasks assigned to user 'Anna'
+                    Console.WriteLine("\nIncomplete tasks assigned to 'Anna':");
+                    var query = from t in context.Tasks
+                                where t.IsComplete == false &&
+                                t.AssignedTo.FirstName.Equals("Anna")
+                                select t;
+                    foreach(var t in query)
+                    {
+                        Console.WriteLine(t.ToString());
+                    }
+
+                    // Update demo: change the 'dueDate' of a task
+                    Task taskToUpdate = context.Tasks.First(); // get the first task
+                    Console.WriteLine("\nUpdating task: " + taskToUpdate.ToString());
+                    taskToUpdate.DueDate = DateTime.Parse("06-30-2016");
+                    context.SaveChanges();
+                    Console.WriteLine("dueDate changed: " + taskToUpdate.ToString());
+
+                    // Delete demo: delete all tasks with a dueDate in 2016
+                    Console.WriteLine("\nDeleting all tasks with a dueDate in 2016");
+                    DateTime dueDate2016 = DateTime.Parse("12-31-2016");
+                    query = from t in context.Tasks
+                            where t.DueDate < dueDate2016
+                            select t;
+                    foreach(Task t in query)
+                    {
+                        Console.WriteLine("Deleting task: " + t.ToString());
+                        context.Tasks.Remove(t);
+                    }
+                    context.SaveChanges();
+
+                    // Show tasks after the 'Delete' operation - there should be 0 tasks
+                    Console.WriteLine("\nTasks after delete:");
+                    List&ltTask> tasksAfterDelete = (from t in context.Tasks select t).ToList&ltTask>();
+                    if (tasksAfterDelete.Count == 0)
+                    {
+                        Console.WriteLine("[None]");
+                    }
+                    else
+                    {
+                        foreach (Task t in query)
+                        {
+                            Console.WriteLine(t.ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
+            Console.WriteLine("All done. Press any key to finish...");
+            Console.ReadKey(true);
+        }
+    }
+}</code></pre>
+<p>Restore the dependencies in the project.json by running the following commands.</p>
+<pre class="command-line" data-output="1,4,6" data-prompt="$"><code class="language-terminal">#Change directories into your .NET Core project
+cd ~/SqlServerEFSample
+dotnet restore</code></pre>
+<pre><code class="language-results">log  : Restoring packages for /Users/usr1/SqlServerEFSample/project.json...
+log  : Writing lock file to disk. Path: /Users/usr1/SqlServerEFSample/project.lock.json
+log  : /Users/usr1/SqlServerEFSample/project.json
+log  : Restore completed in 1058ms.</code></pre>
+<p>Now build and run.</p>
+<pre class="command-line" data-output="2" data-prompt="$"><code class="language-terminal">dotnet run</code></pre>
+<pre><code class="language-results">Project SqlServerEFSample (.NETCoreApp,Version=v1.0) will be compiled because expected outputs are missing
+Compiling SqlServerEFSample for .NETCoreApp,Version=v1.0
+
+Compilation succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time elapsed 00:00:01.1655843
+
+** C# CRUD sample with Entity Framework Core and SQL Server **
+
+Created database schema from C# classes.
+
+Created User: User [id=1, name=Anna Shrestinian]
+
+Created Task: Task [id=1, title=Ship Helsinki, dueDate=4/1/17 12:00:00 AM, IsComplete=False]
+
+Assigned Task: 'Ship Helsinki' to user 'Anna Shrestinian'
+
+Incomplete tasks assigned to 'Anna':
+Task [id=1, title=Ship Helsinki, dueDate=4/1/17 12:00:00 AM, IsComplete=False]
+
+Updating task: Task [id=1, title=Ship Helsinki, dueDate=4/1/17 12:00:00 AM, IsComplete=False]
+dueDate changed: Task [id=1, title=Ship Helsinki, dueDate=6/30/16 12:00:00 AM, IsComplete=False]
+
+Deleting all tasks with a dueDate in 2016
+Deleting task: Task [id=1, title=Ship Helsinki, dueDate=6/30/16 12:00:00 AM, IsComplete=False]
+
+Tasks after delete:
+[None]
+All done. Press any key to finish...</code></pre>
+{% endmacro %}
+<!--Macro for a .Net Core Columnstore app on Linux and Mac -->
+{% macro csharpColumnstore()%}
+{{macros.columnstoreSP1()}}   
+<p>To showcase the capabilities of Columnstore indexes, let's create a C# application that creates a sample database and a sample table with 5 million rows and then runs a simple query before and after adding a Columnstore index.</p>
+<p>Change to your home directory. Create a new .NET Core project. This will create the project directory with a basic .NET Core Program.cs and project.json file.</p>
+<pre class="command-line" data-output="1,3,5,7" data-prompt="$"><code class="language-terminal">#Change to home directory
+cd ~/
+#Create a project directory
+mkdir SqlServerColumnstoreSample
+#Change directories into the project
+cd SqlServerColumnstoreSample
+#Create a .NET Core project
+dotnet new</code></pre>
+<p>You should already have a file called <b>project.json</b> in your .NET Core project located at: <i>~/SqlServerColumnstoreSample</i></p>
+<p>Open this file in your favorite text editor and replace the contents with the code below to add System.Data.SqlClient to your project. Save and close the file. </p>
+<pre><code class="language-json">{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "debugType": "portable",
+    "emitEntryPoint": true
+  },
+  "dependencies": {
+    "System.Data.SqlClient": "4.3.0"
+  },
+  "frameworks": {
+    "netcoreapp1.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.1"
+        }
+      },
+      "imports": "dnxcore50"
+    }
+  }
+}</code></pre>
+<p>You should already have a file called <b>Program.cs</b> in your .NET Core project located at: <i>~/SqlServerColumnstoreSample</i></p>
+<p>Open this file in your favorite text editor and replace the contents with the code below. Don't forget to replace the username and password with your own. Save and close the file. </p>
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SqlServerColumnstoreSample
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                Console.WriteLine("*** SQL Server Columnstore demo ***");
+
+                // Build connection string
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+                builder.DataSource = "localhost";   //  update me
+                builder.UserID = "sa";              //  update me
+                builder.Password = "your_password";      // update me
+                builder.InitialCatalog = "master";
+
+                // Connect to SQL
+                Console.Write("Connecting to SQL Server ... ");
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+                    connection.Open();
+                    Console.WriteLine("Done.");
+
+                    // Create a sample database
+                    Console.Write("Dropping and creating database 'SampleDB' ... ");
+                    String sql = "DROP DATABASE IF EXISTS [SampleDB]; CREATE DATABASE [SampleDB]";
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Done.");
+                    }
+
+                    // Insert 5 million rows into the table 'Table_with_5M_rows'
+                    Console.Write("Inserting 5 million rows into table 'Table_with_5M_rows'. This takes ~1 minute, please wait ... ");
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append("USE SampleDB; ");
+                    sb.Append("WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a))");
+                    sb.Append("SELECT TOP(5000000)");
+                    sb.Append("ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId ");
+                    sb.Append(",a.a + b.a + c.a + d.a + e.a + f.a + g.a + h.a AS OrderId ");
+                    sb.Append(",a.a * 10 AS Price ");
+                    sb.Append(",CONCAT(a.a, N' ', b.a, N' ', c.a, N' ', d.a, N' ', e.a, N' ', f.a, N' ', g.a, N' ', h.a) AS ProductName ");
+                    sb.Append("INTO Table_with_5M_rows ");
+                    sb.Append("FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;");
+                    sql = sb.ToString();
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Done.");
+                    }
+
+                    // Execute SQL query without columnstore index
+                    double elapsedTimeWithoutIndex = SumPrice(connection);
+                    Console.WriteLine("Query time WITHOUT columnstore index: " + elapsedTimeWithoutIndex + "ms");
+
+                    // Add a Columnstore Index
+                    Console.Write("Adding a columnstore to table 'Table_with_5M_rows'  ... ");
+                    sql = "CREATE CLUSTERED COLUMNSTORE INDEX columnstoreindex ON Table_with_5M_rows;";
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Done.");
+                    }
+
+                    // Execute the same SQL query again after columnstore index was added
+                    double elapsedTimeWithIndex = SumPrice(connection);
+				    Console.WriteLine("Query time WITH columnstore index: " + elapsedTimeWithIndex + "ms");
+
+                    // Calculate performance gain from adding columnstore index
+				    Console.WriteLine("Performance improvement with columnstore index: "
+						+ Math.Round(elapsedTimeWithoutIndex / elapsedTimeWithIndex) + "x!");
+                }
+                Console.WriteLine("All done. Press any key to finish...");
+                Console.ReadKey(true);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        public static double SumPrice(SqlConnection connection)
+        {
+            String sql = "SELECT SUM(Price) FROM Table_with_5M_rows";
+            long startTicks = DateTime.Now.Ticks;
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+                try
+                {
+                    var sum = command.ExecuteScalar();
+                    TimeSpan elapsed = TimeSpan.FromTicks(DateTime.Now.Ticks) - TimeSpan.FromTicks(startTicks);
+                    return elapsed.TotalMilliseconds;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+            }
+            return 0;
+        }
+    }
+}</code></pre>
+<p>Restore the dependencies in the project.json by running the following commands.</p>
+<pre class="command-line" data-output="1,4,6" data-prompt="$"><code class="language-terminal">#Change directories into your .NET Core project
+cd ~/SqlServerColumnstoreSample
+dotnet restore</code></pre>
+<pre><code class="language-results">log  : Restoring packages for /Users/usr1/SqlServerColumnstoreSample/project.json...
+log  : Writing lock file to disk. Path: /Users/usr1/SqlServerColumnstoreSample/project.lock.json
+log  : /Users/usr1/SqlServerColumnstoreSample/project.json
+log  : Restore completed in 1690ms.</code></pre>
+<p>Now build and run.</p>
+<pre class="command-line" data-output="2" data-prompt="$"><code class="language-terminal">dotnet run</code></pre>
+<pre><code class="language-results">Project dotnetdemo (.NETCoreApp,Version=v1.0) will be compiled because inputs were modified                                                                                                                                                                   
+Compiling dotnetdemo for .NETCoreApp,Version=v1.0                                                                                                                                                                                                             
+                                                                                                                                                                                                                                                              
+Compilation succeeded.                                                                                                                                                                                                                                        
+    0 Warning(s)                                                                                                                                                                                                                                              
+    0 Error(s)                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                              
+Time elapsed 00:00:01.0787005                                                                                                                                                                                                                                 
+                                                                                                                                                                                                                                                              
+                                                                                                                                                                                                                                                              
+*** SQL Server Columnstore demo ***                                                                                                                                                                                                                           
+Connecting to SQL Server ... Done.                                                                                                                                                                                                                            
+Dropping and creating database 'SampleDB' ... Done.                                                                                                                                                                                                           
+Inserting 5 million rows into table 'Table_with_5M_rows'. This takes ~1 minute, please wait ... Done.                                                                                                                                                         
+Query time WITHOUT columnstore index: 363.09ms                                                                                                                                                                                                                
+Adding a columnstore to table 'Table_with_5M_rows'  ... Done.                                                                                                                                                                                                 
+Query time WITH columnstore index: 5.123ms                                                                                                                                                                                                                    
+Performance improvement with columnstore index: 71x!                                                                                                                                                                                                          
+All done. Press any key to finish...</code></pre>
+
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> The performance of the query was greatly improved!
+                            <br>Now that you've built a few C# apps with SQL Server and .NET Core, continue checking out other SQL Server features.</p>
+{% endmacro %}
+
+{% macro discus() %}
+<br></br>
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//sqlchoice.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+               
+{% endmacro %}

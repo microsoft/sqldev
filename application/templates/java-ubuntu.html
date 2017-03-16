@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+{% import "javamacros.html" as codemacros %}
+  
+{% block tutorialcontent %}
+
+
+ <h2>Create Java apps using SQL Server on Ubuntu</h2>
+                {{macros.introSentence("Java","Ubuntu 16.04 machine")}}
+                <ol>
+                    <li>
+                        <div class="step-item">
+                            <span>1</span>
+                        </div>
+                        <div class="step-body">
+                            <div tabindex="1" class="step-header collapsible">
+                                <h3>Set up your environment <span class="expand-icon">+</span></h3>
+                                <p class="step-preview">In this section you will get SQL Server vNext running on your Ubuntu machine. <span class="see-more">... <strong>See more</strong></span><span class="preview-content">After that you will install the necessary dependencies to run Java.</span></p>
+                            </div>
+                            <span class="step-content">
+                                {{macros.installSQLServerOnUbuntu()}}
+                                <h4>Install Java</h4>
+                                <p>If you already have Java installed on your machine, skip the next two steps. Install the Java Runtime Environment (JRE) using the following command.</p>
+                                <pre class="command-line" data-prompt="$"><code class="language-terminal">sudo apt-get install default-jre</code></pre>
+                                <pre><code class="language-results">Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following package was automatically installed and is no longer required:
+  default-jdk-headless
+Use 'sudo apt autoremove' to remove it.
+Suggested packages:
+  default-java-plugin
+The following NEW packages will be installed:
+  default-jre
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 980 B of archives.
+After this operation, 6,144 B of additional disk space will be used.
+Get:1 http://us.archive.ubuntu.com/ubuntu xenial/main amd64 default-jre amd64 2:1.8-56ubuntu2 [980 B]
+Fetched 980 B in 0s (3,923 B/s)     
+Selecting previously unselected package default-jre.
+(Reading database ... 247341 files and directories currently installed.)
+Preparing to unpack .../default-jre_2%3a1.8-56ubuntu2_amd64.deb ...
+Unpacking default-jre (2:1.8-56ubuntu2) ...
+Setting up default-jre (2:1.8-56ubuntu2) ...
+</code></pre>
+                                <p>Next, install the Java Development Kit (JDK) using the following command.</p>
+                                <pre class="command-line" data-prompt="$"><code class="language-terminal">sudo apt-get install default-jdk</code></pre>
+                                <pre><code class="language-results">Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following NEW packages will be installed:
+  default-jdk
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 968 B of archives.
+After this operation, 6,144 B of additional disk space will be used.
+Get:1 http://us.archive.ubuntu.com/ubuntu xenial/main amd64 default-jdk amd64 2:1.8-56ubuntu2 [968 B]
+Fetched 968 B in 0s (5,786 B/s)     
+Selecting previously unselected package default-jdk.
+(Reading database ... 247342 files and directories currently installed.)
+Preparing to unpack .../default-jdk_2%3a1.8-56ubuntu2_amd64.deb ...
+Unpacking default-jdk (2:1.8-56ubuntu2) ...
+Setting up default-jdk (2:1.8-56ubuntu2) ...
+</code></pre>
+                                
+                                <h4>Install Maven</h4>
+                                <p>Maven can be used to help manage dependencies, build, test and run your Java project. </p>
+                                <pre class="command-line" data-prompt="$"><code class="language-terminal">sudo apt-get install maven</code></pre>
+                                <pre><code class="language-results">Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following NEW packages will be installed:
+  maven
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 17.4 kB of archives.
+After this operation, 122 kB of additional disk space will be used.
+Get:1 http://us.archive.ubuntu.com/ubuntu xenial/universe amd64 maven all 3.3.9-3 [17.4 kB]
+Fetched 17.4 kB in 0s (42.1 kB/s)
+Selecting previously unselected package maven.
+(Reading database ... 247287 files and directories currently installed.)
+Preparing to unpack .../archives/maven_3.3.9-3_all.deb ...
+Unpacking maven (3.3.9-3) ...
+Setting up maven (3.3.9-3) ...
+update-alternatives: using /usr/share/maven/bin/mvn to provide /usr/bin/mvn (mvn) in auto mode
+</code></pre>
+                                <p>Check that you have Maven properly installed by running the following command. </p>
+                                <pre class="command-line" data-prompt="$"><code class="language-terminal">mvn -v</code></pre>
+                                <pre><code class="language-results">Apache Maven 3.3.9                                                                 
+Maven home: /usr/share/maven                                                       
+Java version: 1.8.0_111, vendor: Oracle Corporation                                
+Java home: /usr/lib/jvm/java-8-openjdk-amd64/jre                                   
+Default locale: en_US, platform encoding: UTF-8                                    
+OS name: "linux", version: "4.4.0-45-generic", arch: "amd64", family: "unix"</code></pre>                           
+                                
+                               
+                               <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You have successfully installed Java and Maven on your Ubuntu machine. You now have everything you need to start writing your Java apps with SQL Server!</p>
+                    </li>
+                    <!-- START this section is for Java SQL CRUD -->
+                    <li>
+                        <div class="step-item">
+                            <span>2</span>
+                        </div>
+                        <div class="step-body">
+                            <div tabindex="2" class="step-header collapsible">
+                                <h3>Create your Java application with SQL Server <span class="expand-icon">+</span></h3>
+                                <p class="step-preview">After getting SQL Server, Java, and Maven on your Ubuntu machine, you can now proceed to create your new Java projects. <span class="see-more">... <strong>See more</strong></span><span class="preview-content">Here we will explore two simple applications. One of them will perform basic Insert, Update, Delete, and Select operations, while the second one will make use of <a target="new" href="http://hibernate.org/orm/">Hibernate</a>, one of the most popular Java frameworks, to execute the same operations.</span></p>
+                            </div>
+                            <span class="step-content">                           
+                            {{codemacros.javaCRUD()}}                            
+                            <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You created your first Java + SQL Server app with Maven! Check out the next section to create a Java App using an ORM!</p>
+                            {{codemacros.javaHibernate()}}
+                            <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> Congrats you just created two Java apps! Check out the next section to learn about how you can <b>make your Java apps faster with SQL Server's Columnstore feature. </b></p>
+                            </span>
+                        </div>
+                    </li>
+                    <!-- END this section is for Hibernate ORM SQL CRUD -->
+                    <!-- START Columnstore-->
+                    <li>
+                        <div class="step-item">
+                            <span>3</span>
+                        </div>
+                        <div class="step-body">
+                            <div tabindex="3" class="step-header collapsible">
+                                <h3 id="section-3-title">Make your Java app up to <strong>100x faster</strong> using Columnstore <span class="expand-icon">+</span></h3>
+                                <p class="step-preview">Now that you have explored the basics, you are ready to see how you can make your app better with SQL Server. <span class="see-more">... <strong>See more</strong></span>
+                                <span class="preview-content">In this module we will show you a simple example of <a href="https://msdn.microsoft.com/en-us/library/gg492088.aspx">Columnstore Indexes </a> and how they can improve data processing speeds. <b>Columnstore Indexes</b> can achieve up to 100x better performance on analytical workloads and up to 10x better data compression than traditional rowstore indexes.</span></p>
+                            </div>
+                            <span class="step-content">
+                            {{codemacros.javaColumnstore()}} 
+                           </span>
+                        </div>
+                    </li>
+                    <!-- END Columnstore-->
+                    <li>
+                        <div class="step-item" id="resources">
+                            <span>+</span>
+                        </div>
+                        <div class="step-body">
+                            {{macros.installVSCodeExtension()}}   
+                        </div>
+                    </li>      
+                    <li>
+                        <div class="step-body">  
+                            {{macros.CTA("https://channel9.msdn.com/Events/Connect/2016/152", "SQL Server + Java on Channel 9", "https://docs.microsoft.com/en-us/sql/linux/")}}
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-item-tools">
+                        </div>
+                        <div class="step-body">
+                            {{macros.feedback()}}
+                        </div>
+                    </li>
+                </ol>
+ {{codemacros.discus()}}
+
+{% endblock %}

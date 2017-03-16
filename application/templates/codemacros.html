@@ -1,0 +1,3646 @@
+{% import "macros.html" as macros %}
+
+<!--PHP Macros-->
+<!-- ------------------------------- -->
+<!--Macro for a Larael app on Windows-->
+
+{% macro phpLaravelWindows() %}
+<h4>Configure a Laravel app that connects to SQL Server</a></h4>
+
+<p>In this section we will cover how you can configure a Laravel application to use SQL Server. We will be using an existing todo application to demonstrate how you can use SQL Server with Laravel. </p>                         
+
+<p>1. Download our sample Laravel application.</p>
+<pre class="command-line language-terminal" data-prompt=">"><code class="language-terminal">wget "https://aka.ms/laravel.zip"</code></pre> 
+<p>2. Unzip the contents of the file you downloaded. 
+<p>3. Install <b>Composer</b>. Composer is a popular dependency management tool for PHP, used to facilitate installation and updates for project dependencies. Run the below in cmd as administrator.</p>
+                            <pre class="command-line language-terminal" data-prompt=">"><code class="language-terminal">cd laravel
+choco install -y composer</code></pre> 
+<p>Change to the project directory and install all project dependencies.</p>
+<pre class="command-line language-terminal" data-prompt=">"><code class="language-terminal">composer install
+</code></pre> 
+<p>Edit the <b>database.php</b> file in the <i>\larvel\config</i> folder using your favorite text editor with the settings below. Don't forget to update the username and password with your own. Save and close the file. </p>
+<pre class="code-toolbar"><code class="language-php">
+'sqlsrv' => [
+        'driver'   => 'sqlsrv',
+        'host'     => 'localhost',
+        'database' => env('DB_DATABASE', 'SampleDB'),
+        'username' => env('DB_USERNAME', 'sa'),
+        'password' => env('DB_PASSWORD', 'your_password'),
+        'prefix'   => '',
+]
+</code></pre>
+<p>Run a migration. This will use the Laravel ORM (Eloquent) to create the required tables and schema for the app.</p> 
+<pre class="command-line language-terminal" data-prompt=">"><code class="language-terminal">php artisan migrate</code></pre> 
+
+
+<pre><code class="language-results">                             
+**************************************
+*     Application In Production!     *
+**************************************
+
+ Do you really wish to run this command? [y/N] (yes/no) [no]:
+ > yes
+
+Migration table created successfully.
+Migrated: 2014_10_12_000000_create_users_table
+Migrated: 2014_10_12_100000_create_password_resets_table
+Migrated: 2015_05_31_072511_create_todos_table
+
+</code></pre>
+
+<pre class="command-line language-terminal" data-prompt=">"><code class="language-terminal">php artisan serve</code></pre> 
+
+
+<pre><code class="language-results">           
+Laravel development server started on http://localhost:8000/
+</code></pre>
+
+<p>You can create a new user and assign tasks yourself. Verify that the data is being stored on your SQL Server using sqlcmd.</p>
+
+
+<pre class="command-line language-terminal" data-prompt=">"><code class="language-terminal">sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "SELECT * from dbo.todos"</code></pre>
+
+<pre><code class="language-results">     
+  
+id      name            user_id    complete   created_at      updated_at
+1	    Ship Helsinki	1	 0	   2016-11-09 22:01:11.000	 2016-11-09 22:01:11.000                                                                                                                                                                                                                                                          
+
+(1 rows affected)</code></pre>
+
+{% endmacro %}
+
+
+
+{% macro phpLaravelUbuntu() %}
+
+<h4>Configure a Laravel app that connects to SQL Server</a></h4>
+
+<p>In this section we will cover how you can configure a Laravel application to use SQL Server. We will be using an exisiting todo application to demonstrate how you can use SQL Server with Laravel. </p>                         
+
+<p>Download our sample Laravel application.</p>                            
+ <pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">
+wget "https://aka.ms/laravel.tar.gz"
+tar -xzf laravel.tar.gz
+cd laravel
+</code></pre> 
+<p>Install <b>Composer</b>. Composer is a popular dependency management tool for PHP, used to facilitate installation and updates for project dependencies.</p>
+                            <pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">
+curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+</code></pre> 
+
+<p>Install all project dependencies. </p>
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">composer install
+</code></pre> 
+<p>Edit the <b>database.php</b> file in the <i>/larvel/config</i> folder using your favorite text editor with the settings below. Don't forget to update the username and password with your own. Save and close the file. </p>
+<pre class="code-toolbar"><code class="language-php">
+'sqlsrv' => [
+        'driver'   => 'sqlsrv',
+        'host'     => 'localhost',
+        'database' => env('DB_DATABASE', 'SampleDB'),
+        'username' => env('DB_USERNAME', 'sa'),
+        'password' => env('DB_PASSWORD', 'your_password'),
+        'prefix'   => '',
+]
+</code></pre>
+
+<p>Run a migration. This will use the Laravel ORM (Eloquent) to create the required tables and schema for the app.</p> 
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">php artisan migrate</code></pre> 
+
+
+<pre><code class="language-results">                             
+**************************************
+*     Application In Production!     *
+**************************************
+
+ Do you really wish to run this command? [y/N] (yes/no) [no]:
+ > yes
+
+Migration table created successfully.
+Migrated: 2014_10_12_000000_create_users_table
+Migrated: 2014_10_12_100000_create_password_resets_table
+Migrated: 2015_05_31_072511_create_todos_table
+
+</code></pre>
+
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">php artisan serve</code></pre> 
+
+
+<pre><code class="language-results">           
+Laravel development server started on http://localhost:8000/
+</code></pre>
+
+<p>You can create a new user and assign tasks yourself. Verify that the data is being stored on your SQL Server using sqlcmd.</p>
+
+
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "SELECT * from dbo.todos"</code></pre>
+
+<pre><code class="language-results">     
+  
+id      name            user_id    complete   created_at      updated_at
+1	    Ship Helsinki	1	 0	   2016-11-09 22:01:11.000	  2016-11-09 22:01:11.000                                                                                                                                                                                                                                                          
+
+(1 rows affected)</code></pre>
+
+{% endmacro %}
+
+{% macro discus() %}
+<br></br>
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//sqlchoice.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+               
+{% endmacro %}
+
+
+{% macro csharpCoreCRUD() %}
+<h4>Create a C# app that connects to SQL Server and executes queries</h4>
+<p>Change to your home directory. Create a new .NET Core project. This will create the project directory with a basic .NET Core Program.cs and project.json file.</p>
+<pre class="command-line" data-output="1,3,5,7" data-prompt="$"><code class="language-terminal">#Change to home directory
+cd ~/
+#Create a project directory
+mkdir SqlServerSample
+#Change directories into the project
+cd SqlServerSample
+#Create a .NET Core project
+dotnet new
+</code></pre>
+<pre><code class="language-results">Created new C# project in /Users/usr1/SqlServerSample</code></pre>
+<p>You should already have a file called <b>project.json</b> in your .NET Core project located at: <i>~/SqlServerSample</i></p>
+<p>Open this file in your favorite text editor and replace the contents with the code below to add System.Data.SqlClient to your project. Save and close the file. </p>
+<pre><code class="language-json">{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "debugType": "portable",
+    "emitEntryPoint": true
+  },
+  "dependencies": {
+    "System.Data.SqlClient": "4.3.0"
+  },
+  "frameworks": {
+    "netcoreapp1.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.1.0"
+        }
+      },
+      "imports": "dnxcore50"
+    }
+  }
+}</code></pre>
+<p>You should already have a file called <b>Program.cs</b> in your .NET Core project located at: <i>~/SqlServerSample</i></p>
+<p>Open this file in your favorite text editor and replace the contents with the code below. Don't forget to replace the username and password with your own. Save and close the file. </p>
+<pre><code class="language-csharp">using System;
+using System.Text;
+using System.Data.SqlClient;
+
+namespace SqlServerSample
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                // Build connection string
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+                builder.DataSource = "localhost";   // update me
+                builder.UserID = "sa";              // update me
+                builder.Password = "your_password";      // update me
+                builder.InitialCatalog = "master";
+
+                // Connect to SQL
+                Console.Write("Connecting to SQL Server ... ");
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+                    connection.Open();
+                    Console.WriteLine("Done.");
+                }
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
+            Console.WriteLine("All done. Press any key to finish...");
+            Console.ReadKey(true);
+        }
+    }
+}</code></pre>
+<p>Restore the dependencies in the project.json by running the following commands.</p>
+<pre class="command-line" data-output="1,4,6" data-prompt="$"><code class="language-terminal">#Change directories into your .NET Core project
+cd ~/SqlServerSample
+dotnet restore</code></pre>
+<pre><code class="language-results">log  : Restoring packages for /Users/usr1/SqlServerSample/project.json...
+log  : Writing lock file to disk. Path: /Users/usr1/SqlServerSample/project.lock.json
+log  : /Users/usr1/SqlServerSample/project.json
+log  : Restore completed in 2703ms.</code></pre>
+<p>Now build and run.</p>
+<pre class="command-line" data-output="2" data-prompt="$"><code class="language-terminal">dotnet run</code></pre>
+<pre><code class="language-results">Project SqlServerSample (.NETCoreApp,Version=v1.0) will be compiled because expected outputs are missing
+Compiling SqlServerSample for .NETCoreApp,Version=v1.0
+
+Compilation succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time elapsed 00:00:01.0206380
+
+Connecting to SQL Server ... Done.
+All done. Press any key to finish...</code></pre>
+<p>Now replace the code in <b>Program.cs</b> by opening the file in your favorite text editor and copying and pasting the code below into the file. This will create a database and a <a href="https://msdn.microsoft.com/en-us/library/ms189084.aspx">table</a>, and will <a href="https://msdn.microsoft.com/en-us/library/ms174335.aspx">insert</a>, <a href="https://msdn.microsoft.com/en-us/library/ms177523.aspx">update</a>, <a href="https://msdn.microsoft.com/en-us/library/ms189835.aspx">delete</a>, and <a href="https://msdn.microsoft.com/en-us/library/ms189499.aspx">read</a> a few rows. Don't forget to update the username and password with your own. Save and close the file. </p>
+<pre><code class="language-csharp">using System;
+using System.Text;
+using System.Data.SqlClient;
+
+namespace SqlServerSample
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                Console.WriteLine("Connect to SQL Server and demo Create, Read, Update and Delete operations.");
+
+                // Build connection string
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+                builder.DataSource = "localhost";   // update me
+                builder.UserID = "sa";              // update me
+                builder.Password = "your_password";      // update me
+                builder.InitialCatalog = "master";
+
+                // Connect to SQL
+                Console.Write("Connecting to SQL Server ... ");
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+                    connection.Open();
+                    Console.WriteLine("Done.");
+
+                    // Create a sample database
+                    Console.Write("Dropping and creating database 'SampleDB' ... ");
+                    String sql = "DROP DATABASE IF EXISTS [SampleDB]; CREATE DATABASE [SampleDB]";
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Done.");
+                    }
+
+                    // Create a Table and insert some sample data
+                    Console.Write("Creating sample table with data, press any key to continue...");
+                    Console.ReadKey(true);
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append("USE SampleDB; ");
+                    sb.Append("CREATE TABLE Employees ( ");
+                    sb.Append(" Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ");
+                    sb.Append(" Name NVARCHAR(50), ");
+                    sb.Append(" Location NVARCHAR(50) ");
+                    sb.Append("); ");
+                    sb.Append("INSERT INTO Employees (Name, Location) VALUES ");
+                    sb.Append("(N'Jared', N'Australia'), ");
+                    sb.Append("(N'Nikita', N'India'), ");
+                    sb.Append("(N'Tom', N'Germany'); ");
+                    sql = sb.ToString();
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Done.");
+                    }
+
+                    // INSERT demo
+                    Console.Write("Inserting a new row into table, press any key to continue...");
+                    Console.ReadKey(true);
+                    sb.Clear();
+                    sb.Append("INSERT Employees (Name, Location) ");
+                    sb.Append("VALUES (@name, @location);");
+                    sql = sb.ToString();
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@name", "Jake");
+                        command.Parameters.AddWithValue("@location", "United States");
+                        int rowsAffected = command.ExecuteNonQuery();
+                        Console.WriteLine(rowsAffected + " row(s) inserted");
+                    }
+
+                    // UPDATE demo
+                    String userToUpdate = "Nikita";
+                    Console.Write("Updating 'Location' for user '" + userToUpdate + "', press any key to continue...");
+                    Console.ReadKey(true);
+                    sb.Clear();
+                    sb.Append("UPDATE Employees SET Location = N'United States' WHERE Name = @name");
+                    sql = sb.ToString();
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@name", userToUpdate);
+                        int rowsAffected = command.ExecuteNonQuery();
+                        Console.WriteLine(rowsAffected + " row(s) updated");
+                    }
+
+                    // DELETE demo
+                    String userToDelete = "Jared";
+                    Console.Write("Deleting user '" + userToDelete + "', press any key to continue...");
+                    Console.ReadKey(true);
+                    sb.Clear();
+                    sb.Append("DELETE FROM Employees WHERE Name = @name;");
+                    sql = sb.ToString();
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@name", userToDelete);
+                        int rowsAffected = command.ExecuteNonQuery();
+                        Console.WriteLine(rowsAffected + " row(s) deleted");
+                    }
+
+                    // READ demo
+                    Console.WriteLine("Reading data from table, press any key to continue...");
+                    Console.ReadKey(true);
+                    sql = "SELECT Id, Name, Location FROM Employees;";
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Console.WriteLine("{0} {1} {2}", reader.GetInt32(0), reader.GetString(1), reader.GetString(2));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
+            Console.WriteLine("All done. Press any key to finish...");
+            Console.ReadKey(true);
+        }
+    }
+}</code></pre>
+<p>Build and run your project.</p>
+<pre class="command-line" data-output="2" data-prompt="$"><code class="language-terminal">dotnet run</code></pre>
+<pre><code class="language-results">Project SqlServerSample (.NETCoreApp,Version=v1.0) will be compiled because inputs were modified
+Compiling SqlServerSample for .NETCoreApp,Version=v1.0
+
+Compilation succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time elapsed 00:00:01.0992151
+
+Connect to SQL Server and demo Create, Read, Update and Delete operations.
+Connecting to SQL Server ... Done.
+Dropping and creating database 'SampleDB' ... Done.
+Creating sample table with data, press any key to continue... Done.
+Inserting a new row into table, press any key to continue... 1 row(s) inserted
+Updating 'Location' for user 'Nikita', press any key to continue... 1 row(s) updated
+Deleting user 'Jared', press any key to continue... 1 row(s) deleted
+Reading data from table, press any key to continue...
+2 Nikita United States
+3 Tom Germany
+4 Jake United States
+All done. Press any key to finish...</code></pre>
+{% endmacro %}
+<!--C# .NET Core and EF Core code macro-->
+{% macro csharpEFCore()%}
+<h4>Create a C# app that connects to SQL Server using the <a target="new" href="https://docs.efproject.net/en/latest/">Entity Framework Core ORM</a> in .NET Core </h4>
+<p>Change to your home directory. Create a new .NET Core project. This will create the project directory with a basic .NET Core Program.cs and project.json file.</p>
+<pre class="command-line" data-output="1,3,5,7" data-prompt="$"><code class="language-terminal">#Change to home directory
+cd ~/
+#Create a project directory
+mkdir SqlServerEFSample
+#Change directories into the project
+cd SqlServerEFSample
+#Create a .NET Core project
+dotnet new</code></pre>
+<pre><code class="language-results">Created new C# project in /Users/usr1/SqlServerEFSample</code></pre>
+<p>You should already have a file called <b>project.json</b> in your .NET Core project located at: <i>~/SqlServerEFSample</i></p>
+<p>Open this file in your favorite text editor and replace the contents with the code below to add Entity Framework Core to your project. Save and close the file. </p>
+<pre><code class="language-json">{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "debugType": "portable",
+    "emitEntryPoint": true
+  },
+  "dependencies": {
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.1.0"
+  },
+  "frameworks": {
+    "netcoreapp1.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.1.0"
+        }
+      },
+      "imports": "dnxcore50"
+    }
+  }
+}</code></pre>
+<p>For this sample, let's create two tables. The first will hold data about "users". Create a <b>User.cs</b> file in your .NET Core project located at: <i>~/SqlServerEFSample/User.cs</i></p>
+<p>Copy and paste the code below into your newly created <b>User.cs</b> file. Save and close the file. </p>
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+
+namespace SqlServerEFSample
+{
+    public class User
+    {
+        public int UserId { get; set; }
+        public String FirstName { get; set; }
+        public String LastName { get; set; }
+        public virtual IList&ltTask&gt Tasks { get; set; }
+
+        public String GetFullName()
+        {
+            return this.FirstName + " " + this.LastName;
+        }
+        public override string ToString()
+        {
+            return "User [id=" + this.UserId + ", name=" + this.GetFullName() + "]";
+        }
+    }
+}</code></pre>
+<p>Let's create a second table to assign tasks to users. Create a <b>Task.cs</b> file in your .NET Core project located at: <i>~/SqlServerEFSample/Task.cs</i></p
+<p>Copy and paste the code below into your newly created <b>Task.cs</b> file. Save and close the file. </p>
+<pre><code class="language-csharp">using System;
+
+namespace SqlServerEFSample
+{
+    public class Task
+    {
+        public int TaskId { get; set; }
+        public string Title { get; set; }
+        public DateTime DueDate { get; set; }
+        public bool IsComplete { get; set; }
+        public virtual User AssignedTo { get; set; }
+
+        public override string ToString()
+        {
+            return "Task [id=" + this.TaskId + ", title=" + this.Title + ", dueDate=" + this.DueDate.ToString() + ", IsComplete=" + this.IsComplete + "]";
+        }
+    }
+}</code></pre>
+<p>Let's also create a class for the Entity Framework Database context. Use your favorite text editor to create the file <b>EFSampleContext.cs</b> file in your .NET Core project located at: <i>~/SqlServerEFSample/EFSampleContext.cs</i></p
+<p>Copy and paste the code below into your newly created <b>EFSampleContext.cs</b> file. Save and close the file. </p>
+<pre><code class="language-csharp">using Microsoft.EntityFrameworkCore;
+
+namespace SqlServerEFSample
+{
+    public class EFSampleContext : DbContext
+    {
+        string _connectionString;
+        public EFSampleContext(string connectionString)
+        {
+            this._connectionString = connectionString;
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(this._connectionString);
+        }
+        
+        public DbSet&ltUser> Users { get; set; }
+        public DbSet&ltTask> Tasks { get; set; }
+    }
+}</code></pre>
+<p>Replace the code in the <b>Program.cs</b> file in your .NET Core project located at: <i>~/SqlServerEFSample/Program.cs</i></p>
+<p>Open this file in your favorite text editor and replace the contents with the code below. Don't forget to update the username and password with your own. Save and close the file. </p>
+<pre><code class="language-csharp">using System;
+using System.Linq;
+using System.Data.SqlClient;
+using System.Collections.Generic;
+
+namespace SqlServerEFSample
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("** C# CRUD sample with Entity Framework Core and SQL Server **\n");
+            try
+            {
+                // Build connection string
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+                builder.DataSource = "localhost";   // update me
+                builder.UserID = "sa";              // update me
+                builder.Password = "your_password";      // update me
+                builder.InitialCatalog = "EFSampleDB";
+
+                using (EFSampleContext context = new EFSampleContext(builder.ConnectionString))
+                {
+                    context.Database.EnsureDeleted();
+                    context.Database.EnsureCreated();
+                    Console.WriteLine("Created database schema from C# classes.");
+
+                    // Create demo: Create a User instance and save it to the database
+                    User newUser = new User { FirstName = "Anna", LastName = "Shrestinian" };
+                    context.Users.Add(newUser);
+                    context.SaveChanges();
+                    Console.WriteLine("\nCreated User: " + newUser.ToString());
+
+                    // Create demo: Create a Task instance and save it to the database
+                    Task newTask = new Task() { Title = "Ship Helsinki", IsComplete = false, DueDate = DateTime.Parse("04-01-2017") };
+                    context.Tasks.Add(newTask);
+                    context.SaveChanges();
+                    Console.WriteLine("\nCreated Task: " + newTask.ToString());
+
+                    // Association demo: Assign task to user
+                    newTask.AssignedTo = newUser;
+                    context.SaveChanges();
+                    Console.WriteLine("\nAssigned Task: '" + newTask.Title + "' to user '" + newUser.GetFullName() + "'");
+
+                    // Read demo: find incomplete tasks assigned to user 'Anna'
+                    Console.WriteLine("\nIncomplete tasks assigned to 'Anna':");
+                    var query = from t in context.Tasks
+                                where t.IsComplete == false &&
+                                t.AssignedTo.FirstName.Equals("Anna")
+                                select t;
+                    foreach(var t in query)
+                    {
+                        Console.WriteLine(t.ToString());
+                    }
+
+                    // Update demo: change the 'dueDate' of a task
+                    Task taskToUpdate = context.Tasks.First(); // get the first task
+                    Console.WriteLine("\nUpdating task: " + taskToUpdate.ToString());
+                    taskToUpdate.DueDate = DateTime.Parse("06-30-2016");
+                    context.SaveChanges();
+                    Console.WriteLine("dueDate changed: " + taskToUpdate.ToString());
+
+                    // Delete demo: delete all tasks with a dueDate in 2016
+                    Console.WriteLine("\nDeleting all tasks with a dueDate in 2016");
+                    DateTime dueDate2016 = DateTime.Parse("12-31-2016");
+                    query = from t in context.Tasks
+                            where t.DueDate < dueDate2016
+                            select t;
+                    foreach(Task t in query)
+                    {
+                        Console.WriteLine("Deleting task: " + t.ToString());
+                        context.Tasks.Remove(t);
+                    }
+                    context.SaveChanges();
+
+                    // Show tasks after the 'Delete' operation - there should be 0 tasks
+                    Console.WriteLine("\nTasks after delete:");
+                    List&ltTask> tasksAfterDelete = (from t in context.Tasks select t).ToList&ltTask>();
+                    if (tasksAfterDelete.Count == 0)
+                    {
+                        Console.WriteLine("[None]");
+                    }
+                    else
+                    {
+                        foreach (Task t in query)
+                        {
+                            Console.WriteLine(t.ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
+            Console.WriteLine("All done. Press any key to finish...");
+            Console.ReadKey(true);
+        }
+    }
+}</code></pre>
+<p>Restore the dependencies in the project.json by running the following commands.</p>
+<pre class="command-line" data-output="1,4,6" data-prompt="$"><code class="language-terminal">#Change directories into your .NET Core project
+cd ~/SqlServerEFSample
+dotnet restore</code></pre>
+<pre><code class="language-results">log  : Restoring packages for /Users/usr1/SqlServerEFSample/project.json...
+log  : Writing lock file to disk. Path: /Users/usr1/SqlServerEFSample/project.lock.json
+log  : /Users/usr1/SqlServerEFSample/project.json
+log  : Restore completed in 1058ms.</code></pre>
+<p>Now build and run.</p>
+<pre class="command-line" data-output="2" data-prompt="$"><code class="language-terminal">dotnet run</code></pre>
+<pre><code class="language-results">Project SqlServerEFSample (.NETCoreApp,Version=v1.0) will be compiled because expected outputs are missing
+Compiling SqlServerEFSample for .NETCoreApp,Version=v1.0
+
+Compilation succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time elapsed 00:00:01.1655843
+
+** C# CRUD sample with Entity Framework Core and SQL Server **
+
+Created database schema from C# classes.
+
+Created User: User [id=1, name=Anna Shrestinian]
+
+Created Task: Task [id=1, title=Ship Helsinki, dueDate=4/1/17 12:00:00 AM, IsComplete=False]
+
+Assigned Task: 'Ship Helsinki' to user 'Anna Shrestinian'
+
+Incomplete tasks assigned to 'Anna':
+Task [id=1, title=Ship Helsinki, dueDate=4/1/17 12:00:00 AM, IsComplete=False]
+
+Updating task: Task [id=1, title=Ship Helsinki, dueDate=4/1/17 12:00:00 AM, IsComplete=False]
+dueDate changed: Task [id=1, title=Ship Helsinki, dueDate=6/30/16 12:00:00 AM, IsComplete=False]
+
+Deleting all tasks with a dueDate in 2016
+Deleting task: Task [id=1, title=Ship Helsinki, dueDate=6/30/16 12:00:00 AM, IsComplete=False]
+
+Tasks after delete:
+[None]
+All done. Press any key to finish...</code></pre>
+{% endmacro %}
+<!--C# Columnstore .NET Core code macro-->
+{% macro csharpColumnstore()%}
+{{macros.columnstoreSP1()}}   
+<p>To showcase the capabilities of Columnstore indexes, let's create a C# application that creates a sample database and a sample table with 5 million rows and then runs a simple query before and after adding a Columnstore index.</p>
+<p>Change to your home directory. Create a new .NET Core project. This will create the project directory with a basic .NET Core Program.cs and project.json file.</p>
+<pre class="command-line" data-output="1,3,5,7" data-prompt="$"><code class="language-terminal">#Change to home directory
+cd ~/
+#Create a project directory
+mkdir SqlServerColumnstoreSample
+#Change directories into the project
+cd SqlServerColumnstoreSample
+#Create a .NET Core project
+dotnet new</code></pre>
+<p>You should already have a file called <b>project.json</b> in your .NET Core project located at: <i>~/SqlServerColumnstoreSample</i></p>
+<p>Open this file in your favorite text editor and replace the contents with the code below to add System.Data.SqlClient to your project. Save and close the file. </p>
+<pre><code class="language-json">{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "debugType": "portable",
+    "emitEntryPoint": true
+  },
+  "dependencies": {
+    "System.Data.SqlClient": "4.3.0"
+  },
+  "frameworks": {
+    "netcoreapp1.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.1"
+        }
+      },
+      "imports": "dnxcore50"
+    }
+  }
+}</code></pre>
+<p>You should already have a file called <b>Program.cs</b> in your .NET Core project located at: <i>~/SqlServerColumnstoreSample</i></p>
+<p>Open this file in your favorite text editor and replace the contents with the code below. Don't forget to replace the username and password with your own. Save and close the file. </p>
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SqlServerColumnstoreSample
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                Console.WriteLine("*** SQL Server Columnstore demo ***");
+
+                // Build connection string
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+                builder.DataSource = "localhost";   //  update me
+                builder.UserID = "sa";              //  update me
+                builder.Password = "your_password";      // update me
+                builder.InitialCatalog = "master";
+
+                // Connect to SQL
+                Console.Write("Connecting to SQL Server ... ");
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+                    connection.Open();
+                    Console.WriteLine("Done.");
+
+                    // Create a sample database
+                    Console.Write("Dropping and creating database 'SampleDB' ... ");
+                    String sql = "DROP DATABASE IF EXISTS [SampleDB]; CREATE DATABASE [SampleDB]";
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Done.");
+                    }
+
+                    // Insert 5 million rows into the table 'Table_with_5M_rows'
+                    Console.Write("Inserting 5 million rows into table 'Table_with_5M_rows'. This takes ~1 minute, please wait ... ");
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append("USE SampleDB; ");
+                    sb.Append("WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a))");
+                    sb.Append("SELECT TOP(5000000)");
+                    sb.Append("ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId ");
+                    sb.Append(",a.a + b.a + c.a + d.a + e.a + f.a + g.a + h.a AS OrderId ");
+                    sb.Append(",a.a * 10 AS Price ");
+                    sb.Append(",CONCAT(a.a, N' ', b.a, N' ', c.a, N' ', d.a, N' ', e.a, N' ', f.a, N' ', g.a, N' ', h.a) AS ProductName ");
+                    sb.Append("INTO Table_with_5M_rows ");
+                    sb.Append("FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;");
+                    sql = sb.ToString();
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Done.");
+                    }
+
+                    // Execute SQL query without columnstore index
+                    double elapsedTimeWithoutIndex = SumPrice(connection);
+                    Console.WriteLine("Query time WITHOUT columnstore index: " + elapsedTimeWithoutIndex + "ms");
+
+                    // Add a Columnstore Index
+                    Console.Write("Adding a columnstore to table 'Table_with_5M_rows'  ... ");
+                    sql = "CREATE CLUSTERED COLUMNSTORE INDEX columnstoreindex ON Table_with_5M_rows;";
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Done.");
+                    }
+
+                    // Execute the same SQL query again after columnstore index was added
+                    double elapsedTimeWithIndex = SumPrice(connection);
+				    Console.WriteLine("Query time WITH columnstore index: " + elapsedTimeWithIndex + "ms");
+
+                    // Calculate performance gain from adding columnstore index
+				    Console.WriteLine("Performance improvement with columnstore index: "
+						+ Math.Round(elapsedTimeWithoutIndex / elapsedTimeWithIndex) + "x!");
+                }
+                Console.WriteLine("All done. Press any key to finish...");
+                Console.ReadKey(true);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        public static double SumPrice(SqlConnection connection)
+        {
+            String sql = "SELECT SUM(Price) FROM Table_with_5M_rows";
+            long startTicks = DateTime.Now.Ticks;
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+                try
+                {
+                    var sum = command.ExecuteScalar();
+                    TimeSpan elapsed = TimeSpan.FromTicks(DateTime.Now.Ticks) - TimeSpan.FromTicks(startTicks);
+                    return elapsed.TotalMilliseconds;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+            }
+            return 0;
+        }
+    }
+}</code></pre>
+<p>Restore the dependencies in the project.json by running the following commands.</p>
+<pre class="command-line" data-output="1,4,6" data-prompt="$"><code class="language-terminal">#Change directories into your .NET Core project
+cd ~/SqlServerColumnstoreSample
+dotnet restore</code></pre>
+<pre><code class="language-results">log  : Restoring packages for /Users/usr1/SqlServerColumnstoreSample/project.json...
+log  : Writing lock file to disk. Path: /Users/usr1/SqlServerColumnstoreSample/project.lock.json
+log  : /Users/usr1/SqlServerColumnstoreSample/project.json
+log  : Restore completed in 1690ms.</code></pre>
+<p>Now build and run.</p>
+<pre class="command-line" data-output="2" data-prompt="$"><code class="language-terminal">dotnet run</code></pre>
+<pre><code class="language-results">Project dotnetdemo (.NETCoreApp,Version=v1.0) will be compiled because inputs were modified                                                                                                                                                                   
+Compiling dotnetdemo for .NETCoreApp,Version=v1.0                                                                                                                                                                                                             
+                                                                                                                                                                                                                                                              
+Compilation succeeded.                                                                                                                                                                                                                                        
+    0 Warning(s)                                                                                                                                                                                                                                              
+    0 Error(s)                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                              
+Time elapsed 00:00:01.0787005                                                                                                                                                                                                                                 
+                                                                                                                                                                                                                                                              
+                                                                                                                                                                                                                                                              
+*** SQL Server Columnstore demo ***                                                                                                                                                                                                                           
+Connecting to SQL Server ... Done.                                                                                                                                                                                                                            
+Dropping and creating database 'SampleDB' ... Done.                                                                                                                                                                                                           
+Inserting 5 million rows into table 'Table_with_5M_rows'. This takes ~1 minute, please wait ... Done.                                                                                                                                                         
+Query time WITHOUT columnstore index: 363.09ms                                                                                                                                                                                                                
+Adding a columnstore to table 'Table_with_5M_rows'  ... Done.                                                                                                                                                                                                 
+Query time WITH columnstore index: 5.123ms                                                                                                                                                                                                                    
+Performance improvement with columnstore index: 71x!                                                                                                                                                                                                          
+All done. Press any key to finish...</code></pre>
+
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> The performance of the query was greatly improved!
+                            <br>Now that you've built a few C# apps with SQL Server and .NET Core, continue checking out other SQL Server features.</p>
+{% endmacro %}
+<!--Java CRUD macro-->
+{% macro javaCRUD()%}
+<h4>Create a Java app that connects to SQL Server and executes queries</h4>
+<p>Change to your home directory. Create your Maven starter package. This will create the project directory with a basic Maven project and pom.xml file.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">cd ~/
+mvn archetype:generate -DgroupId=com.sqlsamples -DartifactId=SqlServerSample -DarchetypeArtifactId=maven-archetype-quickstart -Dversion=1.0.0</code></pre>
+<pre><code class="language-results">[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Maven Stub Project (No POM) 1
+[INFO] ------------------------------------------------------------------------
+...
+[INFO] Generating project in Interactive mode
+[INFO] Using property: groupId = com.sqlsamples
+[INFO] Using property: artifactId = SqlServerSample
+[INFO] Using property: version = 1.0.0
+[INFO] Using property: package = com.sqlsamples
+Confirm properties configuration:
+groupId: com.sqlsamples
+artifactId: SqlServerSample
+version: 1.0.0
+package: com.sqlsamples
+...
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 3.504 s
+[INFO] Finished at: 2016-10-15T16:35:12-07:00
+[INFO] Final Memory: 13M/176M
+[INFO] ------------------------------------------------------------------------</code></pre>
+<p>Change directories into your newly created project.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">cd ~/SqlServerSample </code></pre>
+<p>Add the Microsoft JDBC Driver for SQL Server dependency to your Maven project by opening your favorite text editor and copying and pasting the following lines into your <b>pom.xml</b> file. Do not overwrite the existing values prepopulated in the file. The JDBC dependency must be pasted within the larger "dependencies" section (&ltdependency> &lt/dependency>).</p>
+<p>Specify the version of Java to compile the project against by adding the "properties" section below into the pom.xml file. Add the &ltproperties> section below after the &ltdependencies> section. </p>
+<p>Save and close the file. </p>
+<pre><code class="language-xml">
+&lt!-- prepopulated content by Maven -->
+&ltdependencies>
+    &ltdependency>
+        &ltgroupId>com.microsoft.sqlserver&lt/groupId>
+        &ltartifactId>mssql-jdbc&lt/artifactId>
+        &ltversion>6.1.0.jre8&lt/version>
+    &lt/dependency>
+    &lt!-- your existing dependencies -->
+&lt/dependencies>
+&ltproperties>
+    &ltmaven.compiler.source>1.8&lt/maven.compiler.source>
+    &ltmaven.compiler.target>1.8&lt/maven.compiler.target>
+    &lt!-- your existing properties -->
+&lt/properties>  
+&lt!-- prepopulated content by Maven --></code></pre>
+<p>You should already have a file called <b>App.java</b> in your Maven project located at: <i>~/SqlServerSample/src/main/java/com/sqlsamples/App.java</i></p>
+<p>Open this file in your favorite text editor and replace the contents with the code below. Don't forget to replace the username and password with your own. Save and close the file. </p>
+<pre><code class="language-java">package com.sqlsamples; 
+			    
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class App {
+
+	public static void main(String[] args) {
+
+		String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=master;user=sa;password=your_password";
+
+		try {
+			// Load SQL Server JDBC driver and establish connection.
+			System.out.print("Connecting to SQL Server ... ");
+			try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+				System.out.println("Done.");
+			}
+		} catch (Exception e) {
+			System.out.println();
+			e.printStackTrace();
+		}
+	}
+}</code></pre>
+<p>Build the project and create a jar package using the following command:</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">cd ~/SqlServerSample
+mvn package</code></pre>
+<pre><code class="language-results">[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building SqlServerSample 1.0.0
+[INFO] ------------------------------------------------------------------------ 
+...
+[INFO] Building jar: /Users/usr1/SqlServerSample/target/SqlServerSample-1.0.0.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 4.367 s
+[INFO] Finished at: 2016-10-15T12:18:32-07:00
+[INFO] Final Memory: 22M/208M
+[INFO] ------------------------------------------------------------------------</code></pre>
+<p>Now run the application. You can remove the of "-q" in the command below to show info messages from Maven. </p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">mvn -q exec:java -Dexec.mainClass=com.sqlsamples.App</code></pre>
+<pre><code class="language-results">Connecting to SQL Server ... 
+Done. </code></pre>
+<p>Now replace the code in <b>App.java</b> by opening the file in your favorite text editor and copying and pasting the code below into the file. This will create a database and a <a href="https://msdn.microsoft.com/en-us/library/ms189084.aspx">table</a>, and will <a href="https://msdn.microsoft.com/en-us/library/ms174335.aspx">insert</a>, <a href="https://msdn.microsoft.com/en-us/library/ms177523.aspx">update</a>, <a href="https://msdn.microsoft.com/en-us/library/ms189835.aspx">delete</a>, and <a href="https://msdn.microsoft.com/en-us/library/ms189499.aspx">read</a> a few rows. Don't forget to update the username and password with your own. Save and close the file. </p>
+<pre><code class="language-java">package com.sqlsamples; 
+			    
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.DriverManager;
+
+public class App {
+
+	public static void main(String[] args) {
+
+		System.out.println("Connect to SQL Server and demo Create, Read, Update and Delete operations.");
+
+        //Update the username and password below
+		String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=master;user=sa;password=your_password";
+
+		try {
+			// Load SQL Server JDBC driver and establish connection.
+			System.out.print("Connecting to SQL Server ... ");
+			try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+				System.out.println("Done.");
+
+				// Create a sample database
+				System.out.print("Dropping and creating database 'SampleDB' ... ");
+				String sql = "DROP DATABASE IF EXISTS [SampleDB]; CREATE DATABASE [SampleDB]";
+				try (Statement statement = connection.createStatement()) {
+					statement.executeUpdate(sql);
+					System.out.println("Done.");
+				}
+
+				// Create a Table and insert some sample data
+				System.out.print("Creating sample table with data, press ENTER to continue...");
+				System.in.read();
+				sql = new StringBuilder().append("USE SampleDB; ").append("CREATE TABLE Employees ( ")
+						.append(" Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ").append(" Name NVARCHAR(50), ")
+						.append(" Location NVARCHAR(50) ").append("); ")
+						.append("INSERT INTO Employees (Name, Location) VALUES ").append("(N'Jared', N'Australia'), ")
+						.append("(N'Nikita', N'India'), ").append("(N'Tom', N'Germany'); ").toString();
+				try (Statement statement = connection.createStatement()) {
+					statement.executeUpdate(sql);
+					System.out.println("Done.");
+				}
+
+				// INSERT demo
+				System.out.print("Inserting a new row into table, press ENTER to continue...");
+				System.in.read();
+				sql = new StringBuilder().append("INSERT Employees (Name, Location) ").append("VALUES (?, ?);")
+						.toString();
+				try (PreparedStatement statement = connection.prepareStatement(sql)) {
+					statement.setString(1, "Jake");
+					statement.setString(2, "United States");
+					int rowsAffected = statement.executeUpdate();
+					System.out.println(rowsAffected + " row(s) inserted");
+				}
+
+				// UPDATE demo
+				String userToUpdate = "Nikita";
+				System.out.print("Updating 'Location' for user '" + userToUpdate + "', press ENTER to continue...");
+				System.in.read();
+				sql = "UPDATE Employees SET Location = N'United States' WHERE Name = ?";
+				try (PreparedStatement statement = connection.prepareStatement(sql)) {
+					statement.setString(1, userToUpdate);
+					int rowsAffected = statement.executeUpdate();
+					System.out.println(rowsAffected + " row(s) updated");
+				}
+
+				// DELETE demo
+				String userToDelete = "Jared";
+				System.out.print("Deleting user '" + userToDelete + "', press ENTER to continue...");
+				System.in.read();
+				sql = "DELETE FROM Employees WHERE Name = ?;";
+				try (PreparedStatement statement = connection.prepareStatement(sql)) {
+					statement.setString(1, userToDelete);
+					int rowsAffected = statement.executeUpdate();
+					System.out.println(rowsAffected + " row(s) deleted");
+				}
+
+				// READ demo
+				System.out.print("Reading data from table, press ENTER to continue...");
+				System.in.read();
+				sql = "SELECT Id, Name, Location FROM Employees;";
+				try (Statement statement = connection.createStatement();
+						ResultSet resultSet = statement.executeQuery(sql)) {
+					while (resultSet.next()) {
+						System.out.println(
+								resultSet.getInt(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3));
+					}
+				}
+
+				System.out.println("All done.");
+			}
+		} catch (Exception e) {
+			System.out.println();
+			e.printStackTrace();
+		}
+	}
+}</code></pre>
+<p>Build the project and create a jar package using the following command:</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">cd ~/SqlServerSample
+mvn package</code></pre>
+<pre><code class="language-results">[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building SqlServerSample 1.0.0
+[INFO] ------------------------------------------------------------------------
+...
+[INFO] Building jar: /Users/usr1/SqlServerSample/target/SqlServerSample-1.0.0.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 4.367 s
+[INFO] Finished at: 2016-10-15T12:18:32-07:00
+[INFO] Final Memory: 22M/208M
+[INFO] ------------------------------------------------------------------------</code></pre>
+<p>Now run the application. You can remove the of "-q" in the command below to show info messages from Maven.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">mvn -q exec:java -Dexec.mainClass=com.sqlsamples.App</code></pre>
+<pre><code class="language-results">Connect to SQL Server and demo Create, Read, Update and Delete operations.
+Connecting to SQL Server ...
+Done.
+Dropping and creating database 'SampleDB' ... 
+Done.
+Creating sample table with data, press ENTER to continue...
+Done.
+Inserting a new row into table, press ENTER to continue...
+1 row(s) inserted
+Updating 'Location' for user 'Nikita', press ENTER to continue...
+1 row(s) updated
+Deleting user 'Jared', press ENTER to continue...
+1 row(s) deleted
+Reading data from table, press ENTER to continue...
+2 Nikita United States
+3 Tom Germany
+4 Jake United States
+All done.</code></pre>
+{% endmacro %}
+<!--Java Hibernate macro-->
+{% macro javaHibernate()%}
+<h4>Create a Java app that connects to SQL Server using the popular framework <a target="new" href="http://hibernate.org/orm/">Hibernate</a></h4>
+<p>Change to your home directory. Create your Maven starter package. This will create the project directory with a basic Maven project and pom.xml file.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">cd ~/
+mvn archetype:generate -DgroupId=com.sqlsamples -DartifactId=SqlServerHibernateSample -DarchetypeArtifactId=maven-archetype-quickstart -Dversion=1.0.0</code></pre>
+<pre><code class="language-results">[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Maven Stub Project (No POM) 1
+[INFO] ------------------------------------------------------------------------
+...
+[INFO] Generating project in Interactive mode
+[INFO] Using property: groupId = com.sqlsamples
+[INFO] Using property: artifactId = SqlServerHibernateSample
+[INFO] Using property: version = 1.0.0
+[INFO] Using property: package = com.sqlsamples
+Confirm properties configuration:
+groupId: com.sqlsamples
+artifactId: SqlServerHibernateSample
+version: 1.0.0
+package: com.sqlsamples
+ ...
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 4.124 s
+[INFO] Finished at: 2016-10-15T12:33:17-07:00
+[INFO] Final Memory: 14M/209M
+[INFO] ------------------------------------------------------------------------</code></pre>
+<p>Change directories into your newly created project.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">cd ~/SqlServerHibernateSample </code></pre>
+<p>Add the Microsoft JDBC Driver for SQL Server and Hibernate dependencies to your Maven project by opening your favorite text editor and copying and pasting the following lines into your <b>pom.xml</b> file. Do not overwrite the existing values prepopulated in the file. The JDBC and Hibernate dependencies must be pasted within the larger "dependencies" section (&ltdependency> &lt/dependency>).</p>
+<p>Specify the version of Java to compile the project against by adding the "properties" section below into the pom.xml file. Add the &ltproperties> section below after the &ltdependencies> section. </p>
+<p>Save and close the file. </p>
+<pre><code class="language-xml">
+&lt!-- prepopulated content by Maven -->
+&ltdependencies>
+    &ltdependency>
+        &ltgroupId>com.microsoft.sqlserver&lt/groupId>
+        &ltartifactId>mssql-jdbc&lt/artifactId>
+        &ltversion>6.1.0.jre8&lt/version>
+    &lt/dependency>
+    &lt!-- your existing dependencies -->
+&lt/dependencies>
+&ltproperties>
+    &ltmaven.compiler.source>1.8&lt/maven.compiler.source>
+    &ltmaven.compiler.target>1.8&lt/maven.compiler.target>
+    &lt!-- your existing properties -->
+&lt/properties>  
+&lt!-- prepopulated content by Maven --></code></pre>
+<p>For this sample, let's create two tables. The first will hold data about "users". Create a <b>User.java</b> file in your Maven project located at: <i>~/SqlServerHibernateSample/src/main/java/com/sqlsamples/User.java</i></p>
+<p>Copy and paste the code below into your newly created <b>User.java</b> file. Save and close the file. </p>
+<pre><code class="language-java"> package com.sqlsamples;
+
+import java.util.List;
+import java.util.ArrayList;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Users")
+public class User {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String firstName;
+	private String lastName;
+
+	// Specify a 1:Many mapping between User and Task via the "user" field in
+	// the "Tasks" class.
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List&ltTask> tasks = new ArrayList&ltTask>();
+
+	public User() {
+	}
+
+	public User(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getFullName() {
+		return this.firstName + " " + this.lastName;
+	}
+
+	public List&ltTask> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List&ltTask> tasks) {
+		this.tasks = tasks;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + this.id + ", name=" + this.getFullName() + "]";
+	}
+}</code></pre>
+<p>Let's create a second table to assign tasks to users. Create a <b>Task.java</b> file in your Maven project located at: <i>~/SqlServerHibernateSample/src/main/java/com/sqlsamples/Task.java</i>. </p>
+<p>Copy and paste the code below into your newly created <b>Task.java</b> file. Save and close the file. </p>
+<pre><code class="language-java">package com.sqlsamples;
+
+import java.util.Date;
+import javax.persistence.*;
+import java.text.SimpleDateFormat;
+
+@Entity
+@Table(name = "Tasks")
+public class Task {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String title;
+	private Boolean isComplete;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dueDate;
+
+	// Specify a Many:1 mapping between Task and User
+	@ManyToOne
+	private User user;
+
+	public Task() {
+	}
+
+	public Task(String title, Date dueDate) {
+		this.title = title;
+		this.dueDate = dueDate;
+		this.isComplete = false;
+	}
+
+	public Task(String title, Date dueDate, User user) {
+		this.title = title;
+		this.dueDate = dueDate;
+		this.isComplete = false;
+		this.user = user;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return this.title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Date getDueDate() {
+		return this.dueDate;
+	}
+
+	public void setDueDate(Date dueDate) {
+		this.dueDate = dueDate;
+	}
+
+	@Override
+	public String toString() {
+		SimpleDateFormat ft = new SimpleDateFormat("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
+		return "Task [id=" + this.id + ", title=" + this.title + ", dueDate=" + ft.format(this.dueDate)
+				+ ", isComplete=" + this.isComplete.toString() + "]";
+	}
+}</code></pre>
+<p>Replace the code in the <b>App.java</b> file in your Maven project located at: <i>~/SqlServerHibernateSample/src/main/java/com/sqlsamples/App.java</i>. </p>
+<p>Open this file in your favorite text editor and replace the contents with the code below. Don't forget to update the username and password with your own. Save and close the file. </p>
+<pre><code class="language-java">package com.sqlsamples;
+
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.DriverManager;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+/**
+ * Java CRUD sample with Hibernate and SQL Server
+ *
+ */
+public class App {
+	String connectionUrl = "jdbc:sqlserver://localhost:1433"; // update me
+	String userName = "sa"; // update me
+	String password = "your_password"; // update me
+	String sampleDatabaseName = "SampleDB";
+
+	// Main entry point
+	public static void main(String[] args) {
+		App app = new App();
+		app.runDemo();
+	}
+
+	// Helper to run the demp app
+	public void runDemo()
+    {
+        // Configure Hibernate logging to only log SEVERE errors
+        @SuppressWarnings("unused")
+        org.jboss.logging.Logger logger = org.jboss.logging.Logger.getLogger("org.hibernate");
+        java.util.logging.Logger.getLogger("org.hibernate").setLevel(java.util.logging.Level.SEVERE);
+
+        System.out.println("**Java CRUD sample with Hibernate and SQL Server **\n");
+		try {
+            // We're creating the Hibernate configuration via code. An alternative is to use a 'hibernate.cfg.xml' file.
+            Configuration cfg = createHibernateConfiguration();
+
+            // We're mapping POJO classes to Tables via Hibernate Annotations. An alternative is to use Hibernate mapping xml files.
+            cfg.addAnnotatedClass(User.class);
+            cfg.addAnnotatedClass(Task.class);
+
+            // Hibernate needs an existing database. Use JDBC to create one for this sample.
+            createSampleDatabase();
+
+            // Create the Hibernate SessionFactory and Session.
+            // This causes Hibernate to create Tables and Relationships in the database from our Annotated classes.
+            try (SessionFactory sessionFactory = cfg.buildSessionFactory();
+                 Session session = sessionFactory.openSession()) {
+
+                System.out.println("Created database schema from Java classes.\n");
+                session.beginTransaction();
+
+                // Create demo: Create a User instance and save it to the database
+                User newUser = new User("Anna", "Shrestinian");
+                session.save(newUser);
+                System.out.println("Created User: " + newUser.toString());
+
+                // Create demo: Create a Task instance and save it to the database
+                SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+                Task newTask = new Task("Ship Helsinki", sdf.parse("04-01-2017"));
+                session.save(newTask);
+                System.out.println("Created Task: " + newTask.toString());
+
+                // Association demo: Assign task to user
+                newTask.setUser(newUser);
+                session.save(newTask);
+                System.out.println("Assigned Task: '" + newTask.getTitle() + "' to user '" + newUser.getFullName() + "'\n");
+
+                // Read demo: find incomplete tasks assigned to user 'Anna'
+                System.out.println("Incomplete tasks assigned to 'Anna':");
+                String hqlQuery = "from Task where isComplete = false and user.firstName = :paramFirstName";
+                List&ltTask> incompleteTasks = session.createQuery(hqlQuery, Task.class)
+                                             .setParameter("paramFirstName", "Anna")
+                                             .getResultList();
+                for(Task theTask : incompleteTasks) {
+                    System.out.println(theTask.toString());
+                }
+
+                // Update demo: change the 'dueDate' of a task
+                hqlQuery = "from Task";
+                Task taskToUpdate = session.createQuery(hqlQuery, Task.class)
+                                    .getResultList()
+                                    .get(0); // get the first task
+                System.out.println("\nUpdating task: " + taskToUpdate.toString());
+                taskToUpdate.setDueDate(sdf.parse("06-30-2016"));
+                session.save(taskToUpdate);
+                System.out.println("dueDate changed: " + taskToUpdate.toString());
+
+                // Delete demo: delete all tasks with a dueDate in 2016
+                System.out.println("\nDeleting all tasks with a dueDate in 2016");
+                hqlQuery = "from Task where dueDate < :paramDate";
+                List&ltTask> tasksToDelete = session.createQuery(hqlQuery, Task.class)
+                                           .setParameter("paramDate", sdf.parse("12-31-2016"))
+                                           .getResultList();
+                for(Task theTask : tasksToDelete) {
+                    System.out.println("Deleting task:" + theTask.toString());
+                    session.delete(theTask);
+                }
+
+                // Show tasks after the 'Delete' operation - there should be 0 tasks
+                System.out.println("\nTasks after delete:");
+                hqlQuery = "from Task";
+                List&ltTask> tasksAfterDelete = session.createQuery(hqlQuery, Task.class)
+                                              .getResultList();
+                if(tasksAfterDelete.isEmpty()) {
+                    System.out.println("[None]");
+                }
+                else {
+                    for(Task theTask : tasksAfterDelete) {
+                        System.out.println(theTask.toString());
+                    }
+                }
+
+                session.getTransaction().commit();
+            }
+            System.out.println("All done.");
+
+        } catch (Exception e) {
+            System.out.println();
+            e.printStackTrace();
+        }
+    }
+
+	// Hibernate needs an existing database. Use JDBC to create one for this
+	// sample.
+	private void createSampleDatabase() throws java.sql.SQLException {
+		// Load SQL Server JDBC driver and establish connection.
+		String url = this.connectionUrl + ";databaseName=master;" + "user=" + this.userName + ";password="
+				+ this.password;
+		System.out.print("Connecting to SQL Server ... ");
+		try (Connection connection = DriverManager.getConnection(url)) {
+			System.out.println("Done.");
+
+			// Create a sample database
+			System.out.print("Dropping and creating database '" + this.sampleDatabaseName + "' ... ");
+			String sql = "DROP DATABASE IF EXISTS [" + this.sampleDatabaseName + "]; CREATE DATABASE ["
+					+ this.sampleDatabaseName + "]";
+			try (Statement statement = connection.createStatement()) {
+				statement.executeUpdate(sql);
+				System.out.println("Done.\n");
+			}
+		}
+	}
+
+	// Create Hibernate configuration via code instead of using a
+	// 'hibernate.cfg.xml' file.
+	private Configuration createHibernateConfiguration() {
+		String url = this.connectionUrl + ";databaseName=" + this.sampleDatabaseName;
+        Configuration cfg = new Configuration()
+				.setProperty("hibernate.connection.driver_class", "com.microsoft.sqlserver.jdbc.SQLServerDriver")
+				.setProperty("hibernate.connection.url", url)
+				.setProperty("hibernate.connection.username", this.userName)
+				.setProperty("hibernate.connection.password", this.password)
+				.setProperty("hibernate.connection.autocommit", "true")
+				.setProperty("hibernate.show_sql", "false");
+
+		// Tell Hibernate to use the 'SQL Server' dialect when dynamically
+		// generating SQL queries
+		cfg.setProperty("hibernate.dialect", "org.hibernate.dialect.SQLServerDialect");
+
+		// Tell Hibernate to show the generated T-SQL
+		cfg.setProperty("hibernate.show_sql", "false");
+
+		// This is ok during development, but not recommended in production
+		// See: http://stackoverflow.com/questions/221379/hibernate-hbm2ddl-auto-update-in-production
+		cfg.setProperty("hibernate.hbm2ddl.auto", "update");
+		return cfg;
+	}
+}</code></pre>
+<p>Build the project and create a jar package using the following command:</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">cd ~/SqlServerHibernateSample
+mvn package</code></pre>
+<pre><code class="language-results">[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building SqlServerHibernateSample 1.0.0
+[INFO] ------------------------------------------------------------------------
+...
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 1.555 s
+[INFO] Finished at: 2016-10-15T12:59:27-07:00
+[INFO] Final Memory: 11M/155M
+[INFO] ------------------------------------------------------------------------</code></pre>
+<p>Now run the application. You can remove the of "-q" in the command below to show info messages from Maven.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">mvn -q exec:java -Dexec.mainClass=com.sqlsamples.App</code></pre>
+<pre><code class="language-results">**Java CRUD sample with Hibernate and SQL Server **
+
+Connecting to SQL Server ... Done.
+Dropping and creating database 'HibernateSampleDB' ... Done.
+
+Created database schema from Java classes.
+
+Created User: User [id=1, name=Anna Shrestinian]
+Created Task: Task [id=1, title=Ship Helsinki, dueDate=Sat 2017.04.01 at 12:00:00 AM PDT, isComplete=false]
+Assigned Task: 'Ship Helsinki' to user 'Anna Shrestinian'
+
+Incomplete tasks assigned to 'Anna':
+Task [id=1, title=Ship Helsinki, dueDate=Sat 2017.04.01 at 12:00:00 AM PDT, isComplete=false]
+
+Updating task: Task [id=1, title=Ship Helsinki, dueDate=Sat 2017.04.01 at 12:00:00 AM PDT, isComplete=false]
+dueDate changed: Task [id=1, title=Ship Helsinki, dueDate=Thu 2016.06.30 at 12:00:00 AM PDT, isComplete=false]
+
+Deleting all tasks with a dueDate in 2016
+Deleting task:Task [id=1, title=Ship Helsinki, dueDate=Thu 2016.06.30 at 12:00:00 AM PDT, isComplete=false]
+
+Tasks after delete:
+[None]
+All done.</code></pre>
+{% endmacro %}
+<!--Java Columnstore macro-->
+{% macro javaColumnstore()%}
+{{macros.columnstoreSP1()}}   
+<p>To showcase the capabilities of Columnstore indexes, let's create a Java application that creates a sample database and a sample table with 5 million rows and then runs a simple query before and after adding a Columnstore index.</p>
+<p>Change to your home directory. Create your Maven starter package. This will create the project directory with a basic Maven project and pom.xml file.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">cd ~/
+mvn archetype:generate -DgroupId=com.sqlsamples -DartifactId=SqlServerColumnstoreSample -DarchetypeArtifactId=maven-archetype-quickstart -Dversion=1.0.0</code></pre>
+<pre><code class="language-results">[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Maven Stub Project (No POM) 1
+[INFO] ------------------------------------------------------------------------
+...
+[INFO] Generating project in Interactive mode
+[INFO] Using property: groupId = com.sqlsamples
+[INFO] Using property: artifactId = SqlServerColumnstoreSample
+[INFO] Using property: version = 1.0.0
+[INFO] Using property: package = com.sqlsamples
+Confirm properties configuration:
+groupId: com.sqlsamples
+artifactId: SqlServerColumnstoreSample
+version: 1.0.0
+package: com.sqlsamples
+...
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 18.520 s
+[INFO] Finished at: 2016-10-15T13:49:20-07:00
+[INFO] Final Memory: 14M/208M
+[INFO] ------------------------------------------------------------------------</code></pre>
+<p>Add the Microsoft JDBC Driver for SQL Server dependency to your Maven project by opening your favorite text editor and copying and pasting the following lines into your <b>pom.xml</b> file. Do not overwrite the existing values prepopulated in the file. The JDBC dependency must be pasted within the larger "dependencies" section (&ltdependency> &lt/dependency>).</p>
+<p>Specify the version of Java to compile the project against by adding the "properties" section below into the pom.xml file. Add the &ltproperties> section below after the &ltdependencies> section. </p>
+<p>Save and close the file. </p>
+<pre><code class="language-xml">
+&lt!-- prepopulated content by Maven -->
+&ltdependencies>
+    &ltdependency>
+        &ltgroupId>com.microsoft.sqlserver&lt/groupId>
+        &ltartifactId>mssql-jdbc&lt/artifactId>
+        &ltversion>6.1.0.jre8&lt/version>
+    &lt/dependency>
+    &lt!-- your existing dependencies -->
+&lt/dependencies>
+&ltproperties>
+    &ltmaven.compiler.source>1.8&lt/maven.compiler.source>
+    &ltmaven.compiler.target>1.8&lt/maven.compiler.target>
+    &lt!-- your existing properties -->
+&lt/properties>  
+&lt!-- prepopulated content by Maven --></code></pre>
+<p>Change directories into your newly created project.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">cd ~/SqlServerColumnstoreSample </code></pre>
+<p>You should already have a file called <b>App.java</b> in your Maven project located at: <i>~/SqlServerColumnstoreSample/src/main/java/com/sqlsamples/App.java</i></p>
+<p>Open this file in your favorite text editor and replace the contents with the code below. Don't forget to update the username and password with your own. Save and close the file. </p>
+<pre><code class="language-java">package com.sqlsamples;
+
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class App {
+
+	public static void main(String[] args) {
+
+		System.out.println("*** SQL Server Columnstore demo ***");
+
+		// Update the username and password below
+		String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=master;user=sa;password=your_password";
+
+		// Load SQL Server JDBC driver and establish connection.
+		try {
+			// Load SQL Server JDBC driver and establish connection.
+			System.out.print("Connecting to SQL Server ... ");
+			try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+				System.out.println("Done.");
+
+				// Create an example database
+				System.out.print("Dropping and creating database 'SampleDB' ... ");
+				String sql = "DROP DATABASE IF EXISTS [SampleDB]; CREATE DATABASE [SampleDB]";
+				try (Statement statement = connection.createStatement()) {
+					statement.executeUpdate(sql);
+					System.out.println("Done.");
+				}
+				// Insert 5 million rows into the table 'Table_with_5M_rows'
+				System.out.print(
+						"Inserting 5 million rows into table 'Table_with_5M_rows'. This takes ~1 minute, please wait ... ");
+				sql = new StringBuilder().append("USE SampleDB; ")
+						.append("WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a))")
+						.append("SELECT TOP(5000000)").append("ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId ")
+						.append(",a.a + b.a + c.a + d.a + e.a + f.a + g.a + h.a AS OrderId ")
+						.append(",a.a * 10 AS Price ")
+						.append(",CONCAT(a.a, N' ', b.a, N' ', c.a, N' ', d.a, N' ', e.a, N' ', f.a, N' ', g.a, N' ', h.a) AS ProductName ")
+						.append("INTO Table_with_5M_rows ")
+						.append("FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;").toString();
+				try (Statement statement = connection.createStatement()) {
+					statement.executeUpdate(sql);
+					System.out.println("Done.");
+				}
+
+				// Execute SQL query without a columnstore index
+				long elapsedTimeWithoutIndex = SumPrice(connection);
+				System.out.println("Query time WITHOUT columnstore index: " + elapsedTimeWithoutIndex + "ms");
+
+				System.out.print("Adding a columnstore to table 'Table_with_5M_rows'  ... ");
+				sql = "CREATE CLUSTERED COLUMNSTORE INDEX columnstoreindex ON Table_with_5M_rows;";
+				try (Statement statement = connection.createStatement()) {
+					statement.executeUpdate(sql);
+					System.out.println("Done.");
+				}
+
+				// Execute the same SQL query again after the columnstore index
+				// is added
+				long elapsedTimeWithIndex = SumPrice(connection);
+				System.out.println("Query time WITH columnstore index: " + elapsedTimeWithIndex + "ms");
+
+				// Calculate performance gain from adding columnstore index
+				System.out.println("Performance improvement with columnstore index: "
+						+ elapsedTimeWithoutIndex / elapsedTimeWithIndex + "x!");
+
+			}
+		} catch (Exception e) {
+			System.out.println("");
+			e.printStackTrace();
+		}
+	}
+
+	public static long SumPrice(Connection connection) {
+		String sql = "SELECT SUM(Price) FROM Table_with_5M_rows;";
+		long startTime = System.currentTimeMillis();
+		try (Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(sql)) {
+			while (resultSet.next()) {
+				long elapsedTime = System.currentTimeMillis() - startTime;
+				return elapsedTime;
+			}
+		} catch (Exception e) {
+			System.out.println("");
+			e.printStackTrace();
+		}
+		return 0;
+	}
+}</code></pre>
+<p>Build the project and create a jar package using the following command:</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">cd ~/SqlServerColumnstoreSample
+mvn package</code></pre>
+<pre><code class="language-results">[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building SqlServerColumnstoreSample 1.0.0
+[INFO] ------------------------------------------------------------------------
+...
+[INFO] Building jar: /Users/usr1/SqlServerColumnstoreSample/target/SqlServerColumnstoreSample-1.0.0.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 2.173 s
+[INFO] Finished at: 2016-10-15T13:59:15-07:00
+[INFO] Final Memory: 17M/207M
+[INFO] ------------------------------------------------------------------------</code></pre>
+<p>Now run the application. You can remove the of "-q" in the command below to show info messages from Maven.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">mvn -q exec:java -Dexec.mainClass=com.sqlsamples.App</code></pre>
+<pre><code class="language-results">*** SQL Server Columnstore demo ***
+Connecting to SQL Server ... Done.
+Dropping and creating database 'SampleDB' ... Done.
+Inserting 5 million rows into table 'Table_with_5M_rows'. This takes ~1 minute, please wait ... Done.
+Query time WITHOUT columnstore index: 363ms                                                                                                                                                                                                                
+Adding a columnstore to table 'Table_with_5M_rows'  ... Done.                                                                                                                                                                                                 
+Query time WITH columnstore index: 5ms                                                                                                                                                                                                                    
+Performance improvement with columnstore index: 71x! </code></pre>
+
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> The performance of the query was greatly improved!
+                            <br>Now that you've built a few Java apps with SQL Server and Maven, continue checking out other SQL Server features.</p>
+{% endmacro %}
+
+<!--PHP CRUD -->
+{% macro phpCRUD() %}
+<h4>Create a PHP app that connects to SQL Server and executes queries</h4>
+<p>Install the Microsoft PHP Driver for SQL Server and its prerequisites</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">
+sudo su 
+curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
+exit
+sudo apt-get update
+sudo ACCEPT_EULA=Y apt-get install msodbcsql
+sudo apt-get install unixodbc-dev gcc g++ build-essential 
+sudo pecl install sqlsrv pdo_sqlsrv
+sudo echo "extension= pdo_sqlsrv.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+sudo echo "extension= sqlsrv.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+</code></pre>
+<p>Create a database that will be used for the rest of this tutorial by connecting to SQL Server using sqlcmd and executing the following statement. Don't forget to update the username and password with your own.</p>
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">sqlcmd -S localhost -U sa -P your_password -Q "CREATE DATABASE SampleDB;"</code></pre>
+<p>In your home directory, create a new folder <i>SqlServerSample</i>.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">mkdir SqlServerSample
+cd SqlServerSample
+</code></pre>
+<p> Using your favorite text editor, create a new file called <b>connect.php</b> in the <i>SqlServerSample</i> folder. Paste the code below inside into the new file. Don't forget to update the username and password with your own. Save and close the file.  </p>
+<pre><code class="language-php">
+&lt;?php
+    $serverName = "localhost";
+    $connectionOptions = array(
+        "Database" => "SampleDB",
+        "Uid" => "sa",
+        "PWD" => "your_password"
+    );
+    //Establishes the connection
+    $conn = sqlsrv_connect($serverName, $connectionOptions);
+    if($conn)
+        echo "Connected!"
+?&gt;
+ </code></pre>
+<p>Run your PHP script from the terminal.</p>
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">php connect.php</code></pre>
+<pre><code class="language-results">Connected!
+</code></pre>
+<p>Execute the T-SQL scripts below in the terminal with sqlcmd to create a <a href="https://msdn.microsoft.com/en-us/library/aa578080.aspx">schema</a>, <a href="https://msdn.microsoft.com/en-us/library/ms189084.aspx">table</a>, and <a href="https://msdn.microsoft.com/en-us/library/ms174335.aspx">insert</a> a few rows.</p>
+{{macros.sqlcmdLinux()}}
+
+<p>Using your favorite text editor, create a new file called <b>crud.php</b> in the <i>SqlServerSample</i> folder. Paste the code below inside into the new file. This will <a href="https://msdn.microsoft.com/en-us/library/ms174335.aspx">insert</a>, <a href="https://msdn.microsoft.com/en-us/library/ms177523.aspx">update</a>, <a href="https://msdn.microsoft.com/en-us/library/ms189835.aspx">delete</a>, and <a href="https://msdn.microsoft.com/en-us/library/ms189499.aspx">read</a> a few rows. Don't forget to update the username and password with your own. Save and close the file. </p>
+<pre><code class="language-php">
+&lt;?php
+$serverName = "localhost";
+$connectionOptions = array(
+    "Database" => "SampleDB",
+    "Uid" => "sa",
+    "PWD" => "your_password"
+);
+//Establishes the connection
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+//Insert Query
+echo ("Inserting a new row into table" . PHP_EOL);
+$tsql= "INSERT INTO TestSchema.Employees (Name, Location) VALUES (?,?);";
+$params = array('Jake','United States');  
+$getResults= sqlsrv_query($conn, $tsql, $params);
+$rowsAffected = sqlsrv_rows_affected($getResults);  
+if ($getResults == FALSE or $rowsAffected == FALSE)
+    die(FormatErrors(sqlsrv_errors()));
+echo ($rowsAffected. " row(s) inserted: " . PHP_EOL);
+
+sqlsrv_free_stmt($getResults);
+
+//Update Query
+
+$userToUpdate = 'Nikita';
+$tsql= "UPDATE TestSchema.Employees SET Location = ? WHERE Name = ?";
+$params = array('Sweden', $userToUpdate); 
+echo("Updating Location for user " . $userToUpdate . PHP_EOL);
+
+$getResults= sqlsrv_query($conn, $tsql, $params);
+$rowsAffected = sqlsrv_rows_affected($getResults);  
+if ($getResults == FALSE or $rowsAffected == FALSE)
+    die(FormatErrors(sqlsrv_errors()));
+echo ($rowsAffected. " row(s) updated: " . PHP_EOL);
+sqlsrv_free_stmt($getResults);
+
+//Delete Query
+$userToDelete = 'Jared';
+$tsql= "DELETE FROM TestSchema.Employees WHERE Name = ?";
+$params = array($userToDelete); 
+$getResults= sqlsrv_query($conn, $tsql, $params);
+echo("Deleting user " . $userToDelete . PHP_EOL);
+$rowsAffected = sqlsrv_rows_affected($getResults);  
+if ($getResults == FALSE or $rowsAffected == FALSE)
+    die(FormatErrors(sqlsrv_errors()));
+echo ($rowsAffected. " row(s) deleted: " . PHP_EOL);
+sqlsrv_free_stmt($getResults);
+
+
+//Read Query
+$tsql= "SELECT Id, Name, Location FROM TestSchema.Employees;";
+$getResults= sqlsrv_query($conn, $tsql);
+echo ("Reading data from table" . PHP_EOL);
+if ($getResults == FALSE)
+    die(FormatErrors(sqlsrv_errors()));
+while ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
+    echo ($row['Id'] . " " . $row['Name'] . " " . $row['Location'] . PHP_EOL);
+
+}
+sqlsrv_free_stmt($getResults);
+
+function FormatErrors( $errors )  
+{  
+    /* Display errors. */  
+    echo "Error information: <br/>";  
+  
+    foreach ( $errors as $error )  
+    {  
+        echo "SQLSTATE: ".$error['SQLSTATE']."<br/>";  
+        echo "Code: ".$error['code']."<br/>";  
+        echo "Message: ".$error['message']."<br/>";  
+    }  
+}  
+?&gt;
+</code></pre>
+<p>Run your PHP script from the terminal.</p>
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">php crud.php</code></pre>
+<pre><code class="language-results">
+Inserting a new row into table
+1 row(s) inserted: 
+Updating Location for user Nikita
+1 row(s) updated: 
+Deleting user Jared
+1 row(s) deleted: 
+Reading data from table
+2 Nikita Sweden
+3 Tom Germany
+4 Jake United States
+</code></pre>
+{% endmacro %}
+
+{% macro phpColumnstore()%}
+{{macros.columnstoreSP1()}}   
+<p>To showcase the capabilities of Columnstore Indexes, let's create a table with 5 million rows using your favorite tool. The following T-SQL code will create a table with 5,000,000 rows of random data.</p>
+<pre class="command-line language-terminal" data-output="2-100"data-prompt="$"><code class="language-terminal">sqlcmd -S localhost -U sa -P your_password -d SampleDB -t 60000 -Q "WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a))
+SELECT TOP(5000000)
+ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId
+,a.a + b.a + c.a + d.a + e.a + f.a + g.a + h.a AS OrderId 
+,a.a * 10 AS Price
+,CONCAT(a.a, N' ', b.a, N' ', c.a, N' ', d.a, N' ', e.a, N' ', f.a, N' ', g.a, N' ', h.a) AS ProductName
+INTO Table_with_5M_rows
+FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;"</code></pre>
+<p>Next, let's create a PHP application that runs a simple query. </p>
+<pre class="command-line"  data-output="1,3" data-prompt="$"><code class="language-terminal">#Change to home directory
+cd ~/ 
+#Create a project directory
+mkdir SqlServerColumnstoreSample
+cd SqlServerColumnstoreSample
+</code></pre>
+<p>Using your favorite text editor, create a new file called <b>columnstore.php</b> in the <i>SqlServerColumnstoreSample</i> folder. Paste the following code inside it. Don't forget to replace the username and password with your own. Save and close the file. </p>
+<pre><code class="language-php">
+&lt;?php
+$time_start = microtime(true);
+
+$serverName = "localhost";
+$connectionOptions = array(
+    "Database" => "SampleDB",
+    "Uid" => "sa",
+    "PWD" => "your_password"
+);
+//Establishes the connection
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+//Read Query
+$tsql= "SELECT SUM(Price) as sum FROM Table_with_5M_rows";
+$getResults= sqlsrv_query($conn, $tsql);
+echo ("Sum: ");
+if ($getResults == FALSE)
+    die(FormatErrors(sqlsrv_errors()));
+while ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
+    echo ($row['sum'] . PHP_EOL);
+
+}
+sqlsrv_free_stmt($getResults);
+
+function FormatErrors( $errors )  
+{  
+    /* Display errors. */  
+    echo "Error information: <br/>";  
+  
+    foreach ( $errors as $error )  
+    {  
+        echo "SQLSTATE: ".$error['SQLSTATE']."<br/>";  
+        echo "Code: ".$error['code']."<br/>";  
+        echo "Message: ".$error['message']."<br/>";  
+    }  
+}
+$time_end = microtime(true);
+$execution_time = round((($time_end - $time_start)*1000),2);
+echo 'QueryTime: '.$execution_time.' ms';
+
+  
+?&gt;
+
+</code></pre>
+<p>Run the PHP script from the terminal.</p>
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">php columnstore.php</code></pre>
+<pre><code class="language-results">Sum: 50000000 
+QueryTime: 363ms</code></pre>
+<p>Now let's add a columnstore index to your table.</p>
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE CLUSTERED COLUMNSTORE INDEX Columnstoreindex ON Table_with_5M_rows;"</code></pre>
+<p>Re-run the columnstore.php script and notice how long the query took to complete this time.</p>
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">php columnstore.php</code></pre>
+<pre><code class="language-results">Sum: 50000000 
+QueryTime: 5ms</code></pre>
+
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> The performance of the query was greatly improved!
+<br>Now that you've built a few PHP apps with SQL Server, continue checking out other SQL Server features.
+{% endmacro %}
+
+<!--PHP CRUD Windows -->
+{% macro phpCRUDWindows() %}
+<h4>Create a PHP app that connects to SQL Server and executes queries</h4>
+<p>Install the Microsoft PHP Driver for SQL Server and its prerequisites. To do so, open up cmd as administrator</p>
+<pre class="command-line" data-prompt=">"><code class="language-terminal">
+choco install -y wget
+cd C:\Program^ Files\iis^ express\PHP\v7.0\ext
+wget "http://aka.ms/php_sqlsrv_7_nts.dll"
+wget "https://aka.ms/php_pdo_sqlsrv_7_nts.dll"
+echo extension=php_sqlsrv_7_nts.dll >> C:\Program^ Files\iis^ express\PHP\v7.0\php.ini
+echo extension=php_pdo_sqlsrv_7_nts.dll >> C:\Program^ Files\iis^ express\PHP\v7.0\php.ini
+</code></pre>
+
+<p>Create a database that will be used for the rest of this tutorial by connecting to SQL Server using sqlcmd and executing the following statement. Don't forget to update the username and password with your own.</p>
+<pre class="command-line language-terminal" data-prompt=">"><code class="language-terminal">sqlcmd -S localhost -U sa -P your_password -Q "CREATE DATABASE SampleDB;"</code></pre>
+<p>In your home directory, create a new folder called <i>SqlServerSample</i>.</p>
+<pre class="command-line" data-prompt=">"><code class="language-terminal">
+mkdir SqlServerSample
+cd SqlServerSample
+</code></pre>
+<p> Using your favorite text editor, create a new file called <b>connect.php</b> in the <i>SqlServerSample</i> folder. Paste the code below inside into the new file. Don't forget to update the username and password with your own. Save and close the file. </p>
+    
+<pre><code class="language-php">
+&lt;?php
+$serverName = "localhost";
+$connectionOptions = array(
+    "Database" => "SampleDB",
+    "Uid" => "sa",
+    "PWD" => "your_password"
+);
+//Establishes the connection
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+if($conn)
+    echo "Connected!"
+?&gt;
+ </code></pre>
+<p>Run your PHP script from the terminal.</p>
+<pre class="command-line language-terminal" data-prompt=">"><code class="language-terminal">php connect.php</code></pre>
+<pre><code class="language-results">Connected!
+</code></pre>
+<p>Execute the T-SQL scripts below in the terminal with sqlcmd to create a <a href="https://msdn.microsoft.com/en-us/library/aa578080.aspx">schema</a>, <a href="https://msdn.microsoft.com/en-us/library/ms189084.aspx">table</a>, and <a href="https://msdn.microsoft.com/en-us/library/ms174335.aspx">insert</a> a few rows. Don't forget to update the username and password with your own.</p>
+{{macros.sqlcmdWindows()}}
+
+<p>Using your favorite text editor, create a new file called <b>crud.php</b> in the <i>SqlServerSample</i> folder. Paste the code below inside into the new file. This will <a href="https://msdn.microsoft.com/en-us/library/ms174335.aspx">insert</a>, <a href="https://msdn.microsoft.com/en-us/library/ms177523.aspx">update</a>, <a href="https://msdn.microsoft.com/en-us/library/ms189835.aspx">delete</a>, and <a href="https://msdn.microsoft.com/en-us/library/ms189499.aspx">read</a> a few rows. Don't forget to update the username and password with your own. Save and close the file. </p>
+<pre><code class="language-php">
+&lt;?php
+$serverName = "localhost";
+$connectionOptions = array(
+    "Database" => "SampleDB",
+    "Uid" => "sa",
+    "PWD" => "your_password"
+);
+//Establishes the connection
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+//Insert Query
+echo ("Inserting a new row into table" . PHP_EOL);
+$tsql= "INSERT INTO TestSchema.Employees (Name, Location) VALUES (?,?);";
+$params = array('Jake','United States');  
+$getResults= sqlsrv_query($conn, $tsql, $params);
+$rowsAffected = sqlsrv_rows_affected($getResults);  
+if ($getResults == FALSE or $rowsAffected == FALSE)
+    die(FormatErrors(sqlsrv_errors()));
+echo ($rowsAffected. " row(s) inserted: " . PHP_EOL);
+
+sqlsrv_free_stmt($getResults);
+
+//Update Query
+
+$userToUpdate = 'Nikita';
+$tsql= "UPDATE TestSchema.Employees SET Location = ? WHERE Name = ?";
+$params = array('Sweden', $userToUpdate); 
+echo("Updating Location for user " . $userToUpdate . PHP_EOL);
+
+$getResults= sqlsrv_query($conn, $tsql, $params);
+$rowsAffected = sqlsrv_rows_affected($getResults);  
+if ($getResults == FALSE or $rowsAffected == FALSE)
+    die(FormatErrors(sqlsrv_errors()));
+echo ($rowsAffected. " row(s) updated: " . PHP_EOL);
+sqlsrv_free_stmt($getResults);
+
+//Delete Query
+$userToDelete = 'Jared';
+$tsql= "DELETE FROM TestSchema.Employees WHERE Name = ?";
+$params = array($userToDelete); 
+$getResults= sqlsrv_query($conn, $tsql, $params);
+echo("Deleting user " . $userToDelete . PHP_EOL);
+$rowsAffected = sqlsrv_rows_affected($getResults);  
+if ($getResults == FALSE or $rowsAffected == FALSE)
+    die(FormatErrors(sqlsrv_errors()));
+echo ($rowsAffected. " row(s) deleted: " . PHP_EOL);
+sqlsrv_free_stmt($getResults);
+
+
+//Read Query
+$tsql= "SELECT Id, Name, Location FROM TestSchema.Employees;";
+$getResults= sqlsrv_query($conn, $tsql);
+echo ("Reading data from table" . PHP_EOL);
+if ($getResults == FALSE)
+    die(FormatErrors(sqlsrv_errors()));
+while ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
+    echo ($row['Id'] . " " . $row['Name'] . " " . $row['Location'] . PHP_EOL);
+
+}
+sqlsrv_free_stmt($getResults);
+
+function FormatErrors( $errors )  
+{  
+    /* Display errors. */  
+    echo "Error information: <br/>";  
+  
+    foreach ( $errors as $error )  
+    {  
+        echo "SQLSTATE: ".$error['SQLSTATE']."<br/>";  
+        echo "Code: ".$error['code']."<br/>";  
+        echo "Message: ".$error['message']."<br/>";  
+    }  
+}  
+?&gt;
+</code></pre>
+<p>Run your PHP script from the terminal.</p>
+<pre class="command-line language-terminal" data-prompt=">"><code class="language-terminal">php crud.php</code></pre>
+<pre><code class="language-results">
+Inserting a new row into table
+1 row(s) inserted:
+Updating Location for user Nikita
+1 row(s) updated:
+Deleting user Jared
+1 row(s) deleted:
+Reading data from table
+2 Nikita Sweden
+3 Tom Germany
+4 Jake United States
+</code></pre>
+{% endmacro %}
+
+<!--PHP Columnstore on Windows -->
+{% macro phpColumnstoreWindows()%}
+{{macros.columnstoreSP1()}}   
+<p>To showcase the capabilities of Columnstore Indexes, let's create a table with 5 million rows using your favorite tool. The following T-SQL code will create a table with 5,000,000 rows of random data.</p>
+<p>In your home directory, create a folder for your project.</p>
+<pre class="command-line" data-prompt=">"><code class="language-terminal">mkdir SqlServerColumnstoreSample
+cd SqlServerColumnstoreSample
+</code></pre>
+<p>Using your favorite text editor, create a new file called <b>CreateSampleTable.sql</b> in the folder <i>SqlServerColumnstoreSample</i>. Paste the T-SQL code below into your new SQL file. Save and close the file.   </p>
+<pre><code class="language-SQL"> WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a))
+SELECT TOP(5000000)
+ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId
+,a.a + b.a + c.a + d.a + e.a + f.a + g.a + h.a AS OrderId 
+,a.a * 10 AS Price
+,CONCAT(a.a, N' ', b.a, N' ', c.a, N' ', d.a, N' ', e.a, N' ', f.a, N' ', g.a, N' ', h.a) AS ProductName
+INTO Table_with_5M_rows
+FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;</code></pre>
+<p>Run the SQL script to create the table with 5 million rows. This may take a few minutes to run.</p>
+<pre class="command-line language-terminal" data-output="2-100"data-prompt=">"><code class="language-terminal">sqlcmd -S localhost -U sa -P your_password -d SampleDB -t 60000 -i .\SqlServerColumnstoreSample\CreateSampleTable.sql</code></pre>
+<p>Using your favorite text editor, create a new file called <b>columnstore.php</b> in the <i>SqlServerColumnstoreSample</i> folder. Paste the following code inside it. Don't forget to replace the username and password with your own. Save and close the file. </p>
+<pre><code class="language-php">
+&lt;?php
+$time_start = microtime(true);
+
+$serverName = "localhost";
+$connectionOptions = array(
+    "Database" => "SampleDB",
+    "Uid" => "sa",
+    "PWD" => "your_password"
+);
+//Establishes the connection
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+//Read Query
+$tsql= "SELECT SUM(Price) as sum FROM Table_with_5M_rows";
+$getResults= sqlsrv_query($conn, $tsql);
+echo ("Sum: ");
+if ($getResults == FALSE)
+    die(FormatErrors(sqlsrv_errors()));
+while ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
+    echo ($row['sum'] . PHP_EOL);
+
+}
+sqlsrv_free_stmt($getResults);
+
+function FormatErrors( $errors )  
+{  
+    /* Display errors. */  
+    echo "Error information: <br/>";  
+  
+    foreach ( $errors as $error )  
+    {  
+        echo "SQLSTATE: ".$error['SQLSTATE']."<br/>";  
+        echo "Code: ".$error['code']."<br/>";  
+        echo "Message: ".$error['message']."<br/>";  
+    }  
+}
+$time_end = microtime(true);
+$execution_time = round((($time_end - $time_start)*1000),2);
+echo 'QueryTime: '.$execution_time.' ms';
+
+  
+?&gt;
+
+</code></pre>
+<p>Run the PHP script from the terminal.</p>
+<pre class="command-line language-terminal" data-prompt=">"><code class="language-terminal">php columnstore.php</code></pre>
+<pre><code class="language-results">Sum: 5000000 
+QueryTime: 363ms</code></pre>
+<p>Now let's add a columnstore index your table. </p>
+<pre class="command-line language-terminal" data-prompt=">"><code class="language-terminal">sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE CLUSTERED COLUMNSTORE INDEX Columnstoreindex ON Table_with_5M_rows;"</code></pre>
+<p>Re-run the columnstore.php script and notice how long the query took to complete this time.</p>
+<pre class="command-line language-terminal" data-prompt=">"><code class="language-terminal">php columnstore.php</code></pre>
+<pre><code class="language-results">Sum: 5000000
+QueryTime: 5ms</code></pre>
+
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> The performance of the query was greatly improved! 
+                            <br>Now that you've built a few PHP apps with SQL Server, continue checking out other SQL Server features.</p>
+{% endmacro %}
+
+
+<!-- Node CRUD on Windows -->
+{% macro nodeWindowsCRUD() %}
+<h4>Create a Node.js app that connects to SQL Server and executes queries</h4>
+                            <p>In a command prompt, create a new project in your home directory and initialize Node dependencies.</p>
+                            <pre class="command-line" data-prompt=">"><code class="language-terminal">md SqlServerSample
+cd SqlServerSample
+npm init -y
+npm install tedious 
+npm install async</code></pre>
+                            <p>Create a database that will be used for the rest of this tutorial by connecting to SQL Server using mssql-cli and executing the following statement. Don't forget to update the username and password with your own.</p>
+                            <pre class="command-line language-terminal" data-prompt=">"><code class="language-terminal">mssql -s localhost -u sa -p your_password -q "CREATE DATABASE SampleDB;"</code></pre>
+
+                            <p>Now you will create a simple Node.js app that connects to SQL Server.</p> 
+                            <p>Using your favorite editor, create a file named <b>connect.js</b> in the <i>SqlServerSample</i> folder. Copy and paste the below contents into the file. Don't forget to update the username and password with your own. Save and close the file. </p>
+                            <pre><code class="language-javascript"> 
+var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+var TYPES = require('tedious').TYPES;
+
+// Create connection to database
+var config = {
+  userName: 'sa', // update me
+  password: 'your_password', // update me
+  server: 'localhost',
+  options: {
+      database: 'SampleDB'
+  }
+}
+var connection = new Connection(config);
+
+// Attempt to connect and execute queries if connection goes through
+connection.on('connect', function(err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('Connected');
+  }
+});
+                            </code></pre>
+                            <p>Run the application.</p>
+                            <pre data-output="2" class="command-line language-terminal" data-output="2" data-prompt=">"><code class="language-terminal">node connect.js</code></pre> 
+                            <pre><code class="language-results">Connected </code></pre>
+<p>Using your favorite text editor, create a file called <b>CreateTestData.sql</b> in the <i>SqlServerSample</i> folder. Copy and paste the following the T-SQL code inside it. This will create a <a href="https://msdn.microsoft.com/en-us/library/aa578080.aspx">schema</a>, <a href="https://msdn.microsoft.com/en-us/library/ms189084.aspx">table</a>, and <a href="https://msdn.microsoft.com/en-us/library/ms174335.aspx">insert</a> a few rows.</p>                            
+                            <pre><code class="language-SQL"> CREATE SCHEMA TestSchema;
+GO
+
+CREATE TABLE TestSchema.Employees (
+  Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
+  Name NVARCHAR(50), 
+  Location NVARCHAR(50)
+); 
+GO
+
+INSERT INTO TestSchema.Employees (Name, Location) VALUES 
+(N'Jared', N'Australia'), 
+(N'Nikita', N'India'), 
+(N'Tom', N'Germany'); 
+GO
+
+SELECT * FROM TestSchema.Employees;
+GO</code></pre>
+
+<p>Connect to the database using sql-cli.</p>
+<pre class="command-line language-terminal" data-output="3-100" data-prompt=">"><code class="language-terminal">mssql -s localhost -u sa -p your_password -d SampleDB -T 60000</code></pre>
+<p>Run the SQL script to create the schema, table, and insert some rows.</p>
+<pre class="command-line language-terminal" data-output="3-100" data-prompt="mssql>"><code class="language-terminal">.run ./CreateTestData.sql</code></pre>
+<pre><code class="language-results">CREATE SCHEMA TestSchema;
+
+Executed in 0 ms
+CREATE TABLE TestSchema.Employees (
+  Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  Name NVARCHAR(50),
+  Location NVARCHAR(50)
+);
+
+Executed in 0 ms
+INSERT INTO TestSchema.Employees (Name, Location) VALUES
+(N'Jared', N'Australia'),
+(N'Nikita', N'India'),
+(N'Tom', N'Germany');
+
+Executed in 0 ms
+SELECT * FROM TestSchema.Employees;
+Id  Name    Location
+--  ------  ---------
+1   Jared   Australia
+2   Nikita  India
+3   Tom     Germany
+
+3 row(s) returned
+
+Executed in 1 ms</code></pre>
+<p>Quit the sql-cli prompt by running the below.</p>
+<pre class="command-line language-terminal" data-output="2,3,5" data-prompt="mssql>"><code class="language-terminal">.quit</code></pre>
+                            <p>Using your favorite text editor, create a new file called <b>crud.js</b> in the <i>SqlServerSample</i> folder. Copy and paste the following code inside it. This will <a href="https://msdn.microsoft.com/en-us/library/ms174335.aspx">insert</a>, <a href="https://msdn.microsoft.com/en-us/library/ms177523.aspx">update</a>, <a href="https://msdn.microsoft.com/en-us/library/ms189835.aspx">delete</a>, and <a href="https://msdn.microsoft.com/en-us/library/ms189499.aspx">read</a> a few rows. Don't forget to update the username and password with your own. Save and close the file. </p>
+                            <pre><code class="language-javascript">var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+var TYPES = require('tedious').TYPES;
+var async = require('async');
+
+// Create connection to database
+var config = {
+  userName: 'sa', // update me
+  password: 'your_password', // update me
+  server: 'localhost',
+  options: {
+    database: 'SampleDB'
+  }
+}
+var connection = new Connection(config);
+
+// Attempt to connect and execute queries if connection goes through
+connection.on('connect', function(err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('Connected');
+
+    // Execute all functions in the array serially
+    async.waterfall([
+      function Start(callback) {
+        console.log('Starting...');
+        callback(null, 'Jake', 'United States');
+      },
+      function Insert(name, location, callback) {
+        console.log("Inserting '" + name + "' into Table...");
+
+        request = new Request(
+          'INSERT INTO TestSchema.Employees (Name, Location) OUTPUT INSERTED.Id VALUES (@Name, @Location);',
+          function(err, rowCount, rows) {
+            if (err) {
+              callback(err);
+            } else {
+              console.log(rowCount + ' row(s) inserted');
+              callback(null, 'Nikita', 'United States');
+            }
+          });
+        request.addParameter('Name', TYPES.NVarChar, name);
+        request.addParameter('Location', TYPES.NVarChar, location);
+
+        // Execute SQL statement
+        connection.execSql(request);
+      },
+      function Update(name, location, callback) {
+        console.log("Updating Location to '" + location + "' for '" + name + "'...");
+
+        // Update the employee record requested
+        request = new Request(
+          'UPDATE TestSchema.Employees SET Location=@Location WHERE Name = @Name;',
+          function(err, rowCount, rows) {
+            if (err) {
+              callback(err);
+            } else {
+              console.log(rowCount + ' row(s) updated');
+              callback(null, 'Jared');
+            }
+          });
+        request.addParameter('Name', TYPES.NVarChar, name);
+        request.addParameter('Location', TYPES.NVarChar, location);
+
+        // Execute SQL statement
+        connection.execSql(request);
+      },
+      function Delete(name, callback) {
+        console.log("Deleting '" + name + "' from Table...");
+
+        // Delete the employee record requested
+        request = new Request(
+          'DELETE FROM TestSchema.Employees WHERE Name = @Name;',
+          function(err, rowCount, rows) {
+            if (err) {
+              callback(err);
+            } else {
+              console.log(rowCount + ' row(s) deleted');
+              callback(null);
+            }
+          });
+        request.addParameter('Name', TYPES.NVarChar, name);
+
+        // Execute SQL statement
+        connection.execSql(request);
+      },
+      function Read(callback) {
+        console.log('Reading rows from the Table...');
+
+        // Read all rows from table
+        request = new Request(
+        'SELECT Id, Name, Location FROM TestSchema.Employees;',
+        function(err, rowCount, rows) {
+          if (err) {
+            callback(err);
+          } else {
+            console.log(rowCount + ' row(s) returned');
+            callback(null);
+          }
+        });
+
+        // Print the rows read
+        var result = ""; request.on('row', function(columns) {
+          columns.forEach(function(column) {
+            if (column.value === null) {
+              console.log('NULL');
+            } else {
+              result += column.value + " ";
+            }
+          });
+          console.log(result);
+          result = "";
+        });
+
+        // Execute SQL statement
+        connection.execSql(request);
+      }
+    ],
+    function Complete(err, result) {
+      if (err) {
+        callback(err);
+      } else {
+        console.log("Done!");
+      }
+    }
+                   )
+  }
+});</code></pre>
+                            <p>Run the crud.js app to see the results</p>
+                            <pre data-output="2-100" class="command-line language-terminal" data-prompt=">"><code class="language-terminal">node crud.js
+
+</code></pre>
+<pre><code class="language-results"> 
+
+Connected
+Starting...
+Inserting 'Jake' into Table...
+1 row(s) inserted
+Updating Location to 'United States' for 'Nikita'...
+1 row(s) updated
+Deleting 'Jared' from Table...
+1 row(s) deleted
+Reading rows from the Table...
+2 Nikita United States
+3 Tom Germany
+4 Jake United States
+3 row(s) returned
+Done!</code></pre> 
+                            <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You created your first Node.js + SQL Server app! Check out the next section to create a Node App using an ORM!</p>
+{% endmacro %}
+
+
+<!-- Node Windows ORM Macro -->
+{% macro nodeWindowsORM() %}
+<h4>Create a Node.js app that connects to SQL Server using the popular <a>Sequelize ORM</a></h3>
+                            <P>In a command prompt, create an app directory and initialize Node dependencies.</P>
+                            <pre class="command-line language-terminal" data-prompt=">"><code class="language-terminal">md SqlServerSequelizeSample
+cd SqlServerSequelizeSample
+npm init -y
+npm install tedious
+npm install sequelize</code></pre> 
+<p>a. Open your favourite text editor and create the file <b>orm.js</b> in the directory SqlServerSequelizeSample.
+<br/>b. Paste the contents below into orm.js
+<br/>c. Update the variable for password to use your own password specified in the first module.
+<br/>d. Save and close orm.js</p>
+                            <pre class="code-toolbar"><code class="language-javascript">var Sequelize = require('sequelize');
+
+var userName = 'sa';        
+var password = 'your_password'; // update me 
+var hostName = 'localhost'; 
+var sampleDbName = 'SampleDB';
+ 
+// Initialize Sequelize to connect to sample DB
+var sampleDb = new Sequelize(sampleDbName, userName, password, {
+    dialect: 'mssql',
+    host: hostName,
+    port: 1433, // Default port
+    logging: false, // disable logging; default: console.log
+ 
+    dialectOptions: {
+        requestTimeout: 30000 // timeout = 30 seconds 
+    }
+});
+ 
+// Define the 'User' model
+var User = sampleDb.define('user', {
+    firstName: Sequelize.STRING,
+    lastName: Sequelize.STRING
+});
+ 
+// Define the 'Task' model
+var Task = sampleDb.define('task', {
+    title: Sequelize.STRING,
+    dueDate: Sequelize.DATE,
+    isComplete: Sequelize.BOOLEAN
+});
+ 
+// Model a 1:Many relationship between User and Task
+User.hasMany(Task);
+ 
+console.log('**Node CRUD sample with Sequelize and MSSQL **');
+ 
+// Tell Sequelize to DROP and CREATE tables and relationships in the database
+sampleDb.sync({force: true})
+.then(function() {
+    console.log('\nCreated database schema from model.');
+ 
+    // Create demo: Create a User instance and save it to the database
+    User.create({firstName: 'Anna', lastName: 'Shrestinian'})
+    .then(function(user) {
+        console.log('\nCreated User:', user.get({ plain: true}));
+ 
+        // Create demo: Create a Task instance and save it to the database
+        Task.create({
+            title: 'Ship Helsinki', dueDate: new Date(2017,04,01), isComplete: false
+        })
+        .then(function(task) {
+            console.log('\nCreated Task:', task.get({ plain: true}));
+ 
+            // Association demo: Assign task to user
+            user.setTasks([task])
+            .then(function() {
+                console.log('\nAssigned task \'' 
+            + task.title 
+            + '\' to user ' + user.firstName 
+            + ' ' + user.lastName);
+ 
+                // Read demo: find incomplete tasks assigned to user 'Anna'' 
+                User.findAll({
+                    where: { firstName: 'Anna'},
+                    include: [{
+                        model: Task,
+                        where: { isComplete: false }
+                    }]
+                })
+                .then(function(users) {
+                    console.log('\nIncomplete tasks assigned to Anna:\n', 
+                JSON.stringify(users));
+ 
+                    // Update demo: change the 'dueDate' of a task 
+                    Task.findById(1).then(function(task) {
+                        console.log('\nUpdating task:', 
+                task.title + ' ' + task.dueDate);
+                        task.update({
+                            dueDate: new Date(2016,06,30)
+                        })
+                        .then(function() {
+                            console.log('dueDate changed:', 
+                    task.title + ' ' + task.dueDate);
+ 
+                            // Delete demo: delete all tasks with a dueDate in 2016
+                            console.log('\nDeleting all tasks with with a dueDate in 2016');
+                            Task.destroy({
+                                where: { dueDate: {$lte: new Date(2016,12,31)}}
+                            })
+                            .then(function() {
+                                Task.findAll()
+                                .then(function(tasks) {
+                                    console.log('Tasks in database after delete:', 
+                        JSON.stringify(tasks));
+                                    console.log('\nAll done!');
+                                })
+                            })
+                        })
+                    })
+                })
+            })
+        })
+    })
+})</code></pre>
+<p>Run the orm.js app</p>
+                            <pre data-output="2-100" class="command-line language-terminal" data-prompt=">"><code class="language-terminal">node orm.js
+</code></pre>
+<pre><code class="language-results"> 
+
+**Node CRUD sample with Sequelize and MSSQL **
+
+Created database schema from model.
+
+Created User: { id: 1,
+  firstName: 'Anna',
+  lastName: 'Shrestinian',
+  updatedAt: 2016-10-07T03:40:23.000Z,
+  createdAt: 2016-10-07T03:40:23.000Z }
+
+Created Task: { id: 1,
+  title: 'Ship Helsinki',
+  dueDate: 2017-05-01T07:00:00.000Z,
+  isComplete: false,
+  updatedAt: 2016-10-07T03:40:23.000Z,
+  createdAt: 2016-10-07T03:40:23.000Z }
+
+Assigned task 'Ship Helsinki' to user Anna Shrestinian
+
+Incomplete tasks assigned to Anna:
+ [{"id":1,"firstName":"Anna","lastName":"Shrestinian",
+ "createdAt":"2016-10-07T03:40:23.000Z",
+ "updatedAt":"2016-10-07T03:40:23.000Z",
+ "tasks":[{"id":1,"title":"Ship Helsinki",
+ "dueDate":"2017-05-01T07:00:00.000Z",
+ "isComplete":false,
+ "createdAt":"2016-10-07T03:40:23.000Z",
+ "updatedAt":"2016-10-07T03:40:23.000Z",
+ "userId":1}]}]
+
+Updating task: Ship Helsinki Mon May 01 2017 00:00:00 GMT-0700 (PDT)
+dueDate changed: Ship Helsinki Sat Jul 30 2016 00:00:00 GMT-0700 (PDT)
+
+Deleting all tasks with with a dueDate in 2016
+Tasks in database after delete: []
+
+All done!</code></pre> 
+
+                            <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> Congrats you just created two Node.js apps! Check out the next section to learn about how you can <b>make your Node.js apps shine with SQL Server's Columnstore feature </b></p>
+
+{% endmacro %}
+
+<!-- Node Windows Columnstore Macro-->
+
+{% macro nodeWindowsColumnStore() %}
+{{macros.columnstoreSP1()}}   
+<p>To showcase the capabilities of Columnstore Indexes, let's create a table with 5 million rows using your favorite tool. The following T-SQL code will create a table with 5,000,000 rows of random data.</p>
+<p>In your home directory create a folder for your project.</p>
+
+<pre class="command-line" data-prompt=">"><code class="language-terminal">
+mkdir SqlServerColumnstoreSample
+cd SqlServerColumnstoreSample</code></pre>
+<p>Using your favorite text editor, create a new file called <b>CreateSampleTable.sql</b> in the folder <i>SqlServerColumnstoreSample</i>. Paste the T-SQL code below into your new SQL file. Save and close the file. </p>
+<pre><code class="language-SQL"> WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a))
+SELECT TOP(5000000)
+ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId
+,a.a + b.a + c.a + d.a + e.a + f.a + g.a + h.a AS OrderId 
+,a.a * 10 AS Price
+,CONCAT(a.a, N' ', b.a, N' ', c.a, N' ', d.a, N' ', e.a, N' ', f.a, N' ', g.a, N' ', h.a) AS ProductName
+INTO Table_with_5M_rows
+FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;</code></pre>
+<p>Connect to the database using sql-cli. </p>
+<pre class="command-line language-terminal" data-output="2,3,5" data-prompt=">"><code class="language-terminal">mssql -s localhost -u sa -p your_password -d SampleDB -T 60000 </code></pre>
+<p>Run the SQL script to create the table with 5 million rows. This may take a few minutes to run.</p>
+<pre class="command-line language-terminal" data-output="2,3,5" data-prompt="mssql>"><code class="language-terminal">.run .\CreateSampleTable.sql</code></pre>
+<pre><code class="language-results"> WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a)) 
+SELECT TOP(5000000) 
+ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId
+,a.a + b.a + c.a + d.a + e.a + f.a + g.a + h.a AS OrderId 
+,a.a * 10 AS Price
+,CONCAT(a.a, N' ', b.a, N' ', c.a, N' ', d.a, N' ', e.a, N' ', f.a, N' ', g.a, N' ', h.a) AS ProductName
+INTO Table_with_5M_rows
+FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;
+</code></pre>
+<p>Quit the sql-cli prompt by running the below.</p>
+<pre class="command-line language-terminal" data-output="2,3,5" data-prompt="mssql>"><code class="language-terminal">.quit</code></pre>
+   <P>In your project folder, initialize Node dependencies.</P>
+
+                            <pre class="command-line language-terminal" data-output="8"  data-prompt=">"><code class="language-terminal">npm init -y
+npm install tedious 
+npm install node-uuid 
+npm install async</code></pre>
+<p>Using you favorite text editor, create a file called <b>columnstore.js</b> in the <i>SqlServerColumnstoreSample</i> folder. Don't forget to update the username and password with your own. Save and close the file. </p>
+<pre><code class="language-javascript"> 
+var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+var uuid = require('node-uuid');
+var async = require('async');
+ 
+var config = {
+    userName: 'sa',
+    password: 'your_password',
+    server: 'localhost',
+    options: {
+        database: 'SampleDB'
+    }
+    // When you connect to Azure SQL Database, you need these next options.
+    //options: {encrypt: true, database: 'yourDatabase'}
+};
+ 
+ 
+var connection = new Connection(config);
+function exec(sql) {
+    var timerName = "QueryTime"; 
+  
+    var request = new Request(sql, function(err) {
+        if (err) {
+            console.log(err);
+        }
+    }); 
+    request.on('doneProc', function(rowCount, more, rows) {
+        if(!more){
+            console.timeEnd(timerName);
+        }
+    });
+    request.on('row', function(columns) {
+        columns.forEach(function(column) {
+            console.log("Sum: " +  column.value);
+        });
+    });
+        console.time(timerName);
+    connection.execSql(request);    
+}
+// Open connection and execute query
+connection.on('connect', function(err) {
+    async.waterfall([
+        function(){
+            exec('SELECT SUM(Price) FROM Table_with_5M_rows');
+        },
+    ]);
+});
+</code></pre>
+<p>Run the file and monitor how long the query took
+to complete</p> 
+<pre data-output="2" class="command-line language-terminal" data-prompt=">"><code class="language-terminal">node columnstore.js</code></pre> 
+
+
+<pre><code class="language-results"> 
+                               
+Sum: 50000000 
+QueryTime: 363ms</code></pre>
+<p>Now let's add a columnstore index to your table.</p>
+<pre class="command-line language-terminal" data-output="2-100"data-prompt=">"><code class="language-terminal">mssql -s localhost -u sa -p your_password -d SampleDB -T 60000 -q "CREATE CLUSTERED COLUMNSTORE INDEX Columnstoreindex ON Table_with_5M_rows;"</code></pre>
+<p>Re-run the columnstore.js script and notice how long the query took to complete this time.</p>
+<pre data-output="2" class="command-line language-terminal" data-prompt=">"><code class="language-terminal">node columnstore.js</code></pre>
+
+<pre><code class="language-results"> 
+                                
+Sum: 50000000 
+QueryTime: 5ms</code></pre>
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> The performance of the query was greatly improved! 
+<br>   Now that you've built a few Node.js apps with SQL Server, continue checking out other SQL Server features. </p>
+{% endmacro %}
+
+
+<!-- Node UNIX CRUD Macro -->
+{% macro nodeUnixCRUD() %}
+<h4>Create a Node.js app that connects to SQL Server and executes queries</h4>
+                            <p>Create a new project directory and initialize Node dependencies.</p>
+                            <pre class="command-line" data-output="2,5,7,10" data-prompt="$"><code class="language-terminal">cd ~/
+#Create Project Directory
+mkdir SqlServerSample
+cd SqlServerSample
+#Create a Node project.
+npm init -y
+#Install tedious and async module in your project folder
+npm install tedious 
+npm install async
+#done</code></pre>
+                            <p>Create a database that will be used for the rest of this tutorial by connecting to SQL Server using mssql-cli and executing the following statement. Don't forget to update the username and password with your own.</p>
+                            <pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">mssql -s localhost -u sa -p your_password -q "CREATE DATABASE SampleDB;"</code></pre>
+
+                            <p>Now you will create a simple Node.js app that connects to SQL Server.</p> 
+                            <p>Using your favorite editor, create a file named <b>connect.js</b> in the <i>SqlServerSample</i> folder. Copy and paste the below contents into the file. Don't forget to update the username and password with your own. Save and close the file. </p>
+                            <pre><code class="language-javascript"> 
+var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+var TYPES = require('tedious').TYPES;
+
+// Create connection to database
+var config = {
+  userName: 'sa', // update me
+  password: 'your_password', // update me
+  server: 'localhost',
+  options: {
+      database: 'SampleDB'
+  }
+}
+var connection = new Connection(config);
+
+// Attempt to connect and execute queries if connection goes through
+connection.on('connect', function(err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('Connected');
+  }
+});
+                            </code></pre>
+                            <p>Run the application.</p>
+                            <pre data-output="2" class="command-line language-terminal" data-output="2" data-prompt="$"><code class="language-terminal">node connect.js</code></pre> 
+                            <pre><code class="language-results">Connected </code></pre>
+
+                            <p>Using your favorite text editor, create a file called <b>CreateTestData.sql</b> in the <i>SqlServerSample</i> folder. Copy and paste the following the T-SQL code inside it. This will create a <a href="https://msdn.microsoft.com/en-us/library/aa578080.aspx">schema</a>, <a href="https://msdn.microsoft.com/en-us/library/ms189084.aspx">table</a>, and <a href="https://msdn.microsoft.com/en-us/library/ms174335.aspx">insert</a> a few rows. </p>                            
+                            <pre><code class="language-SQL"> CREATE SCHEMA TestSchema;
+GO
+
+CREATE TABLE TestSchema.Employees (
+  Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
+  Name NVARCHAR(50), 
+  Location NVARCHAR(50)
+); 
+GO
+
+INSERT INTO TestSchema.Employees (Name, Location) VALUES 
+(N'Jared', N'Australia'), 
+(N'Nikita', N'India'), 
+(N'Tom', N'Germany'); 
+GO
+
+SELECT * FROM TestSchema.Employees;
+GO</code></pre>
+
+<p>Connect to the database using sql-cli.</p>
+<pre class="command-line language-terminal" data-output="3-100" data-prompt="$"><code class="language-terminal">mssql -s localhost -u sa -p your_password -d SampleDB -T 60000</code></pre>
+<p>Run the SQL script to create the schema, table, and insert some rows.</p>
+<pre class="command-line language-terminal" data-output="3-100" data-prompt="mssql>"><code class="language-terminal">.run ./CreateTestData.sql</code></pre>
+<pre><code class="language-results">CREATE SCHEMA TestSchema;
+
+Executed in 0 ms
+CREATE TABLE TestSchema.Employees (
+  Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  Name NVARCHAR(50),
+  Location NVARCHAR(50)
+);
+
+Executed in 0 ms
+INSERT INTO TestSchema.Employees (Name, Location) VALUES
+(N'Jared', N'Australia'),
+(N'Nikita', N'India'),
+(N'Tom', N'Germany');
+
+Executed in 0 ms
+SELECT * FROM TestSchema.Employees;
+Id  Name    Location
+--  ------  ---------
+1   Jared   Australia
+2   Nikita  India
+3   Tom     Germany
+
+3 row(s) returned
+
+Executed in 1 ms</code></pre>
+<p>Quit the sql-cli prompt by running the below.</p>
+<pre class="command-line language-terminal" data-output="2,3,5" data-prompt="mssql>"><code class="language-terminal">.quit</code></pre>
+                            <p>Using your favorite text editor, create a new file called <b>crud.js</b> in the <i>SqlServerSample</i> folder. Copy and paste the following code inside it. This will <a href="https://msdn.microsoft.com/en-us/library/ms174335.aspx">insert</a>, <a href="https://msdn.microsoft.com/en-us/library/ms177523.aspx">update</a>, <a href="https://msdn.microsoft.com/en-us/library/ms189835.aspx">delete</a>, and <a href="https://msdn.microsoft.com/en-us/library/ms189499.aspx">read</a> a few rows. Don't forget to update the username and password with your own. Save and close the file. </p>
+                            <pre><code class="language-javascript">var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+var TYPES = require('tedious').TYPES;
+var async = require('async');
+
+// Create connection to database
+var config = {
+  userName: 'sa', // update me
+  password: 'your_password', // update me
+  server: 'localhost',
+  options: {
+    database: 'SampleDB'
+  }
+}
+var connection = new Connection(config);
+
+// Attempt to connect and execute queries if connection goes through
+connection.on('connect', function(err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('Connected');
+
+    // Execute all functions in the array serially
+    async.waterfall([
+      function Start(callback) {
+        console.log('Starting...');
+        callback(null, 'Jake', 'United States');
+      },
+      function Insert(name, location, callback) {
+        console.log("Inserting '" + name + "' into Table...");
+
+        request = new Request(
+          'INSERT INTO TestSchema.Employees (Name, Location) OUTPUT INSERTED.Id VALUES (@Name, @Location);',
+          function(err, rowCount, rows) {
+            if (err) {
+              callback(err);
+            } else {
+              console.log(rowCount + ' row(s) inserted');
+              callback(null, 'Nikita', 'United States');
+            }
+          });
+        request.addParameter('Name', TYPES.NVarChar, name);
+        request.addParameter('Location', TYPES.NVarChar, location);
+
+        // Execute SQL statement
+        connection.execSql(request);
+      },
+      function Update(name, location, callback) {
+        console.log("Updating Location to '" + location + "' for '" + name + "'...");
+
+        // Update the employee record requested
+        request = new Request(
+          'UPDATE TestSchema.Employees SET Location=@Location WHERE Name = @Name;',
+          function(err, rowCount, rows) {
+            if (err) {
+              callback(err);
+            } else {
+              console.log(rowCount + ' row(s) updated');
+              callback(null, 'Jared');
+            }
+          });
+        request.addParameter('Name', TYPES.NVarChar, name);
+        request.addParameter('Location', TYPES.NVarChar, location);
+
+        // Execute SQL statement
+        connection.execSql(request);
+      },
+      function Delete(name, callback) {
+        console.log("Deleting '" + name + "' from Table...");
+
+        // Delete the employee record requested
+        request = new Request(
+          'DELETE FROM TestSchema.Employees WHERE Name = @Name;',
+          function(err, rowCount, rows) {
+            if (err) {
+              callback(err);
+            } else {
+              console.log(rowCount + ' row(s) deleted');
+              callback(null);
+            }
+          });
+        request.addParameter('Name', TYPES.NVarChar, name);
+
+        // Execute SQL statement
+        connection.execSql(request);
+      },
+      function Read(callback) {
+        console.log('Reading rows from the Table...');
+
+        // Read all rows from table
+        request = new Request(
+        'SELECT Id, Name, Location FROM TestSchema.Employees;',
+        function(err, rowCount, rows) {
+          if (err) {
+            callback(err);
+          } else {
+            console.log(rowCount + ' row(s) returned');
+            callback(null);
+          }
+        });
+
+        // Print the rows read
+        var result = ""; request.on('row', function(columns) {
+          columns.forEach(function(column) {
+            if (column.value === null) {
+              console.log('NULL');
+            } else {
+              result += column.value + " ";
+            }
+          });
+          console.log(result);
+          result = "";
+        });
+
+        // Execute SQL statement
+        connection.execSql(request);
+      }
+    ],
+    function Complete(err, result) {
+      if (err) {
+        callback(err);
+      } else {
+        console.log("Done!");
+      }
+    }
+                   )
+  }
+});</code></pre>
+                            <p>Run the crud.js app to see the results</p>
+                            <pre data-output="2-100" class="command-line language-terminal" data-prompt="$"><code class="language-terminal">node crud.js
+
+</code></pre>
+<pre><code class="language-results"> Connected
+Starting...
+Inserting 'Jake' into Table...
+1 row(s) inserted
+Updating Location to 'United States' for 'Nikita'...
+1 row(s) updated
+Deleting 'Jared' from Table...
+1 row(s) deleted
+Reading rows from the Table...
+2 Nikita United States
+3 Tom Germany
+4 Jake United States
+3 row(s) returned
+Done!</code></pre> 
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You created your first Node.js + SQL Server app! Check out the next section to create a Node App using an ORM!</p>
+{% endmacro %}
+
+<!-- Node UNIX ORM Macro -->
+{% macro nodeUnixORM() %}
+<h4>Create a Node.js app that connects to SQL Server using the popular <a>Sequelize ORM</a></h3>
+                            <P>Create the app directory and initialize Node dependencies.</P>
+                            <pre class="command-line language-terminal" data-output="2,5,7,10" data-prompt="$"><code class="language-terminal">cd ~/
+#Create Project Directory
+mkdir SqlServerSequelizeSample
+cd SqlServerSequelizeSample
+#Create a Node project.
+npm init -y
+#Install tedious and Sequelize module in your project folder
+npm install tedious
+npm install sequelize
+#done</code></pre> 
+<p>a. Open your favourite text editor and create the file <b>orm.js</b> in the directory <i>SqlServerSequelizeSample</i>.
+<br/>b. Paste the contents below into orm.js
+<br/>c. Update the variable for password to use your own password specified in the first module.
+<br/>d. Save and close orm.js</p>
+                            <pre class="code-toolbar"><code class="language-javascript">var Sequelize = require('sequelize');
+
+var userName = 'sa';        
+var password = 'your_password'; // update me 
+var hostName = 'localhost'; 
+var sampleDbName = 'SampleDB';
+ 
+// Initialize Sequelize to connect to sample DB
+var sampleDb = new Sequelize(sampleDbName, userName, password, {
+    dialect: 'mssql',
+    host: hostName,
+    port: 1433, // Default port
+    logging: false, // disable logging; default: console.log
+ 
+    dialectOptions: {
+        requestTimeout: 30000 // timeout = 30 seconds 
+    }
+});
+ 
+// Define the 'User' model
+var User = sampleDb.define('user', {
+    firstName: Sequelize.STRING,
+    lastName: Sequelize.STRING
+});
+ 
+// Define the 'Task' model
+var Task = sampleDb.define('task', {
+    title: Sequelize.STRING,
+    dueDate: Sequelize.DATE,
+    isComplete: Sequelize.BOOLEAN
+});
+ 
+// Model a 1:Many relationship between User and Task
+User.hasMany(Task);
+ 
+console.log('**Node CRUD sample with Sequelize and MSSQL **');
+ 
+// Tell Sequelize to DROP and CREATE tables and relationships in the database
+sampleDb.sync({force: true})
+.then(function() {
+    console.log('\nCreated database schema from model.');
+ 
+    // Create demo: Create a User instance and save it to the database
+    User.create({firstName: 'Anna', lastName: 'Shrestinian'})
+    .then(function(user) {
+        console.log('\nCreated User:', user.get({ plain: true}));
+ 
+        // Create demo: Create a Task instance and save it to the database
+        Task.create({
+            title: 'Ship Helsinki', dueDate: new Date(2017,04,01), isComplete: false
+        })
+        .then(function(task) {
+            console.log('\nCreated Task:', task.get({ plain: true}));
+ 
+            // Association demo: Assign task to user
+            user.setTasks([task])
+            .then(function() {
+                console.log('\nAssigned task \'' 
+            + task.title 
+            + '\' to user ' + user.firstName 
+            + ' ' + user.lastName);
+ 
+                // Read demo: find incomplete tasks assigned to user 'Anna'' 
+                User.findAll({
+                    where: { firstName: 'Anna'},
+                    include: [{
+                        model: Task,
+                        where: { isComplete: false }
+                    }]
+                })
+                .then(function(users) {
+                    console.log('\nIncomplete tasks assigned to Anna:\n', 
+                JSON.stringify(users));
+ 
+                    // Update demo: change the 'dueDate' of a task 
+                    Task.findById(1).then(function(task) {
+                        console.log('\nUpdating task:', 
+                task.title + ' ' + task.dueDate);
+                        task.update({
+                            dueDate: new Date(2016,06,30)
+                        })
+                        .then(function() {
+                            console.log('dueDate changed:', 
+                    task.title + ' ' + task.dueDate);
+ 
+                            // Delete demo: delete all tasks with a dueDate in 2016
+                            console.log('\nDeleting all tasks with with a dueDate in 2016');
+                            Task.destroy({
+                                where: { dueDate: {$lte: new Date(2016,12,31)}}
+                            })
+                            .then(function() {
+                                Task.findAll()
+                                .then(function(tasks) {
+                                    console.log('Tasks in database after delete:', 
+                        JSON.stringify(tasks));
+                                    console.log('\nAll done!');
+                                })
+                            })
+                        })
+                    })
+                })
+            })
+        })
+    })
+})</code></pre>
+                            <p>Run the orm.js app</p>
+                            <pre data-output="2-100" class="command-line language-terminal" data-prompt="$"><code class="language-terminal">node orm.js
+</code></pre>
+<pre><code class="language-results"> 
+
+**Node CRUD sample with Sequelize and MSSQL **
+
+Created database schema from model.
+
+Created User: { id: 1,
+  firstName: 'Anna',
+  lastName: 'Shrestinian',
+  updatedAt: 2016-10-07T03:40:23.000Z,
+  createdAt: 2016-10-07T03:40:23.000Z }
+
+Created Task: { id: 1,
+  title: 'Ship Helsinki',
+  dueDate: 2017-05-01T07:00:00.000Z,
+  isComplete: false,
+  updatedAt: 2016-10-07T03:40:23.000Z,
+  createdAt: 2016-10-07T03:40:23.000Z }
+
+Assigned task 'Ship Helsinki' to user Anna Shrestinian
+
+Incomplete tasks assigned to Anna:
+ [{"id":1,"firstName":"Anna","lastName":"Shrestinian",
+ "createdAt":"2016-10-07T03:40:23.000Z",
+ "updatedAt":"2016-10-07T03:40:23.000Z",
+ "tasks":[{"id":1,"title":"Ship Helsinki",
+ "dueDate":"2017-05-01T07:00:00.000Z",
+ "isComplete":false,
+ "createdAt":"2016-10-07T03:40:23.000Z",
+ "updatedAt":"2016-10-07T03:40:23.000Z",
+ "userId":1}]}]
+
+Updating task: Ship Helsinki Mon May 01 2017 00:00:00 GMT-0700 (PDT)
+dueDate changed: Ship Helsinki Sat Jul 30 2016 00:00:00 GMT-0700 (PDT)
+
+Deleting all tasks with with a dueDate in 2016
+Tasks in database after delete: []
+
+All done!</code></pre> 
+
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> Congrats you just created two Node.js apps! Check out the next section to learn about how you can <b>make your Node.js apps shine with SQL Server's Columnstore feature </b></p>
+{% endmacro %}
+
+<!-- Node UNIX ColumnStore Macro -->
+{% macro nodeUnixColumnStore() %}
+{{macros.columnstoreSP1()}}   
+
+<p>To showcase the capabilities of Columnstore Indexes, let's create a table with 5 million rows using your favorite tool. The following T-SQL code will create a table with 5,000,000 rows of random data.</p>
+<p>Change to your home directory and create a folder for your project.</p>
+
+<pre class="command-line" data-output="1,3" data-prompt="$"><code class="language-terminal">#Change to home directory
+cd ~/
+#Create a project directory
+mkdir SqlServerColumnstoreSample
+cd SqlServerColumnstoreSample</code></pre>
+<p>Using your favorite text editor, create a new file called <b>CreateSampleTable.sql</b> in the folder <i>SqlServerColumnstoreSample</i>. Paste the T-SQL code below into your new SQL file. Save and close the file. </p>
+<pre><code class="language-SQL"> WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a))
+SELECT TOP(5000000)
+ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId
+,a.a + b.a + c.a + d.a + e.a + f.a + g.a + h.a AS OrderId 
+,a.a * 10 AS Price
+,CONCAT(a.a, N' ', b.a, N' ', c.a, N' ', d.a, N' ', e.a, N' ', f.a, N' ', g.a, N' ', h.a) AS ProductName
+INTO Table_with_5M_rows
+FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;</code></pre>
+<p>Connect to the database using sql-cli. </p>
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">mssql -s localhost -u sa -p your_password -d SampleDB -T 60000 </code></pre>
+<p>Run the SQL script to create the table with 5 million rows. This may take a few minutes to run.</p>
+<pre class="command-line language-terminal" data-prompt="mssql>"><code class="language-terminal">.run ./CreateSampleTable.sql</code></pre>
+<pre><code class="language-results">WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a)) 
+SELECT TOP(5000000) 
+ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId
+,a.a + b.a + c.a + d.a + e.a + f.a + g.a + h.a AS OrderId 
+,a.a * 10 AS Price
+,CONCAT(a.a, N' ', b.a, N' ', c.a, N' ', d.a, N' ', e.a, N' ', f.a, N' ', g.a, N' ', h.a) AS ProductName
+INTO Table_with_5M_rows
+FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;
+
+Executed in 2ms</code></pre>
+<p>Quit the sql-cli prompt by running the below.</p>
+<pre class="command-line language-terminal" data-prompt="mssql>"><code class="language-terminal">.quit</code></pre>
+   <P>In your project folder, initialize Node dependencies.</P>
+
+                            <pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">npm init -y
+npm install tedious 
+npm install node-uuid 
+npm install async</code></pre>
+<p>Using you favorite text editor, create a file called <b>columnstore.js</b> in the <i>SqlServerColumnstoreSample</i> folder. Don't forget to update the username and password with your own. Save and close the file. </p>
+<pre><code class="language-javascript"> 
+var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+var uuid = require('node-uuid');
+var async = require('async');
+ 
+var config = {
+    userName: 'sa',
+    password: 'your_password',
+    server: 'localhost',
+    options: {
+        database: 'SampleDB'
+    }
+    // When you connect to Azure SQL Database, you need these next options.
+    //options: {encrypt: true, database: 'yourDatabase'}
+};
+ 
+ 
+var connection = new Connection(config);
+function exec(sql) {
+    var timerName = "QueryTime"; 
+  
+    var request = new Request(sql, function(err) {
+        if (err) {
+            console.log(err);
+        }
+    }); 
+    request.on('doneProc', function(rowCount, more, rows) {
+        if(!more){
+            console.timeEnd(timerName);
+        }
+    });
+    request.on('row', function(columns) {
+        columns.forEach(function(column) {
+            console.log("Sum: " +  column.value);
+        });
+    });
+        console.time(timerName);
+    connection.execSql(request);    
+}
+// Open connection and execute query
+connection.on('connect', function(err) {
+    async.waterfall([
+        function(){
+            exec('SELECT SUM(Price) FROM Table_with_5M_rows');
+        },
+    ]);
+});
+</code></pre>
+<p>Run the file and monitor how long the query took
+to complete</p> 
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">node columnstore.js</code></pre> 
+
+
+<pre><code class="language-results"> 
+                               
+Sum: 50000000 
+QueryTime: 363ms</code></pre>
+<p>Now let's add a columnstore index to your table.</p>
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">mssql -s localhost -u sa -p your_password -d SampleDB -T 60000 -q "CREATE CLUSTERED COLUMNSTORE INDEX Columnstoreindex ON Table_with_5M_rows;"</code></pre>
+<p>Re-run the columnstore.js script and notice how long the query took to complete this time.</p>
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">node columnstore.js</code></pre>
+
+<pre><code class="language-results"> 
+                                
+Sum: 50000000 
+QueryTime: 5ms</code></pre>
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> The performance of the query was greatly improved! 
+<br>   Now that you've built a few Node.js apps with SQL Server, continue checking out other SQL Server features. </p>
+{% endmacro %}
+
+<!--PHP RHEL CRUD -->
+{% macro phpRHELCRUD() %}
+<h4>Create a PHP app that connects to SQL Server and executes queries</h4>
+<p>Install the Microsoft PHP Driver for SQL Server and its prerequisites</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">
+sudo su
+curl https://packages.microsoft.com/config/rhel/7/prod.repo > /etc/yum.repos.d/mssql-release.repo
+exit
+sudo yum update
+sudo yum remove unixODBC #to avoid conflicts
+sudo ACCEPT_EULA=Y yum install msodbcsql 
+sudo yum install unixODBC-utf16-devel 
+yum groupinstall "Development Tools"
+sudo pecl install sqlsrv pdo_sqlsrv
+sudo echo "extension= pdo_sqlsrv.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+sudo echo "extension= sqlsrv.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+</code></pre>
+<p>Create a database that will be used for the rest of this tutorial by connecting to SQL Server using sqlcmd and executing the following statement. Don't forget to update the username and password with your own.</p>
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">sqlcmd -S localhost -U sa -P your_password -Q "CREATE DATABASE SampleDB;"</code></pre>
+<p>In your home directory, create a new folder called <i>SqlServerSample</i>.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">
+mkdir SqlServerSample
+cd SqlServerSample
+</code></pre>
+<p> Using your favorite text editor, create a new file called <b>connect.php</b> in the <i>SqlServerSample</i> folder. Paste the code below inside into the new file. Don't forget to update the username and password with your own. Save and close the file. </p>
+<pre><code class="language-php">
+&lt;?php
+$serverName = "localhost";
+$connectionOptions = array(
+    "Database" => "SampleDB",
+    "Uid" => "sa",
+    "PWD" => "your_password"
+);
+//Establishes the connection
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+if($conn)
+    echo "Connected!"
+?&gt;
+ </code></pre>
+<p>Run your PHP script from the terminal.</p>
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">php connect.php</code></pre>
+<pre><code class="language-results">Connected!
+</code></pre>
+<p>Execute the T-SQL script below in the terminal with sqlcmd to create a <a href="https://msdn.microsoft.com/en-us/library/aa578080.aspx">schema</a>, <a href="https://msdn.microsoft.com/en-us/library/ms189084.aspx">table</a>, and <a href="https://msdn.microsoft.com/en-us/library/ms174335.aspx">insert</a> a few rows.</p>{{macros.sqlcmdLinux()}}
+<p>Using your favorite text editor, create a new file called <b>crud.php</b> in the <i>SqlServerSample</i> folder. Paste the code below inside into the new file. This will <a href="https://msdn.microsoft.com/en-us/library/ms174335.aspx">insert</a>, <a href="https://msdn.microsoft.com/en-us/library/ms177523.aspx">update</a>, <a href="https://msdn.microsoft.com/en-us/library/ms189835.aspx">delete</a>, and <a href="https://msdn.microsoft.com/en-us/library/ms189499.aspx">read</a> a few rows. Don't forget to update the username and password with your own. Save and close the file. </p>
+<pre><code class="language-php">
+&lt;?php
+$serverName = "localhost";
+$connectionOptions = array(
+    "Database" => "SampleDB",
+    "Uid" => "sa",
+    "PWD" => "your_password"
+);
+//Establishes the connection
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+//Insert Query
+echo ("Inserting a new row into table" . PHP_EOL);
+$tsql= "INSERT INTO TestSchema.Employees (Name, Location) VALUES (?,?);";
+$params = array('Jake','United States');  
+$getResults= sqlsrv_query($conn, $tsql, $params);
+$rowsAffected = sqlsrv_rows_affected($getResults);  
+if ($getResults == FALSE or $rowsAffected == FALSE)
+    die(FormatErrors(sqlsrv_errors()));
+echo ($rowsAffected. " row(s) inserted: " . PHP_EOL);
+
+sqlsrv_free_stmt($getResults);
+
+//Update Query
+
+$userToUpdate = 'Nikita';
+$tsql= "UPDATE TestSchema.Employees SET Location = ? WHERE Name = ?";
+$params = array('Sweden', $userToUpdate); 
+echo("Updating Location for user " . $userToUpdate . PHP_EOL);
+
+$getResults= sqlsrv_query($conn, $tsql, $params);
+$rowsAffected = sqlsrv_rows_affected($getResults);  
+if ($getResults == FALSE or $rowsAffected == FALSE)
+    die(FormatErrors(sqlsrv_errors()));
+echo ($rowsAffected. " row(s) updated: " . PHP_EOL);
+sqlsrv_free_stmt($getResults);
+
+//Delete Query
+$userToDelete = 'Jared';
+$tsql= "DELETE FROM TestSchema.Employees WHERE Name = ?";
+$params = array($userToDelete); 
+$getResults= sqlsrv_query($conn, $tsql, $params);
+echo("Deleting user " . $userToDelete . PHP_EOL);
+$rowsAffected = sqlsrv_rows_affected($getResults);  
+if ($getResults == FALSE or $rowsAffected == FALSE)
+    die(FormatErrors(sqlsrv_errors()));
+echo ($rowsAffected. " row(s) deleted: " . PHP_EOL);
+sqlsrv_free_stmt($getResults);
+
+
+//Read Query
+$tsql= "SELECT Id, Name, Location FROM TestSchema.Employees;";
+$getResults= sqlsrv_query($conn, $tsql);
+echo ("Reading data from table" . PHP_EOL);
+if ($getResults == FALSE)
+    die(FormatErrors(sqlsrv_errors()));
+while ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
+    echo ($row['Id'] . " " . $row['Name'] . " " . $row['Location'] . PHP_EOL);
+
+}
+sqlsrv_free_stmt($getResults);
+
+function FormatErrors( $errors )  
+{  
+    /* Display errors. */  
+    echo "Error information: <br/>";  
+  
+    foreach ( $errors as $error )  
+    {  
+        echo "SQLSTATE: ".$error['SQLSTATE']."<br/>";  
+        echo "Code: ".$error['code']."<br/>";  
+        echo "Message: ".$error['message']."<br/>";  
+    }  
+}  
+?&gt;
+</code></pre>
+<p>Run your PHP script from the terminal.</p>
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">php crud.php</code></pre>
+<pre><code class="language-results">
+Inserting a new row into table
+1 row(s) inserted: 
+Updating Location for user Nikita
+1 row(s) updated: 
+Deleting user Jared
+1 row(s) deleted: 
+Reading data from table
+2 Nikita Sweden
+3 Tom Germany
+4 Jake United States
+</code></pre>
+{% endmacro %}
+
+
+<!--php SLES CRUD -->
+{% macro phpSLESCRUD() %}
+<h4>Create a PHP app that connects to SQL Server and executes queries</h4>
+<p>Install the Microsoft PHP Driver for SQL Server and its prerequisites</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">
+sudo su
+zypper ar https://packages.microsoft.com/config/sles/12/prod.repo 
+zypper update
+ACCEPT_EULA=Y zypper install msodbcsql
+zypper install unixODBC-devel php7 php7-devel php7-openssl php7-phar php7-mcrypt php7-mbstring php7-pear gcc gcc-c++ make
+pecl install sqlsrv pdo_sqlsrv
+sudo echo "extension= pdo_sqlsrv.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+sudo echo "extension= sqlsrv.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+exit
+</code></pre>
+<p>Create a database that will be used for the rest of this tutorial by connecting to SQL Server using sqlcmd and executing the following statement. Don't forget to update the username and password with your own.</p>
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">sqlcmd -S localhost -U sa -P your_password -Q "CREATE DATABASE SampleDB;"</code></pre>
+<p>In your home directory, create a new folder called <i>SqlServerSample</i>.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">
+mkdir SqlServerSample
+cd SqlServerSample
+</code></pre>
+<p> Using your favorite text editor, create a new file called <b>connect.php</b> in the <i>SqlServerSample</i> folder. Paste the code below inside into the new file. Don't forget to update the username and password with your own. Save and close the file. </p>
+<pre><code class="language-php">
+&lt;?php
+$serverName = "localhost";
+$connectionOptions = array(
+    "Database" => "SampleDB",
+    "Uid" => "sa",
+    "PWD" => "your_password"
+);
+//Establishes the connection
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+if($conn)
+    echo "Connected!"
+?&gt;
+ </code></pre>
+<p>Run your PHP script from the terminal.</p>
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">php connect.php</code></pre>
+<pre><code class="language-results">Connected!
+</code></pre>
+<p>Execute the T-SQL script below in the terminal with sqlcmd to create a <a href="https://msdn.microsoft.com/en-us/library/aa578080.aspx">schema</a>, <a href="https://msdn.microsoft.com/en-us/library/ms189084.aspx">table</a>, and <a href="https://msdn.microsoft.com/en-us/library/ms174335.aspx">insert</a> a few rows.</p>{{macros.sqlcmdLinux()}}
+<p>Using your favorite text editor, create a new file called <b>crud.php</b> in the <i>SqlServerSample</i> folder. Paste the code below inside into the new file. This will <a href="https://msdn.microsoft.com/en-us/library/ms174335.aspx">insert</a>, <a href="https://msdn.microsoft.com/en-us/library/ms177523.aspx">update</a>, <a href="https://msdn.microsoft.com/en-us/library/ms189835.aspx">delete</a>, and <a href="https://msdn.microsoft.com/en-us/library/ms189499.aspx">read</a> a few rows. Don't forget to update the username and password with your own. Save and close the file. </p>
+<pre><code class="language-php">
+&lt;?php
+$serverName = "localhost";
+$connectionOptions = array(
+    "Database" => "SampleDB",
+    "Uid" => "sa",
+    "PWD" => "your_password"
+);
+//Establishes the connection
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+//Insert Query
+echo ("Inserting a new row into table" . PHP_EOL);
+$tsql= "INSERT INTO TestSchema.Employees (Name, Location) VALUES (?,?);";
+$params = array('Jake','United States');  
+$getResults= sqlsrv_query($conn, $tsql, $params);
+$rowsAffected = sqlsrv_rows_affected($getResults);  
+if ($getResults == FALSE or $rowsAffected == FALSE)
+    die(FormatErrors(sqlsrv_errors()));
+echo ($rowsAffected. " row(s) inserted: " . PHP_EOL);
+
+sqlsrv_free_stmt($getResults);
+
+//Update Query
+
+$userToUpdate = 'Nikita';
+$tsql= "UPDATE TestSchema.Employees SET Location = ? WHERE Name = ?";
+$params = array('Sweden', $userToUpdate); 
+echo("Updating Location for user " . $userToUpdate . PHP_EOL);
+
+$getResults= sqlsrv_query($conn, $tsql, $params);
+$rowsAffected = sqlsrv_rows_affected($getResults);  
+if ($getResults == FALSE or $rowsAffected == FALSE)
+    die(FormatErrors(sqlsrv_errors()));
+echo ($rowsAffected. " row(s) updated: " . PHP_EOL);
+sqlsrv_free_stmt($getResults);
+
+//Delete Query
+$userToDelete = 'Jared';
+$tsql= "DELETE FROM TestSchema.Employees WHERE Name = ?";
+$params = array($userToDelete); 
+$getResults= sqlsrv_query($conn, $tsql, $params);
+echo("Deleting user " . $userToDelete . PHP_EOL);
+$rowsAffected = sqlsrv_rows_affected($getResults);  
+if ($getResults == FALSE or $rowsAffected == FALSE)
+    die(FormatErrors(sqlsrv_errors()));
+echo ($rowsAffected. " row(s) deleted: " . PHP_EOL);
+sqlsrv_free_stmt($getResults);
+
+
+//Read Query
+$tsql= "SELECT Id, Name, Location FROM TestSchema.Employees;";
+$getResults= sqlsrv_query($conn, $tsql);
+echo ("Reading data from table" . PHP_EOL);
+if ($getResults == FALSE)
+    die(FormatErrors(sqlsrv_errors()));
+while ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
+    echo ($row['Id'] . " " . $row['Name'] . " " . $row['Location'] . PHP_EOL);
+
+}
+sqlsrv_free_stmt($getResults);
+
+function FormatErrors( $errors )  
+{  
+    /* Display errors. */  
+    echo "Error information: <br/>";  
+  
+    foreach ( $errors as $error )  
+    {  
+        echo "SQLSTATE: ".$error['SQLSTATE']."<br/>";  
+        echo "Code: ".$error['code']."<br/>";  
+        echo "Message: ".$error['message']."<br/>";  
+    }  
+}  
+?&gt;
+</code></pre>
+<p>Run your PHP script from the terminal.</p>
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">php crud.php</code></pre>
+<pre><code class="language-results">
+Inserting a new row into table
+1 row(s) inserted: 
+Updating Location for user Nikita
+1 row(s) updated: 
+Deleting user Jared
+1 row(s) deleted: 
+Reading data from table
+2 Nikita Sweden
+3 Tom Germany
+4 Jake United States
+</code></pre>
+{% endmacro %}
+<!--Ruby CRUD -->
+{% macro rubyCRUD() %}
+<h4>Create a Ruby app that connects to SQL Server and executes queries</h4>
+                            <p>Create a new project directory and install TinyTDS. TinyTDS is used to connect Ruby applications to SQL Server.</p>
+                            <pre class="command-line" data-prompt="$"><code class="language-terminal">cd ~/
+mkdir SqlServerSample
+cd SqlServerSample
+gem install tiny_tds
+</code></pre>
+                            <p>Create a database that will be used for the rest of this tutorial by connecting to SQL Server using sqlcmd and executing the following statement. Don't forget to update the username and password with your own.</p>
+                            <pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">sqlcmd -S localhost -U sa -P your_password -Q "CREATE DATABASE SampleDB;"</code></pre>
+
+                            <p>Using your favorite editor, create a file named <b>connect.rb</b> in the <i>SqlServerSample</i> folder. Copy and paste the below contents into the file. Don't forget to update the username and password with your own. Save and close the file. </p>
+                            <pre><code class="language-ruby">require 'tiny_tds'  
+client = TinyTds::Client.new username: 'sa', password: 'your_password',  
+host: 'localhost', port: 1433, database: 'SampleDB' 
+puts 'Connecting to SQL Server'
+def active(client)
+if client.active? == true then 'Done.' end
+end
+puts active(client)</code></pre>
+                            <p>Run the Ruby script from the terminal.</p>
+                            <pre data-output="2" class="command-line language-terminal" data-output="2" data-prompt="$"><code class="language-terminal">ruby connect.rb</code></pre> 
+                            <pre><code class="language-results">Connecting to SQL Server
+Done.</code></pre>
+                            <p>Connect to SQL Server using sqlcmd and execute the following statements to create a table and add some rows.</p>
+                            <pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE TABLE Employees (Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, Name NVARCHAR(50), Location NVARCHAR(50));"
+sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "INSERT INTO Employees (Name, Location) VALUES (N'Jared', N'Australia'), (N'Nikita', N'India'), (N'Tom', N'Germany');"</code></pre>
+
+                            <p>Using your favorite text editor, create a new file called <b>crud.rb</b> in the <i>SqlServerSample</i> folder. Copy and paste the following code inside it. This will <a href="https://msdn.microsoft.com/en-us/library/ms174335.aspx">insert</a>, <a href="https://msdn.microsoft.com/en-us/library/ms177523.aspx">update</a>, <a href="https://msdn.microsoft.com/en-us/library/ms189835.aspx">delete</a>, and <a href="https://msdn.microsoft.com/en-us/library/ms189499.aspx">read</a> a few rows. Don't forget to update the username and password with your own. Save and close the file.</p>
+                            <pre><code class="language-ruby">require 'tiny_tds'
+client = TinyTds::Client.new username: 'sa', password: 'your_password',  
+    host: 'localhost', port: 1433, database: 'SampleDB' 
+puts 'Connecting to SQL Server'
+def active(client)
+    if client.active? == true then 'Done.' end
+end
+puts active(client)
+
+# insert new employee
+def insert(name, location, client)
+    puts "Inserting new employee #{name} into table"
+    tsql = "INSERT INTO Employees (Name, Location) VALUES (N'#{name}', N'#{location}')"
+    result = client.execute(tsql)
+    result.each
+    puts "#{result.affected_rows} row(s) affected"
+end
+insert('Jake', 'United States', client)
+
+# update location
+def update(name, location, client)
+    puts "Updating Location for #{name}"
+    tsql = "UPDATE Employees SET Location= N'#{location}' WHERE Name = N'#{name}'"
+    result = client.execute(tsql)    
+    result.each
+    puts "#{result.affected_rows} row(s) affected"
+end
+update('Nikita', 'United States', client)
+
+# delete employee
+def delete(name, client)
+    puts "Deleting employee #{name}"
+    tsql = "DELETE FROM Employees WHERE Name = N'#{name}'"
+    result = client.execute(tsql)    
+    result.each
+    puts "#{result.affected_rows} row(s) affected"
+end
+delete('Jared', client)
+
+# read from table
+puts "Reading data from table"
+tsql = "SELECT * FROM Employees"
+result = client.execute(tsql)
+result.each do |row|
+    puts row
+end
+
+puts "All done."
+</code></pre>
+
+                            <p>Run the Ruby script from the terminal.</p>
+                            <pre data-output="2" class="command-line language-terminal" data-output="2" data-prompt="$"><code class="language-terminal">ruby crud.rb</code></pre> 
+                             <pre><code class="language-results">Connecting to SQL Server
+Done.
+Inserting new employee Jake into table
+1 row(s) affected
+Updating Location for Nikita
+1 row(s) affected
+Deleting employee Jared
+1 row(s) affected
+Reading data from table
+{"Id"=>2, "Name"=>"Nikita", "Location"=>"United States"}
+{"Id"=>3, "Name"=>"Tom", "Location"=>"Germany"}
+{"Id"=>4, "Name"=>"Jake", "Location"=>"United States"}
+All done.</code></pre>
+
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You created your first Ruby + SQL Server app! Check out the next section to create an app using Ruby on Rails!</p>
+{% endmacro %}
+
+<!--Ruby on Rails -->
+{% macro rubyRails() %}
+<h4>Create a Ruby on Rails app that connects to SQL Server using the <a target="new" href="http://guides.rubyonrails.org/active_record_basics.html">Active Record ORM</a>. </h4>
+<p>Change to your home directory. Install Ruby on Rails (RoR)</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">gem install rails</code></pre>
+<p>Create a new RoR application and specify SQL Server as the database. This will create a new directory and install the gem dependencies required. This includes tiny_tds and <a target="new" href="https://github.com/rails-sqlserver/activerecord-sqlserver-adapter">activerecord-sqlserver-adapter.</a></p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">rails new SqlServerRailsSample --database=sqlserver</code></pre>
+<p>Open the database.yml file in your favorite text editor and update the default database information. Don't forget to update the username and password with your own. Save and close the file.</p>
+<pre><code class="language-yaml">
+default: &default
+  adapter: sqlserver
+  encoding: utf8
+  username: sa
+  password: your_password
+  host: localhost
+
+development:
+  &lt<: *default
+  database: SqlServerRailsSample_development
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  &lt<: *default
+  database: SqlServerRailsSample_test
+</code></pre>
+<p>Change into the project directory and set up the development and test databases.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">cd SqlServerRailsSample
+./bin/setup</code></pre>
+<p>Run your RoR application.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">./bin/rails server</code></pre>
+<pre><code class="language-results">=> Booting Puma
+=> Rails 5.0.2 application starting in development on http://localhost:3000
+=> Run `rails server -h` for more startup options
+Puma starting in single mode...
+* Version 3.8.2 (ruby 2.3.3-p222), codename: Sassy Salamander
+* Min threads: 5, max threads: 5
+* Environment: development
+* Listening on tcp://localhost:3000
+Use Ctrl-C to stop
+Started GET "/" for ::1 at 2017-03-15 14:26:40 -0700
+  SQL (20.8ms)  USE [SqlServerRailsSample_development]
+Processing by Rails::WelcomeController#index as HTML
+  Parameters: {"internal"=>true}
+  Rendering /usr/local/lib/ruby/gems/2.3.0/gems/railties-5.0.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/lib/ruby/gems/2.3.0/gems/railties-5.0.2/lib/rails/templates/rails/welcome/index.html.erb (4.0ms)
+Completed 200 OK in 58ms (Views: 9.7ms | ActiveRecord: 0.0ms)</code></pre>
+<p>From your web browser, visit <a href="http://localhost:3000">http://localhost:3000</a>. You should see the following image. </p>
+<p><img src="https://sqlchoice.blob.core.windows.net/sqlchoice/static/images/rails.png">
+
+{% endmacro %}
+
+<!--Ruby columnstore -->
+{% macro rubyColumnstore() %}
+{{macros.columnstoreSP1()}}   
+
+                            <p>To showcase the capabilities of Columnstore Indexes, let's create a table with 5 million rows with {{cliTool}}. The following T-SQL code will create a table with 5,000,000 rows of random data. From your home directory, create a new SQL script using the below command.</p>
+
+                            <pre class="command-line language-terminal" data-output="2-100" data-prompt="$"><code class="language-terminal">echo "WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a))
+SELECT TOP(5000000)
+ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId
+,a.a + b.a + c.a + d.a + e.a + f.a + g.a + h.a AS OrderId 
+,a.a * 10 AS Price
+,CONCAT(a.a, N' ', b.a, N' ', c.a, N' ', d.a, N' ', e.a, N' ', f.a, N' ', g.a, N' ', h.a) AS ProductName
+INTO Table_with_5M_rows
+FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;" > CreateSampleTable.sql </code></pre>
+
+   <P>Run the SQL script to create the new table in your database. It may take a few minutes to generate 5,000,000 rows for this example :)</P>
+
+                            <pre class="command-line language-terminal" data-output="8"  data-prompt="$"><code class="language-terminal">sqlcmd -S localhost -U sa -P your_password -d SampleDB -i ./SqlServerColumnstoreSample/CreateSampleTable.sql</code></pre>
+                            <p>Create a new directory for your project and install TinyTDS.</p>
+                            <pre class="command-line" data-prompt="$"><code class="language-terminal">cd ~/
+mkdir SqlServerColumnstoreSample
+cd SqlServerSample
+gem install tiny_tds</code></pre>
+                            <p>Using your favorite text editor, create a file called <b>columnstore.rb</b> in the <i>SqlServerColumnstoreSample</i> folder. Copy and paste the below code inside it. Save and close the file. </p>
+<pre><code class="language-ruby">require 'tiny_tds'  
+client = TinyTds::Client.new username: 'sa', password: 'your_password',  
+    host: 'localhost', port: 1433, database: 'SampleDB' 
+
+# time difference in milliseconds
+def time_diff_milli(start, finish)
+   (finish - start) * 1000.0
+end
+
+# read from table
+def columnstore(client)
+    t1 = Time.now
+    result = client.execute("SELECT SUM(Price) as sum FROM Table_with_5M_rows")
+    result.do
+    t2 = Time.now
+    msecs = time_diff_milli t1, t2    
+    puts "QueryTime: #{msecs} ms"
+end
+columnstore(client)</code></pre>
+
+<p>Run the file and monitor how long the query took to complete.</p> 
+                            <pre data-output="2" class="command-line language-terminal" data-prompt="$"><code class="language-terminal">ruby columnstore.rb</code></pre> 
+                            <pre><code class="language-results">QueryTime: 363 ms</code></pre>
+                            <p>Now let's add a columnstore index to your table. </p>
+                            <pre data-output="2" class="command-line language-terminal" data-prompt="$"><code class="language-terminal">sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q  "CREATE CLUSTERED COLUMNSTORE INDEX Columnstoreindex ON Table_with_5M_rows;"</code></pre>
+                            <p>Re-run the script and notice how long the query took to complete this time.</p>
+                            <pre data-output="2" class="command-line language-terminal" data-prompt="$"><code class="language-terminal">ruby columnstore.rb</code></pre>
+                            <pre><code class="language-results">QueryTime: 5 ms</code></pre>
+                            <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> The performance of the query was greatly improved!  
+                            <br>   Now that you've built a few Ruby apps with SQL Server, continue checking out other SQL Server features. </p>
+{% endmacro %}

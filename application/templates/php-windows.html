@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+{% import "phpmacros.html" as codemacros %} 
+{% block tutorialcontent %}
+
+               <h2>Create PHP apps using SQL Server on Windows</h2>
+               {{macros.introSentence("PHP","Windows machine")}}
+                <ol>
+                    <li>
+                        <div class="step-item">
+                            <span>1</span>
+                        </div>
+                        <div class="step-body">
+                            <div tabindex="1" class="step-header collapsible">
+                                <h3>Set up your environment <span class="expand-icon">+</span></h3>
+                                <p class="step-preview">In this section you will get SQL Server Developer edition running on your Windows machine. <span class="see-more">... <strong>See more</strong></span><span class="preview-content">After that you will install the necessary dependencies to run PHP through Chocolatey, and finally get sqlcmd to interact with it.</span></p>
+                            </div>    
+                            <span class="step-content">
+                                <!--install SQL Server on Windows-->
+                                {{macros.installSQLServeronWindows()}}
+                                
+                                
+                                <h4>Install PHP and Chocolatey</h4>
+                                <p> You can download PHP using the <b><a href="https://www.microsoft.com/web/downloads/platform.aspx">Web Platform Installer.</a></b> Once you download Web PI, open it up search for <b>PHP 7 x64 for IIS</b>. Download the entry which says <b>'PHP 7.0.9 (x64) for IIS Express'.</b></p>
+
+                                <p> Next, install Chocolatey. Chocolatey is a package manager like apt-get and yum for Windows. We will use Chocolatey later in the tutorial. Use an elevated Command-line session (run as administrator):</p>
+                                <pre class="command-line" data-prompt=">"><code class="language-terminal">@powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"</code></pre>
+                                <p>For Chocolatey to work, you now need to <strong>restart the terminal session</strong> by closing and opening the terminal.</p>
+                              
+
+                                <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You now have PHP and Chocolatey installed! The next section will walk you through getting the tools to interact with your database.</p>
+                                
+                                <h4>Install sqlcmd - A Command Line Utility for SQL Server</h4>
+                                <p>sqlcmd is a command line tool that enables you to connect to SQL Server and run queries. To do this you need to isntall, the <a href = "https://www.microsoft.com/en-us/download/details.aspx?id=53339"> ODBC Connecter </a> and <a href = "https://www.microsoft.com/en-us/download/details.aspx?id=53591"> sqlcmd. </a>Once you install both the msi's, open up cmd.exe and run the following command to connect and run a basic query.  </p>
+
+
+                                <pre data-output="1,3" class="command-line" data-prompt=">"><code class="language-terminal">#Don't forget to provide the password you have set for your SQL Server login.
+sqlcmd -S localhost -U sa -P yourpassword -Q "SELECT @@VERSION"</code></pre>
+
+<pre><code class="language-results"> 
+--------------------------------------------------------
+Microsoft SQL Server 2016 (RTM) - 13.0.1601.5 (X64)
+Apr 29 2016 23:23:58
+Copyright (c) Microsoft Corporation
+Developer Edition (64-bit) 
+
+1 rows(s) returned
+
+Executed in 1 ns.</code></pre>
+                                <p>Great! You just installed SQL Server on Windows and ran your first query against it :-):</p>
+                                <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;">You can now interact with the database with queries using this CLI tool! This is great for short queries and small returned result sets. To work with larger result sets, check out the <a href="#resources"> mssql extension for VS Code!</a></p>
+                            </span>
+                        </div>
+                    </li>
+                    <!-- START this section is for PHP SQL CRUD -->
+                    <li>
+                        <div class="step-item">
+                            <span>2</span>
+                        </div>
+                        <div class="step-body">
+                            <div tabindex="2" class="step-header collapsible">
+                                <h3>Create your PHP application with SQL Server <span class="expand-icon">+</span></h3>
+                                <p class="step-preview">After getting SQL Server and PHP on your Windows machine, you can now proceed to create your new PHP apps. <span class="see-more">... <strong>See more</strong></span><span class="preview-content">Here we will explore two simple applications. One of them will perform basic Insert, Update, Delete, and Select operations, while the second one will make use of <a target="new" href="https://laravel.com/"> Laravel</a>, a popular web framework for PHP to execute the same operations.</span></p>
+                            </div>
+                            <span class="step-content">
+                            {{codemacros.phpCRUDWindows()}}
+                            <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You created your first PHP + SQL Server app! Check out the next section to create a PHP app using an Larave!</p>
+                            {{codemacros.phpLaravelWindows()}}
+                            <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> Congrats you just created two PHP apps! Check out the next section to learn about how you can <b>make your PHP apps faster with SQL Server's Columnstore feature.</b></p>
+                            </span>
+                        </div>
+                    </li>
+                    <!-- END this section is for PHP ORM SQL CRUD -->
+                    <!-- START Columnstore-->
+                    <li>
+                        <div class="step-item">
+                            <span>3</span>
+                        </div>
+                        <div class="step-body">
+                            <div tabindex="3" class="step-header collapsible">
+                                <h3 id="section-3-title">Make your PHP app up to <strong>100x faster</strong> using Columnstore <span class="expand-icon">+</span></h3>
+                                <p class="step-preview">Now that you have explored the basics, you are ready to see how you can make your app better with SQL Server. <span class="see-more">... <strong>See more</strong></span>
+                                <span class="preview-content">In this module we will show you a simple example of <a href="https://msdn.microsoft.com/en-us/library/gg492088.aspx">Columnstore Indexes</a> and how they can improve data processing speeds. <b>Columnstore Indexes</b> can achieve up to 100x better performance on analytical workloads and up to 10x better data compression than traditional rowstore indexes.</span></p>
+                            </div>
+                            <span class="step-content">
+                                {{codemacros.phpColumnstoreWindows()}}
+                            </span>
+                        </div>
+                    </li>
+                    <!-- END Columnstore-->
+                    <li>
+                        <div class="step-item" id="resources">
+                            <span>+</span>
+                        </div>
+                        <div class="step-body">
+                            {{macros.installVSCodeExtension()}}   
+                        </div>
+                    </li>      
+                    <li>
+                        <div class="step-body">  
+                            {{macros.CTA("https://channel9.msdn.com/Events/Connect/2016/182", " SQL Server + PHP on Channel 9","https://msdn.microsoft.com/en-us/library/mt590198(v=sql.1).aspx")}}
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-item-tools">
+                        </div>
+                        <div class="step-body">
+                            {{macros.feedback()}}
+                        </div>
+                    </li>
+                </ol>
+
+<div id="disqus_thread"></div>
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//sqlchoice.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                 
+
+{% endblock %}

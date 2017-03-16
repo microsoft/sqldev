@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/2000px-Microsoft_logo.svg.png" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Build an App using SQL Server - Getting Started</title>
+    <link rel="stylesheet" href="https://deve2e.azureedge.net/sqlchoice/static/css/vin.css">
+    <link rel="stylesheet" href="https://deve2e.azureedge.net/sqlchoice/static/css/copy.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://deve2e.azureedge.net/sqlchoice/static/js/clipboard.js"></script>
+    <!--use highlight.js to color code-->
+    <link rel="stylesheet" href="https://deve2e.azureedge.net/sqlchoice/static/css/prism.css">
+    <script src="https://deve2e.azureedge.net/sqlchoice/static/js/prism.js"></script>
+    <!--for expanding sections-->
+    <script>
+         $(document).ready(function() {
+             $("span.step-content").each(function() {
+                 $(this).toggle();
+             });
+             $("span.preview-content").each(function() {
+                 $(this).toggle();
+             });
+             $("div.step-item span").click(function(event) {
+                 $(this).parent().parent().find("div.step-body").each(function(){
+                     $(this).parent().find("span.expand-icon").each(function(){
+                         if($(this).text() == "+"){
+                             $(this).text("-");
+                         }
+                         else{
+                             $(this).text("+");
+                         }
+                     });
+                     $(this).parent().find("span.step-content").slideToggle();
+                     $(this).parent().find("span.preview-content").slideToggle();
+                     $(this).parent().find("span.see-more").toggle();
+                 });
+             });
+             $("div.collapsible").click(function(event) {
+                $(this).find("span.expand-icon").each(function(){
+                    if($(this).text() == "+"){
+                        $(this).text("-");
+                    }
+                    else{
+                        $(this).text("+");
+                    }
+                });
+                $(this).parent().find("span.step-content").slideToggle();
+                $(this).parent().find("span.preview-content").slideToggle();
+                $(this).parent().find("span.see-more").toggle();
+                var sectionNum = $("div.collapsible").index(this) + 1;
+                ga("send", "event", {
+                    eventCategory: window.location.pathname,
+                    eventAction: "click_section_" + sectionNum
+                });
+             });
+
+             $("code").bind({
+                copy: function(event) {
+                    section = $(this).closest("div.step-body").find("div.collapsible");
+                    sectionNum = $("div.collapsible").index(section) + 1;
+                    ga("send", "event", {
+                        eventCategory: window.location.pathname,
+                        eventAction: "copy_code_section_" + sectionNum
+                    });
+                }, 
+                cut: function(event) {
+                    section = $(this).closest("div.step-body").find("div.collapsible");
+                    sectionNum = $("div.collapsible").index(section) + 1;
+                    ga("send", "event", {
+                        eventCategory: window.location.pathname,
+                        eventAction: "copy_code_section_" + sectionNum
+                    });
+                }
+            })
+
+            $("a").click(function(event) {
+                ga("send", "event", {
+                    eventCategory: window.location.pathname,
+                    eventAction: "click_link",
+                    eventLabel: event.target.href
+                });
+            })
+
+         });
+    </script>
+    <style>
+        .Terminal {
+            background: #295651 !important;
+        }
+
+        .SQL {
+            background: #8a0f1b !important;
+        }
+
+        .JavaScript {
+            background: #ab9807 !important;
+        }
+
+        .Results {
+            background: #458B00 !important;
+        }
+
+        .Java {
+            background: #c9720e !important;
+        }
+
+        .XML {
+            background: #1c66dd !important;
+        }
+
+        .csharp {
+            background: #8000ff !important;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+        (function(a,b,c,d){
+        a='//tags.tiqcdn.com/utag/msft/ce/prod/utag.js';
+        b=document;c='script';d=b.createElement(c);d.src=a;d.type='text/java'+c;d.async=true;
+        a=b.getElementsByTagName(c)[0];a.parentNode.insertBefore(d,a);
+        })();
+    </script>
+    <div class="fixed-global-nav-buffer"></div>
+    <div class="jumbotron">
+        <div class="container">
+            <header>
+                <nav>
+                    <ul> 
+                        <li>
+                            <a href="https://www.microsoft.com/en-us/sql-server/developer-tools">Get SQL Tools</a>
+                        </li>
+                        <li>
+                            <a href="https://blogs.technet.microsoft.com/dataplatforminsider/">SQL Blog</a>
+                        </li>
+                        <li>
+                            <a href="https://channel9.msdn.com/Tags/sql+server">SQL Videos</a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+            <h1>Build an intelligent app with SQL Server and R</h1>
+            <h2>It's easy to get started with SQL Server R Services</h2>
+            <h3>
+                What are you waiting for? Let's make your apps intelligent!
+            </h3>
+        </div>
+    </div>
+    <div class="container">
+        <div class="steps">
+            {% block tutorialcontent %}
+            {% endblock %}
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"></script>
+            <script>
+               (window.jQuery || document.write("\u003Cscript src=\u0022\/net\/lib\/jquery\/dist\/jquery.min.js\u0022\u003E\u003C\/script\u003E"));
+            </script>
+            <script>
+               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+               ga('create', 'UA-62780441-15', 'auto');
+               ga('send', 'pageview');
+            </script>
+            <script>
+               (function(){
+
+                   // Get the elements.
+                   // - the 'pre' element.
+                   // - the 'div' with the 'paste-content' id.
+
+                   var pre = document.getElementsByTagName('pre');
+                   var pasteContent = document.getElementById('paste-content');
+
+                   // Add a copy button in the 'pre' element.
+                   // which only has the className of 'language-'.
+
+                   for (var i = 0; i < pre.length; i++) {
+                       var isLanguage = pre[i].children[0].className.indexOf('language-');
+                       var isResult = pre[i].children[0].className.indexOf('language-results');
+                       if ( isLanguage === 0 && isResult !== 0 ) {
+                           var button = document.createElement('button');
+                           button.className = 'copy-button';
+                           button.textContent = 'Copy';
+                           pre[i].appendChild(button);
+                       }
+                   };
+
+                   // Run Clipboard
+
+                   var copyCode = new Clipboard('.copy-button', {
+                       target: function(trigger) {
+                           return trigger.previousElementSibling;
+                   }
+                   });
+
+                   // On success:
+                   // - Change the "Copy" text to "Copied".
+                   // - Swap it to "Copy" in 2s.
+                   // - Lead user to the "contenteditable" area with Velocity scroll.
+
+                   copyCode.on('success', function(event) {
+                       event.clearSelection();
+                       event.trigger.textContent = 'Copied';
+                       window.setTimeout(function() {
+                           event.trigger.textContent = 'Copy';
+                       }, 2000);
+
+                       $.Velocity(pasteContent, 'scroll', {
+                           duration: 1000
+                       });
+                   });
+
+                   // On error (Safari):
+                   // - Change the  "Press Ctrl+C to copy"
+                   // - Swap it to "Copy" in 2s.
+
+                   copyCode.on('error', function(event) {
+                       event.trigger.textContent = 'Press "Ctrl + C" to copy';
+                       window.setTimeout(function() {
+                           event.trigger.textContent = 'Copy';
+                       }, 1000);
+                   });
+               })();
+            </script>
+        </div>
+    </div>
+</body>
+</html>

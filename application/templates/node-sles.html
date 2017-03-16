@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+{% import "nodejsmacros.html" as codemacros %}
+{% block tutorialcontent %}
+
+
+ <h2>Create Node.js apps using SQL Server on SLES</h2>
+                 {{macros.introSentence("Node.js","SUSE Enterprise Linux Server (SLES) 12 SP2 machine")}}
+                <ol>
+                    <li>
+                        <div class="step-item">
+                            <span>1</span>
+                        </div>
+                        <div class="step-body">
+                            <div tabindex="1" class="step-header collapsible">
+                                <h3>Set up your environment <span class="expand-icon">+</span></h3>
+                                <p class="step-preview">In this section you will get SQL Server vNext running on your SUSE machine. <span class="see-more">... <strong>See more</strong></span><span class="preview-content">After that you will install the necessary dependencies to run Node.js.</span></p>
+                            </div>
+                            <span class="step-content">
+                                <!--install SQL Server on SLES-->
+                                {{macros.installSQLServerOnSLES()}}
+
+                <h4>Install Node.js</h4>
+                <p>If you already have Node.js installed on your machine, skip this step. To install the Node.js package, you first need to enable the Web and Scripting module in the subscription.</p>
+                <pre data-output="10-100" class="command-line" data-prompt="$">
+                <code class="language-terminal">sudo zypper in -t patch SUSE-SLE-Module-Web-Scripting-12-2015-427=1</code></pre>
+                
+                <p>  Install Node.js by updating the repository lists and then installing the nodejs6 package.</p>
+                <pre data-output="2-100" class="command-line" data-prompt="$"><code class="language-terminal">sudo zypper refresh
+sudo zypper install nodejs6
+</code></pre>
+
+<p>You can verify your Node.js installation using this command:</p>
+<pre data-output="2-100" class="command-line" data-prompt="$"><code class="language-terminal">node -v</code></pre>
+                                <pre><code class="language-results">v.6.9.5</code></pre>
+                                <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You now have Node.js installed! The next section will walk you through getting the tools to interact with your database.</p>
+                                
+                                <h4>Install sql-cli - A Node.js Command Line Utility for SQL Server</h4>
+                                <p>sql-cli is a command line tool that enables you
+                                to connect to SQL Server and run queries.</p>
+                                <p>Run the following commands in a terminal session to install the sql-cli
+                                utility, start it using the mssql command, and connect to SQL Server. Don't forget to provide the password you have set for your SQL Server login.</p>
+
+
+                                <pre data-output="3-6" class="command-line" data-prompt="$"><code class="language-terminal">sudo npm install -g sql-cli</code></pre>
+                                <pre data-output="3-6" class="command-line" data-prompt="$"><code class="language-terminal">#Don't forget to provide the password you have set for your SQL Server login.
+mssql -s localhost -u sa -p your_password</code></pre>
+
+<pre><code class="language-results"> 
+Connecting to localhost...done
+
+sql-cli version 0.4.6
+Enter ".help" for usage hints.</code></pre>
+                                <p>Run a basic query.</p>
+                                                                <pre data-output="2-11" class="command-line" data-prompt="mssql>"><code class="language-terminal">SELECT @@version;</code></pre>
+
+<pre><code class="language-results"> 
+--------------------------------------------------------
+Microsoft SQL Server vNext (CTP1.3) - 14.0.304.100 (X64)
+        Feb  8 2017 04:21:38
+        Copyright (C) 2016 Microsoft Corporation. All rights reserved.
+        on Linux (SUSE Linux Enterprise Server 12 SP2)
+
+1 rows(s) returned
+
+Executed in 1 ns 
+</code></pre>
+                                <p>Great! You just installed SQL Server on your SUSE machine and ran your first query against it :-)<br/>Now exit sql-cli using the following command:</p>
+                                <pre data-output="2-11" class="command-line" data-prompt="mssql>"><code class="language-terminal">.quit</code></pre>
+                                <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;">You can now interact with the database with queries using this CLI tool! This is great for short queries and small returned result sets. To work with larger result sets, check out the<a href="#resources"> mssql extension for VS Code!</a></p>
+                            </span>
+                        </div>
+                    </li>
+                    <!-- START this section is for Node SQL CRUD -->
+                    <li>
+                        <div class="step-item">
+                            <span>2</span>
+                        </div>
+                        <div class="step-body">
+                            <div tabindex="2" class="step-header collapsible">
+                                <h3>Create your Node.js application with SQL Server <span class="expand-icon">+</span></h3>
+                                <p class="step-preview">After getting SQL Server and Node.js on your SUSE machine, you can now proceed to create your new Node.js projects. <span class="see-more">... <strong>See more</strong></span><span class="preview-content">Here we will explore two simple applications. One of them will perform basic Insert, Update, Delete, and Select operations, while the second one will make use of <a href="http://docs.sequelizejs.com/en/v3/">Sequelize</a>, one of the most popular Node.js Object-relational mappers, to execute the same operations.</span></p>
+                            </div>
+                            <span class="step-content">
+                            {{codemacros.nodeUnixCRUD()}}
+                            {{codemacros.nodeUnixORM()}}
+                            </span>
+                        </div>
+                    </li>
+                    <!-- END this section is for Node ORM SQL CRUD -->
+                    <!-- START Columnstore-->
+                    <li>
+                        <div class="step-item">
+                            <span>3</span>
+                        </div>
+                        <div class="step-body">
+                            <div tabindex="3" class="step-header collapsible">
+                                <h3 id="section-3-title">Make your Node.js app up to <strong>100x faster</strong> using Columnstore <span class="expand-icon">+</span></h3>
+                                <p class="step-preview">Now that you have explored the basics, you are ready to see how you can make your app better with SQL Server. <span class="see-more">... <strong>See more</strong></span>
+                                <span class="preview-content">In this module we will show you a simple example of <a href="https://msdn.microsoft.com/en-us/library/gg492088.aspx">Columnstore Indexes </a> and how they can improve data processing speeds. <b>Columnstore Indexes</b> can achieve up to 100x better performance on analytical workloads and up to 10x better data compression than traditional rowstore indexes.</span></p>
+                            </div>
+                            <span class="step-content">
+                                {{codemacros.nodeUnixColumnStore()}}
+                            </span>
+                        </div>
+                    </li>
+                    <!-- END Columnstore-->
+                      <li>
+                        <div class="step-item" id="resources">
+                            <span>+</span>
+                        </div>
+                        <div class="step-body">
+                            {{macros.installVSCodeExtension()}}   
+                        </div>
+                    </li>      
+                    <li>
+                        <div class="step-body">  
+                            {{macros.CTA("https://channel9.msdn.com/Events/Connect/2016/160", " SQL Server + Node.js on Channel 9", "https://docs.microsoft.com/en-us/sql/linux/")}}
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-item-tools">
+                        </div>
+                        <div class="step-body">
+                            {{macros.feedback()}}
+                        </div>
+                    </li>
+                </ol>
+ {{codemacros.discus()}}
+
+{% endblock %}

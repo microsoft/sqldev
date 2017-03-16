@@ -1,0 +1,358 @@
+<!--install SQL Server on Mac-->
+{% macro sqlcmdWindows()%}
+<pre class="command-line language-terminal" data-prompt=">"><code class="language-terminal">
+
+sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE SCHEMA TestSchema;"
+sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE TABLE TestSchema.Employees (Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, Name NVARCHAR(50), Location NVARCHAR(50));"
+sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "INSERT INTO TestSchema.Employees (Name, Location) VALUES (N'Jared', N'Australia'), (N'Nikita', N'India'), (N'Tom', N'Germany');"
+sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "SELECT * FROM TestSchema.Employees;"
+
+
+</code></pre>
+{% endmacro %}
+
+
+{% macro sqlcmdLinux()%}
+<pre class="command-line language-terminal" data-prompt="$"><code class="language-terminal">
+
+sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE SCHEMA TestSchema;"
+sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE TABLE TestSchema.Employees (Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, Name NVARCHAR(50), Location NVARCHAR(50));"
+sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "INSERT INTO TestSchema.Employees (Name, Location) VALUES (N'Jared', N'Australia'), (N'Nikita', N'India'), (N'Tom', N'Germany');"
+sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "SELECT * FROM TestSchema.Employees;"
+
+
+</code></pre>
+{% endmacro %}
+{% macro installSQLServerOnMac()%}
+<h4>Install SQL Server</h4>
+	<p>1. In order to run SQL Server on your Mac you need to <a href="https://docs.docker.com/engine/installation/mac/">install Docker</a>.
+	<br> 2. Configure at least 4GB of memory for your Docker environment, also consider adding multiple cores if you want to evaluate performance. You can do this in the <a href="https://docs.docker.com/docker-for-mac/#preferences">Docker Preferences option</a> on the menu bar. 
+	<br> 3. Next, start a new <b>Terminal prompt</b> and use the following commands to download and start the <b>SQL Server on Linux</b> Docker image. Make sure to use a strong password with special characters.</p>
+	<pre class="command-line" data-prompt="$"><code id="install_sqlserver" class="language-terminal">sudo docker pull microsoft/mssql-server-linux
+docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=yourStrong(!)Password' -p 1433:1433 -d microsoft/mssql-server-linux</code></pre>
+	<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You now have SQL Server running locally in Docker! Check out the next section to continue installing prerequisites.</p>
+{% endmacro %}
+
+<!--install SQL Server on Windows-->
+{% macro installSQLServeronWindows()%}
+<h4>Install SQL Server on Windows</h4>
+<p>1. If you don’t have SQL Server 2016 Developer (or above) installed, head over to <a id="install_sqlserver" href="https://my.visualstudio.com/Downloads?q=SQL%20Server%202016%20Developer">Visual Studio Dev Essentials</a> and sign-in with your Microsoft account if prompted.
+<br> 2.	Under <b>SQL Server 2016 Developer</b>, click the link: "<b>Click here to utilize the SQL installer</b>""
+<br> 3. Save the file SQLServer2016-SSEI-Dev.exe and run it to start the SQL installer
+<br> 4. Click <b>Basic</b> in *Select an installation type*
+<br> 5. Click <b>Accept</b> after you have read the license terms
+<br> 6. (Optional) if you need to, you can choose a custom installation location for SQL Server
+<br> 7. Click <b>Install</b> to proceed with the installation</p>
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You now have SQL Server installed and running locally on your Windows computer! Check out the next section to continue installing prerequisites.</p>
+{% endmacro %}
+
+{% macro columnstoreSP1 ()%}
+
+<p><i><b>Note!</b> With the introduction of Service Pack 1 for SQL Server 2016, features in the database engine related to application development are now available across all editions of SQL Server (from Express through Enterprise). This includes innovations that can significantly improve your application’s throughput, latency, and security. Examples include the in-memory columnstore used in this tutorial, in-memory OLTP, data compression, table partitioning, Hadoop integration with PolyBase, Always Encrypted, row-level security, and data masking. Enjoy!</i></p>
+ 
+{% endmacro %}
+
+<!--install SQL Server on Ubuntu -->
+{% macro installSQLServerOnUbuntu()%}
+<h4>Install SQL Server on Ubuntu 16.04</h4>
+Note: To ensure optimal performance of SQL Server, your machine should have at least <b>4 GB</b> of memory.<br/>
+If you need to get Ubuntu, check out the <a href="https://www.ubuntu.com/download/desktop">Ubuntu Downloads website</a>. 
+<p>1. In order to install SQL Server on Ubuntu Linux, you need to add GPG keys using the following command and register the repository.</p>
+<pre class="command-line" data-prompt="$"><code id="register_repo" class="language-terminal">sudo su
+curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+curl https://packages.microsoft.com/config/ubuntu/16.04/mssql-server.list > /etc/apt/sources.list.d/mssql-server.list
+exit</code></pre>
+<p>2. Update the repository list and install the mssql-server package.</p>
+<pre class="command-line" data-prompt="$"><code id="install_sqlserver" class="language-terminal">sudo apt-get update
+sudo apt-get install mssql-server</code></pre>
+<pre><code class="language-results">Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following NEW packages will be installed:
+  mssql-server
+...
+Unpacking mssql-server ...
+Setting up mssql-server ...</code></pre>
+<p>3. Run the mssql-conf utility and follow the prompts to accept the End-User License Agreement, set up the database System Administrator (SA) password and set the service configuration parameters.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">sudo /opt/mssql/bin/mssql-conf setup</code></pre>
+<pre><code class="language-results">Microsoft(R) SQL Server(R) Setup
+
+To abort setup at anytime, press Ctrl-C.
+
+The license terms for this product can be downloaded from http://go.microsoft.com/fwlink/?LinkId=746388 and
+found in /usr/share/doc/mssql-server/LICENSE.TXT.
+
+Do you accept the license terms? If so, please type YES:
+Please enter a password for the system administrator (SA) account:
+Please confirm the password for the system administrator (SA) account:</code></pre>
+{% endmacro %} 
+
+
+<!--install SQL Server on RHEL-->
+{% macro installSQLServerOnRHEL()%}
+<h4>Install SQL Server on RHEL 7.2</h4>
+Note: To ensure optimal performance of SQL Server, your machine should have at least <b>4 GB</b> of memory.<br/>
+If you need to get Red Hat, check out the <a href="http://developers.redhat.com/products/rhel/get-started/">Red Hat Developer portal</a>.
+<p>1. In order to install SQL Server in Red Hat, download the repository configuration file and register it using the commands below</p>
+<pre class="command-line" data-prompt="$"><code id="register_repo" class="language-terminal">sudo su
+curl https://packages.microsoft.com/config/rhel/7/mssql-server.repo > /etc/yum.repos.d/mssql-server.repo
+exit</code></pre>
+<p>2. Update the repository list and install the mssql-server package.</p>
+<pre class="command-line" data-prompt="$"><code id="install_sqlserver" class="language-terminal">sudo yum update
+sudo yum install mssql-server</code></pre>
+<p>3. Run the mssql-conf utility and follow the prompts to accept the End-User License Agreement, set up the database System Administrator (SA) password and set the service configuration parameters.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">sudo /opt/mssql/bin/mssql-conf setup</code></pre>
+<pre><code class="language-results">Microsoft(R) SQL Server(R) Setup
+
+To abort setup at anytime, press Ctrl-C.
+
+The license terms for this product can be downloaded from http://go.microsoft.com/fwlink/?LinkId=746388 and
+found in /usr/share/doc/mssql-server/LICENSE.TXT.
+
+Do you accept the license terms? If so, please type YES:
+Please enter a password for the system administrator (SA) account:
+Please confirm the password for the system administrator (SA) account:</code></pre>
+
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You now have SQL Server running locally on your machine! Check out the next section to continue installing prerequisites.</p>                  
+{% endmacro %}
+
+
+
+
+<!--install SQL Server on SLES-->
+{% macro installSQLServerOnSLES()%}
+<h4>Install SQL Server on SLES 12 SP2</h4>
+Note: To ensure optimal performance of SQL Server, your machine should have at least <b>4 GB</b> of memory.<br/>
+If you need to get SUSE Linux Enterprise Server, check out the page <a href="https://www.suse.com/products/server/">here</a>.
+<p>1. In order to install SQL Server on SLES, add the Microsoft Linux Repository, import the keys and install the SQL Server package using zypper</p>
+<pre class="command-line" data-prompt="$"><code id="register_repo" class="language-terminal">sudo zypper addrepo -fc https://packages.microsoft.com/config/sles/12/mssql-server.repo
+sudo zypper --gpg-auto-import-keys refresh
+exit
+sudo zypper update
+sudo zypper install mssql-server</code></pre>
+<p>2. Run the mssql-conf utility and follow the prompts to accept the End-User License Agreement, set up the database System Administrator (SA) password and set the service configuration parameters.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">sudo /opt/mssql/bin/mssql-conf setup</code></pre>
+<pre><code class="language-results">Microsoft(R) SQL Server(R) Setup
+
+To abort setup at anytime, press Ctrl-C.
+
+The license terms for this product can be downloaded from http://go.microsoft.com/fwlink/?LinkId=746388 and
+found in /usr/share/doc/mssql-server/LICENSE.TXT.
+
+Do you accept the license terms? If so, please type YES:
+Please enter a password for the system administrator (SA) account:
+Please confirm the password for the system administrator (SA) account:</code></pre>
+
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You now have SQL Server running locally on your machine! Check out the next section to continue installing prerequisites.</p>                  
+{% endmacro %}
+
+<!--install VS Code and mssql extension-->
+{% macro installVSCodeExtension()%}
+		<div tabindex="4" class="step-header collapsible">
+		<h3>Try the <b>mssql</b> extension for Visual Studio Code!<span class="expand-icon">+</span></h3>
+		<p class="step-preview">Use the <b>mssql</b> extension for VS Code to connect to SQL Server running in Linux, Windows or Docker, Azure SQL DB and Azure SQL DW. <span class="see-more">... <strong>See more</strong></span>
+		<span class="preview-content">Get rich T-SQL language services (ex. IntelliSense and keyword completion), while typing queries and run your queries to see results – all within VS Code and on Linux, Mac and Windows</span></p>
+	</div>
+	<span class="step-content">
+	<p>Follow the steps  <a target="new" href="https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-develop-use-vscode">here</a> to install and use the <b>mssql</b> extension for VS Code.
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/VSCode_Extension.png" alt="VSCode_Extension"></p>
+</span>
+{% endmacro %}
+
+<!--Generic calls to action-->
+{% macro CTA(videolink, videotext, docslink)%}
+ 
+<div id="read-the-docs" style="display:block; text-align:center;">
+    <a href="{{docslink}}" class="btn btn-primary" style="display:inline-block; font-size:24px; margin:20px auto 30px auto;">Read the Docs</a>
+</div>
+
+<h3>Check out other related tutorials and SQL Server features!</h3>
+<ul>
+    <li>Read the <a href="{{docslink}}"> SQL Server documentation</a></li>
+	<li>Check out what's new with <a href="{{videolink}}"> {{videotext}}</a></li>
+	<li>Browse more SQL Server code samples (In-Memory, Dynamic Data Masking, R, etc.) on our <a href="https://github.com/Microsoft/sql-server-samples/tree/master/samples/"> GitHub repository</a></li>
+	<li>Learn more about <a href="https://channel9.msdn.com/Events/Connect/2016/101">SQL Server on Linux</a></li>
+	<li>Watch more <a href="https://channel9.msdn.com/Events/Connect/2016">Connect(); event videos</a></li>
+	<li>Browse our <a href="https://technet.microsoft.com/en-us/virtuallabs">Virtual Labs Gallery</a></li>
+</ul>
+
+<br>
+{% endmacro %}
+
+<!--Generic calls to action-->
+{% macro rubyCTA(docslink)%}
+ 
+<div id="read-the-docs" style="display:block; text-align:center;">
+    <a href="{{docslink}}" class="btn btn-primary" style="display:inline-block; font-size:24px; margin:20px auto 30px auto;">Read the Docs</a>
+</div>
+
+<h3>Check out other related tutorials and SQL Server features!</h3>
+<ul>
+    <li>Read the <a href="{{docslink}}"> SQL Server documentation</a></li>
+	<li>Browse more SQL Server code samples (In-Memory, Dynamic Data Masking, R, etc.) on our <a href="https://github.com/Microsoft/sql-server-samples/tree/master/samples/"> GitHub repository</a></li>
+	<li>Learn more about <a href="https://channel9.msdn.com/Events/Connect/2016/101">SQL Server on Linux</a></li>
+	<li>Watch more <a href="https://channel9.msdn.com/Events/Connect/2016">Connect(); event videos</a></li>
+	<li>Browse our <a href="https://technet.microsoft.com/en-us/virtuallabs">Virtual Labs Gallery</a></li>
+</ul>
+
+<br>
+{% endmacro %}
+
+<!--R calls to action-->
+{% macro RlangCTA()%}
+<h3>Check out other related tutorials and SQL Server features!</h3>
+<ul>
+    <li>Microsoft Data Science Summit <a href="https://channel9.msdn.com/Events/Machine-Learning-and-Data-Sciences-Conference/Data-Science-Summit-2016 ">Videos</a></li>
+    <li>Learn more about <a href="https://microsoft.github.io/RTVS-docs/">R Tools for Visual Studio</a></li>
+    <li>Browse more SQL Server R Services code samples on our <a href="https://github.com/NelGson/sql-server-samples/tree/master/samples/features/r-services"> GitHub repository</a></li>  
+    <li>Learn more about <a href="https://channel9.msdn.com/Events/Connect/2016/101">SQL Server on Linux</a></li>
+    <li>Watch more <a href="https://channel9.msdn.com/Events/Connect/2016">Connect(); event videos</a></li>
+    <li>Browse our <a href="https://technet.microsoft.com/en-us/virtuallabs">Virtual Labs Gallery</a></li>
+</ul>
+{% endmacro %}
+
+
+<!--sqlcmd on windows-->
+{% macro sqlcmdwindows()%}
+<h4>Install sqlcmd - A Command Line Utility for SQL Server</h4>
+<p>sqlcmd is a command line tool that enables you to connect to SQL Server and run queries. To do this you need to install, the <a href = "https://www.microsoft.com/en-us/download/details.aspx?id=53339"> ODBC Connecter </a> and <a href = "https://www.microsoft.com/en-us/download/details.aspx?id=53591"> sqlcmd. </a>Once you install both the msi's, open up cmd.exe and run the following command to connect and run a basic query.  </p>
+<pre data-output="3-6" class="command-line" data-prompt=">"><code class="language-terminal">#Don't forget to provide the password you have set for your SQL Server login.
+sqlcmd -S localhost -U sa -P yourpassword -Q "SELECT @@VERSION"</code></pre>
+
+<pre><code class="language-results"> --------------------------------------------------------
+Microsoft SQL Server 2016 (RTM) - 13.0.1601.5 (X64)
+Apr 29 2016 23:23:58
+Copyright (c) Microsoft Corporation
+Developer Edition (64-bit) 
+
+1 rows(s) returned
+
+Executed in 1 ns.</code></pre>
+<p>Great! You just installed SQL Server on Windows and ran your first query against it :-):</p>
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;">You can now interact with the database with queries using this CLI tool! This is great for short queries and small returned result sets. To work with larger result sets, check out the <a href="#resources">mssql extension for VS Code!</a>. </p>
+{% endmacro %}
+
+<!-- Install SQLCMD in Ubuntu using prod repo -->
+
+{% macro installSqlcmdUbuntu()%}
+<h4>Install sqlcmd Command Line Utility for SQL Server</h4>
+                                <p>sqlcmd is a command line tool that enables you to connect to SQL Server and run queries.</p>
+                                <p>Run the following commands in a terminal session to install the sqlcmd utility and connect to SQL Server. Don't forget to provide the password you have set for your SQL Server login.</p>
+
+
+                                <pre class="command-line" data-prompt="$"><code class="language-terminal">sudo su
+curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list > /etc/apt/sources.list.d/mssql-tools.list
+exit
+sudo apt-get update
+sudo ACCEPT_EULA=Y apt-get install mssql-tools
+sudo apt-get install unixodbc-dev
+echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
+echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
+source ~/.bashrc
+</code></pre>
+                
+                            <p>Run a basic query.</p>
+                               <pre data-output="2-11" class="command-line" data-prompt="$ mssql>"><code class="language-terminal">sqlcmd -S localhost -U sa -P yourpassword -Q "SELECT @@VERSION"</code></pre>
+
+                                <pre><code class="language-results"> 
+                                --------------------------------------------------------
+                                Microsoft SQL Server vNext (CTP1.3) - 14.0.304.100 (X64)
+                                    Feb  8 2017 04:21:38
+                                    Copyright (c) Microsoft Corporation
+                                    on Linux (Ubuntu 16.04)
+
+                                1 rows(s) returned
+
+                                Executed in 1 ns
+
+                                </code></pre>
+{% endmacro %}
+
+<!-- Install SQLCMD in RHEL using prod repo -->
+
+{% macro installSqlcmdRHEL()%}
+<h4>Install sqlcmd Command Line Utility for SQL Server</h4>
+                                <p>sqlcmd is a command line tool that enables you to connect to SQL Server and run queries.</p>
+                                <p>Run the following commands in a terminal session to install the sqlcmd utility and connect to SQL Server. Don't forget to provide the password you have set for your SQL Server login.</p>
+
+
+                                <pre class="command-line" data-prompt="$"><code class="language-terminal">sudo su
+curl https://packages.microsoft.com/config/rhel/7/prod.repo > /etc/yum.repos.d/mssql-tools.repo
+exit
+sudo ACCEPT_EULA=Y yum install mssql-tools
+sudo yum install unixODBC-devel
+echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
+echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
+source ~/.bashrc
+</code></pre>
+                
+                            <p>Run a basic query.</p>
+                               <pre data-output="2-11" class="command-line" data-prompt="$ mssql>"><code class="language-terminal">sqlcmd -S localhost -U sa -P yourpassword -Q "SELECT @@VERSION"</code></pre>
+
+                                <pre><code class="language-results"> 
+                                --------------------------------------------------------
+                                Microsoft SQL Server vNext (CTP1.3) - 14.0.304.100 (X64)
+                                    Feb  8 2017 04:21:38
+                                    Copyright (c) Microsoft Corporation
+                                    on Linux (Red Hat Enterprise Linux)
+
+                                1 rows(s) returned
+
+                                Executed in 1 ns
+
+                                </code></pre>
+{% endmacro %}
+
+
+{% macro installSqlcmdSLES()%}
+<h4>Install sqlcmd Command Line Utility for SQL Server</h4>
+                                <p>sqlcmd is a command line tool that enables you to connect to SQL Server and run queries.</p>
+                                <p>Run the following commands in a terminal session to install the sqlcmd utility and connect to SQL Server. Don't forget to provide the password you have set for your SQL Server login.</p>
+
+
+                                <pre class="command-line" data-prompt="$"><code class="language-terminal">sudo su
+sudo su 
+zypper ar https://packages.microsoft.com/config/sles/12/prod.repo 
+zypper update
+exit 
+sudo ACCEPT_EULA=Y zypper install msodbcsql mssql-tools 
+sudo zypper install unixODBC-devel
+#Create symlinks for tools
+echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
+echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
+source ~/.bashrc
+</code></pre>
+                
+                            <p>Run a basic query.</p>
+                               <pre data-output="2-11" class="command-line" data-prompt="$ mssql>"><code class="language-terminal">sqlcmd -S localhost -U sa -P yourpassword -Q "SELECT @@VERSION"</code></pre>
+
+                                <pre><code class="language-results"> 
+                                --------------------------------------------------------
+                                Microsoft SQL Server vNext (CTP1.3) - 14.0.304.100 (X64)
+                                        Feb  8 2017 04:21:38
+                                        Copyright (C) 2016 Microsoft Corporation. All rights reserved.
+                                        on Linux (SUSE Linux Enterprise Server 12 SP2)
+
+                                1 rows(s) returned
+
+                                Executed in 1 ns 
+                                </code></pre>
+{% endmacro %}
+
+<!--feedback on GitHub-->
+{% macro feedback()%}
+<h3>Have Questions?</h3>
+<p>Happy to help! You can find us on <a href="https://github.com/Microsoft/sql-server-samples/tree/master/samples/tutorials">GitHub</a>, <a href="https://social.msdn.microsoft.com/Forums/en-US/home">MSDN Forums</a>, and StackOverflow. We also monitor the <a href="https://twitter.com/search?q=%23SQLServerDev&src=typd">#SQLServerDev</a> hashtag on Twitter.</p>
+  <a href="http://db-engines.com/en/blog_post/67" target="_blank"><img class = "logobadge" alt="Database of the Year Badge" src="http://db-engines.com/pictures/doty2016.png" height="152" width="152"></a>
+
+{% endmacro %}
+
+<!--First sentence of samples-->
+{% macro introSentence(language, platform)%}
+ <div style="text-align: center;">
+    <div style="display: inline-block; text-align: left">
+        <p>At the end of this tutorial, you will have created a few {{language}} apps using SQL Server running on your {{platform}}. You will have also tried out some cool SQL Server features we think you'll love. </p>
+    </div>
+</div>
+{% endmacro %}
+

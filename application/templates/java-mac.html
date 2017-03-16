@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+{% import "javamacros.html" as codemacros %}
+{% block tutorialcontent %}
+ <h2>Create Java apps using SQL Server on a Mac</h2>
+                {{macros.introSentence("Java","Mac")}}
+                <ol>
+                    <li>
+                        <div class="step-item">
+                            <span>1</span>
+                        </div>
+                        <div class="step-body">
+                            <div tabindex="1" class="step-header collapsible">
+                                <h3>Set up your environment <span class="expand-icon">+</span></h3>
+                                <p class="step-preview">In this section, you will get SQL Server vNext running on Docker. <span class="see-more">... <strong>See more</strong></span><span class="preview-content">After that you will install the necessary dependencies to run Java.</span></p>
+                            </div>
+                            <span class="step-content">
+                                <!--install SQL Server on Mac-->
+                                {{macros.installSQLServerOnMac()}}
+                                <h4>Install Homebrew and Java</h4>
+                                <p> If you already have Java installed on your machine, skip this step. Install Homebrew, cask, and Java using the following commands. Once you have installed Homebrew, make sure to restart the terminal session. </p>
+                                <pre class="command-line" data-prompt="$"><code class="language-terminal">ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</code></pre>
+                                <p>For Homebrew to work, you need to <b>restart the terminal session</b> by closing and opening the terminal. Once you have opened a new session, update Homebrew and install Java. </p>
+                                <pre class="command-line" data-prompt="$"><code class="language-terminal">brew update
+brew cask install java</code></pre>
+                                <pre><code class="language-results">==> Tapping caskroom/cask
+Cloning into '/usr/local/Homebrew/Library/Taps/caskroom/homebrew-cask'...
+...
+==> Creating Caskroom at /usr/local/Caskroom
+==> Caveats
+...
+==> Downloading http://download.oracle.com/otn-pub/java/jdk/8u102-b14/jdk-8u102-macosx-x64.dmg
+######################################################################## 100.0%
+==> Verifying checksum for Cask java
+==> Running installer for java; your password may be necessary.
+==> Package installers may write to any location; options such as --appdir are ignored.
+==> installer: Package name is JDK 8 Update 102
+==> installer: Upgrading at base path /
+==> installer: The upgrade was successful.
+     java was successfully installed!
+</code></pre>
+                                
+                                <h4>Install Maven</h4>
+                                <p>Maven can be used to help manage dependencies, build, test and run your Java project. </p>
+                                <pre class="command-line" data-prompt="$"><code class="language-terminal">brew install maven</code></pre>
+                                <pre><code class="language-results">==> Using the sandbox
+==> Downloading https://www.apache.org/dyn/closer.cgi?path=maven/maven-3/3.3.9/binaries/apache-maven-3
+==> Best Mirror http://www-eu.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.
+######################################################################## 100.0%
+     /usr/local/Cellar/maven/3.3.9: 95 files, 9.6M, built in 6 seconds</code></pre>
+                                <p>Check that you have Maven properly installed by running the following command. </p>
+                                <pre class="command-line" data-prompt="$"><code class="language-terminal">mvn -v</code></pre>
+                                <pre><code class="language-results">Apache Maven 3.3.9 (bb52d8502b132ec0a5a3f4c09453c07478323dc5; 2015-11-10T08:41:47-08:00)
+Maven home: /Users/usr1/apache-maven-3.3.9
+Java version: 1.8.0_102, vendor: Oracle Corporation
+Java home: /Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk/Contents/Home/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "mac os x", version: "10.11.6", arch: "x86_64", family: "mac"</code></pre>                           
+                                
+                               
+                                <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You have successfully installed Java and Maven on your Mac. You now have everything you need to start writing your Java apps with SQL Server!</p>
+                    </li>
+                    <!-- START this section is for Java SQL CRUD -->
+                    <li>
+                        <div class="step-item">
+                            <span>2</span>
+                        </div>
+                        <div class="step-body">
+                            <div tabindex="2" class="step-header collapsible">
+                                <h3>Create your Java application with SQL Server <span class="expand-icon">+</span></h3>
+                                <p class="step-preview">After getting SQL Server, Java, and Maven on your Mac, you can now proceed to create your new Java projects. <span class="see-more">... <strong>See more</strong></span><span class="preview-content">Here we will explore two simple applications. One of them will perform basic Insert, Update, Delete, and Select operations, while the second one will make use of <a target="new" href="http://hibernate.org/orm/">Hibernate</a>, one of the most popular Java frameworks, to execute the same operations.</span></p>
+                            </div>
+                            <span class="step-content">
+                            {{codemacros.javaCRUD()}}
+                            <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You created your first Java + SQL Server app with Maven! Check out the next section to create a Java App using an ORM!</p>
+                            {{codemacros.javaHibernate()}}
+                            <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> Congrats you just created two Java apps! Check out the next section to learn about how you can <b>make your Java apps faster with SQL Server's Columnstore feature </b></p>
+                            </span>
+                        </div>
+                    </li>
+                    <!-- END this section is for Hibernate ORM SQL CRUD -->
+                    <!-- START Columnstore-->
+                    <li>
+                        <div class="step-item">
+                            <span>3</span>
+                        </div>
+                        <div class="step-body">
+                            <div tabindex="3" class="step-header collapsible">
+                                <h3 id="section-3-title">Make your Java app up to <strong>100x faster</strong> using Columnstore <span class="expand-icon">+</span></h3>
+                                <p class="step-preview">Now that you have explored the basics, you are ready to see how you can make your app better with SQL Server. <span class="see-more">... <strong>See more</strong></span>
+                                <span class="preview-content">In this module we will show you a simple example of <a href="https://msdn.microsoft.com/en-us/library/gg492088.aspx">Columnstore Indexes</a> and how they can improve data processing speeds. <b>Columnstore Indexes</b> can achieve up to 100x better performance on analytical workloads and up to 10x better data compression than traditional rowstore indexes.</span></p>
+                            </div>
+                            <span class="step-content">
+                            {{codemacros.javaColumnstore()}}
+                            </span>
+                        </div>
+                    </li>
+                    <!-- END Columnstore-->
+                    <li>
+                        <div class="step-item" id="resources">
+                            <span>+</span>
+                        </div>
+                        <div class="step-body">
+                            {{macros.installVSCodeExtension()}}   
+                        </div>
+                    </li>      
+                    <li>
+                        <div class="step-body">  
+                            {{macros.CTA("https://channel9.msdn.com/Events/Connect/2016/152", "SQL Server + Java on Channel 9", "https://docs.microsoft.com/en-us/sql/linux/")}}
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-item-tools">
+                        </div>
+                        <div class="step-body">
+                            {{macros.feedback()}}
+                        </div>
+                    </li>
+                </ol>
+ {{codemacros.discus()}}
+
+{% endblock %}

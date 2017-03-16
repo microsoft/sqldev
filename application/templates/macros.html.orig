@@ -1,0 +1,72 @@
+<!--install SQL Server on Mac-->
+{% macro installSQLServerOnMac()%}
+<h4>Install SQL Server</h4>
+	<p>1. In order to run SQL Server on your Mac you need to <a href="https://docs.docker.com/engine/installation/mac/">install Docker</a>.
+	<br> 2. Configure at least 4GB of memory for your Docker environment.
+	<br> 3. Next, start a new <b>Terminal prompt</b> and use the following commands to download and start the <b>SQL Server on Linux</b> Docker image. Make sure to use a strong password!</p>
+	<pre class="command-line" data-prompt="$"><code class="language-terminal">docker pull microsoft/mssql-server
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=your_password" -p 1433:1433 -d microsoft/mssql-server</code></pre>
+	<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You now have SQL Server running locally in Docker! Check out the next section to continue installing prerequisites.</p>
+{% endmacro %}
+
+<!--install SQL Server on Windows-->
+{% macro installSQLServeronWindows()%}
+<h4>Install SQL Server on Windows</h4>
+<p>1. Head over to <a href="https://my.visualstudio.com/Downloads?q=SQL%20Server%202016%20Developer">Visual Studio Dev Essentials</a> and sign-in with your Microsoft account if prompted.
+<br> 2.	Under <b>SQL Server 2016 Developer</b>, click the link: <b>Click here to utilize the SQL installer</b>
+<br> 3. Save the file SQLServer2016-SSEI-Dev.exe and run it to start the SQL installer
+<br> 4. Click <b>Basic</b> in *Select an installation type*
+<br> 5. Click <b>Accept</b> after you have read the license terms
+<br> 6. (Optional) if you need to, you can choose a custom installation location for SQL Server
+<br> 7. Click <b>Install</b> to proceed with the installation</p>
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You now have SQL Server installed and running locally on your Windows computer! Check out the next section to install Node and choco.</p>
+{% endmacro %}
+
+<!--install SQL Server on Linux-->
+{% macro installSQLServeronLinux()%}
+<h4>Install SQL Server on Ubuntu 16.04</h4>
+<p>1. In order to run SQL Server on Ubuntu Linux, you need to add GPG keys using the following command.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv ABC12345</code></pre>
+<pre><code class="language-results">PLACE HOLDER FOR RESULTS</code></pre>
+<p>2. Register the repository.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">sudo su
+echo "deb https://packages.microsoft.com/ubuntu/mssql-server main mssql" > /etc/apt/sources.list.d/mssql-server.list
+exit</code></pre>
+<pre><code class="language-results">PLACE HOLDER FOR RESULTS</code></pre>
+<p>3. Update the repository list.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">sudo apt-get update</code></pre>
+<pre><code class="language-results">PLACE HOLDER FOR RESULTS</code></pre>
+<p>4. Install the mssql-server package.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">sudo apt-get install mssql-server</code></pre>
+<pre><code class="language-results">PLACE HOLDER FOR RESULTS</code></pre>
+<p>5. Run the configuration script.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">sudo /opt/mssql/bin/sqlservr-setup</code></pre>
+<pre><code class="language-results">PLACE HOLDER FOR RESULTS</code></pre>
+
+<h4>Install SQL Server on Red Hat Enterprise Linux (RHEL)</h4>
+<p>1. In order to run SQL Server on RHEL, you need to set up your SQL Server repo. Create a new text file called <b>mssql-server.repo</b> in the folder <i>/etc/yum.repos.d.</i></p>
+<p>2. Paste the following into the new file you created.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">[mssql-server]
+name=mssql-server
+baseurl=https://repo.microsoft.com/rhel7/mssql-server
+gpgcheck=1
+enabled=1
+gpgkey=https://repo.microsoft.com/keys/dpgswdist.v1.asc
+</code></pre>
+<p>3. Update the repository list.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">sudo yum update</code></pre>
+<pre><code class="language-results">PLACE HOLDER FOR RESULTS</code></pre>
+<p>4. Install the mssql-server package.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">sudo yum install mssql-server</code></pre>
+<<pre><code class="language-results">PLACE HOLDER FOR RESULTS</code></pre>
+<p>5. Run the configuration script.</p>
+<pre class="command-line" data-prompt="$"><code class="language-terminal">sudo /opt/mssql/bin/sqlservr-setup</code></pre>
+<pre><code class="language-results">PLACE HOLDER FOR RESULTS</code></pre>
+
+<<<<<<< HEAD
+<p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You now have SQL Server running locally on your machine! Check out the next section to install Java.</p>
+=======
+                                <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You now have SQL Server running locally on your machine! Check out the next section to continue installing prerequisites.</p>
+>>>>>>> 46d44beb37a517891998f4b1c3efec85655a6f56
+                                
+{% endmacro %}

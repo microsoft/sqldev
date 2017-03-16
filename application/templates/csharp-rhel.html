@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+{% import "csharpmacros.html" as codemacros %}
+{% block tutorialcontent %}
+
+ <h2>Create C# apps using SQL Server on RHEL</h2>
+                 {{macros.introSentence("C#","Red Hat Enterprise Linux (RHEL) 7.2 machine")}}
+                <ol>
+                    <li>
+                        <div class="step-item">
+                            <span>1</span>
+                        </div>
+                        <div class="step-body">
+                            <div tabindex="1" class="step-header collapsible">
+                                <h3>Set up your environment <span class="expand-icon">+</span></h3>
+                                <p class="step-preview">In this section you will get SQL Server vNext running on your RHEL machine. <span class="see-more">... <strong>See more</strong></span><span class="preview-content">After that you will install the necessary dependencies to run .NET Core.</span></p>
+                            </div>
+                            <span class="step-content">
+                                <!--install SQL Server on RHEL-->
+                                {{macros.installSQLServerOnRHEL()}}
+                                <h4>Install .NET Core on RHEL 7.2</h4>
+                                <p> If you already have .NET Core installed on your machine, skip this step. Install .NET Core using the following commands.</p>
+                               
+                                You also need to ensure that your system supports enabling software collections via the <a target="new" href="https://access.redhat.com/documentation/en-US/Red_Hat_Developer_Toolset/1/html-single/Software_Collections_Guide/#sect-Enabling_the_Software_Collection">scl tool.</a></p>
+
+                                <br>1. Enable the .NET Core Channel. 
+                                <br>For help registering your machine to get access to the channel see <a target="new" href="https://access.redhat.com/documentation/en/net-core/1.0/getting-started-guide/chapter-1-install-net-core-100-on-red-hat-enterprise-linux"> Chapter 1  of the .NET Core Getting Started Guide. </a>
+                                <pre class="command-line" data-prompt="$"><code class="language-terminal">subscription-manager repos --enable=rhel-7-server-dotnet-rpms</code></pre>
+                                <br>2. Install scl-tools
+                                <pre class="command-line" data-prompt="$"><code class="language-terminal">yum install scl-utils</code></pre>
+                                <pre><code class="language-results">Loaded plugins: langpacks, product-id, search-disabled-repos
+...</code></pre>
+                                <br>3. Install .NET Core
+                                <pre class="command-line" data-prompt="$"><code class="language-terminal">yum install rh-dotnetcore10</code></pre>
+                                <pre><code class="language-results">Loaded plugins: langpacks, product-id, search-disabled-repos
+...</code></pre>
+                                <br>4. Enable the .NET Core software collection
+                                <pre class="command-line" data-prompt="$"><code class="language-terminal">scl enable rh-dotnetcore10 bash</code></pre>
+                                
+                                <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You have successfully installed .NET Core on your RHEL machine. You now have everything you need to start writing your C# apps with SQL Server!</p>
+                    </li>
+                    <!-- START this section is for C# SQL CRUD -->
+                    <li>
+                        <div class="step-item">
+                            <span>2</span>
+                        </div>
+                        <div class="step-body">
+                            <div tabindex="2" class="step-header collapsible">
+                                <h3>Create your C# application with SQL Server <span class="expand-icon">+</span></h3>
+                                <p class="step-preview">After getting SQL Server and .NET Core on your RHEL machine, you can now proceed to create your new C# projects. <span class="see-more">... <strong>See more</strong></span><span class="preview-content">Here we will explore two simple applications. One of them will perform basic Insert, Update, Delete, and Select operations, while the second one will make use of <a target="new" href="https://docs.efproject.net/en/latest/"> Entity Framework Core</a>, a popular object relational mapping (ORM) framework for .NET Core to execute the same operations.</span></p>
+                            </div>
+                            <span class="step-content">
+                            {{codemacros.csharpCoreCRUD()}}
+                            <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You created your first C# + SQL Server app with .NET Core on RHEL! Check out the next section to create a C# app using an ORM!</p>
+                            {{codemacros.csharpEFCore()}}
+                            <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> Congrats you just created two C# apps! Check out the next section to learn about how you can <b>make your C# apps faster with SQL Server's Columnstore feature.</b></p>
+                            </span>
+                        </div>
+                    </li>
+                    <!-- END this section is for C# ORM SQL CRUD -->
+                    <!-- START Columnstore-->
+                    <li>
+                        <div class="step-item">
+                            <span>3</span>
+                        </div>
+                        <div class="step-body">
+                            <div tabindex="3" class="step-header collapsible">
+                                <h3 id="section-3-title">Make your C# app up to <strong>100x faster</strong> using Columnstore <span class="expand-icon">+</span></h3>
+                                <p class="step-preview">Now that you have explored the basics, you are ready to see how you can make your app better with SQL Server. <span class="see-more">... <strong>See more</strong></span>
+                                <span class="preview-content">In this module we will show you a simple example of <a href="https://msdn.microsoft.com/en-us/library/gg492088.aspx">Columnstore Indexes</a> and how they can improve data processing speeds. <b>Columnstore Indexes</b> can achieve up to 100x better performance on analytical workloads and up to 10x better data compression than traditional rowstore indexes.</span></p>
+                            </div>
+                            <span class="step-content">
+                                {{codemacros.csharpColumnstore()}}
+                            </span>
+                        </div>
+                    </li>
+                    <!-- END Columnstore-->
+                   <li>
+                        <div class="step-item" id="resources">
+                            <span>+</span>
+                        </div>
+                        <div class="step-body">
+                            {{macros.installVSCodeExtension()}}   
+                        </div>
+                    </li>      
+                    <li>
+                        <div class="step-body">  
+                            {{macros.CTA("https://channel9.msdn.com/Events/Connect/2016/151", "SQL Server + C# on Channel 9", "https://docs.microsoft.com/en-us/sql/linux/")}}
+                        </div>
+                    </li>  
+                    <li>
+                        <div class="step-item-tools">
+                        </div>
+                        <div class="step-body">
+                            {{macros.feedback()}}
+                        </div>
+                    </li>
+                </ol>
+                 
+ {{codemacros.discus()}}
+
+{% endblock %}

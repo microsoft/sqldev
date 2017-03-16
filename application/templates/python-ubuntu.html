@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+{% import "codemacros.html" as codemacros %} 
+{% import "pythonTutorialMacros.html" as pythonmacros %}
+{% block tutorialcontent %}
+               
+<h2>Create Python apps using SQL Server on Ubuntu</h2>
+{{macros.introSentence("Python","Ubuntu 16.04 machine")}}
+<ol>
+    <li>
+        <div class="step-item">
+            <span>1</span>
+        </div>
+        <div class="step-body">
+            <div class="step-header collapsible">
+                <h3>Set up your environment 
+                    <span class="expand-icon">+</span>
+                </h3>
+                <p class="step-preview">In this section you will get SQL Server vNext running on your Ubuntu machine. 
+                    <span class="see-more">... 
+                        <strong>See more</strong>
+                    </span>
+                    <span class="preview-content">After that you will install the necessary dependencies to run Python, and finally get command line tools for SQL Server.</span>
+                </p>
+            </div>
+            <span class="step-content">
+                <!--install SQL Server on Ubuntu-->
+                        {{macros.installSQLServerOnUbuntu()}}
+                <h4>Install Python 2.7, pip, and Virtualenv</h4>
+                <p>Use the following commands to install Python and pip, a package manager for Python packages</p>
+                <pre data-output="2-100" class="command-line" data-prompt="$">
+                    <code class="language-terminal">sudo apt-get update
+sudo apt-get install python python-pip</code>
+                </pre>
+                <p> Installing Python packages by default enables you to access the package functionality 'globally', across all projects on your system. This is pretty convenient, but sometimes you may want to use different versions of your Python package for different projects. <a href="https://virtualenv.pypa.io/en/stable/">Virutalenv</a> enables you to create virtual environments to isolate package installations between projects. Run the line below to install virtualenv: </p>
+                <pre data-output="2-100" class="command-line" data-prompt="$">
+                    <code class="language-terminal">pip install virtualenv</code>
+                </pre>
+                <p>
+                    <img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You now have Python installed! The next section will walk you through getting the tools to interact with your database.
+                    </p>
+                    {{macros.installSqlcmdUbuntu()}}    
+                            <p>Great! You just installed SQL Server on Ubuntu and ran your first query against it :-)
+                                <br/>Now exit sqlcmd by pressing 
+                                <b> CTRL + C</b>
+                            </p>
+                            <p>
+                                <img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;">You can now interact with the database with queries using this CLI tool! This is great for short queries and small returned result sets. To work with larger result sets, check out the
+                                    <a href="#resources"> mssql extension for VS Code!</a>
+                                </p>
+                            </span>
+                        </div>
+                    </li>
+                    <!-- SECTION 2 START: CRUD and set up with Django -->
+                    <!-- Look into pythonTutorialsMacros for pythonApps(platform, terminalprompt, cliTool, cliCommand)-->
+                            {{pythonmacros.pythonApps("{ODBC Driver 13 for SQL Server}", "Ubuntu machine", "$", "SQLCMD", "sqlcmd -S localhost -U sa -P your_password", "source venv/bin/activate","'driver':'ODBC Driver 13 for SQL Server'")}} 
+    
+                    <!-- SECTION 2 END -->
+                    <!-- SECTION 3 START: make python apps faster with columnstore-->
+                    <!-- Look into pythonTutorialsMacros pythonColumnStore(terminalprompt, cliTool, cliReadFileCommand, cliQueryCommand)-->
+                            {{pythonmacros.pythonColumnStore("{ODBC Driver 13 for SQL Server}", "$", "SQLCMD", "sqlcmd -S localhost -U sa -P your_password -d SampleDB -i", "sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q", "source venv/bin/activate")}} 
+    
+                    <!-- END SECTION 3-->
+                   <li>
+                        <div class="step-item" id="resources">
+                            <span>+</span>
+                        </div>
+                        <div class="step-body">
+                            {{macros.installVSCodeExtension()}}   
+                        </div>
+                    </li>      
+                    <li>
+                        <div class="step-body">
+                        {{macros.CTA("https://channel9.msdn.com/Events/Connect/2016/189", "SQL Server + Python on Channel 9", "https://docs.microsoft.com/en-us/sql/linux/")}}
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-item-tools"></div>
+                        <div class="step-body">
+                        {{macros.feedback()}}
+                        </div>
+                    </li>
+                </ol>
+                {{codemacros.discus()}}
+{% endblock %}

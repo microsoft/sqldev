@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+{% import "csharpmacros.html" as codemacros %}
+{% block tutorialcontent %}
+
+ <h2>Create C# apps using SQL Server on SLES</h2>
+                {{macros.introSentence("C#","SUSE Enterprise Linux Server (SLES) 12 SP2 machine")}}
+                <ol>
+                    <li>
+                        <div class="step-item">
+                            <span>1</span>
+                        </div>
+                        <div class="step-body">
+                            <div tabindex="1" class="step-header collapsible">
+                                <h3>Set up your environment <span class="expand-icon">+</span></h3>
+                                <p class="step-preview">In this section you will get SQL Server vNext running on your SLES machine. <span class="see-more">... <strong>See more</strong></span><span class="preview-content">After that you will install the necessary dependencies to run .NET Core.</span></p>
+                            </div>
+                            <span class="step-content">
+                                <!--install SQL Server on SLES-->
+                                {{macros.installSQLServerOnSLES()}}
+                                <h4>Install .NET Core on SLES 12 SP2</h4>
+                                <p> If you already have .NET Core installed on your machine, skip this step. Install .NET Core using the following commands.</p>
+                                <pre class="command-line" data-prompt="$"><code class="language-terminal">sudo zypper install libunwind
+wget http://download.opensuse.org/source/distribution/13.2/repo/oss/suse/src/icu-53.1-2.3.2.src.rpm
+curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?LinkID=835027
+sudo mkdir -p /opt/dotnet && sudo tar zxf dotnet.tar.gz -C /opt/dotnet
+sudo ln -s /opt/dotnet/dotnet /usr/local/bin
+</code></pre>
+                 <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You have successfully installed .NET Core on your SLES machine. You now have everything you need to start writing your C# apps with SQL Server!</p>
+                    </li>
+                    <!-- START this section is for C# SQL CRUD -->
+                    <li>
+                        <div class="step-item">
+                            <span>2</span>
+                        </div>
+                        <div class="step-body">
+                            <div tabindex="2" class="step-header collapsible">
+                                <h3>Create your C# application with SQL Server <span class="expand-icon">+</span></h3>
+                                <p class="step-preview">After getting SQL Server and .NET Core on your SLES machine, you can now proceed to create your new C# projects. <span class="see-more">... <strong>See more</strong></span><span class="preview-content">Here we will explore two simple applications. One of them will perform basic Insert, Update, Delete, and Select operations, while the second one will make use of <a target="new" href="https://docs.efproject.net/en/latest/"> Entity Framework Core</a>, a popular object relational mapping (ORM) framework for .NET Core to execute the same operations.</span></p>
+                            </div>
+                            <span class="step-content">
+                            {{codemacros.csharpCoreCRUD()}}
+                            <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> You created your first C# + SQL Server app with .NET Core on SLES! Check out the next section to create a C# app using an ORM!</p>
+                            {{codemacros.csharpEFCore()}}
+                            <p><img src="https://deve2e.azureedge.net/sqlchoice/static/images/completeStar.png" alt="goldstar" style="width:25px;height:25px;"> Congrats you just created two C# apps! Check out the next section to learn about how you can <b>make your C# apps faster with SQL Server's Columnstore feature.</b></p>
+                            </span>
+                        </div>
+                    </li>
+                    <!-- END this section is for C# ORM SQL CRUD -->
+                    <!-- START Columnstore-->
+                    <li>
+                        <div class="step-item">
+                            <span>3</span>
+                        </div>
+                        <div class="step-body">
+                            <div tabindex="3" class="step-header collapsible">
+                                <h3 id="section-3-title">Make your C# app up to <strong>100x faster</strong> using Columnstore <span class="expand-icon">+</span></h3>
+                                <p class="step-preview">Now that you have explored the basics, you are ready to see how you can make your app better with SQL Server. <span class="see-more">... <strong>See more</strong></span>
+                                <span class="preview-content">In this module we will show you a simple example of <a href="https://msdn.microsoft.com/en-us/library/gg492088.aspx">Columnstore Indexes</a> and how they can improve data processing speeds. <b>Columnstore Indexes</b> can achieve up to 100x better performance on analytical workloads and up to 10x better data compression than traditional rowstore indexes.</span></p>
+                            </div>
+                            <span class="step-content">
+                                {{codemacros.csharpColumnstore()}}
+                            </span>
+                        </div>
+                    </li>
+                    <!-- END Columnstore-->
+                   <li>
+                        <div class="step-item" id="resources">
+                            <span>+</span>
+                        </div>
+                        <div class="step-body">
+                            {{macros.installVSCodeExtension()}}   
+                        </div>
+                    </li>      
+                    <li>
+                        <div class="step-body">  
+                            {{macros.CTA("https://channel9.msdn.com/Events/Connect/2016/151", "SQL Server + C# on Channel 9", "https://docs.microsoft.com/en-us/sql/linux/")}}
+                        </div>
+                    </li>  
+                    <li>
+                        <div class="step-item-tools">
+                        </div>
+                        <div class="step-body">
+                            {{macros.feedback()}}
+                        </div>
+                    </li>
+                </ol>
+
+ {{codemacros.discus()}}
+
+
+{% endblock %}
