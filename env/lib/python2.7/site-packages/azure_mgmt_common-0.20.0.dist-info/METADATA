@@ -1,0 +1,31 @@
+Metadata-Version: 2.0
+Name: azure-mgmt-common
+Version: 0.20.0
+Summary: Microsoft Azure Resource Management Client Library for Python (Common)
+Home-page: https://github.com/Azure/azure-sdk-for-python
+Author: Microsoft Corporation
+Author-email: ptvshelp@microsoft.com
+License: Apache License 2.0
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: License :: OSI Approved :: Apache Software License
+Requires-Dist: azure-common
+Requires-Dist: azure-mgmt-nspkg
+
+Microsoft Azure SDK for Python
+==============================
+
+This is the Microsoft Azure Resource Management common code.
+
+This package provides shared code by the Azure Management packages.
+
+If you are looking to install the Azure client libraries, see the
+`azure <https://pypi.python.org/pypi/azure>`__ bundle package.
+
+
