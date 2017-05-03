@@ -2,7 +2,7 @@
 layout: page-steps
 language: Python
 title: macOS
-permalink: /py/mac/step/3
+permalink: /python/mac/step/3
 ---
 
 {% include partials/step3/title.md %}
