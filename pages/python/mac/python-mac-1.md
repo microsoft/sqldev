@@ -2,11 +2,11 @@
 layout: page-steps
 language: Python
 title: macOS
-permalink: /py/mac/
+permalink: /python/mac/
 redirect_from:
-  - /py/
-  - /py/mac/step/
-  - /py/mac/step/1
+  - /python/
+  - /python/mac/step/
+  - /python/mac/step/1
 ---
 
 > In this section, you will get SQL Server vNext running on Docker. After that you will install the necessary dependencies to run .NET Core.
