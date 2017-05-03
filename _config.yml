@@ -1,0 +1,111 @@
+# Site settings
+# Access it in the templates via {{ site.myvariable }}.
+title: Build an app using SQL Server
+description: > 
+  Get started with SQL Server on macOS, Linux, and Windows.
+url: "https://plainconcepts.github.io/sqldev/"
+
+disqus:
+  shortname: sqlchoice
+
+gitter: https://gitter.im/Microsoft/mssql-developers
+
+steps:
+  1: Set up your environment
+  2: Create $$ application with SQL server
+  3: Make your $$ app up to 100x faster
+
+menu:
+  C#:
+    logo: csharp.png
+    pages:
+      macOS: csharp/mac
+      RHEL: csharp/rhel
+      Ubuntu: csharp/ubuntu
+      Windows: csharp/windows
+  Java:
+    logo: java.png
+    pages:
+      macOS: java/mac
+      RHEL: java/rhel
+      Ubuntu: java/ubuntu
+      SLES*: java/sles
+      Windows: java/windows
+  Node.js:
+    logo: node.png
+    pages:
+      macOS: node/mac
+      RHEL: node/rhel
+      Ubuntu: node/ubuntu
+      SLES*: node/sles
+      Windows: node/windows
+  PHP:
+    logo: php.png
+    pages:
+      macOS: php/mac
+      RHEL: php/rhel
+      Ubuntu: php/ubuntu
+      SLES*: php/sles
+      Windows: php/windows
+  Python:
+    logo: python.png
+    pages:
+      macOS: py/mac
+      RHEL: py/rhel
+      Ubuntu: py/ubuntu
+      SLES*: py/sles
+      Windows: py/windows
+
+resources:
+  sqlserver-csharp:
+    pre: Check out what's new with
+    text: SQL Server + C# on Channel 9
+    link: https://channel9.msdn.com/Events/Connect/2016/151
+    condition: C#
+  sqlserver-java:
+    pre: Check out what's new with
+    text: SQL Server + Java on Channel 9
+    link: https://channel9.msdn.com/Events/Connect/2016/152
+    condition: Java
+  sqlserver-node:
+    pre: Check out what's new with
+    text: SQL Server + Node.js on Channel 9
+    link: https://channel9.msdn.com/Events/Connect/2016/160
+    condition: Node.js
+  sqlserver-php:
+    pre: Check out what's new with
+    text: SQL Server + PHP on Channel 9
+    link: https://channel9.msdn.com/Events/Connect/2016/182
+    condition: PHP
+  sqlserver-py:
+    pre: Check out what's new with
+    text: SQL Server + Python on Channel 9
+    link: https://channel9.msdn.com/Events/Connect/2016/189
+    condition: Python
+  github:
+    pre: Browse more SQL Server code samples (In-Memory, Dynamic Data Masking, R, etc.) on our
+    text: GitHub repository
+    link: https://github.com/Microsoft/sql-server-samples/tree/master/samples/
+  linux:
+    pre: Learn more about
+    text: SQL Server on Linux
+    link: https://channel9.msdn.com/Events/Connect/2016/101
+  connect:
+    pre: Watch more
+    text: Connect(); event videos
+    link: https://channel9.msdn.com/Events/Connect/2016
+  labs:
+    pre: Browse our
+    text: Virtual Labs Gallery
+    link: https://technet.microsoft.com/en-us/virtuallabs
+
+# Build settings
+markdown: kramdown
+theme: minima # we are extending it
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+
+gems:
+  - jekyll-redirect-from
