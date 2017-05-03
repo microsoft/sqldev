@@ -55,6 +55,14 @@ menu:
       Ubuntu: py/ubuntu
       SLES*: py/sles
       Windows: py/windows
+  Ruby:
+    logo: python.png
+    pages:
+      macOS: py/mac
+      RHEL: py/rhel
+      Ubuntu: py/ubuntu
+      SLES*: py/sles
+      Windows: py/windows
 
 resources:
   sqlserver-csharp:
