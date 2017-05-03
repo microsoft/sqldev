@@ -1,12 +1,12 @@
 ---
 layout: page-steps
-language: C#
+language: Java
 title: Windows
-permalink: /csharp/windows/
+permalink: /java/windows/
 redirect_from:
-  - /csharp/
-  - /csharp/windows/step/
-  - /csharp/windows/step/1
+  - /java/
+  - /java/windows/step/
+  - /java/windows/step/1
 ---
 
 > In this section, you will get SQL Server vNext running on Docker. After that you will install the necessary dependencies to run .NET Core.
