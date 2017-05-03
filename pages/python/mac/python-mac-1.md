@@ -1,6 +1,6 @@
 ---
 layout: page-steps
-language: Python#
+language: Python
 title: macOS
 permalink: /py/mac/
 redirect_from:
