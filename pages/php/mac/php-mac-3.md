@@ -2,7 +2,7 @@
 layout: page-steps
 language: C#
 title: macOS
-permalink: /csharp/mac/step/3
+permalink: /php/mac/step/3
 ---
 
 {% include partials/step3/title.md %}
