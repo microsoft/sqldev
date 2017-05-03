@@ -1,8 +1,8 @@
 ---
 layout: page-steps
-language: C#
+language: Python
 title: Windows
-permalink: /csharp/windows/step/3
+permalink: /python/windows/step/3
 ---
 
 {% include partials/step3/title.md %}
