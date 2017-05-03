@@ -50,19 +50,19 @@ menu:
   Python:
     logo: python.png
     pages:
-      macOS: py/mac
-      RHEL: py/rhel
-      Ubuntu: py/ubuntu
-      SLES*: py/sles
-      Windows: py/windows
+      macOS: python/mac
+      RHEL: python/rhel
+      Ubuntu: python/ubuntu
+      SLES*: python/sles
+      Windows: python/windows
   Ruby:
     logo: python.png
     pages:
-      macOS: py/mac
-      RHEL: py/rhel
-      Ubuntu: py/ubuntu
-      SLES*: py/sles
-      Windows: py/windows
+      macOS: ruby/mac
+      RHEL: ruby/rhel
+      Ubuntu: ruby/ubuntu
+      SLES*: ruby/sles
+      Windows: ruby/windows
 
 resources:
   sqlserver-csharp:
