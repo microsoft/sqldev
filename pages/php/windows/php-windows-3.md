@@ -1,8 +1,8 @@
 ---
 layout: page-steps
-language: C#
+language: PHP
 title: Windows
-permalink: /csharp/windows/step/3
+permalink: /php/windows/step/3
 ---
 
 {% include partials/step3/title.md %}
