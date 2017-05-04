@@ -14,8 +14,7 @@ redirect_from:
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_mac.md %}
 
-## Step 1.2 Install Homebrew and PHP 7.1
-
+## Step 1.2 Install Homebrew, PHP and other required packages
 1. Install Homebrew.
 
     {% include partials/install_homebrew.md %}
@@ -33,6 +32,13 @@ redirect_from:
     echo 'export PATH="/usr/local/sbin:$PATH"' >> ~/.bash_profile
     echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile
     ```
+
+4. Install other required packages
+
+```terminal
+    brew install llvm --with-clang --with-clang-extra-tools
+    brew install autoconf
+```
 
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
