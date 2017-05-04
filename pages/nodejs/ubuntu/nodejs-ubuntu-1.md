@@ -16,20 +16,11 @@ redirect_from:
 
 ## Step 1.2 Node.js
 
-Add [Extra Packages for Enterprise Linux (EPEL)](https://fedoraproject.org/wiki/EPEL) to your list of repos and update. If you already have Node.js installed on your machine, skip this step.
-
-
-```terminal
-wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-sudo rpm -ivh epel-release-latest-7.noarch.rpm
-sudo yum update
-```
-    
 Install Node.js by first adding the necessary node repositories, and then installing the nodejs package.
 
 ```terminal
-sudo yum update
-sudo yum -y install nodejs
+sudo apt-get install nodejs
+sudo apt-get install npm
 ```
 
 You can verify your Node.js installation using this command:
