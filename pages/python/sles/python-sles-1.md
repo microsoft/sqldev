@@ -15,8 +15,7 @@ redirect_from:
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_linux_sles.md %}
 
-## Step 1.2 Install Python and pip
-
+## Step 1.2 Install Python and other required packages
 
 Install Python
 
@@ -31,5 +30,4 @@ sudo zypper install python-pip python-devel gcc gcc-c++
 {% include partials/install_sqlcmd_linux_sles.md %}
 
 
-    
 > You have successfully installed the Python Driver on your SLES machine. You now have everything you need to start writing Python apps with SQL Server!
