@@ -59,4 +59,4 @@ redirect_from:
     pip install pyodbc
 ```
     
-> You have successfully installed Python on your Mac. You now have everything you need to start writing your Python apps with SQL Server!
+> You have successfully installed the Python Driver on your Mac. You now have everything you need to start writing your Python apps with SQL Server!
