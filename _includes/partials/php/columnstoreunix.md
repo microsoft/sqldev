@@ -1,8 +1,6 @@
 
 > In this section we will show you a simple example of Columnstore Indexes and how they can improve data processing speeds. Columnstore Indexes can achieve up to 100x better performance on analytical workloads and up to 10x better data compression than traditional rowstore indexes.
 
-Note! With the introduction of Service Pack 1 for SQL Server 2016, features in the database engine related to application development are now available across all editions of SQL Server (from Express through Enterprise). This include the in-memory columnstore used in this tutorial, in-memory OLTP, data compression, table partitioning, Hadoop integration with PolyBase, Always Encrypted, row-level security, and data masking. Enjoy!
-
 ## Step 3.1 Create a new table 5 million using sqlcmd
 
 ```terminal
