@@ -9,47 +9,28 @@ redirect_from:
   - /php/ubuntu/step/1
 ---
 
-> In this section, you will get SQL Server vNext running on Docker. After that you will install the necessary dependencies to run .NET Core.
+> In this section, you will get SQL Server vNext running on Ubuntu. After that you will install the necessary dependencies to create Python apps with SQL Server
 
 ## Step 1.1 Install SQL Server
-{% include partials/install_sql_server_mac.md %}
+{% include partials/install_sql_server_linux_ubuntu.md %}
 
-## Step 1.2 Install Homebrew and .NET Core
+## Step 1.2 Install PHP and other required packages
 
-If you already have .NET Core installed on your machine, skip this step. Install Homebrew, OpenSSL, and .NET Core using the following commands. 
+```terminal
+  sudo apt-get -y install php7.0 libapache2-mod-php7.0 mcrypt php7.0-mcrypt php-mbstring php-pear php7.0-dev apache2
+```
 
-1. Install Homebrew.
+## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
-    {% include partials/install_homebrew.md %}
+{% include partials/install_sqlcmd_linux_ubuntu.md %}
 
-1. Restart the terminal session.
+## Step 1.4 Install the PHP Driver for SQL Server
 
-1. Update Homebrew and install OpenSSL.
-
-    ```terminal
-    brew update
-    brew install openssl
-    ```
-
-    ```results
-    ==> Downloading https://homebrew.bintray.com/bottles/openssl-1.0.2j.el_capitan.bottle.t
-    ######################################################################## 100.0%
-    ==> Pouring openssl-1.0.2j.el_capitan.bottle.tar.gz
-    ==> Using the sandbox
-    ==> Caveats
-    …
-    ==> Summary
-      /usr/local/Cellar/openssl/1.0.2j: 1,695 files, 12M
-    ```
-
-1. Ensure that OpenSSL is set up properly by running the following commands.
-
-    ```terminal
-    ln -s /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib /usr/local/lib/
-    ln -s /usr/local/opt/openssl/lib/libssl.1.0.0.dylib /usr/local/lib
-    ```
-
-1. Install .NET Core on macOS
-    Download the **[official installer](https://go.microsoft.com/fwlink/?linkid=843444)**. This installer will install the tools and put them on your PATH so you can run dotnet from the Console.
-
-> You have successfully installed .NET Core on your Mac. You now have everything you need to start writing your C# apps with SQL Server!
+```terminal
+    sudo apt-get install unixodbc-dev gcc g++ build-essential
+    sudo pecl install sqlsrv pdo_sqlsrv
+    sudo echo "extension= pdo_sqlsrv.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+    sudo echo "extension= sqlsrv.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+```
+    
+> You have successfully installed the PHP Driver for SQL Server on your Ubuntu machine. You now have everything you need to start writing your PHP apps with SQL Server!
