@@ -1,7 +1,15 @@
 
 > In this section you will create a simple PHP app. The PHP app will perform basic Insert, Update, Delete, and Select.
 
-## Step 2.1 Create a database for your application 
+## Step 2.1 Install the PHP Driver for SQL Server
+
+```terminal
+    sudo pecl install sqlsrv pdo_sqlsrv
+    sudo echo "extension= pdo_sqlsrv.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+    sudo echo "extension= sqlsrv.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+```
+    
+## Step 2.2 Create a database for your application 
 
 Create the database using sqlcmd
 
@@ -9,7 +17,7 @@ Create the database using sqlcmd
 sqlcmd -S localhost -U sa -P your_password -Q "CREATE DATABASE SampleDB;"
 ```
 
-## Step 2.2 Create a PHP app that connects to SQL Server and executes queries
+## Step 2.3 Create a PHP app that connects to SQL Server and executes queries
 
 ```terminal
 mkdir SqlServerSample
