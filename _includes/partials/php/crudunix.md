@@ -1,13 +1,17 @@
 
 > In this section you will create a simple PHP app. The PHP app will perform basic Insert, Update, Delete, and Select.
 
-## Step 2.1 Create a PHP app that connects to SQL Server and executes queries
+## Step 2.1 Create a database for your application 
 
-Create a database that will be used for the rest of this tutorial by connecting to SQL Server using sqlcmd and executing the following statement
-Change to your home directory. Create a new .NET Core project. This will create the project directory with a basic .NET Core Program.cs and csproj file.
+This  will be used for the rest of this tutorial by connecting to SQL Server using sqlcmd and executing the following statement
 
 ```terminal
 sqlcmd -S localhost -U sa -P your_password -Q "CREATE DATABASE SampleDB;"
+```
+
+## Step 2.2 Create a PHP app that connects to SQL Server and executes queries
+
+```terminal
 mkdir SqlServerSample
 cd SqlServerSample
 ```
@@ -49,8 +53,6 @@ sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "SELECT * FROM TestSch
 ```
 
 Using your favorite text editor, create a new file called crud.php in the SqlServerSample folder. Paste the code below inside into the new file. This will insert, update, delete, and read a few rows. 
-Open this file in your favorite text editor and replace the contents with the code below. Don't forget to replace the username and password with your own. Save and close the file.
-
 
 ```php
 <?php
