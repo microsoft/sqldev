@@ -1,7 +1,7 @@
 Note: To ensure optimal performance of SQL Server, your machine should have at least 4 GB of memory.
 If you need to get Ubuntu, check out the Ubuntu Downloads website.
 
-1. Register the Microsoft Linux repositories and add they keys
+1.Register the Microsoft Linux repositories and add they keys
 
 ```terminal
 sudo su
@@ -12,7 +12,7 @@ sudo /opt/mssql/bin/mssql-conf setup
 exit
 ```
 
-2. Install SQL Server
+2.Install SQL Server
 
 ```terminal
 sudo apt-get update
@@ -30,7 +30,7 @@ Unpacking mssql-server ...
 Setting up mssql-server ...
 ```
 
-3. Setup your SQL Server
+3.Setup your SQL Server
 
 ```terminal
 sudo /opt/mssql/bin/mssql-conf setup
