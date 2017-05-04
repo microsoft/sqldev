@@ -9,9 +9,7 @@ Connect to SQL Server using SQLCMD and execute the following statement to create
 sqlcmd -S localhost -U sa -P your_password -Q "CREATE DATABASE SampleDB;"
 ```
 
-## Step 2.2 Create a Python app that connects to SQL Server and executes queries
-
-Install the Python driver for SQL Server 
+## Step 2.2 Install the Python driver for SQL Server 
 
 ```terminal
 pip install virtualenv #To create virtual environments to isolate package installations between projects
@@ -20,6 +18,8 @@ source venv/bin/activate
 sudo apt-get install unixodbc-dev gcc g++ build-essential
 pip install pyodbc
 ```
+
+## Step 2.3 Create a Python app that connects to SQL Server and executes queries
 
 Create a new folder for the sample
 
