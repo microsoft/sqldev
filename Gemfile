@@ -4,7 +4,7 @@ gem "kramdown"
 gem "bundler"
 gem "jekyll", "3.4.3"
 gem "jekyll-redirect-from"
-gem "minima"
+gem "minima", "~> 2.0"
 gem "jekyll-feed"
 # Hello! This is where you manage which Jekyll version is used to run.
 # When you want to use a different version, change it below, save the
