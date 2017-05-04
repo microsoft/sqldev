@@ -14,13 +14,10 @@ redirect_from:
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_linux_ubuntu.md %}
 
-## Step 1.2 Install Python and pip
-
-
-Install Python
+## Step 1.2 Install Python and other required packages
 
 ```terminal
-sudo apt-get install python python-pip
+sudo apt-get install python python-pip gcc g++ build-essential
 ```
     
 > You now have Python installed! The next section will walk you through getting the tools to interact with your database.
@@ -38,4 +35,4 @@ sudo apt-get install python python-pip
     pip install pyodbc
 ```
     
-> You have successfully installed the Python Driver on your Ubuntu. You now have everything you need to start writing your Python apps with SQL Server!
+> You have successfully installed the Python Driver on your Ubuntu machi. You now have everything you need to start writing Python apps with SQL Server!
