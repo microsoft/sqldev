@@ -21,9 +21,9 @@ redirect_from:
 
 Install Python
 
-    ```terminal
-    sudo apt-get install python python-pip
-    ```
+```terminal
+sudo apt-get install python python-pip
+```
     
 > You now have Python installed! The next section will walk you through getting the tools to interact with your database.
 
