@@ -19,7 +19,7 @@ redirect_from:
 ## Step 1.2 Install Python and pip
 
 
-1. Install Python
+Install Python
 
     ```terminal
     sudo apt-get install python python-pip
