@@ -1,4 +1,5 @@
 source "https://rubygems.org"
+ruby 2.2.3
 gem "kramdown"
 gem "bundler"
 gem "jekyll", "3.4.3"
