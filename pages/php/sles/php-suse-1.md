@@ -9,47 +9,22 @@ redirect_from:
   - /php/sles/step/1
 ---
 
-> In this section, you will get SQL Server vNext running on Docker. After that you will install the necessary dependencies to run .NET Core.
+> In this section, you will get SQL Server vNext running on RedHat Enterprise Linux. After that you will install the necessary dependencies to create PHP apps with SQL Server
 
 ## Step 1.1 Install SQL Server
-{% include partials/install_sql_server_mac.md %}
+{% include partials/install_sql_server_linux_sles.md %}
 
-## Step 1.2 Install Homebrew and .NET Core
+## Step 1.2 Install PHP and other required packages
 
-If you already have .NET Core installed on your machine, skip this step. Install Homebrew, OpenSSL, and .NET Core using the following commands. 
 
-1. Install Homebrew.
+```terminal
+    sudo zypper update
+    sudo zypper install php7 php7-devel php7-openssl php7-phar php7-mcrypt php7-mbstring php7-pear gcc gcc-c++ make apache2
+```
 
-    {% include partials/install_homebrew.md %}
+## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
-1. Restart the terminal session.
+{% include partials/install_sqlcmd_linux_sles.md %}
 
-1. Update Homebrew and install OpenSSL.
+> You have successfully installed the PHP Driver for SQL Server on your SLES machine. You now have everything you need to start writing PHP apps with SQL Server!
 
-    ```terminal
-    brew update
-    brew install openssl
-    ```
-
-    ```results
-    ==> Downloading https://homebrew.bintray.com/bottles/openssl-1.0.2j.el_capitan.bottle.t
-    ######################################################################## 100.0%
-    ==> Pouring openssl-1.0.2j.el_capitan.bottle.tar.gz
-    ==> Using the sandbox
-    ==> Caveats
-    …
-    ==> Summary
-      /usr/local/Cellar/openssl/1.0.2j: 1,695 files, 12M
-    ```
-
-1. Ensure that OpenSSL is set up properly by running the following commands.
-
-    ```terminal
-    ln -s /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib /usr/local/lib/
-    ln -s /usr/local/opt/openssl/lib/libssl.1.0.0.dylib /usr/local/lib
-    ```
-
-1. Install .NET Core on macOS
-    Download the **[official installer](https://go.microsoft.com/fwlink/?linkid=843444)**. This installer will install the tools and put them on your PATH so you can run dotnet from the Console.
-
-> You have successfully installed .NET Core on your Mac. You now have everything you need to start writing your C# apps with SQL Server!
