@@ -26,13 +26,4 @@ sudo apt-get install python python-pip gcc g++ build-essential
 
 {% include partials/install_sqlcmd_linux_ubuntu.md %}
 
-## Step 1.4 Install the Python Driver for SQL Server
-
-```terminal
-    pip install virtualenv #To create virtual environments to isolate package installations between projects
-    virtualenv venv
-    source venv/bin/activate
-    pip install pyodbc
-```
-    
 > You have successfully installed the Python Driver on your Ubuntu machi. You now have everything you need to start writing Python apps with SQL Server!
