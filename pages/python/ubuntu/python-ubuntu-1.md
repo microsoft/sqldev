@@ -16,7 +16,8 @@ redirect_from:
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_linux_ubuntu.md %}
 
-## Step 1.2 Install Homebrew and Python
+## Step 1.2 Install Python and pip
+
 
 1. Install Homebrew.
 
@@ -27,29 +28,14 @@ redirect_from:
 3. Install Python
 
     ```terminal
-    brew install python
+    sudo apt-get install python python-pip
     ```
     
-    ```results
-    ==> Downloading https://homebrew.bintray.com/bottles/python-2.7.12.el_capitan.bottle.tar.gz
-
-    ...
-
-    ==> Caveats
-    Pip and setuptools have been installed. To update them
-      pip install --upgrade pip setuptools
-
-    You can install Python packages with
-      pip install
-
-    ==> Summary
-    🍺  /usr/local/Cellar/python/2.7.12: 3,476 files, 46.7M
-    ```
 > You now have Python installed! The next section will walk you through getting the tools to interact with your database.
 
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
-{% include partials/install_sqlcmd_mac.md %}
+{% include partials/install_sqlcmd_linux_ubuntu.md %}
 
 ## Step 1.4 Install the Python Driver for SQL Server
 
@@ -60,4 +46,4 @@ redirect_from:
     pip install pyodbc
 ```
     
-> You have successfully installed the Python Driver on your Mac. You now have everything you need to start writing your Python apps with SQL Server!
+> You have successfully installed the Python Driver on your Ubuntu. You now have everything you need to start writing your Python apps with SQL Server!
