@@ -1,6 +1,6 @@
 ---
 layout: page-steps
-language: C#
+language: PHP
 title: RHEL
 permalink: /php/rhel/step/3
 ---
