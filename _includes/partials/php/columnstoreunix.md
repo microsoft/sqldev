@@ -3,7 +3,7 @@
 
 Note! With the introduction of Service Pack 1 for SQL Server 2016, features in the database engine related to application development are now available across all editions of SQL Server (from Express through Enterprise). This include the in-memory columnstore used in this tutorial, in-memory OLTP, data compression, table partitioning, Hadoop integration with PolyBase, Always Encrypted, row-level security, and data masking. Enjoy!
 
-## Step 2.1 Create a new table 5 million using sqlcmd
+## Step 3.1 Create a new table 5 million using sqlcmd
 
 ```terminal
 sqlcmd -S localhost -U sa -P your_password -d SampleDB -t 60000 -Q "WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a))
@@ -16,7 +16,7 @@ INTO Table_with_5M_rows
 FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;"
 ```
 
-## Step 2.2 Create a PHP app that queries this tables and measures the time taken
+## Step 3.2 Create a PHP app that queries this tables and measures the time taken
 
 ```terminal
 cd ~/
@@ -71,7 +71,7 @@ echo 'QueryTime: '.$execution_time.' ms';
 ?>
 ```
 
-## Step 2.3 Measure how long it takes to run the query
+## Step 3.3 Measure how long it takes to run the query
 
 Run your PHP script from the terminal.
 
@@ -84,13 +84,13 @@ Sum: 50000000
 QueryTime: 363ms
 ```
 
-## Step 2.4 Add a columnstore index to your table.
+## Step 3.4 Add a columnstore index to your table.
 
 ```terminal
 sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE CLUSTERED COLUMNSTORE INDEX Columnstoreindex ON Table_with_5M_rows;"
 ```
 
-## Step 2.5 Measure how long it takes to run the query with a columnstore index
+## Step 3.5 Measure how long it takes to run the query with a columnstore index
 
 
 ```terminal
