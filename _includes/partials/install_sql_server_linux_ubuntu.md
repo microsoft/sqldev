@@ -7,12 +7,11 @@ If you need to get Ubuntu, check out the Ubuntu Downloads website.
 sudo su
 curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 curl https://packages.microsoft.com/config/ubuntu/16.04/mssql-server.list > /etc/apt/sources.list.d/mssql-server.list
-
 sudo /opt/mssql/bin/mssql-conf setup
 exit
 ```
 
-2.Install SQL Server
+2. Install SQL Server
 
 ```terminal
 sudo apt-get update
@@ -30,7 +29,7 @@ Unpacking mssql-server ...
 Setting up mssql-server ...
 ```
 
-3.Setup your SQL Server
+3. Setup your SQL Server
 
 ```terminal
 sudo /opt/mssql/bin/mssql-conf setup
