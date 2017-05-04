@@ -1,6 +1,6 @@
 ---
 layout: page-steps
-language: C#
+language: PHP
 title: macOS
 permalink: /php/mac/step/2
 ---
