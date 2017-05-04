@@ -7,4 +7,26 @@
   ga('create', 'UA-62780441-15', 'auto');
   ga('send', 'pageview');
 
-</script>
+  $("code").bind({
+      copy: function(event) {
+          ga("send", "event", {
+              eventCategory: window.location.pathname,
+              eventAction: "copy_code"
+          });
+      }, 
+      cut: function(event) {
+          ga("send", "event", {
+              eventCategory: window.location.pathname,
+              eventAction: "copy_code"
+          });
+      }
+  })
+
+  $("a").click(function(event) {
+      ga("send", "event", {
+          eventCategory: window.location.pathname,
+          eventAction: "click_link",
+          eventLabel: event.target.href
+      });
+  })
+  </script>
