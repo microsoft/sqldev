@@ -19,13 +19,7 @@ redirect_from:
 ## Step 1.2 Install Python and pip
 
 
-1. Install Homebrew.
-
-    {% include partials/install_homebrew.md %}
-
-2. Restart the terminal session.
-
-3. Install Python
+1. Install Python
 
     ```terminal
     sudo apt-get install python python-pip
