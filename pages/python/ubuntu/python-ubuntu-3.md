@@ -5,5 +5,5 @@ title: Ubuntu
 permalink: /python/ubuntu/step/3
 ---
 
-{{% include partials/python/columnstoreunix.md %}
+{% include partials/python/columnstoreunix.md %}
 
