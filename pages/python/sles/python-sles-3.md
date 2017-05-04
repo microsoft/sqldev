@@ -1,8 +1,8 @@
 ---
 layout: page-steps
 language: Python
-title: macOS
-permalink: /python/mac/step/3
+title: SLES
+permalink: /python/sles/step/3
 ---
 
 {% include partials/python/columnstoreunix.md %}
