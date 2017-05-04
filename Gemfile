@@ -1,4 +1,6 @@
 source "https://rubygems.org"
+gem "kramdown"
+gem "bundler"
 gem "jekyll", "3.4.3"
 gem "jekyll-redirect-from"
 gem "minima"
