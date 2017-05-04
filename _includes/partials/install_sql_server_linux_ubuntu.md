@@ -13,6 +13,7 @@ exit
 ```
 
 2. Install SQL Server
+
 ```terminal
 sudo apt-get update
 sudo apt-get install mssql-server
@@ -30,6 +31,7 @@ Setting up mssql-server ...
 ```
 
 3. Setup your SQL Server
+
 ```terminal
 sudo /opt/mssql/bin/mssql-conf setup
 ```
