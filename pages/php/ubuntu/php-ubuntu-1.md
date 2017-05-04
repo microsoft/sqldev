@@ -9,7 +9,7 @@ redirect_from:
   - /php/ubuntu/step/1
 ---
 
-> In this section, you will get SQL Server vNext running on Ubuntu. After that you will install the necessary dependencies to create Python apps with SQL Server
+> In this section, you will get SQL Server vNext running on Ubuntu. After that you will install the necessary dependencies to create PHP apps with SQL Server
 
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_linux_ubuntu.md %}
@@ -24,4 +24,4 @@ redirect_from:
 
 {% include partials/install_sqlcmd_linux_ubuntu.md %}
 
-> You have successfully installed the PHP Driver for SQL Server on your Ubuntu machine. You now have everything you need to start writing your PHP apps with SQL Server!
+> You have successfully installed the PHP Driver for SQL Server on your Ubuntu machine. You now have everything you need to start writing PHP apps with SQL Server!
