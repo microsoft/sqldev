@@ -5,40 +5,105 @@ title: Windows
 permalink: /php/windows/step/3
 ---
 
-{% include partials/step3/title.md %}
+> In this section we will show you a simple example of Columnstore Indexes and how they can improve data processing speeds. Columnstore Indexes can achieve up to 100x better performance on analytical workloads and up to 10x better data compression than traditional rowstore indexes.
 
-## Step 3.1
-{% include partials/step3/note.md %}
+## Step 3.1 Create a new table with 5 million using sqlcmd
 
-To showcase the capabilities of Columnstore indexes, let's create a C# application that creates a sample database and a sample table with 5 million rows and then runs a simple query before and after adding a Columnstore index.
+```terminal
+sqlcmd -S localhost -U sa -P your_password -d SampleDB -t 60000 -Q "WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a))
+SELECT TOP(5000000)
+ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId
+,a.a + b.a + c.a + d.a + e.a + f.a + g.a + h.a AS OrderId
+,a.a * 10 AS Price
+,CONCAT(a.a, N' ', b.a, N' ', c.a, N' ', d.a, N' ', e.a, N' ', f.a, N' ', g.a, N' ', h.a) AS ProductName
+INTO Table_with_5M_rows
+FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;"
+```
 
-**Create a C# console application** 
-1. Launch Visual Studio Community 
-1. Click **File -> New -> Project** 
-1. In the **New project** dialog, click **Windows** located under **Visual C#** in the **Templates** node 
-1. Click **Console Application Visual C#** 
-1. Name the project "SqlServerColumnstoreSample" 
-1. Click **OK** to create the project
+## Step 3.2 Create a PHP app that queries this tables and measures the time taken
 
-Visual Studio creates a new C# Console Application project and opens the file **Program.cs**. Replace the contents of **Program.cs** by copying and pasting the code below into the file. Don't forget to replace the username and password with your own. Save and close the file.
+```terminal
+cd ~/
+mkdir SqlServerColumnstoreSample
+cd SqlServerColumnstoreSample
+```
 
-{% include partials/csharp/sample_7.md %}
+Using your favorite text editor, create a new file called columnstore.php in the SqlServerColumnstoreSample folder. Paste the following code inside it.
 
-Press **F5** to build and run your project.
+```php
+<?php
+$time_start = microtime(true);
+
+$serverName = "localhost";
+$connectionOptions = array(
+    "Database" => "SampleDB",
+    "Uid" => "sa",
+    "PWD" => "your_password"
+);
+//Establishes the connection
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+//Read Query
+$tsql= "SELECT SUM(Price) as sum FROM Table_with_5M_rows";
+$getResults= sqlsrv_query($conn, $tsql);
+echo ("Sum: ");
+if ($getResults == FALSE)
+    die(FormatErrors(sqlsrv_errors()));
+while ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
+    echo ($row['sum'] . PHP_EOL);
+
+}
+sqlsrv_free_stmt($getResults);
+
+function FormatErrors( $errors )
+{
+    /* Display errors. */
+    echo "Error information: ";
+
+    foreach ( $errors as $error )
+    {
+        echo "SQLSTATE: ".$error['SQLSTATE']."";
+        echo "Code: ".$error['code']."";
+        echo "Message: ".$error['message']."";
+    }
+}
+$time_end = microtime(true);
+$execution_time = round((($time_end - $time_start)*1000),2);
+echo 'QueryTime: '.$execution_time.' ms';
+
+
+?>
+```
+
+## Step 3.3 Measure how long it takes to run the query
+
+Run your PHP script from the terminal.
+
+```terminal
+php columnstore.php
+```
 
 ```results
-*** SQL Server Columnstore demo ***
-Connecting to SQL Server ... Done.
-Dropping and creating database 'SampleDB' ... Done.
-Inserting 5 million rows into table 'Table_with_5M_rows'. This takes ~1 minute, please wait ... Done.
-Query time WITHOUT columnstore index: 363.09ms
-Adding a columnstore to table 'Table_with_5M_rows'  ... Done.
-Query time WITH columnstore index: 5.123ms
-Performance improvement with columnstore index: 71x!
-All done. Press any key to finish...
+Sum: 50000000
+QueryTime: 363ms
 ```
-> The performance of the query was greatly improved! 
-Now that you've built a few C# apps with SQL Server and .NET Core, continue checking out other SQL Server features.
 
-## Try the mssql extension for Visual Studio Code!
-{% include partials/step3/mssql.md %}
+## Step 3.4 Add a columnstore index to your table.
+
+```terminal
+sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE CLUSTERED COLUMNSTORE INDEX Columnstoreindex ON Table_with_5M_rows;"
+```
+
+## Step 3.5 Measure how long it takes to run the query with a columnstore index
+
+
+```terminal
+php columnstore.php
+```
+
+```results
+Sum: 50000000
+QueryTime: 5ms
+```
+
+> Congrats you just made your PHP app faster using Columnstore Indexes! 
