@@ -1,12 +1,12 @@
 ---
 layout: page-steps
-language: C#
+language: Node.js
 title: Windows
-permalink: /csharp/windows/
+permalink: /node/windows/
 redirect_from:
-  - /csharp/
-  - /csharp/windows/step/
-  - /csharp/windows/step/1
+  - /node/
+  - /node/windows/step/
+  - /node/windows/step/1
 ---
 
 > In this section, you will get SQL Server vNext running on Docker. After that you will install the necessary dependencies to run .NET Core.
