@@ -3,7 +3,7 @@
 
 ## Step 2.1 Create a database for your application 
 
-This  will be used for the rest of this tutorial by connecting to SQL Server using sqlcmd and executing the following statement
+Create the database using sqlcmd
 
 ```terminal
 sqlcmd -S localhost -U sa -P your_password -Q "CREATE DATABASE SampleDB;"
