@@ -9,7 +9,7 @@ redirect_from:
   - /python/mac/step/1
 ---
 
-> In this section, you will get SQL Server vNext running on Docker. After that you will install the necessary dependencies to run .NET Core.
+> In this section, you will get SQL Server vNext running on Docker. After that you will install the necessary dependencies to create Python apps with SQL Server
 
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_mac.md %}
@@ -44,7 +44,6 @@ redirect_from:
     🍺  /usr/local/Cellar/python/2.7.12: 3,476 files, 46.7M
     ```
 > You now have Python installed! The next section will walk you through getting the tools to interact with your database.
-
 
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
