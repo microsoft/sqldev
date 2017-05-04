@@ -48,14 +48,5 @@ redirect_from:
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
 {% include partials/install_sqlcmd_mac.md %}
-
-## Step 1.4 Install the Python Driver for SQL Server
-
-```terminal
-    pip install virtualenv #To create virtual environments to isolate package installations between projects
-    virtualenv venv
-    source venv/bin/activate
-    pip install pyodbc
-```
     
 > You have successfully installed the Python Driver on your Mac. You now have everything you need to start writing your Python apps with SQL Server!
