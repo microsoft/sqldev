@@ -16,15 +16,13 @@ redirect_from:
 
 ## Step 1.2 Install Homebrew and PHP 7.1
 
-If you already have PHP installed on your machine, skip this step. 
-
-- Install Homebrew.
+1. Install Homebrew.
 
     {% include partials/install_homebrew.md %}
 
-- Restart the terminal session.
+2. Restart the terminal session.
 
-- Install PHP
+3. Install PHP
 
     ```terminal
     brew tap 
