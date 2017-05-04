@@ -24,13 +24,4 @@ redirect_from:
 
 {% include partials/install_sqlcmd_linux_ubuntu.md %}
 
-## Step 1.4 Install the PHP Driver for SQL Server
-
-```terminal
-    sudo apt-get install unixodbc-dev gcc g++ build-essential
-    sudo pecl install sqlsrv pdo_sqlsrv
-    sudo echo "extension= pdo_sqlsrv.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
-    sudo echo "extension= sqlsrv.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
-```
-    
 > You have successfully installed the PHP Driver for SQL Server on your Ubuntu machine. You now have everything you need to start writing your PHP apps with SQL Server!
