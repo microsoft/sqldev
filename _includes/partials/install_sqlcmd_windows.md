@@ -1,7 +1,7 @@
 SQLCMD is a command line tool that enables you to connect to SQL Server and run queries.
 
-1. Install the ODBC Driver
-2. Install the SQL Server Command Line Utilities
+1. Install the [**ODBC Driver**](https://www.microsoft.com/en-us/download/details.aspx?id=53339)
+2. Install the [**SQL Server Command Line Utilities**](https://www.microsoft.com/en-us/download/details.aspx?id=53591)
 
 Once you install both the msi's, open up cmd.exe and run the following command to connect and run a basic query.
 
