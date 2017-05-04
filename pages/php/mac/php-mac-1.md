@@ -37,16 +37,5 @@ redirect_from:
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
 {% include partials/install_sqlcmd_mac.md %}
-
-## Step 1.4 Install the PHP Driver for SQL Server
-
-```terminal
-    brew tap microsoft/mssql-preview https://github.com/Microsoft/homebrew-mssql-preview
-    brew install llvm --with-clang --with-clang-extra-tools
-    brew install autoconf
-    sudo pecl install sqlsrv-4.1.7preview pdo_sqlsrv-4.1.7preview
-    sudo echo "extension= pdo_sqlsrv.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
-    sudo echo "extension= sqlsrv.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
-```
     
 > You have successfully installed PHP on your Mac. You now have everything you need to start writing your PHP apps with SQL Server!
