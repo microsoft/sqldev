@@ -14,41 +14,42 @@ redirect_from:
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_mac.md %}
 
-## Step 1.2 Install Homebrew and PHP 7.1
+## Step 1.2 Install Homebrew and .NET Core
 
 If you already have .NET Core installed on your machine, skip this step. Install Homebrew, OpenSSL, and .NET Core using the following commands. 
 
-- Install Homebrew.
+1. Install Homebrew.
 
     {% include partials/install_homebrew.md %}
 
-- Restart the terminal session.
+1. Restart the terminal session.
 
-- Install PHP
-
-    ```terminal
-    brew tap 
-    brew tap homebrew/dupes
-    brew tap homebrew/versions
-    brew tap homebrew/homebrew-php
-    brew install php70 --with-pear --with-httpd24 --with-cgi
-    echo 'export PATH="/usr/local/sbin:$PATH"' >> ~/.bash_profile
-    echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile
-    ```
-
-## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
-
-{% include partials/install_sqlcmd_mac.md %}
-
-## Step 1.4 Install the PHP Driver for SQL Server
+1. Update Homebrew and install OpenSSL.
 
     ```terminal
-    brew tap microsoft/mssql-preview https://github.com/Microsoft/homebrew-mssql-preview
-    brew install llvm --with-clang --with-clang-extra-tools
-    brew install autoconf
-    sudo pecl install sqlsrv-4.1.7preview pdo_sqlsrv-4.1.7preview
-    sudo echo "extension= pdo_sqlsrv.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
-    sudo echo "extension= sqlsrv.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+    brew update
+    brew install openssl
     ```
-    
-> You have successfully installed PHP on your Mac. You now have everything you need to start writing your PHP apps with SQL Server!
+
+    ```results
+    ==> Downloading https://homebrew.bintray.com/bottles/openssl-1.0.2j.el_capitan.bottle.t
+    ######################################################################## 100.0%
+    ==> Pouring openssl-1.0.2j.el_capitan.bottle.tar.gz
+    ==> Using the sandbox
+    ==> Caveats
+    …
+    ==> Summary
+      /usr/local/Cellar/openssl/1.0.2j: 1,695 files, 12M
+    ```
+
+1. Ensure that OpenSSL is set up properly by running the following commands.
+
+    ```terminal
+    ln -s /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib /usr/local/lib/
+    ln -s /usr/local/opt/openssl/lib/libssl.1.0.0.dylib /usr/local/lib
+    ```
+
+1. Install .NET Core on macOS
+    Download the **[official installer](https://go.microsoft.com/fwlink/?linkid=843444)**. This installer will install the tools and put them on your PATH so you can run dotnet from the Console.
+
+> You have successfully installed .NET Core on your Mac. You now have everything you need to start writing your C# apps with SQL Server!
