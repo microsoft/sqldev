@@ -15,7 +15,6 @@ sqlcmd -S localhost -U sa -P your_password -Q "CREATE DATABASE SampleDB;"
 pip install virtualenv #To create virtual environments to isolate package installations between projects
 virtualenv venv
 source venv/bin/activate
-sudo apt-get install unixodbc-dev gcc g++ build-essential
 pip install pyodbc
 ```
 
