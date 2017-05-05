@@ -9,47 +9,50 @@ redirect_from:
   - /ruby/mac/step/1
 ---
 
-> In this section, you will get SQL Server vNext running on Docker. After that you will install the necessary dependencies to run .NET Core.
+> In this section, you will get SQL Server 2017 running on your RedHat Enterprise Linux machine. After that you will install the necessary dependencies to create Ruby apps with SQL Server
 
 ## Step 1.1 Install SQL Server
-{% include partials/install_sql_server_mac.md %}
+{% include partials/install_sql_server_linux_rhel.md %}
 
-## Step 1.2 Install Homebrew and .NET Core
 
-If you already have .NET Core installed on your machine, skip this step. Install Homebrew, OpenSSL, and .NET Core using the following commands. 
+## Step 1.2 Install prerequisites for Ruby
 
-1. Install Homebrew.
+Add [Extra Packages for Enterprise Linux (EPEL)](https://fedoraproject.org/wiki/EPEL) to your list of repos and install the pre-requisites
+```terminal
+wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+sudo rpm -ivh epel-release-latest-7.noarch.rpm
+sudo yum update
+sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel
+```
+## Step 1.3 Install rbenv and ruby-build
 
-    {% include partials/install_homebrew.md %}
+If you already have rbenv and ruby-build installed on your machine, skip this step. Use the following commands to install prerequisites for Ruby.
+```terminal
+cd
+git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+exec $SHELL
+git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
+exec $SHELL
+```
 
-1. Restart the terminal session.
+## Step 1.4 Install Ruby
+```terminal
+rbenv install 2.3.1
+rbenv global 2.3.1
+ruby -v
+```
+## Step 1.5 Install FreeTDS
 
-1. Update Homebrew and install OpenSSL.
-
-    ```terminal
-    brew update
-    brew install openssl
-    ```
-
-    ```results
-    ==> Downloading https://homebrew.bintray.com/bottles/openssl-1.0.2j.el_capitan.bottle.t
-    ######################################################################## 100.0%
-    ==> Pouring openssl-1.0.2j.el_capitan.bottle.tar.gz
-    ==> Using the sandbox
-    ==> Caveats
-    …
-    ==> Summary
-      /usr/local/Cellar/openssl/1.0.2j: 1,695 files, 12M
-    ```
-
-1. Ensure that OpenSSL is set up properly by running the following commands.
-
-    ```terminal
-    ln -s /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib /usr/local/lib/
-    ln -s /usr/local/opt/openssl/lib/libssl.1.0.0.dylib /usr/local/lib
-    ```
-
-1. Install .NET Core on macOS
-    Download the **[official installer](https://go.microsoft.com/fwlink/?linkid=843444)**. This installer will install the tools and put them on your PATH so you can run dotnet from the Console.
-
-> You have successfully installed .NET Core on your Mac. You now have everything you need to start writing your C# apps with SQL Server!
+FreeTDS is a driver that enables you to connect to SQL Server. It is a prerequisite for the connector you'll get later in the tutorial to connect to SQL Server. Run the following commands to install FreeTDS:
+```terminal
+wget ftp://ftp.freetds.org/pub/freetds/stable/freetds-1.00.27.tar.gz
+tar -xzf freetds-1.00.27.tar.gz
+cd freetds-1.00.27
+./configure --prefix=/usr/local --with-tdsver=7.3
+make
+make install
+```
+> You have successfully installed Ruby on your RHEL machine. You now have everything you need to start writing your Ruby apps with SQL Server!
