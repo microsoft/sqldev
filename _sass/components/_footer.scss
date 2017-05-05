@@ -28,6 +28,7 @@
         }
 
         &--social {
+            float: right !important;
             width: $width * 1.4 - $padding * 2;
         }
     }
