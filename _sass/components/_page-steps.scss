@@ -1,8 +1,8 @@
 @import '../base/variables';
 
 .sql-page_steps {
-    $pages: Terminal, SQL, JavaScript, Results, Java, XML, Csharp, PHP, Python, Ruby;
-    $colors: #295651, #8A0F1B, #AB9807, #458B00, #C9720E, #1C66DD, #8000FF, #8DB6CD, #54D35D, #AA3333;
+    $pages: Terminal, SQL, JavaScript, Results, Java, XML, Csharp, PHP, Python, Ruby, Javascript;
+    $colors: #295651, #8A0F1B, #AB9807, #458B00, #C9720E, #1C66DD, #8000FF, #8DB6CD, #54D35D, #AA3333, #ab9807;
 
     &-hero {
         $padding: 2rem;
