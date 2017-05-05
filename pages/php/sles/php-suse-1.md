@@ -9,7 +9,7 @@ redirect_from:
   - /php/sles/step/1
 ---
 
-> In this section, you will get SQL Server vNext running on RedHat Enterprise Linux. After that you will install the necessary dependencies to create PHP apps with SQL Server
+> In this section, you will get SQL Server vNext running on SUSE Linux Enterprise Server. After that you will install the necessary dependencies to create PHP apps with SQL Server
 
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_linux_sles.md %}
@@ -21,6 +21,7 @@ redirect_from:
     sudo zypper update
     sudo zypper install php7 php7-devel php7-openssl php7-phar php7-mcrypt php7-mbstring php7-pear gcc gcc-c++ make apache2
 ```
+> You have successfully installed PHP on your SLES machine.
 
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
