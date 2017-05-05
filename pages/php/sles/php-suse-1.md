@@ -21,7 +21,7 @@ redirect_from:
     sudo zypper update
     sudo zypper install php7 php7-devel php7-openssl php7-phar php7-mcrypt php7-mbstring php7-pear gcc gcc-c++ make apache2
 ```
-> You have successfully installed PHP on your SLES machine.
+> You have successfully installed PHP on your SLES machine! 
 
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
