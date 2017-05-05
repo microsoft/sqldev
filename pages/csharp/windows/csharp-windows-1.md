@@ -9,7 +9,7 @@ redirect_from:
   - /csharp/windows/step/1
 ---
 
-> In this section, you will get SQL Server vNext running on Docker. After that you will install the necessary dependencies to run .NET Core.
+> In this section you will get SQL Server Developer edition running on your Windows machine. ... See moreAfter that you will install the necessary dependencies to run .NET Framework.
 
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_windows.md %}
