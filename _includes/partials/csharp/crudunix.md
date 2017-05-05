@@ -488,6 +488,7 @@ Now build and run.
 ```terminal
 dotnet run
 ```
+
 ```results
 ** C# CRUD sample with Entity Framework Core and SQL Server **
 
