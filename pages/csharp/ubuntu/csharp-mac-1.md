@@ -1,12 +1,12 @@
 ---
 layout: page-steps
 language: C#
-title: macOS
-permalink: /csharp/mac/
+title: Ubuntu
+permalink: /csharp/ubuntu/
 redirect_from:
   - /csharp/
-  - /csharp/mac/step/
-  - /csharp/mac/step/1
+  - /csharp/ubuntu/step/
+  - /csharp/ubuntu/step/1
 ---
 
 > In this section, you will get SQL Server vNext running on Docker. After that you will install the necessary dependencies to run .NET Core.
