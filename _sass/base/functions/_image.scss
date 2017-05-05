@@ -1,5 +1,0 @@
-$path: 'images/';
-
-@function image($name) {
-    @return #{'url(' + $path + $name + ')'};
-}
