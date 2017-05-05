@@ -99,7 +99,7 @@
     $(document).ready(function() {
 
     console.log(window.location.href);
-    console.log("test);
+    console.log("test");
     var path = window.location.href;
     var windows = "windows";
     var isWindows;
