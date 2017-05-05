@@ -92,10 +92,20 @@ layout: default-menutop
       <a class="sql-page_steps-next"
         href="#"
         target="_self">
-          {% if {{page.language}} == "Python %}
-            cta
-          {% else %}
+          {% if {{page.language}} == "Python" %}
+            Check out the Python Driver on GitHub
+          {% elseif {{page.language}} == "Ruby" %}
             cta1
+          {% elseif {{page.language}} == "PHP" %}
+            cta2
+          {% elseif {{page.language}} == "Java" %}
+            cta3
+          {% elseif {{page.language}} == "C#" %}
+            cta4
+          {% elseif {{page.language}} == "Node.js" %}
+            ct5               
+          {% else %}
+            cta6
           {% endif %}
 
       </a>
