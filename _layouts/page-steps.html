@@ -93,17 +93,17 @@ layout: default-menutop
         href="#"
         target="_self">
           {% if {{page.language}} == "Python" %}
-            Check out the Python Driver on GitHub
+            <a href="https://github.com/mkleehammer/pyodbc">Check out the Python Driver pyodbc on GitHub</a>
           {% elsif {{page.language}} == "Ruby" %}
-            cta1
+            <a href="https://github.com/rails-sqlserver/tiny_tds">Check out the Ruby Driver tinytds on GitHub</a>
           {% elsif {{page.language}} == "PHP" %}
-            cta2
+            <a href="https://github.com/Microsoft/msphpsql">Check out the PHP Driver on GitHub</a>
           {% elsif {{page.language}} == "Java" %}
-            cta3
+            <a href="https://github.com/Microsoft/mssql-jdbc">Check out the JDBC Driver on GitHub</a>
           {% elsif {{page.language}} == "C#" %}
-            cta4
+            <a href="https://github.com/dotnet/core">Check out .Net Core on GitHub</a>
           {% elsif {{page.language}} == "Node.js" %}
-            ct5               
+            <a href="https://github.com/tediousjs/tedious">Check out the Node.js Driver Tedious on GitHub</a>
           {% else %}
             cta6
           {% endif %}
