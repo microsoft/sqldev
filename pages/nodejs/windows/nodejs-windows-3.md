@@ -1,44 +1,132 @@
 ---
 layout: page-steps
-language: C#
+language: Node.js
 title: Windows
-permalink: /csharp/windows/step/3
+permalink: /node/windows/step/3
 ---
 
-{% include partials/step3/title.md %}
 
-## Step 3.1
-{% include partials/step3/note.md %}
+> In this section we will show you a simple example of Columnstore Indexes and how they can improve data processing speeds. Columnstore Indexes can achieve up to 100x better performance on analytical workloads and up to 10x better data compression than traditional rowstore indexes.
 
-To showcase the capabilities of Columnstore indexes, let's create a C# application that creates a sample database and a sample table with 5 million rows and then runs a simple query before and after adding a Columnstore index.
+## Step 3.1 Create a new table with 5 million using sqlcmd
 
-**Create a C# console application** 
-1. Launch Visual Studio Community 
-1. Click **File -> New -> Project** 
-1. In the **New project** dialog, click **Windows** located under **Visual C#** in the **Templates** node 
-1. Click **Console Application Visual C#** 
-1. Name the project "SqlServerColumnstoreSample" 
-1. Click **OK** to create the project
+Change to your home directory and create a folder for your project.
 
-Visual Studio creates a new C# Console Application project and opens the file **Program.cs**. Replace the contents of **Program.cs** by copying and pasting the code below into the file. Don't forget to replace the username and password with your own. Save and close the file.
+```terminal
+cd ~/
+mkdir SqlServerColumnstoreSample
+cd SqlServerColumnstoreSample
+```
 
-{% include partials/csharp/sample_7.md %}
+Using your favorite text editor, create a new file called CreateSampleTable.sql in the folder SqlServerColumnstoreSample. Paste the T-SQL code below into your new SQL file. Save and close the file.
 
-Press **F5** to build and run your project.
+```SQL
+sqlcmd -S localhost -U sa -P your_password -d SampleDB -t 60000 -Q "WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a))
+SELECT TOP(5000000)
+ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId
+,a.a + b.a + c.a + d.a + e.a + f.a + g.a + h.a AS OrderId
+,a.a * 10 AS Price
+,CONCAT(a.a, N' ', b.a, N' ', c.a, N' ', d.a, N' ', e.a, N' ', f.a, N' ', g.a, N' ', h.a) AS ProductName
+INTO Table_with_5M_rows
+FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;"
+```
+Connect to the database using sqlcmd and run the SQL script to create the table with 5 million rows. This may take a few minutes to run.
+
+```terminal
+  sqlcmd -S localhost -U sa -P your_password -d SampleDB -i ./CreateSampleTable.sql
+```
+
+## Step 3.2 Create a Node.js that queries this tables and measures the time taken
+
+In your project folder, initialize Node dependencies.
+
+```terminal
+npm init -y
+npm install tedious
+npm install node-uuid
+npm install async
+```
+Using you favorite text editor, create a file called columnstore.js in the SqlServerColumnstoreSample folder.
+
+```javascript
+var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+var uuid = require('node-uuid');
+var async = require('async');
+
+var config = {
+    userName: 'sa',
+    password: 'your_password',
+    server: 'localhost',
+    options: {
+        database: 'SampleDB'
+    }
+    // When you connect to Azure SQL Database, you need these next options.
+    //options: {encrypt: true, database: 'yourDatabase'}
+};
+
+
+var connection = new Connection(config);
+function exec(sql) {
+    var timerName = "QueryTime";
+
+    var request = new Request(sql, function(err) {
+        if (err) {
+            console.log(err);
+        }
+    });
+    request.on('doneProc', function(rowCount, more, rows) {
+        if(!more){
+            console.timeEnd(timerName);
+        }
+    });
+    request.on('row', function(columns) {
+        columns.forEach(function(column) {
+            console.log("Sum: " +  column.value);
+        });
+    });
+        console.time(timerName);
+    connection.execSql(request);
+}
+// Open connection and execute query
+connection.on('connect', function(err) {
+    async.waterfall([
+        function(){
+            exec('SELECT SUM(Price) FROM Table_with_5M_rows');
+        },
+    ]);
+});
+```
+
+## Step 3.3 Measure how long it takes to run the query
+
+Run your Node.js app from the terminal.
+
+```terminal
+  node columnstore.js
+```
 
 ```results
-*** SQL Server Columnstore demo ***
-Connecting to SQL Server ... Done.
-Dropping and creating database 'SampleDB' ... Done.
-Inserting 5 million rows into table 'Table_with_5M_rows'. This takes ~1 minute, please wait ... Done.
-Query time WITHOUT columnstore index: 363.09ms
-Adding a columnstore to table 'Table_with_5M_rows'  ... Done.
-Query time WITH columnstore index: 5.123ms
-Performance improvement with columnstore index: 71x!
-All done. Press any key to finish...
+Sum: 50000000
+QueryTime: 363ms
 ```
-> The performance of the query was greatly improved! 
-Now that you've built a few C# apps with SQL Server and .NET Core, continue checking out other SQL Server features.
 
-## Try the mssql extension for Visual Studio Code!
-{% include partials/step3/mssql.md %}
+## Step 3.4 Add a columnstore index to your table.
+
+```terminal
+sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE CLUSTERED COLUMNSTORE INDEX Columnstoreindex ON Table_with_5M_rows;"
+```
+
+## Step 3.5 Re-run the columnstore.js script and notice how long the query took to complete this time.
+
+
+```terminal
+  node columnstore.js
+```
+
+```results
+Sum: 50000000
+QueryTime: 5ms
+```
+
+> Congrats you just made your Node.js app faster using Columnstore Indexes! 
