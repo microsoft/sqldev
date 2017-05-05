@@ -5,5 +5,5 @@ title: Windows
 permalink: /java/windows/step/2
 ---
 
-{% include partials/java/crud.md %}
+{% include partials/java/crudwindows.md %}
 
