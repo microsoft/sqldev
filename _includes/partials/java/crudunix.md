@@ -1,7 +1,7 @@
 
 > In this section you will create two simple Java apps. One of them will perform basic Insert, Update, Delete, and Select, while the second one will make use of Hibernate, one of the most popular Java Object-relational mappers, to execute the same operations.
 
-## Create a Java app that connects to SQL Server and executes queries
+## Step 2.1 Create a Java app that connects to SQL Server and executes queries
 
 In your home directory, create your Maven starter package. This will create the project directory with a basic Maven project and pom.xml file. This step can also be performed in an IDE such as NetBeans or Eclipse.
 
