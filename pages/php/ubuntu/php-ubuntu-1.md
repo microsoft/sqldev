@@ -19,9 +19,8 @@ redirect_from:
 ```terminal
   sudo apt-get -y install php7.0 libapache2-mod-php7.0 mcrypt php7.0-mcrypt php-mbstring php-pear php7.0-dev apache2
 ```
-
+> You have successfully installed PHP on your Ubuntu machine! 
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
 {% include partials/install_sqlcmd_linux_ubuntu.md %}
 
-> You have successfully installed the PHP Driver for SQL Server on your Ubuntu machine. You now have everything you need to start writing PHP apps with SQL Server!
