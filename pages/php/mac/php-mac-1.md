@@ -39,9 +39,9 @@ redirect_from:
     brew install llvm --with-clang --with-clang-extra-tools
     brew install autoconf
 ```
+> You have successfully installed PHP on your macOS!
 
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
 {% include partials/install_sqlcmd_mac.md %}
     
-> You have successfully installed PHP on your Mac. You now have everything you need to start writing your PHP apps with SQL Server!
