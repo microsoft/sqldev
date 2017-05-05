@@ -16,10 +16,6 @@ redirect_from:
 
 ## Step 1.2 Install Homebrew 
 
-If you already have .NET Core installed on your machine, skip this step. Install Homebrew, OpenSSL, and .NET Core using the following commands. 
-
-1. Install Homebrew.
-
 Ruby is already installed on your Mac. If you already have Homebrew on your machine, skip this step. Install Homebrew using the following commands. Once you have installed Homebrew, make sure to restart the terminal session.
 
     {% include partials/install_homebrew.md %}
