@@ -1,0 +1,23 @@
+@import 'variables';
+
+html,
+body {
+    $font-size: 16px;
+    background: $color-background-brighter;
+    font-family: 'Segoe UI';
+    font-size: $font-size;
+    height: 100%;
+    width: 100%;
+
+    @media screen and (max-width: $media-screen-m) {
+        font-size: $font-size * .8;
+    }
+
+    @media screen and (max-width: $media-screen-s) {
+        font-size: $font-size * .65;
+    }
+}
+
+strong {
+    font-weight: $font-weight-bold;
+}
