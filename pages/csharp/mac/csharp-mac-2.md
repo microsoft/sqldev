@@ -5,4 +5,4 @@ title: macOS
 permalink: /csharp/mac/step/2
 ---
 
-{% include partials/php/crudunix.md %}
+{% include partials/csharp/crudunix.md %}
