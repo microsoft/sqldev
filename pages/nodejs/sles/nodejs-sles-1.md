@@ -2,11 +2,11 @@
 layout: page-steps
 language: Node.js
 title: SLES
-permalink: /node/mac/
+permalink: /node/sles/
 redirect_from:
   - /node/
-  - /node/mac/step/
-  - /node/mac/step/1
+  - /node/sles/step/
+  - /node/sles/step/1
 ---
 
 ## Step 1.1 Install SQL Server
