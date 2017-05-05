@@ -41,7 +41,7 @@ npm install async
 ```
 Using you favorite text editor, create a file called columnstore.js in the SqlServerColumnstoreSample folder.
 
-```node
+```javascript
 var Connection = require('tedious').Connection;
 var Request = require('tedious').Request;
 var uuid = require('node-uuid');
