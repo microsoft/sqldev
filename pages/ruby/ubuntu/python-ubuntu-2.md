@@ -1,9 +1,9 @@
 ---
 layout: page-steps
-language: Pyton
-title: ubuntu
-permalink: /python/ubuntu/step/2
+language: Ruby
+title: Ubuntu
+permalink: /ruby/ubuntu/step/2
 ---
 
-{% include partials/python/crudunix.md %}
+{% include partials/ruby/crudunix.md %}
 
