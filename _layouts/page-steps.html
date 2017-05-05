@@ -89,26 +89,22 @@ layout: default-menutop
 
     {% else %}
 
-      <a class="sql-page_steps-next"
-        href="#"
-        target="_self">
           {% if {{page.language}} == "Python" %}
-            <a href="https://github.com/mkleehammer/pyodbc">Check out the Python Driver pyodbc on GitHub</a>
+            <a class="sql-page_steps-next" href="https://github.com/mkleehammer/pyodbc">Check out the Python Driver pyodbc on GitHub</a>
           {% elsif {{page.language}} == "Ruby" %}
-            <a href="https://github.com/rails-sqlserver/tiny_tds">Check out the Ruby Driver tinytds on GitHub</a>
+            <a class="sql-page_steps-next" href="https://github.com/rails-sqlserver/tiny_tds">Check out the Ruby Driver tinytds on GitHub</a>
           {% elsif {{page.language}} == "PHP" %}
-            <a href="https://github.com/Microsoft/msphpsql">Check out the PHP Driver on GitHub</a>
+            <a class="sql-page_steps-next" href="https://github.com/Microsoft/msphpsql">Check out the PHP Driver on GitHub</a>
           {% elsif {{page.language}} == "Java" %}
-            <a href="https://github.com/Microsoft/mssql-jdbc">Check out the JDBC Driver on GitHub</a>
+            <a class="sql-page_steps-next" href="https://github.com/Microsoft/mssql-jdbc">Check out the JDBC Driver on GitHub</a>
           {% elsif {{page.language}} == "C#" %}
-            <a href="https://github.com/dotnet/core">Check out .Net Core on GitHub</a>
+            <a class="sql-page_steps-next" href="https://github.com/dotnet/core">Check out .Net Core on GitHub</a>
           {% elsif {{page.language}} == "Node.js" %}
-            <a href="https://github.com/tediousjs/tedious">Check out the Node.js Driver Tedious on GitHub</a>
+            <a class="sql-page_steps-next" href="https://github.com/tediousjs/tedious">Check out the Node.js Driver Tedious on GitHub</a>
           {% else %}
             cta6
           {% endif %}
 
-      </a>
       {% include resources.html %}
     {% endif %}
   {% endif %}
