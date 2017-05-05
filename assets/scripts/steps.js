@@ -99,16 +99,35 @@
     $(document).ready(function() {
 
     console.log(window.location.href);
-    console.log("meet");
-    });  
-    
+    console.log("test);
+    var path = window.location.href;
+    var windows = "windows";
+    var isWindows;
+    isWindows = path.includes(windows);
+    });
+
+
     var checkContent = function ($container) {
         // Terminal
-        $container
-            .find('.language-terminal.highlighter-rouge pre')
-            .addClass('command-line')
-            .attr('data-prompt', '$');
 
+        console.log(window.location.href);
+        console.log("test);
+        var path = window.location.href;
+        var windows = "windows";
+        var isWindows;
+        isWindows = path.includes(windows);
+        if (isWindows == true){
+            $container
+                .find('.language-terminal.highlighter-rouge pre')
+                .addClass('command-line')
+                .attr('data-prompt', '>');
+        }
+        else{
+            $container
+                .find('.language-terminal.highlighter-rouge pre')
+                .addClass('command-line')
+                .attr('data-prompt', '>');
+        }        
         // Clipboard
         $container
             .find('.highlighter-rouge pre')
