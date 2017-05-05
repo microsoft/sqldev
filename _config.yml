@@ -19,7 +19,7 @@ menu:
   C#:
     logo: csharp.png
     pages:
-      page.url: csharp/mac
+      {{page.url}}: csharp/mac
       RHEL: csharp/rhel
       Ubuntu: csharp/ubuntu
       Windows: csharp/windows
