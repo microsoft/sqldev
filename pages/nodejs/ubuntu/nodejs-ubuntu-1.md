@@ -39,4 +39,4 @@ v.6.9.1
 
 {% include partials/install_sqlcmd_linux_ubuntu.md %}
 
-> You have successfully installed the SQL Server command line utilities on Ubuntu. You now have everything you need to start writing Node.js apps with SQL Server!
+
