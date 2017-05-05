@@ -9,17 +9,40 @@ redirect_from:
   - /node/windows/step/1
 ---
 
-> In this section, you will get SQL Server vNext running on Docker. After that you will install the necessary dependencies to run .NET Core.
+In this section, you will get SQL Server 2017 on Windows. After that you will install the necessary dependencies to create Node.js apps with SQL Server
 
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_windows.md %}
 
-## Step 1.2 Install Visual Studio Community Edition and .NET Framework
-If you already have Visual Studio installed on your machine, skip the next few steps.
+## Step 1.2 Install Chocolatey and Node.js
 
-Visual Studio Community edition is a fully-featured, extensible, free IDE for creating modern applications for Android, iOS, Windows, as well as web & database applications and cloud services.
+If you already have Node.js and choco installed on your machine, skip this step. Install Chocolatey using this command in an elevated Command prompt (run as administrator).
 
-1. Download the installer from **[here](https://www.visualstudio.com/thank-you-downloading-visual-studio/?sku=Community&rel=15)**. 
-1. Run the installer and follow the installation prompts to complete the installation.
+```terminal
+@powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+```
+For choco to work, you now need to restart the terminal session by closing and opening the command prompt. Open an elevated Command prompt (run as administrator) and run the following commands to install node:
 
-> You have successfully installed Visual Studio Community Edition and the .NET Framework on your Windows machine. You now have everything you need to start writing your C# apps with SQL Server!
+```terminal
+choco install -y nodejs
+choco install -y npm
+```
+
+```results
+Installing the following packages:
+nodejs
+The install of nodejs was successful.
+  Software install location not explicitly set, could be in package or
+  default install location if installer.
+
+Chocolatey installed 1/1 packages. 0 packages failed.
+ See the log for details (C:\ProgramData\chocolatey\logs\chocolatey.log).
+ ```
+ > You have succesfuly installed Node.js and Chocolatey on your machine!
+
+
+## Step 1.3 Install sqlcmd - A Command Line Utility for SQL Server
+
+{% include partials/install_sqlcmd_windows.md %}
+
+
