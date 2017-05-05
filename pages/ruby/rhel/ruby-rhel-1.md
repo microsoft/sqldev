@@ -1,12 +1,12 @@
 ---
 layout: page-steps
 language: Ruby
-title: macOS
-permalink: /ruby/mac/
+title: RHEL
+permalink: /ruby/rhel/
 redirect_from:
   - /ruby/
-  - /ruby/mac/step/
-  - /ruby/mac/step/1
+  - /ruby/rhel/step/
+  - /ruby/rhel/step/1
 ---
 
 > In this section, you will get SQL Server 2017 running on your RedHat Enterprise Linux machine. After that you will install the necessary dependencies to create Ruby apps with SQL Server
