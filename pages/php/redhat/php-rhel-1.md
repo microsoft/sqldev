@@ -27,8 +27,9 @@ redirect_from:
     yum groupinstall "Development Tools"
 ```
 
+> You have successfuly installed PHP on your RHEL machine! 
+
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
 {% include partials/install_sqlcmd_linux_rhel.md %}
 
-> You have successfully installed the PHP Driver for SQL Server on your Ubuntu machine. You now have everything you need to start writing PHP apps with SQL Server!
