@@ -5,4 +5,4 @@ title: macOS
 permalink: /java/mac/step/2
 ---
 
-{% include partials/java/crud.md %}
+{% include partials/java/crudunix.md %}
