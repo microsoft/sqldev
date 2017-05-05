@@ -16,15 +16,15 @@ redirect_from:
 
 To install the Node.js package, you first need to enable the Web and Scripting module in the subscription.
 
-    ```terminal
-        sudo zypper in -t patch SUSE-SLE-Module-Web-Scripting-12-2015-427=1    
-    ```    
+```terminal
+    sudo zypper in -t patch SUSE-SLE-Module-Web-Scripting-12-2015-427=1    
+```    
 Install Node.js by updating the repository lists and then installing the nodejs6 package.
 
-    ```terminal
-        sudo zypper refresh
-        sudo zypper install nodejs6
-    ```    
+```terminal
+    sudo zypper refresh
+    sudo zypper install nodejs6
+```    
 You can verify your Node.js installation using this command:
 
 ```terminal
