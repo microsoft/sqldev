@@ -6,7 +6,7 @@ permalink: /ruby/ubuntu/
 redirect_from:
   - /ruby/
   - /ruby/ubuntu/step/
-  - /rybt/ubuntu/step/1
+  - /ruby/ubuntu/step/1
 ---
 
 > In this section, you will get SQL Server 2017 running on your Ubuntu machine. After that you will install the necessary dependencies to create Ruby apps with SQL Server
