@@ -1,5 +1,5 @@
 
-> In this section you will create two simple Java apps. One of them will perform basic Insert, Update, Delete, and Select, while the second one will make use of Hibernate, one of the most popular Node.js Object-relational mappers, to execute the same operations.
+> In this section you will create two simple Java apps. One of them will perform basic Insert, Update, Delete, and Select, while the second one will make use of Hibernate, one of the most popular Java Object-relational mappers, to execute the same operations.
 
 ## Create a Java app that connects to SQL Server and executes queries
 
