@@ -38,6 +38,6 @@ v.6.9.5
 
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
-{% include partials/install_sqlcmd_sles.md %}
+{% include partials/install_sqlcmd_linux_sles.md %}
     
 > You have successfully installed SQL Server Command Line Utilities on SUSE Linux Enterprise Server. You now have everything you need to start writing Node.js apps with SQL Server!
