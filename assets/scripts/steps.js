@@ -96,6 +96,7 @@
         $btn.addClass(classes.copy);
         return $btn;
     };
+    /*
     $(document).ready(function() {
 
     console.log(window.location.href);
@@ -106,7 +107,7 @@
     isWindows = path.includes(windows);
     });
 
-
+*/
     var checkContent = function ($container) {
         // Terminal
 
