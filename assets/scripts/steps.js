@@ -96,9 +96,7 @@
         $btn.addClass(classes.copy);
         return $btn;
     };
-    var path = window.location.pathname;
-    var page = path.split("/").pop();
-    console.log( page );
+    console.log(window.location.href);
     console.log("meet");
     var checkContent = function ($container) {
         // Terminal
