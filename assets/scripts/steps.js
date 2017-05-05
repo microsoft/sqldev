@@ -102,7 +102,7 @@
         $container
             .find('.language-terminal.highlighter-rouge pre')
             .addClass('command-line')
-            .attr('data-prompt', '$');
+            .attr('data-prompt', '>');
 
         // Clipboard
         $container
