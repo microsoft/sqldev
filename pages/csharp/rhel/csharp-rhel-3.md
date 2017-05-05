@@ -5,4 +5,4 @@ title: RHEK
 permalink: /csharp/rhel/step/3
 ---
 
-{% include partials/csharp/crudunix.md %}
+{% include partials/csharp/columnstoreunix.md %}
