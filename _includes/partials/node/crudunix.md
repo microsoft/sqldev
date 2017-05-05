@@ -25,7 +25,7 @@ Now you will create a simple Node.js app that connects to SQL Server.
 
 Using your favorite editor, create a file named connect.js in the SqlServerSample folder. Copy and paste the below contents into the file.
 
-```node
+```javascript
     var Connection = require('tedious').Connection;
     var Request = require('tedious').Request;
     var TYPES = require('tedious').TYPES;
@@ -121,7 +121,7 @@ Executed in 1 ms
 
 Using your favorite text editor, create a new file called crud.js in the SqlServerSample folder. Copy and paste the following code inside it. This will insert, update, delete, and read a few rows.
 
-```node
+```javascript
 var Connection = require('tedious').Connection;
 var Request = require('tedious').Request;
 var TYPES = require('tedious').TYPES;
@@ -294,7 +294,7 @@ b. Paste the contents below into orm.js
 c. Update the variable for password to use your own password specified in the first module. 
 d. Save and close orm.js
 
-```node
+```javascript
     var Sequelize = require('sequelize');
     var userName = 'sa';
     var password = 'your_password'; // update me
