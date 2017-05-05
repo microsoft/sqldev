@@ -1,0 +1,24 @@
+@import '../base/variables';
+
+.sql-new {
+    $size: 1.2rem;
+    display: inline-block;
+    height: 0;
+    position: relative;
+    transform: translateY(-.2rem);
+    width: 0;
+
+    &:before {
+        background-color: $color-secondary-bright;
+        border-radius: 50%;
+        color: $color-foreground-brighter;
+        content: 'new';
+        display: inline-block;
+        font-size: $font-size-xs;
+        height: $size;
+        line-height: $size;
+        text-align: center;
+        text-transform: uppercase;
+        width: $size;
+    }
+}
