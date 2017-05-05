@@ -51,7 +51,7 @@ Using your favorite editor, create a file named connect.js in the SqlServerSampl
     <!-- your existing properties -->
 </properties>
 ```
-You should already have a file called **App.java** in your Maven project located at: SqlServerSample\src\main\java\com\sqlsamples\App.java
+You should already have a file called **App.java** in your Maven project located at: SqlServerSample/src/main/java/com/sqlsamples/App.java
 
 Open this file in your favorite text editor and replace the contents with the code below. Don't forget to replace the username and password with your own. Save and close the file.
 
@@ -218,7 +218,7 @@ mvn package
 [INFO] ------------------------------------------------------------------------
 ...
 [INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ SqlServerSample ---
-[INFO] Building jar: C:\Users\usr1\SqlServerSample\target\SqlServerSample-1.0.0.jar
+[INFO] Building jar: /Users/usr1/SqlServerSample/target/SqlServerSample-1.0.0.jar
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
@@ -309,7 +309,7 @@ Save and close the file.
 </properties>
 <!-- prepopulated content by Maven -->
 ```
-For this sample, let's create two tables. The first will hold data about "users". Create a **User.java** file in your Maven project located at: SqlServerHibernateSample\src\main\java\com\sqlsamples\User.java
+For this sample, let's create two tables. The first will hold data about "users". Create a **User.java** file in your Maven project located at: SqlServerHibernateSample/src/main/java/com/sqlsamples/User.java
 
 Copy and paste the code below into your newly created **User.java** file. Save and close the file.
 ```java
@@ -383,7 +383,7 @@ public class User {
 	}
 }
 ```
-Let's create a second table to assign tasks to users. Create a **Task.java** file in your Maven project located at: SqlServerHibernateSample\src\main\java\com\sqlsamples\Task.java.
+Let's create a second table to assign tasks to users. Create a **Task.java** file in your Maven project located at: SqlServerHibernateSample/src/main/java/com/sqlsamples/Task.java.
 
 Copy and paste the code below into your newly created **Task.java** file. Save and close the file.
 ```java
@@ -464,7 +464,7 @@ public class Task {
 	}
 }
 ```
-Replace the code in the **App.java** file in your Maven project located at: SqlServerHibernateSample\src\main\java\com\sqlsamples\App.java.
+Replace the code in the **App.java** file in your Maven project located at: SqlServerHibernateSample/src/main/java/com/sqlsamples/App.java.
 
 Open this file in your favorite text editor and replace the contents with the code below. Don't forget to update the username and password with your own. Save and close the file.
 
@@ -654,7 +654,7 @@ mvn package
 [INFO] ------------------------------------------------------------------------
 ...
 [INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ SqlServerHibernateSample ---
-[INFO] Building jar: C:\Users\usr1\SqlServerHibernateSample\target\SqlServerHibernateSample-1.0.0.jar
+[INFO] Building jar: 
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
