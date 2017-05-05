@@ -5,4 +5,4 @@ title: RHEL
 permalink: /java/rhel/step/2
 ---
 
-{% include partials/java/crud.md %}
+{% include partials/java/crudunix.md %}
