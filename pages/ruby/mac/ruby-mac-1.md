@@ -14,42 +14,21 @@ redirect_from:
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_mac.md %}
 
-## Step 1.2 Install Homebrew and .NET Core
+## Step 1.2 Install Homebrew 
 
 If you already have .NET Core installed on your machine, skip this step. Install Homebrew, OpenSSL, and .NET Core using the following commands. 
 
 1. Install Homebrew.
 
+Ruby is already installed on your Mac. If you already have Homebrew on your machine, skip this step. Install Homebrew using the following commands. Once you have installed Homebrew, make sure to restart the terminal session.
+
     {% include partials/install_homebrew.md %}
 
-1. Restart the terminal session.
+## Step 1.3 Install FreeTDS
+FreeTDS is a driver that enables you to connect to SQL Server. It is a prerequisite for the connector you'll get later in the tutorial to connect to SQL Server. Run the following commands to install FreeTDS:
 
-1. Update Homebrew and install OpenSSL.
+```terminal
+brew install FreeTDS
+```
+> You have successfully installed Ruby on your Mac. You now have everything you need to start writing your Ruby apps with SQL Server!
 
-    ```terminal
-    brew update
-    brew install openssl
-    ```
-
-    ```results
-    ==> Downloading https://homebrew.bintray.com/bottles/openssl-1.0.2j.el_capitan.bottle.t
-    ######################################################################## 100.0%
-    ==> Pouring openssl-1.0.2j.el_capitan.bottle.tar.gz
-    ==> Using the sandbox
-    ==> Caveats
-    …
-    ==> Summary
-      /usr/local/Cellar/openssl/1.0.2j: 1,695 files, 12M
-    ```
-
-1. Ensure that OpenSSL is set up properly by running the following commands.
-
-    ```terminal
-    ln -s /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib /usr/local/lib/
-    ln -s /usr/local/opt/openssl/lib/libssl.1.0.0.dylib /usr/local/lib
-    ```
-
-1. Install .NET Core on macOS
-    Download the **[official installer](https://go.microsoft.com/fwlink/?linkid=843444)**. This installer will install the tools and put them on your PATH so you can run dotnet from the Console.
-
-> You have successfully installed .NET Core on your Mac. You now have everything you need to start writing your C# apps with SQL Server!
