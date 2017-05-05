@@ -1,3 +1,5 @@
+> In this section we will show you a simple example of Columnstore Indexes and how they can improve data processing speeds. Columnstore Indexes can achieve up to 100x better performance on analytical workloads and up to 10x better data compression than traditional rowstore indexes.
+
 ## Step 3.1 Create a C# project to demonstrate Columnstore indexes
 
 To showcase the capabilities of Columnstore indexes, let's create a C# application that creates a sample database and a sample table with 5 million rows and then runs a simple query before and after adding a Columnstore index.
