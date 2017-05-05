@@ -468,6 +468,7 @@ Change directories into the project folder and restore the dependencies in the c
 cd ~/SqlServerEFSample
 dotnet restore
 ```
+
 ```results
 COPY
 Results
