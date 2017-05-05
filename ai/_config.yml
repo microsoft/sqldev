@@ -1,8 +1,8 @@
 # Site settings
 # Access it in the templates via {{ site.myvariable }}.
-title: Build an app using SQL Server
+title: Get Started with AI in SQL Server
 description: > 
-  Get started with SQL Server on macOS, Linux, and Windows.
+  Get Started with AI in SQL Server
 url: "https://plainconcepts.github.io/sqldev/"
 
 disqus:
@@ -16,22 +16,12 @@ steps:
   3: Make your $$ app up to 100x faster
 
 menu:
-  C#:
+  R:
     logo: csharp.png
     pages:
-      macOS: csharp/mac
-      RHEL: csharp/rhel
-      Ubuntu: csharp/ubuntu
-      Windows: csharp/windows
-  Java:
-    logo: java.png
-    pages:
-      macOS: java/mac
-      RHEL: java/rhel
-      Ubuntu: java/ubuntu
-      SLES*: java/sles
-      Windows: java/windows
-  Node.js:
+      Build a predictive model: csharp/mac
+      Perform customer clustering: csharp/rhel
+  Something else:
     logo: node.png
     pages:
       macOS: node/mac
@@ -39,30 +29,13 @@ menu:
       Ubuntu: node/ubuntu
       SLES*: node/sles
       Windows: node/windows
-  PHP:
-    logo: php.png
-    pages:
-      macOS: php/mac
-      RHEL: php/rhel
-      Ubuntu: php/ubuntu
-      SLES*: php/sles
-      Windows: php/windows
   Python:
     logo: python.png
     pages:
-      macOS: python/mac
-      RHEL: python/rhel
-      Ubuntu: python/ubuntu
-      SLES*: python/sles
-      Windows: python/windows
-  Ruby:
-    logo: python.png
-    pages:
-      macOS: ruby/mac
-      RHEL: ruby/rhel
-      Ubuntu: ruby/ubuntu
-      SLES*: ruby/sles
-      Windows: ruby/windows
+      Build a predictive model: python/mac
+      Build a predictive model: python/rhel
+  
+
 
 resources:
   sqlserver-csharp:
