@@ -1,7 +1,7 @@
 ---
 layout: page-steps
 language: Node.js
-title: Ubuntu
+title: RHEL
 permalink: /node/rhel/
 redirect_from:
   - /node/
