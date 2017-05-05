@@ -92,7 +92,11 @@ layout: default-menutop
       <a class="sql-page_steps-next"
         href="#"
         target="_self">
-        cta
+          {% if {{page.language}} == "Python %}
+            cta
+          {% else %}
+            cta1
+
       </a>
       {% include resources.html %}
     {% endif %}
