@@ -5,4 +5,4 @@ title: SLES
 permalink: /java/sles/step/2
 ---
 
-{% include partials/java/crud.md %}
+{% include partials/java/crudunix.md %}
