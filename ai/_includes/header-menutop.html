@@ -1,0 +1,48 @@
+<header class="sql-header sql-header--empty" role="banner">
+    <div class="sql-header-content">
+      <img class="sql-header-micro" src="{{'assets/images/micro-logo.png' | relative_url }}" alt="Microsoft logo">
+      {% if site.menu %}
+        <div class="sql-menutop">
+          <a class="sql-menutop-link" href="{{ "/" | relative_url }}">Get started with SQL Server</a>
+          <div>
+            {% for submenu in site.menu %}
+              {% assign submenu_name = submenu[0] %}
+              {% assign submenu_options = submenu[1] %}
+
+              <div class="sql-menutop-sub {%if page.language == submenu_name %} is-active {% endif %}">
+                  {%if submenu_options %}
+                    {% for option in submenu_options %}
+                      {% assign key = option[0] %}
+                      {% assign value = option[1] %}
+
+                        {%if key == 'logo'%}
+                          <span class="sql-menutop-link">{{ submenu_name }} </span>
+                        {% endif %}
+
+                        {%if key == 'pages'%}
+                          <div class="sql-menutop-items">
+                            {% for link in value %}
+                              {% assign name = link[0] %}
+                              {% assign _page = link[1] %}
+                              {% assign splitted = name | split: '*' %}
+
+                              <a class="sql-menutop-item {%if page.language == submenu_name and page.title == splitted[0] %} is-active {% endif %}" 
+                                href="{{_page | relative_url }}" 
+                                target="_self">
+                                {{splitted[0]}}
+                                {% if name contains '*' %}
+                                  <i class="sql-new"></i>
+                                {% endif %}
+                              </a>
+                            {% endfor %}
+                          </div>
+                        {% endif %}
+                    {% endfor %}
+                  {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+      {% endif %}
+</header>
