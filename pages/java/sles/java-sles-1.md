@@ -9,38 +9,53 @@ redirect_from:
   - /java/sles/step/1
 ---
 
-> At the end of this tutorial, you will have created a few Java apps using SQL Server running on your Mac. You will have also tried out some cool SQL Server features we think you'll love.
+> In this section, you will get SQL Server 2017 on SUSE Linux Enterprise Linux. After that you will install the necessary dependencies to create Java apps with SQL Server
+
 
 ## Step 1.1 Install SQL Server
-{% include partials/install_sql_server_mac.md %}
+{% include partials/install_sql_server_linux_sles.md %}
 
-## Step 1.2 Install Homebrew and Java
+## Step 1.2 Install Java
 
-If you already have Java installed on your machine, skip this step. Install Homebrew, cask, and Java using the following commands. Once you have installed Homebrew, make sure to restart the terminal session.
-
-{% include partials/install_homebrew.md %}
-
-For Homebrew to work, you need to restart the terminal session by closing and opening the terminal. Once you have opened a new session, update Homebrew and install Java.
+If you already have Java installed on your machine, skip the next two steps. Install the Java Runtime Environment (JRE) and the Java Development Kit (JDK) using the following commands.
 
 ```terminal
-brew update
-brew cask install java
+    sudo zypper update
+    sudo zypper install java-1_8_0-openjdk
+    sudo zypper install java-1_8_0-openjdk-devel
+```
+
+## Step 1.3 Install Maven
+
+Maven can be used to help manage dependencies, build, test and run your Java project.
+
+```terminal
+  sudo zypper addrepo http://download.opensuse.org/repositories/devel:tools:building/SLE_12_SP2/devel:tools:building.repo
+  sudo zypper refresh
+  sudo zypper install maven
 ```
 
 ```results
-==> Tapping caskroom/cask
-Cloning into '/usr/local/Homebrew/Library/Taps/caskroom/homebrew-cask'...
-...
-==> Creating Caskroom at /usr/local/Caskroom
-==> Caveats
-...
-==> Downloading http://download.oracle.com/otn-pub/java/jdk/8u102-b14/jdk-8u102-macosx-x64.dmg
-######################################################################## 100.0%
-==> Verifying checksum for Cask java
-==> Running installer for java; your password may be necessary.
-==> Package installers may write to any location; options such as --appdir are ignored.
-==> installer: Package name is JDK 8 Update 102
-==> installer: Upgrading at base path /
-==> installer: The upgrade was successful.
-     java was successfully installed!
+Apache Maven 3.3.9 (bb52d8502b132ec0a5a3f4c09453c07478323dc5; 2015-11-10T08:41:47-08:00)
+Maven home: /usr/share/java/maven
+Java version: 1.8.0_121, vendor: Oracle Corporation
+Java home: /usr/lib64/jvm/java-1.8.0-openjdk-1.8.0/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "4.4.38-93-default", arch: "amd64", family: "unix"
 ```
+Check that you have Maven properly installed by running the following command.
+
+```terminal
+mvn -v
+```
+```results
+Apache Maven 3.0.5 (Red Hat 3.0.5-17)
+Maven home: /usr/share/maven
+Java version: 1.8.0_111, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.111-2.b15.el7_3.x86_64/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "3.10.0-327.36.3.el7.x86_64", arch: "amd64", family: "unix"
+```
+Note: If you're using an older version of Java, such as 1.7, your results above may differ slightly. If you want to use an updated version of Java, please update your Java home variable.
+
+> You have successfully installed Java and Maven on SLES. You now have everything you need to start writing your Java apps with SQL Server!
