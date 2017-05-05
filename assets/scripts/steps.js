@@ -96,8 +96,12 @@
         $btn.addClass(classes.copy);
         return $btn;
     };
+    $(document).ready(function() {
+
     console.log(window.location.href);
     console.log("meet");
+    });  
+    
     var checkContent = function ($container) {
         // Terminal
         $container
@@ -113,7 +117,7 @@
         return $container;
     };
 
-
+  
     // Init Sticky
     initSticky();
 
