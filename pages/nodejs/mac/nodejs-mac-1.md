@@ -10,6 +10,7 @@ redirect_from:
 ---
 
 ## Step 1.1 Install SQL Server
+
 {% include partials/install_sql_server_mac.md %}
 
 ## Step 1.2 Install Homebrew and Node.js
@@ -20,7 +21,7 @@ redirect_from:
 
 2. Restart the terminal session.
 
-3. Install Python
+3. Install Node.js
 
     ```terminal
       brew install node
