@@ -96,13 +96,16 @@
         $btn.addClass(classes.copy);
         return $btn;
     };
-
+    var path = window.location.pathname;
+    var page = path.split("/").pop();
+    console.log( page );
+    console.log("meet");
     var checkContent = function ($container) {
         // Terminal
         $container
             .find('.language-terminal.highlighter-rouge pre')
             .addClass('command-line')
-            .attr('data-prompt', '>');
+            .attr('data-prompt', '$');
 
         // Clipboard
         $container
