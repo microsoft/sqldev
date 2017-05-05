@@ -9,47 +9,32 @@ redirect_from:
   - /csharp/rhel/step/1
 ---
 
-> In this section, you will get SQL Server vNext running on Docker. After that you will install the necessary dependencies to run .NET Core.
+> In this section, you will get SQL Server 2017 running on RedHat Enterprise Linux. After that you will install the necessary dependencies to run .NET Core.
 
 ## Step 1.1 Install SQL Server
-{% include partials/install_sql_server_mac.md %}
+{% include partials/install_sql_server_linux_rhel.md %}
 
-## Step 1.2 Install Homebrew and .NET Core
+## Step 1.2 Install .NET Core on RHEL 7.2
 
-If you already have .NET Core installed on your machine, skip this step. Install Homebrew, OpenSSL, and .NET Core using the following commands. 
+If you already have .NET Core installed on your machine, skip this step. Install .NET Core using the following commands.
 
-1. Install Homebrew.
+You also need to ensure that your system supports enabling software collections via the [scl tool](https://access.redhat.com/documentation/en-US/Red_Hat_Developer_Toolset/1/html-single/Software_Collections_Guide/#sect-Enabling_the_Software_Collection).
 
-    {% include partials/install_homebrew.md %}
-
-1. Restart the terminal session.
-
-1. Update Homebrew and install OpenSSL.
-
-    ```terminal
-    brew update
-    brew install openssl
-    ```
-
-    ```results
-    ==> Downloading https://homebrew.bintray.com/bottles/openssl-1.0.2j.el_capitan.bottle.t
-    ######################################################################## 100.0%
-    ==> Pouring openssl-1.0.2j.el_capitan.bottle.tar.gz
-    ==> Using the sandbox
-    ==> Caveats
-    …
-    ==> Summary
-      /usr/local/Cellar/openssl/1.0.2j: 1,695 files, 12M
-    ```
-
-1. Ensure that OpenSSL is set up properly by running the following commands.
-
-    ```terminal
-    ln -s /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib /usr/local/lib/
-    ln -s /usr/local/opt/openssl/lib/libssl.1.0.0.dylib /usr/local/lib
-    ```
-
-1. Install .NET Core on macOS
-    Download the **[official installer](https://go.microsoft.com/fwlink/?linkid=843444)**. This installer will install the tools and put them on your PATH so you can run dotnet from the Console.
-
-> You have successfully installed .NET Core on your Mac. You now have everything you need to start writing your C# apps with SQL Server!
+1. Enable the .NET Core Channel. 
+For help registering your machine to get access to the channel see [Chapter 1 of the .NET Core Getting Started Guide](https://access.redhat.com/documentation/en/net-core/1.0/getting-started-guide/chapter-1-install-net-core-100-on-red-hat-enterprise-linux).
+```terminal
+subscription-manager repos --enable=rhel-7-server-dotnet-rpms
+```
+2. Install scl-tools
+```terminal
+yum install scl-utils
+```
+3. Install .NET Core
+```terminal
+yum install rh-dotnetcore11
+```
+4. Enable the .NET Core software collection
+```terminal
+scl enable rh-dotnetcore11 bash
+```
+> You have successfully installed .NET Core on your RHEL machine. You now have everything you need to start writing your C# apps with SQL Server!
