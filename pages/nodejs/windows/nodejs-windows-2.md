@@ -1,152 +1,456 @@
 ---
 layout: page-steps
-language: C#
+language: Node.js
 title: Windows
-permalink: /csharp/windows/step/2
+permalink: /node/windows/step/2
 ---
 
-> After getting SQL Server and .NET Framework on your Windows machine, you can now proceed to create your new C# projects. Here we will explore two simple applications. One of them will perform basic Insert, Update, Delete, and Select operations, while the second one will make use of [Entity Framework](https://www.asp.net/entity-framework), a popular object relational mapping (ORM) framework for C# to execute the same operations.
 
-## Step 2.1 Create a C# app that connects to SQL Server and executes queries
-Create a C# console application 
-1. Launch Visual Studio Community 
-1. Click **File -> New -> Project**
-1. In the **New project** dialog, click **Windows** located under **Visual C#** in the **Templates** node 
-1. Click **Console Application Visual C#** 
-1. Name the project _"SqlServerSample"_ 
-1. Click **OK** to create the project
+> In this section you will create two simple Node.js apps. One of them will perform basic Insert, Update, Delete, and Select, while the second one will make use of Sequelize, one of the most popular Node.js Object-relational mappers, to execute the same operations.
 
-Visual Studio creates a new C# Console Application project and opens the file **Program.cs**. Replace the contents of Program.cs by copying and pasting the code below into the file. Don't forget to replace the username and password with your own. Save and close the file.
+## Create a Node.js app that connects to SQL Server and executes queries
 
-{% include partials/csharp/sample_1.md %}
+Create a new project directory and initialize Node dependencies.
 
-Press **F5** to build and run the project.
-
-```results
-Connecting to SQL Server ... Done.
-Press any key to finish...
+```terminal
+    cd ~/
+    mkdir SqlServerSample
+    cd SqlServerSample
+    npm init -y
+    #Install tedious and async module in your project folder
+    npm install tedious
+    npm install async
 ```
 
-Now replace the code in **Program.cs** by copying and pasting the code below into the file. This will create a database and a table, and will [insert](https://msdn.microsoft.com/en-us/library/ms174335.aspx), [update](https://msdn.microsoft.com/en-us/library/ms177523.aspx), [delete](https://msdn.microsoft.com/en-us/library/ms189835.aspx), and read a few rows. Don't forget to update the username and password with your own. Save and close the file.
+Create a database that will be used for the rest of this tutorial by connecting to SQL Server using sqlcmd and executing the following statement.
 
-{% include partials/csharp/sample_2.md %}
+```terminal
+    sqlcmd -S localhost -U sa -P your_password -Q "CREATE DATABASE SampleDB;"
+```
 
-Press **F5** to build and run your project.
+Now you will create a simple Node.js app that connects to SQL Server.
+
+Using your favorite editor, create a file named connect.js in the SqlServerSample folder. Copy and paste the below contents into the file.
+
+```javascript
+    var Connection = require('tedious').Connection;
+    var Request = require('tedious').Request;
+    var TYPES = require('tedious').TYPES;
+
+    // Create connection to database
+    var config = {
+      userName: 'sa', // update me
+      password: 'your_password', // update me
+      server: 'localhost',
+      options: {
+          database: 'SampleDB'
+      }
+    }
+    var connection = new Connection(config);
+
+    // Attempt to connect and execute queries if connection goes through
+    connection.on('connect', function(err) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log('Connected');
+      }
+    });
+```
+
+Run the application.
+
+```terminal
+  node connect.js
+```
 
 ```results
-Connect to SQL Server and demo Create, Read, Update and Delete operations.
-Connecting to SQL Server ...
-Done.
-Dropping and creating database 'SampleDB' ... Done.
-Creating sample table with data, press any key to continue...
-Done.
-Inserting a new row into table, press any key to continue...
+  Connected
+```
+
+Using your favorite text editor, create a file called CreateTestData.sql in the SqlServerSample folder. Copy and paste the following the T-SQL code inside it. This will create a schema, table, and insert a few rows.
+
+```sql
+CREATE SCHEMA TestSchema;
+GO
+
+CREATE TABLE TestSchema.Employees (
+  Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  Name NVARCHAR(50),
+  Location NVARCHAR(50)
+);
+GO
+
+INSERT INTO TestSchema.Employees (Name, Location) VALUES
+(N'Jared', N'Australia'),
+(N'Nikita', N'India'),
+(N'Tom', N'Germany');
+GO
+
+SELECT * FROM TestSchema.Employees;
+GO
+```
+
+Connect to the database using sqlcmd and run the SQL script to create the schema, table, and insert some rows.
+
+```terminal
+  sqlcmd -S localhost -U sa -P your_password -d SampleDB -i ./CreateTestData.sql
+```
+
+```results
+CREATE SCHEMA TestSchema;
+
+Executed in 0 ms
+CREATE TABLE TestSchema.Employees (
+  Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  Name NVARCHAR(50),
+  Location NVARCHAR(50)
+);
+
+Executed in 0 ms
+INSERT INTO TestSchema.Employees (Name, Location) VALUES
+(N'Jared', N'Australia'),
+(N'Nikita', N'India'),
+(N'Tom', N'Germany');
+
+Executed in 0 ms
+SELECT * FROM TestSchema.Employees;
+Id  Name    Location
+--  ------  ---------
+1   Jared   Australia
+2   Nikita  India
+3   Tom     Germany
+
+3 row(s) returned
+
+Executed in 1 ms
+```
+
+Using your favorite text editor, create a new file called crud.js in the SqlServerSample folder. Copy and paste the following code inside it. This will insert, update, delete, and read a few rows.
+
+```javascript
+var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+var TYPES = require('tedious').TYPES;
+var async = require('async');
+
+// Create connection to database
+var config = {
+  userName: 'sa', // update me
+  password: 'your_password', // update me
+  server: 'localhost',
+  options: {
+    database: 'SampleDB'
+  }
+}
+var connection = new Connection(config);
+
+// Attempt to connect and execute queries if connection goes through
+connection.on('connect', function(err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('Connected');
+
+    // Execute all functions in the array serially
+    async.waterfall([
+      function Start(callback) {
+        console.log('Starting...');
+        callback(null, 'Jake', 'United States');
+      },
+      function Insert(name, location, callback) {
+        console.log("Inserting '" + name + "' into Table...");
+
+        request = new Request(
+          'INSERT INTO TestSchema.Employees (Name, Location) OUTPUT INSERTED.Id VALUES (@Name, @Location);',
+          function(err, rowCount, rows) {
+            if (err) {
+              callback(err);
+            } else {
+              console.log(rowCount + ' row(s) inserted');
+              callback(null, 'Nikita', 'United States');
+            }
+          });
+        request.addParameter('Name', TYPES.NVarChar, name);
+        request.addParameter('Location', TYPES.NVarChar, location);
+
+        // Execute SQL statement
+        connection.execSql(request);
+      },
+      function Update(name, location, callback) {
+        console.log("Updating Location to '" + location + "' for '" + name + "'...");
+
+        // Update the employee record requested
+        request = new Request(
+          'UPDATE TestSchema.Employees SET Location=@Location WHERE Name = @Name;',
+          function(err, rowCount, rows) {
+            if (err) {
+              callback(err);
+            } else {
+              console.log(rowCount + ' row(s) updated');
+              callback(null, 'Jared');
+            }
+          });
+        request.addParameter('Name', TYPES.NVarChar, name);
+        request.addParameter('Location', TYPES.NVarChar, location);
+
+        // Execute SQL statement
+        connection.execSql(request);
+      },
+      function Delete(name, callback) {
+        console.log("Deleting '" + name + "' from Table...");
+
+        // Delete the employee record requested
+        request = new Request(
+          'DELETE FROM TestSchema.Employees WHERE Name = @Name;',
+          function(err, rowCount, rows) {
+            if (err) {
+              callback(err);
+            } else {
+              console.log(rowCount + ' row(s) deleted');
+              callback(null);
+            }
+          });
+        request.addParameter('Name', TYPES.NVarChar, name);
+
+        // Execute SQL statement
+        connection.execSql(request);
+      },
+      function Read(callback) {
+        console.log('Reading rows from the Table...');
+
+        // Read all rows from table
+        request = new Request(
+        'SELECT Id, Name, Location FROM TestSchema.Employees;',
+        function(err, rowCount, rows) {
+          if (err) {
+            callback(err);
+          } else {
+            console.log(rowCount + ' row(s) returned');
+            callback(null);
+          }
+        });
+
+        // Print the rows read
+        var result = ""; request.on('row', function(columns) {
+          columns.forEach(function(column) {
+            if (column.value === null) {
+              console.log('NULL');
+            } else {
+              result += column.value + " ";
+            }
+          });
+          console.log(result);
+          result = "";
+        });
+
+        // Execute SQL statement
+        connection.execSql(request);
+      }
+    ],
+    function Complete(err, result) {
+      if (err) {
+        callback(err);
+      } else {
+        console.log("Done!");
+      }
+    }
+                   )
+  }
+});
+```
+
+Run the crud.js app to see the results
+
+```terminal
+  node crud.js
+```
+
+```results
+Connected
+Starting...
+Inserting 'Jake' into Table...
 1 row(s) inserted
-Updating 'Location' for user 'Nikita', press any key to continue...
+Updating Location to 'United States' for 'Nikita'...
 1 row(s) updated
-Deleting user 'Jared', press any key to continue...
+Deleting 'Jared' from Table...
 1 row(s) deleted
-Reading data from table, press any key to continue...
+Reading rows from the Table...
 2 Nikita United States
 3 Tom Germany
 4 Jake United States
-All done. Press any key to finish...
+3 row(s) returned
+Done!
 ```
 
-> You created your first C# + SQL Server app with .NET Framework on Windows! Check out the next section to create a C# app using an ORM!
+## Step 2.2 Create a Node.js app that connects to SQL Server using the popular Sequelize ORM
 
-## Step 2.2 Create a C# app that connects to SQL Server using the Entity Framework ORM in .NET Framework
+Create the app directory and initialize Node dependencies.
 
-**Create a C# console application**
-1. Launch Visual Studio Community 
-1. Click **File -> New -> Project** 
-1. In the **New project** dialog, click **Windows** located under **Visual C#** in the **Templates** node 
-1. Click **Console Application Visual C#** 
-1. Name the project "_SqlServerEFSample"_ 
-1. Click **OK** to create the project
+```terminal
+    cd ~/
+    mkdir SqlServerSequelizeSample
+    cd SqlServerSequelizeSample
+    npm init -y
+    #Install tedious and Sequelize module in your project folder
+    npm install tedious
+    npm install sequelize
+```
+a. Open your favourite text editor and create the file orm.js in the directory SqlServerSequelizeSample. 
+b. Paste the contents below into orm.js 
+c. Update the variable for password to use your own password specified in the first module. 
+d. Save and close orm.js
 
-Visual Studio creates a new C# Console Application project and opens the file **Program.cs**.
+```javascript
+    var Sequelize = require('sequelize');
+    var userName = 'sa';
+    var password = 'your_password'; // update me
+    var hostName = 'localhost';
+    var sampleDbName = 'SampleDB';
 
-**Add Entity Framework dependencies to your project**
-1. Open the Package Manager Console in Visual Studio with "Tools -> Nuget Package Manager -> Package Manager Console"
-1. Type: "Install-Package EntityFramework" 
-1. Hit enter
+    // Initialize Sequelize to connect to sample DB
+    var sampleDb = new Sequelize(sampleDbName, userName, password, {
+        dialect: 'mssql',
+        host: hostName,
+        port: 1433, // Default port
+        logging: false, // disable logging; default: console.log
+
+        dialectOptions: {
+            requestTimeout: 30000 // timeout = 30 seconds
+        }
+    });
+
+    // Define the 'User' model
+    var User = sampleDb.define('user', {
+        firstName: Sequelize.STRING,
+        lastName: Sequelize.STRING
+    });
+
+    // Define the 'Task' model
+    var Task = sampleDb.define('task', {
+        title: Sequelize.STRING,
+        dueDate: Sequelize.DATE,
+        isComplete: Sequelize.BOOLEAN
+    });
+
+    // Model a 1:Many relationship between User and Task
+    User.hasMany(Task);
+
+    console.log('**Node CRUD sample with Sequelize and MSSQL **');
+
+    // Tell Sequelize to DROP and CREATE tables and relationships in the database
+    sampleDb.sync({force: true})
+    .then(function() {
+        console.log('\nCreated database schema from model.');
+
+        // Create demo: Create a User instance and save it to the database
+        User.create({firstName: 'Anna', lastName: 'Shrestinian'})
+        .then(function(user) {
+            console.log('\nCreated User:', user.get({ plain: true}));
+
+            // Create demo: Create a Task instance and save it to the database
+            Task.create({
+                title: 'Ship Helsinki', dueDate: new Date(2017,04,01), isComplete: false
+            })
+            .then(function(task) {
+                console.log('\nCreated Task:', task.get({ plain: true}));
+
+                // Association demo: Assign task to user
+                user.setTasks([task])
+                .then(function() {
+                    console.log('\nAssigned task \''
+                + task.title
+                + '\' to user ' + user.firstName
+                + ' ' + user.lastName);
+
+                    // Read demo: find incomplete tasks assigned to user 'Anna''
+                    User.findAll({
+                        where: { firstName: 'Anna'},
+                        include: [{
+                            model: Task,
+                            where: { isComplete: false }
+                        }]
+                    })
+                    .then(function(users) {
+                        console.log('\nIncomplete tasks assigned to Anna:\n',
+                    JSON.stringify(users));
+
+                        // Update demo: change the 'dueDate' of a task
+                        Task.findById(1).then(function(task) {
+                            console.log('\nUpdating task:',
+                    task.title + ' ' + task.dueDate);
+                            task.update({
+                                dueDate: new Date(2016,06,30)
+                            })
+                            .then(function() {
+                                console.log('dueDate changed:',
+                        task.title + ' ' + task.dueDate);
+
+                                // Delete demo: delete all tasks with a dueDate in 2016
+                                console.log('\nDeleting all tasks with with a dueDate in 2016');
+                                Task.destroy({
+                                    where: { dueDate: {$lte: new Date(2016,12,31)}}
+                                })
+                                .then(function() {
+                                    Task.findAll()
+                                    .then(function(tasks) {
+                                        console.log('Tasks in database after delete:',
+                            JSON.stringify(tasks));
+                                        console.log('\nAll done!');
+                                    })
+                                })
+                            })
+                        })
+                    })
+                })
+            })
+        })
+    })
+```
+Run the orm.js app
+
+```terminal
+    node orm.js
+```
 
 ```results
-Attempting to gather dependency information for package 'EntityFramework.6.1.3' with respect to project 'SqlServerEFSample', targeting '.NETFramework,Version=v4.5.2'
-Attempting to resolve dependencies for package 'EntityFramework.6.1.3' with DependencyBehavior 'Lowest'
-Resolving actions to install package 'EntityFramework.6.1.3'
-Resolved actions to install package 'EntityFramework.6.1.3'
-  GET https://api.nuget.org/packages/entityframework.6.1.3.nupkg
-  OK https://api.nuget.org/packages/entityframework.6.1.3.nupkg 17ms
-Installing EntityFramework 6.1.3.
-Adding package 'EntityFramework.6.1.3' to folder 'c:\users\usr1\documents\visual studio 2015\Projects\SqlServerEFSample\packages'
-Added package 'EntityFramework.6.1.3' to folder 'c:\users\usr1\documents\visual studio 2015\Projects\SqlServerEFSample\packages'
-Added package 'EntityFramework.6.1.3' to 'packages.config'
-Executing script file 'c:\users\usr1\documents\visual studio 2015\Projects\SqlServerEFSample\packages\EntityFramework.6.1.3\tools\init.ps1'
-Executing script file 'c:\users\usr1\documents\visual studio 2015\Projects\SqlServerEFSample\packages\EntityFramework.6.1.3\tools\install.ps1'
+    **Node CRUD sample with Sequelize and MSSQL **
 
-Type 'get-help EntityFramework' to see all available Entity Framework commands.
-Successfully installed 'EntityFramework 6.1.3' to SqlServerEFSample
+    Created database schema from model.
+
+    Created User: { id: 1,
+      firstName: 'Anna',
+      lastName: 'Shrestinian',
+      updatedAt: 2016-10-07T03:40:23.000Z,
+      createdAt: 2016-10-07T03:40:23.000Z }
+
+    Created Task: { id: 1,
+      title: 'Ship Helsinki',
+      dueDate: 2017-05-01T07:00:00.000Z,
+      isComplete: false,
+      updatedAt: 2016-10-07T03:40:23.000Z,
+      createdAt: 2016-10-07T03:40:23.000Z }
+
+    Assigned task 'Ship Helsinki' to user Anna Shrestinian
+
+    Incomplete tasks assigned to Anna:
+     [{"id":1,"firstName":"Anna","lastName":"Shrestinian",
+     "createdAt":"2016-10-07T03:40:23.000Z",
+     "updatedAt":"2016-10-07T03:40:23.000Z",
+     "tasks":[{"id":1,"title":"Ship Helsinki",
+     "dueDate":"2017-05-01T07:00:00.000Z",
+     "isComplete":false,
+     "createdAt":"2016-10-07T03:40:23.000Z",
+     "updatedAt":"2016-10-07T03:40:23.000Z",
+     "userId":1}]}]
+
+    Updating task: Ship Helsinki Mon May 01 2017 00:00:00 GMT-0700 (PDT)
+    dueDate changed: Ship Helsinki Sat Jul 30 2016 00:00:00 GMT-0700 (PDT)
+
+    Deleting all tasks with with a dueDate in 2016
+    Tasks in database after delete: []
+
+    All done!
 ```
 
-Close the Package Manager Console. You have successfully added the required Entity Framework dependencies to your project.
-
-For this sample, let's create two tables. The first will hold data about "users" and the other will hold data about “tasks”.
-
-**Create User.cs:**
-1. Click **Project -> Add Class**
-1. Type "User.cs" in the name field 
-1. Click **Add** to add the new class to your project
-
-Copy and paste the following code into the **User.cs** file. Save and close the file.
-
-{% include partials/csharp/sample_3.md %}
-
-**Create Task.cs:** 
-1. Click **Project -> Add Class**
-2. Type "Task.cs" in the name field 
-3. Click **Add** to add the new class to your project
-
-Copy and paste the following code into the **Task.cs** file. Save and close the file.
-{% include partials/csharp/sample_4.md %}
-
-Create EFSampleContext.cs: 
-1. Click Project -> Add Class 
-2. Type "EFSampleContext.cs" in the name field 
-3. Click Add to add the new class to your project
-
-Copy and paste the following code into the EFSampleContext.cs file. Save and close the file.
-{% include partials/csharp/sample_5.md %}
-
-Replace the code in the **Program.cs** file in your by copying and pasting the code into the file. Don't forget to update the username and password with your own. Save and close the file.
-{% include partials/csharp/sample_6.md %}
-
-Press **F5** to build and run the project.
-
-```results
-** C# CRUD sample with Entity Framework and SQL Server **
-
-Created database schema from C# classes.
-
-Created User: User [id=1, name=Anna Shrestinian]
-
-Created Task: Task [id=1, title=Ship Helsinki, dueDate=4/1/2017 12:00:00 AM, IsComplete=False]
-
-Assigned Task: 'Ship Helsinki' to user 'Anna Shrestinian'
-
-Incomplete tasks assigned to 'Anna':
-Task [id=1, title=Ship Helsinki, dueDate=4/1/2017 12:00:00 AM, IsComplete=False]
-
-Updating task: Task [id=1, title=Ship Helsinki, dueDate=4/1/2017 12:00:00 AM, IsComplete=False]
-dueDate changed: Task [id=1, title=Ship Helsinki, dueDate=6/30/2016 12:00:00 AM, IsComplete=False]
-
-Deleting all tasks with a dueDate in 2016
-Deleting task: Task [id=1, title=Ship Helsinki, dueDate=6/30/2016 12:00:00 AM, IsComplete=False]
-
-Tasks after delete:
-[None]
-All done. Press any key to finish...
-```
-
-> Congrats you just created two C# apps! Check out the next section to learn about how you can **make your C# apps faster with SQL Server's Columnstore feature.**
+> Congrats you created your first two Node.js apps with SQL Server! Check out the next section to learn about how you can make your Node.js apps faster with SQL Server’s Columnstore feature
