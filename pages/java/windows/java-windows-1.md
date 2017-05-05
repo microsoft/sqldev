@@ -9,7 +9,7 @@ redirect_from:
   - /java/windows/step/1
 ---
 
-> In this section, you will get SQL Server vNext running on Docker. After that you will install the necessary dependencies to run .NET Core.
+> In this section, you will get SQL Server 2017 running on Windows. After that you will install the necessary dependencies to create Java apps with SQL Server.
 
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_windows.md %}
@@ -23,7 +23,6 @@ Install the **Java Runtime Environment (JRE)** by following the steps below.
     ![downloads](https://sqlchoice.blob.core.windows.net/sqlchoice/static/images/jre_windows_license.JPG "downloads")
 
 2. Download the appropriate JRE installer for Windows based on your operating system requirements (32 or 64-bit) 
-
 3. Run the installer and follow the installation prompts to complete the JRE installation
 
 Next, install the **Java Development Kit (JDK)** using the following command. 
@@ -32,7 +31,6 @@ Next, install the **Java Development Kit (JDK)** using the following command.
     ![downloadjdk](https://sqlchoice.blob.core.windows.net/sqlchoice/static/images/jdk_windows_license.JPG "downloadjdk")
 
 2. Download the appropriate JDK installer for Windows based on your operating system requirements (32 or 64-bit) 
-
 3. Run the installer and follow the installation prompts to complete the JDK installation
 
 Add the JDK to your PATH environment variable 
@@ -52,9 +50,7 @@ Add the Maven bin directory to your PATH environment variable and add the JRE to
 2. Search for "Advanced System Settings" 
 3. Click on the "Environment Variables" button 
 4. Add the location of the bin folder of the Maven installation to the PATH variable 
-
 5. Create a new System Variable for "JAVA_HOME" and point it to the location of the JRE in the JDK folder (ex. C:\Program Files\Java\jdk1.8.0_102\jre) 
-
 6. Check that Maven was installed properly by running the following command.
 
 ```terminal
