@@ -10,7 +10,7 @@ redirect_from:
 ---
 
 ## Step 1.1 Install SQL Server
-{% include partials/install_sql_server_sles.md %}
+{% include partials/install_sql_server_linux_sles.md %}
 
 ## Step 1.2 Install Node.ks
 
