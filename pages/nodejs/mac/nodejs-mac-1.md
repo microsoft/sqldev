@@ -9,6 +9,8 @@ redirect_from:
   - /node/mac/step/1
 ---
 
+> In this section, you will get SQL Server 2017 running on Docker. After that you will install the necessary dependencies to create Node.js apps with SQL Server
+
 ## Step 1.1 Install SQL Server
 
 {% include partials/install_sql_server_mac.md %}
