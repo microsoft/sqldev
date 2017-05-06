@@ -1,6 +1,6 @@
 ---
 layout: page-steps
-language: Pyton
+language: Python
 title: ubuntu
 permalink: /python/ubuntu/step/2
 ---
