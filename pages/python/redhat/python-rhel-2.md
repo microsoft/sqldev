@@ -1,6 +1,6 @@
 ---
 layout: page-steps
-language: Pyton
+language: Python
 title: RHEL
 permalink: /python/rhel/step/2
 ---
