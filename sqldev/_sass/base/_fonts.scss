@@ -1,0 +1,7 @@
+@import 'variables';
+@import 'mixins/fonts';
+
+// Fonts
+@include font-include('Segoe UI', '//c.s-microsoft.com/static/fonts/segoe-ui/west-european/light/latest', $font-weight-light, normal);
+@include font-include('Segoe UI', '//c.s-microsoft.com/static/fonts/segoe-ui/west-european/normal/latest', $font-weight-normal, normal);
+@include font-include('Segoe UI', '//c.s-microsoft.com/static/fonts/segoe-ui/west-european/bold/latest', $font-weight-bold, normal);

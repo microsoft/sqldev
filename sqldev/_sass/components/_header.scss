@@ -1,0 +1,38 @@
+@import '../base/variables';
+
+.sql-header {
+    $padding: 1rem;
+    padding-top: $padding;
+
+    &--empty {
+        background: transparent;
+    }
+
+    &-content {
+        text-align: center;
+    }
+
+    &-title {
+        color: $color-secondary;
+        display: block;
+        font-size: $font-size-xxl;
+        margin-bottom: 1.5rem;
+        margin-top: 4rem;
+    }
+
+    &-subtitle {
+        color: $color-foreground-darker;
+        display: block;
+        font-size: $font-size-xl;
+        font-weight: $font-weight-light;
+        margin-bottom: 3rem;
+        margin-top: 1rem;
+    }
+
+    &-micro {
+        left: $margin-logo;
+        position: absolute;
+        top: 1rem;
+        width: 5rem;
+    }
+}
