@@ -1,6 +1,6 @@
 ---
 layout: page-steps
-language: Pyton
+language: Python
 title: macOS
 permalink: /python/mac/step/2
 ---
