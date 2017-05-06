@@ -1,8 +1,8 @@
 ---
 layout: page-steps
-language: Pyton
+language: Python
 title: SLES
-permalink: /python/mac/step/2
+permalink: /python/sles/step/2
 ---
 
 {% include partials/python/crudunix.md %}
