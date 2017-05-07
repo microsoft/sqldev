@@ -20,7 +20,7 @@ layout: default-menutop
         <div class="sql-page_steps-step">
           {%if number > 1 %}
             <a class="sql-page_steps-link {% if number == baseNumber %} sql-page_steps-link--active {% endif %}"
-               href="{{ baseLink[0] | append: separator | append: number | replace: '//', '/' | relative_url }}"
+               href="{{ baseLink[0] | append: separator | append: number | append: | '.html' | replace: '//', '/' | relative_url }}"
                target="_self">
                <span class="sql-page_steps-number">{{ number }}</span>
                {{ value }}
