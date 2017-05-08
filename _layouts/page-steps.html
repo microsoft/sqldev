@@ -82,7 +82,7 @@ layout: default-menutop
       {% endif %}
 
       <a class="sql-page_steps-next"
-        href="{{ baseLink[0] | append: separator | append: nextNumber | replace: '//', '/' | relative_url }}"
+        href="{{ baseLink[0] | append: separator | append: nextNumber | append: '.html' | replace: '//', '/' | relative_url }}"
         target="_self">
         Go to step {{nextNumber}}
       </a>
