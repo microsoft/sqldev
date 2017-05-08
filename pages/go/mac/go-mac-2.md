@@ -1,8 +1,8 @@
 ---
 layout: page-steps
-language: C#
+language: Go
 title: macOS
-permalink: /csharp/mac/step/2
+permalink: /go/mac/step/2
 ---
 
 > After getting SQL Server and .NET Core on your Mac, you can now proceed to create your new C# projects. Here we will explore two simple applications. One of them will perform basic Insert, Update, Delete, and Select operations, while the second one will make use of Entity Framework Core, a popular object relational mapping (ORM) framework for .NET Core to execute the same operations.

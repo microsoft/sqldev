@@ -1,15 +1,15 @@
 ---
 layout: page-steps
-language: C#
+language: Go
 title: macOS
-permalink: /csharp/mac/
+permalink: /go/mac/
 redirect_from:
-  - /csharp/
-  - /csharp/mac/step/
-  - /csharp/mac/step/1
+  - /go/
+  - /go/mac/step/
+  - /go/mac/step/1
 ---
 
-> In this section, you will get SQL Server vNext running on Docker. After that you will install the necessary dependencies to create GO apps with SQL Server.
+> In this section, you will get SQL Server vNext running on Docker. After that you will install the necessary dependencies to create Go apps with SQL Server.
 
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_mac.md %}

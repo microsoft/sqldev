@@ -1,8 +1,8 @@
 ---
 layout: page-steps
-language: C#
+language: Go
 title: macOS
-permalink: /csharp/mac/step/3
+permalink: /go/mac/step/3
 ---
 
 {% include partials/step3/title.md %}

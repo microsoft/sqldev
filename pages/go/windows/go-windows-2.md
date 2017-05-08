@@ -1,8 +1,8 @@
 ---
 layout: page-steps
-language: C#
+language: Go
 title: Windows
-permalink: /csharp/windows/step/2
+permalink: /go/windows/step/2
 ---
 
 > After getting SQL Server and .NET Framework on your Windows machine, you can now proceed to create your new C# projects. Here we will explore two simple applications. One of them will perform basic Insert, Update, Delete, and Select operations, while the second one will make use of [Entity Framework](https://www.asp.net/entity-framework), a popular object relational mapping (ORM) framework for C# to execute the same operations.
