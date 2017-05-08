@@ -61,8 +61,6 @@ menu:
       macOS: ruby/mac
       RHEL: ruby/rhel
       Ubuntu: ruby/ubuntu
-      SLES*: ruby/sles
-      Windows: ruby/windows
 
 resources:
   sqlserver-csharp:
