@@ -316,12 +316,12 @@ namespace SqlServerEFSample
     }
 }
 ```
-Create EFSampleContext.cs: 
+**Create EFSampleContext.cs:** 
 1. Click Project -> Add Class 
 2. Type "EFSampleContext.cs" in the name field 
 3. Click Add to add the new class to your project
 
-Copy and paste the following code into the EFSampleContext.cs file. Save and close the file.
+Copy and paste the following code into the **EFSampleContext.cs** file. Save and close the file.
 ```csharp
 using Microsoft.EntityFrameworkCore;
 

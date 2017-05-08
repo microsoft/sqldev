@@ -9,7 +9,7 @@ redirect_from:
   - /python/rhel/step/1
 ---
 
-> In this section, you will get SQL Server vNext running on RedHat Enterprise Linux. After that you will install the necessary dependencies to create Python apps with SQL Server
+> In this section, you will get SQL Server vNext running on RedHat Enterprise Linux. After that you will install the necessary dependencies to create Python apps with SQL Server.
 
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_linux_rhel.md %}
