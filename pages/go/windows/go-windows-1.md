@@ -1,6 +1,6 @@
 ---
 layout: page-steps
-language: C#
+language: GO
 title: Windows
 permalink: /csharp/windows/
 redirect_from:
@@ -11,7 +11,7 @@ redirect_from:
 
 > In this section, you will get SQL Server vNext running on Docker. After that you will install the necessary dependencies to run .NET Core.
 
-## Step 1.1 Install SQL Server
+## Step 1.1 Install SQL Server on Windows
 {% include partials/install_sql_server_windows.md %}
 
 ## Step 1.2 Install Visual Studio Community Edition and .NET Framework
