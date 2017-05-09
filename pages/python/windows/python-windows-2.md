@@ -5,5 +5,5 @@ title: Windows
 permalink: /python/windows/step/2
 ---
 
-{% include partials/python/crudunix.md %}
+{% include partials/python/crudwindows.md %}
 
