@@ -17,7 +17,7 @@ redirect_from:
 
 ## Step 1.2 Install Homebrew and Node.js
 
-1. Install Homebrew.
+1. Install [Homebrew](https://brew.sh/).
 
     {% include partials/install_homebrew.md %}
 
