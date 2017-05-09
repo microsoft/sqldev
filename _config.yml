@@ -28,32 +28,32 @@ menu:
     pages:
       macOS: java/mac
       RHEL: java/rhel
-      Ubuntu: java/ubuntu
       SLES*: java/sles
+      Ubuntu: java/ubuntu
       Windows: java/windows
   Node.js:
     logo: node.png
     pages:
       macOS: node/mac
       RHEL: node/rhel
-      Ubuntu: node/ubuntu
       SLES*: node/sles
+      Ubuntu: node/ubuntu
       Windows: node/windows
   PHP:
     logo: php.png
     pages:
       macOS: php/mac
       RHEL: php/rhel
-      Ubuntu: php/ubuntu
       SLES*: php/sles
+      Ubuntu: php/ubuntu
       Windows: php/windows
   Python:
     logo: python.png
     pages:
       macOS: python/mac
       RHEL: python/rhel
-      Ubuntu: python/ubuntu
       SLES*: python/sles
+      Ubuntu: python/ubuntu
       Windows: python/windows
   Ruby:
     logo: ruby.png
