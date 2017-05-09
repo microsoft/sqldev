@@ -14,7 +14,7 @@ redirect_from:
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_windows.md %}
 
-## Step 1.2 Install Python and pip
+## Step 1.2 Install Python
 
 Download and run the installer [**here**](https://www.python.org/downloads/)
 
