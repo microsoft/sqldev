@@ -5,5 +5,5 @@ title: Windows
 permalink: /python/windows/step/3
 ---
 
-{% include partials/python/columnstoreunix.md %}
+{% include partials/python/columnstorewindows.md %}
 
