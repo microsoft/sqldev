@@ -14,12 +14,22 @@ redirect_from:
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_windows.md %}
 
-## Step 1.2 Install Visual Studio Community Edition and .NET Framework
-If you already have Visual Studio installed on your machine, skip the next few steps.
+## Step 1.2 Install Python and pip
 
-Visual Studio Community edition is a fully-featured, extensible, free IDE for creating modern applications for Android, iOS, Windows, as well as web & database applications and cloud services.
+1. Install Python
 
-1. Download the installer from **[here](https://www.visualstudio.com/thank-you-downloading-visual-studio/?sku=Community&rel=15)**. 
-1. Run the installer and follow the installation prompts to complete the installation.
+Download and run the installer [here](https://www.python.org/downloads/)
+
+2. Add Python to your path
+
+- Press start 
+- Search for "Advanced System Settings" 
+- Click on the "Environment Variables" button 
+- Add the location of the Python27 folder to the PATH variable in System Variables. The following is a typical value for the PATH variable C:\Python27
+
+> You have succesfuly installed Python on your machine! 
+
+## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
+{% include partials/install_sqlcmd_windows.md %}
 
 > You have successfully installed Visual Studio Community Edition and the .NET Framework on your Windows machine. You now have everything you need to start writing your C# apps with SQL Server!
