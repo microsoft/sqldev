@@ -20,10 +20,10 @@ sqlcmd -S localhost -U sa -P yourpassword -Q "SELECT @@VERSION"
 
 ```results
 --------------------------------------------------------
-Microsoft SQL Server vNext (CTP1.3) - 14.0.304.100 (X64)
-Feb  8 2017 04:21:38
-Copyright (c) Microsoft Corporation
-on Linux (Ubuntu 16.04)
+Microsoft SQL Server vNext (CTP2.0) - 14.0.500.272 (X64) 
+	Apr 13 2017 11:44:40 
+  Copyright (c) Microsoft Corporation
+  on Linux (SUSE Linux Enterprise Server 12 SP2)
 
 1 rows(s) returned
 
