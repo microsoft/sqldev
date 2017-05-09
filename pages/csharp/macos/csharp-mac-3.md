@@ -2,7 +2,7 @@
 layout: page-steps
 language: C#
 title: macOS
-permalink: /csharp/mac/step/3
+permalink: /csharp/macos/step/3
 ---
 
 {% include partials/csharp/columnstoreunix.md %}

@@ -2,11 +2,11 @@
 layout: page-steps
 language: C#
 title: macOS
-permalink: /csharp/mac/
+permalink: /csharp/macos/
 redirect_from:
   - /csharp/
-  - /csharp/mac/step/
-  - /csharp/mac/step/1
+  - /csharp/macos/step/
+  - /csharp/macos/step/1
 ---
 
 > In this section, you will get SQL Server 2017 on Docker. After that you will install the necessary dependencies to create .NET Core apps with SQL Server.
