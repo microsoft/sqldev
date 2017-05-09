@@ -27,7 +27,7 @@ If you already have Java installed on your machine, skip the next two steps. Ins
 
 ## Step 1.3 Install Maven
 
-Maven can be used to help manage dependencies, build, test and run your Java project.
+[Maven](https://maven.apache.org/) can be used to help manage dependencies, build, test and run your Java project.
 
 ```terminal
   sudo zypper addrepo http://download.opensuse.org/repositories/devel:tools:building/SLE_12_SP2/devel:tools:building.repo
