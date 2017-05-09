@@ -2,23 +2,23 @@ Note: To ensure optimal performance of SQL Server, your machine should have at l
 
 1. Register the Microsoft Linux repository and add they keys
 
-```terminal
-sudo zypper addrepo -fc https://packages.microsoft.com/config/sles/12/mssql-server.repo
-sudo zypper --gpg-auto-import-keys refresh
-```
+    ```terminal
+        sudo zypper addrepo -fc https://packages.microsoft.com/config/sles/12/mssql-server.repo
+        sudo zypper --gpg-auto-import-keys refresh
+    ```
 
 2. Install SQL Server
 
-```terminal
-sudo zypper update
-sudo zypper install mssql-server
-```
+    ```terminal
+        sudo zypper update
+        sudo zypper install mssql-server
+    ```
 
 3. Setup your SQL Server
 
-```terminal
-sudo /opt/mssql/bin/mssql-conf setup
-```
+    ```terminal
+        sudo /opt/mssql/bin/mssql-conf setup
+    ```
 
 ```results
 Microsoft(R) SQL Server(R) Setup
