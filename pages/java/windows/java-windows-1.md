@@ -40,7 +40,7 @@ Add the JDK to your PATH environment variable
 3. Click on the "Environment Variables" button 
 4. Add the location of the bin folder of the JDK installation to the PATH variable in **System Variables**. The following is a typical value for the PATH variable C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Java\jdk1.8.0\bin
 
-## 1.2 Install Maven
+## 1.3 Install Maven
 
 [Maven](https://maven.apache.org/) can be used to help manage dependencies, build, test and run your Java project. Follow the instructions below to install Maven. 
 1. Download the [Maven binary](http://www-eu.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.zip)
