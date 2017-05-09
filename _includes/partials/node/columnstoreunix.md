@@ -1,5 +1,4 @@
-
-> In this section we will show you a simple example of [Columnstore Indexes](https://docs.microsoft.com/en-us/sql/relational-databases/indexes/columnstore-indexes-overview) and how they can improve data processing speeds. Columnstore Indexes can achieve up to 100x better performance on analytical workloads and up to 10x better data compression than traditional rowstore indexes.
+{% include partials/step3/title.md %}
 
 ## Step 3.1 Create a new table with 5 million using sqlcmd
 
