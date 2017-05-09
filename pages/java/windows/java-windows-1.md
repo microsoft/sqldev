@@ -42,7 +42,7 @@ Add the JDK to your PATH environment variable
 
 ## 1.2 Install Maven
 
-Maven can be used to help manage dependencies, build, test and run your Java project. Follow the instructions below to install Maven. 
+[Maven](https://maven.apache.org/) can be used to help manage dependencies, build, test and run your Java project. Follow the instructions below to install Maven. 
 1. Download the [Maven binary](http://www-eu.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.zip)
 2. Unzip the installer to a file location on your computer
 
