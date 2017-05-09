@@ -41,7 +41,7 @@ Installed:
 
 ## Step 1.3 Install Maven
 
-Maven can be used to help manage dependencies, build, test and run your Java project.
+[Maven](https://maven.apache.org/) can be used to help manage dependencies, build, test and run your Java project.
 
 ```terminal
   sudo wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
