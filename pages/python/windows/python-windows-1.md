@@ -16,7 +16,7 @@ redirect_from:
 
 ## Step 1.2 Install Python and pip
 
-Download and run the installer [here](https://www.python.org/downloads/)
+Download and run the installer [**here**](https://www.python.org/downloads/)
 
 Next, add Python to your path
 
