@@ -8,7 +8,7 @@ permalink: /csharp/windows1/step/2
 > After getting SQL Server and .NET Framework on your Windows machine, you can now proceed to create your new C# projects. Here we will explore two simple applications. One of them will perform basic Insert, Update, Delete, and Select operations, while the second one will make use of [Entity Framework](https://www.asp.net/entity-framework), a popular object relational mapping (ORM) framework for C# to execute the same operations.
 
 ## Step 2.1 Create a C# app that connects to SQL Server and executes queries
-Create a C# console application 
+**Create a C# console application**
 1. Launch Visual Studio Community 
 1. Click **File -> New -> Project**
 1. In the **New project** dialog, click **Windows** located under **Visual C#** in the **Templates** node 
@@ -111,7 +111,7 @@ Copy and paste the following code into the **User.cs** file. Save and close the 
 Copy and paste the following code into the **Task.cs** file. Save and close the file.
 {% include partials/csharp/sample_4.md %}
 
-Create EFSampleContext.cs: 
+**Create EFSampleContext.cs:**
 1. Click Project -> Add Class 
 2. Type "EFSampleContext.cs" in the name field 
 3. Click Add to add the new class to your project
