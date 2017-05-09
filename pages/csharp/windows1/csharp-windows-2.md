@@ -116,7 +116,7 @@ Copy and paste the following code into the **Task.cs** file. Save and close the 
 2. Type "EFSampleContext.cs" in the name field 
 3. Click Add to add the new class to your project
 
-Copy and paste the following code into the EFSampleContext.cs file. Save and close the file.
+Copy and paste the following code into the **EFSampleContext.cs** file. Save and close the file.
 {% include partials/csharp/sample_5.md %}
 
 Replace the code in the **Program.cs** file in your by copying and pasting the code into the file. Don't forget to update the username and password with your own. Save and close the file.
