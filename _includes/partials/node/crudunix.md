@@ -301,10 +301,10 @@ Create the app directory and initialize Node dependencies.
     npm install tedious
     npm install sequelize
 ```
-a. Open your favourite text editor and create the file orm.js in the directory SqlServerSequelizeSample. 
-b. Paste the contents below into orm.js 
-c. Update the variable for password to use your own password specified in the first module. 
-d. Save and close orm.js
+1. Open your favourite text editor and create the file orm.js in the directory SqlServerSequelizeSample. 
+1. Paste the contents below into orm.js 
+1. Update the variable for password to use your own password specified in the first module. 
+1. Save and close orm.js
 
 ```javascript
     var Sequelize = require('sequelize');
