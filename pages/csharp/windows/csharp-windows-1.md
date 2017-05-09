@@ -14,7 +14,7 @@ redirect_from:
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_windows.md %}
 
-## Step 1.2 Install Visual Studio Community Edition and .NET Framework
+## Step 1.2 Install Visual Studio Community Edition and .NET Frameworks
 If you already have Visual Studio installed on your machine, skip the next few steps.
 
 Visual Studio Community edition is a fully-featured, extensible, free IDE for creating modern applications for Android, iOS, Windows, as well as web & database applications and cloud services.
