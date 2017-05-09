@@ -47,4 +47,4 @@ redirect_from:
 
 {% include partials/install_sqlcmd_mac.md %}
     
-> You have successfully installed SQL Server Command Line Utilities on macOS. You now have everything you need to start writing Node.js apps with SQL Server!
+> You now have everything you need to start writing Node.js apps with SQL Server!
