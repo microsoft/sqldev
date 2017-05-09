@@ -26,7 +26,7 @@ Install the **Java Runtime Environment (JRE)** by following the steps below.
 2. Download the appropriate JRE installer for Windows based on your operating system requirements (32 or 64-bit) 
 3. Run the installer and follow the installation prompts to complete the JRE installation
 
-Next, install the **Java Development Kit (JDK)** using the following command. 
+Next, install the **Java Development Kit (JDK)** by following the steps below. 
 1. Click "Accept License Agreement" on the [JDK download page](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
     ![downloadjdk](https://sqlchoice.blob.core.windows.net/sqlchoice/static/images/jdk_windows_license.JPG "downloadjdk")
