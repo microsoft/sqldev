@@ -1,13 +1,13 @@
 
-# SQL Server Tutoraisl Documentation Contributor Guide
+# SQL Server Tutorials Documentation Contributor Guide
 You've found the GitHub repository that houses the source for the SQL Server tutorials that is published on [http://aka.ms/sqldev](http://aka.ms/sqldev).
 
 
 ## Contribute to SQL Server tutorials 
-Firstly, thank you for your interest in contributing to our tutorials. We use Jekyll + Markdown for our documentation. To contribute, simply make a PR with changes in the Markdown files/new Markdown files. We will review it withing 24 hours. 
+Firstly, thank you for your interest in contributing to our tutorials. We use Jekyll + Markdown for our documentation. To contribute, simply make a PR with changes in the Markdown files/new Markdown files. We will review it within 24 hours. 
 
 ## Repository organization
-The content in the repsository follows the standard Jekyll folder structure:
+The content in the repository follows the standard Jekyll folder structure:
 
 ### \pages
 The *\pages* folder contains the documentation articles formatted as markdown files with an *.md* extension for each langauge + OS comibination
