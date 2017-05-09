@@ -2,7 +2,7 @@
 
 ## Step 3.1 Create a Ruby app to demonstrate Columnstore indexes
 
-Create a new directory for your project and install TinyTDS](https://github.com/rails-sqlserver/tiny_tds).
+Create a new directory for your project and install [TinyTDS](https://github.com/rails-sqlserver/tiny_tds).
 
 ```terminal
 mkdir SqlServerColumnstoreSample
