@@ -116,8 +116,9 @@
         var path = window.location.href;
         var windows = "windows";
         var isWindows;
-        isWindows = path.includes(windows);
-        if (isWindows == true){
+
+        isWindows = path.indexOf(windows);
+        if (isWindows >=0){
             $container
                 .find('.language-terminal.highlighter-rouge pre')
                 .addClass('command-line')
