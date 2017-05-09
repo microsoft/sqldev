@@ -16,16 +16,14 @@ redirect_from:
 
 ## Step 1.2 Install Python and pip
 
-1. Install Python
-
 Download and run the installer [here](https://www.python.org/downloads/)
 
-2. Add Python to your path
+Next, add Python to your path
 
-- Press start 
-- Search for "Advanced System Settings" 
-- Click on the "Environment Variables" button 
-- Add the location of the Python27 folder to the PATH variable in System Variables. The following is a typical value for the PATH variable C:\Python27
+1. Press start 
+2. Search for "Advanced System Settings" 
+3. Click on the "Environment Variables" button 
+4. Add the location of the Python27 folder to the PATH variable in System Variables. The following is a typical value for the PATH variable C:\Python27
 
 > You have succesfuly installed Python on your machine! 
 
