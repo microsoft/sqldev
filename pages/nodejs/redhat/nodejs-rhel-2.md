@@ -3,7 +3,7 @@ layout: page-steps
 language: Node.js
 title: RHEL
 
-permalink: /node/rhel-step/2
+permalink: /node/rhel/step/2
 redirect_from:
   - /node/
   - /node/rhel/step/
