@@ -9,7 +9,7 @@ redirect_from:
   - /java/ubuntu/step/1
 ---
 
-> In this section, you will get SQL Server 2017 on Ubuntu. After that you will install the necessary dependencies to create Node.js apps with SQL Server
+> In this section, you will get SQL Server 2017 on Ubuntu. After that you will install the necessary dependencies to create Java apps with SQL Server.
 
 
 ## Step 1.1 Install SQL Server
