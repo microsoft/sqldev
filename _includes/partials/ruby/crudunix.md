@@ -3,7 +3,7 @@
 
 ## Step 2.1 Create a Ruby app that connects to SQL Server and executes queries
 
-Create a new project directory and install TinyTDS. TinyTDS is used to connect Ruby applications to SQL Server.
+Create a new project directory and install [TinyTDS](https://github.com/rails-sqlserver/tiny_tds). TinyTDS is used to connect Ruby applications to SQL Server.
 
 ```terminal
 mkdir SqlServerSample
@@ -105,11 +105,11 @@ All done.
 
 ## Step 2.2 Create a Ruby on Rails app that connects to SQL Server using the Active Record ORM.
 
-Change to your home directory. Install Ruby on Rails (RoR)
+Change to your home directory. Install Ruby on Rails (RoR).
 ```terminal
 gem install rails
 ```
-Create a new RoR application and specify SQL Server as the database. This will create a new directory and install the gem dependencies required. This includes tiny_tds and [activerecord-sqlserver-adapter](https://github.com/rails-sqlserver/activerecord-sqlserver-adapter).
+Create a new RoR application and specify SQL Server as the database. This will create a new directory and install the gem dependencies required. This includes TinyTDS and [activerecord-sqlserver-adapter](https://github.com/rails-sqlserver/activerecord-sqlserver-adapter).
 
 ```terminal
 rails new SqlServerRailsSample --database=sqlserver
@@ -164,7 +164,7 @@ Processing by Rails::WelcomeController#index as HTML
   Rendered /usr/local/lib/ruby/gems/2.3.0/gems/railties-5.0.2/lib/rails/templates/rails/welcome/index.html.erb (4.0ms)
 Completed 200 OK in 58ms (Views: 9.7ms | ActiveRecord: 0.0ms)
 ```
-From your web browser, visit http://localhost:3000. You should see the following image.
+From your web browser, visit [http://localhost:3000](http://localhost:3000). You should see the following image.
 
 ![Ror](https://sqlchoice.blob.core.windows.net/sqlchoice/static/images/rails.png "RoR")
 
