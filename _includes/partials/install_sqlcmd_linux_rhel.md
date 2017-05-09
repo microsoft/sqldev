@@ -29,4 +29,4 @@ on Linux (Ubuntu 16.04)
 Executed in 1 ns
 ```
 
-> You have successfully installed SQL Server Command Line Utilities on your RedHat machine! 
+> You have successfully installed SQL Server Command Line Utilities on your Red Hat machine! 
