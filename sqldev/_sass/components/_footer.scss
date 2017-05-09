@@ -1,0 +1,81 @@
+@import '../base/variables';
+
+.sql-footer {
+    $padding: 2vw;
+    background-color: $color-background-dark;
+    color: $color-foreground-brighter;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-bottom: $padding * .25;
+    padding-left: $padding;
+    padding-right: $padding;
+    padding-top: $padding * .25;
+
+    &-col {
+        $padding: 1%;
+        $width: 20%;
+
+        align-content: flex-start;
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: $padding;
+        padding-right: $padding;
+        width: $width;
+
+        &--double {
+            width: $width * 1.8 - $padding * 2;
+        }
+
+        &--social {
+            float: right !important;
+            width: $width * 1.4 - $padding * 2;
+        }
+    }
+
+    &-title {
+        color: $color-foreground-brighter;
+        padding-bottom: .5rem;
+        width: 100%;
+    }
+
+    &-link {
+        color: $color-foreground-brighter;
+        font-weight: $font-weight-light;
+        padding-top: 1rem;
+        width: 100%;
+
+        &--half {
+            width: 50%;
+        }
+
+        &:hover {
+            color: $color-secondary-bright;
+            transition: color $animation-speed-default;
+        }
+    }
+
+    &-icons {
+        width: 100%;
+    }
+
+    &-icon {
+        color: $color-foreground-brighter;
+        float:right !important;
+        font-size: 2.5rem !important;
+        margin-right: .5rem;
+
+        &:hover {
+            color: $color-brand-brighter;
+            transition: color $animation-speed-default;
+        }
+    }
+
+    &-copy {
+        font-size: 1rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+
+        width: 100%;
+    }
+}

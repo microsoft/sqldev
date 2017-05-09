@@ -1,0 +1,28 @@
+@import '../base/variables';
+
+.sql-questions {
+    margin-bottom: 1rem;
+
+    &-title {
+        font-weight: $font-weight-bold;
+        margin-bottom: 1rem;
+    }
+
+    &-text {
+        font-size: $font-size-m;
+        line-height: $font-size-m * 1.25;
+        width: 82%;
+
+         a {
+            border-bottom: 2px solid $color-secondary;
+            color: $color-secondary;
+            text-decoration: none;
+
+            &:hover {
+                border-color: $color-secondary-dark;
+                color: $color-secondary-dark;
+                transition: all $animation-speed-default;
+            }
+        }
+    }
+}

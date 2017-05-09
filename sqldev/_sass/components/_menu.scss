@@ -1,0 +1,146 @@
+@import '../base/variables';
+@import '../base/functions';
+
+.sql-menu {
+    $width: 100%;
+    $margin: .5%;
+    $items: 6;
+    $padding: 1.2rem;
+    $border: solid $border-menu-size $border-menu-color;
+
+    animation: show-item $animation-speed-slower forwards;
+    background-image: image('hero-image.png'), image('hero-image_sub.png');
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+
+    &-wrapper {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        max-width: 1920px;
+        text-align: center;
+        width: $width;
+    }
+
+    &-title {
+        color: $color-foreground-bright;
+        font-size: $font-size-l;
+        font-weight: $font-weight-normal;
+        margin-bottom: 2.5rem;
+        padding-top: 2rem;
+    }
+
+    &-sub {
+        animation: show-item $animation-speed-slow forwards;
+        background-color: $color-background-bright;
+        border: $border;
+        border-radius: $border-menu-radius;
+        box-shadow: $shadow-default;
+        color: $color-foreground-dark;
+        font-size: $font-size-m;
+        font-weight: $font-weight-light;
+        height: 15rem;
+        margin-left: $margin;
+        margin-right: $margin;
+        opacity: 0;
+        overflow: hidden;
+        padding-bottom: $padding;
+        padding-top: $padding;
+        position: relative;
+        width: $width / $items - 2 * $margin;
+
+        @keyframes show-item {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @for $i from 0 through $items {
+            &:nth-of-type(#{$i}) {
+                animation-delay: $i * $animation-speed-slow * .25;
+            }
+        }
+    }
+
+    &-items {
+        background-color: $color-background-brighter;
+        display: none;
+        height: 100%;
+        width: 100%;
+    }
+
+    &-item {
+        background-color: $color-background-brighter;
+        border-top: $border;
+        color: $color-secondary-bright;
+        display: block;
+        font-size: $font-size-s;
+        padding-bottom: $padding / 2;
+        padding-top: $padding / 2;
+        position: relative;
+
+        &:hover {
+            background-color: $color-secondary-bright;
+            color: $color-foreground-brighter;
+            cursor: pointer;
+            transition: all $animation-speed-default;
+
+            .sql-new:before {
+                background-color: $color-secondary-dark;
+                transition: background-color $animation-speed-default;
+            }
+        }
+
+        &:last-of-type {
+            border-bottom: $border;
+        }
+    }
+
+    &-logo {
+        display: block;
+        margin-bottom: 2rem;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 3rem;
+        max-width: 60%;
+    }
+
+    &-sub:hover {
+        padding-bottom: 0;
+        padding-top: 0;
+        transition: all $animation-speed-default;
+    }
+
+    &-sub:hover &-type {
+        display: none;
+    }
+
+    &-sub:hover &-items {
+        animation: menu-block-cursor $animation-speed-default * .8 forwards; // change time to have the click event just in time
+        display: block;
+
+        @keyframes menu-block-cursor {
+            0%,
+            99% {
+                pointer-events: none;
+            }
+
+            100% {
+                pointer-events: auto;
+            }
+        }
+    }
+
+    &-sub:hover &-logo {
+        margin-bottom: .25rem;
+        margin-top: 1rem;
+        max-width: 30%;
+        transition: all $animation-speed-default;
+    }
+}
