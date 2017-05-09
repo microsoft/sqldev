@@ -30,4 +30,3 @@ Next, add Python to your path
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 {% include partials/install_sqlcmd_windows.md %}
 
-> You have successfully installed Visual Studio Community Edition and the .NET Framework on your Windows machine. You now have everything you need to start writing your C# apps with SQL Server!
