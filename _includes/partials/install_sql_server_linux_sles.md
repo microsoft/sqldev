@@ -6,14 +6,12 @@ Note: To ensure optimal performance of SQL Server, your machine should have at l
         sudo zypper addrepo -fc https://packages.microsoft.com/config/sles/12/mssql-server.repo
         sudo zypper --gpg-auto-import-keys refresh
     ```
-
 2. Install SQL Server
 
     ```terminal
         sudo zypper update
         sudo zypper install mssql-server
     ```
-
 3. Setup your SQL Server
 
     ```terminal
