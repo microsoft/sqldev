@@ -9,7 +9,7 @@ redirect_from:
   - /ruby/rhel/step/1
 ---
 
-> In this section, you will get SQL Server 2017 running on your RedHat Enterprise Linux machine. After that you will install the necessary dependencies to create Ruby apps with SQL Server
+> In this section, you will get SQL Server 2017 running on your RedHat Enterprise Linux machine. After that you will install the necessary dependencies to create Ruby apps with SQL Server.
 
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_linux_rhel.md %}
@@ -17,7 +17,7 @@ redirect_from:
 
 ## Step 1.2 Install prerequisites for Ruby
 
-Add [Extra Packages for Enterprise Linux (EPEL)](https://fedoraproject.org/wiki/EPEL) to your list of repos and install the pre-requisites
+Add [Extra Packages for Enterprise Linux (EPEL)](https://fedoraproject.org/wiki/EPEL) to your list of repos and install the prerequisites.
 ```terminal
 wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 sudo rpm -ivh epel-release-latest-7.noarch.rpm
