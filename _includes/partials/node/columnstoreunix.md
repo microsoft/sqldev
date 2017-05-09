@@ -26,7 +26,7 @@ FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;
 Connect to the database using sqlcmd and run the SQL script to create the table with 5 million rows. This may take a few minutes to run.
 
 ```terminal
-  sqlcmd -S localhost -U sa -P your_password -d SampleDB -i ./CreateSampleTable.sql
+  sqlcmd -S 127.0.0.1 -U sa -P your_password -d SampleDB -i ./CreateSampleTable.sql
 ```
 
 ## Step 3.2 Create a Node.js that queries this tables and measures the time taken
