@@ -9,7 +9,7 @@ redirect_from:
   - /java/mac/step/1
 ---
 
-> At the end of this tutorial, you will have created a few Java apps using SQL Server running on your Mac. You will have also tried out some cool SQL Server features we think you'll love.
+> In this section, you will get SQL Server 2017 on Docker. After that you will install the necessary dependencies to create Java apps with SQL Server.
 
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_mac.md %}
