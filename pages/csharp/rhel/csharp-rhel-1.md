@@ -14,7 +14,7 @@ redirect_from:
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_linux_rhel.md %}
 
-## Step 1.2 Install .NET Core on RHEL 7.2
+## Step 1.2 Install .NET Core
 
 If you already have .NET Core installed on your machine, skip this step. Install .NET Core using the following commands.
 
