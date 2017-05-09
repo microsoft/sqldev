@@ -47,7 +47,7 @@ Cloning into '/usr/local/Homebrew/Library/Taps/caskroom/homebrew-cask'...
 > You have sucessfully install Homebrew and Java on your macOS! 
 
 ## Step 1.3 Install Maven
-Maven can be used to help manage dependencies, build, test and run your Java project.
+[Maven](https://maven.apache.org/) can be used to help manage dependencies, build, test and run your Java project.
 
 ```terminal
 brew install maven
