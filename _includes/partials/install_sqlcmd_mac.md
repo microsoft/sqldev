@@ -1,4 +1,4 @@
-[SQLCMD for Mac](https://blogs.technet.microsoft.com/dataplatforminsider/2017/04/03/sql-server-command-line-tools-for-mac-preview-now-available/) is a command line utility that enables you to connect to SQL Server and run queries.
+[SQLCMD for Mac](https://blogs.technet.microsoft.com/dataplatforminsider/2017/04/03/sql-server-command-line-tools-for-mac-preview-now-available/){:target="_blank"} is a command line utility that enables you to connect to SQL Server and run queries.
 
 ```terminal
 brew tap microsoft/mssql-preview https://github.com/Microsoft/homebrew-mssql-preview
