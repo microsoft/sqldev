@@ -14,7 +14,7 @@ redirect_from:
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_linux_sles.md %}
 
-## Step 1.2 Install Node.ks
+## Step 1.2 Install Node.js
 
 To install the Node.js package, you first need to enable the Web and Scripting module in the subscription.
 
