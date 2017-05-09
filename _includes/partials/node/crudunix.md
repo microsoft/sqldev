@@ -18,7 +18,7 @@ Create a new project directory and initialize Node dependencies.
 Create a database that will be used for the rest of this tutorial by connecting to SQL Server using sqlcmd and executing the following statement.
 
 ```terminal
-    sqlcmd -S localhost -U sa -P your_password -Q "CREATE DATABASE SampleDB;"
+    sqlcmd -S 127.0.0.1 -U sa -P your_password -Q "CREATE DATABASE SampleDB;"
 ```
 
 Now you will create a simple Node.js app that connects to SQL Server.
@@ -87,7 +87,7 @@ GO
 Connect to the database using sqlcmd and run the SQL script to create the schema, table, and insert some rows.
 
 ```terminal
-  sqlcmd -S localhost -U sa -P your_password -d SampleDB -i ./CreateTestData.sql
+  sqlcmd -S 127.0.0.1 -U sa -P your_password -d SampleDB -i ./CreateTestData.sql
 ```
 
 ```results
