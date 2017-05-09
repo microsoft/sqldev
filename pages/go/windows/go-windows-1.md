@@ -11,7 +11,7 @@ redirect_from:
 
 > In this section, you will get SQL Server vNext running on Windows. After that you will install the necessary dependencies to create Go apps with SQL Server.
 
-## Step 1.1 Install SQL Server on Windows
+## Step 1.1 Install SQL Server on Windows 10
 {% include partials/install_sql_server_windows.md %}
 
 ## Step 1.2 Install Visual Studio Community Edition and .NET Framework
