@@ -1,11 +1,19 @@
-SQLCMD is a command line tool that enables you to connect to SQL Server and run queries.
+[SQLCMD for Mac](https://blogs.technet.microsoft.com/dataplatforminsider/2017/04/03/sql-server-command-line-tools-for-mac-preview-now-available/) is a command line utility that enables you to connect to SQL Server and run queries.
 
 ```terminal
 brew tap microsoft/mssql-preview https://github.com/Microsoft/homebrew-mssql-preview
 brew update
 ACCEPT_EULA=y brew install msodbcsql mssql-tools
 ```
-Run a basic query.
+
+After installing SQLCMD, you can connect to SQL Server using the following command:
+
+```terminal
+sqlcmd -S localhost -U sa -P yourpassword
+1> # You're connected! Type your T-SQL statements here. Use the keyword 'GO' to execute each batch of statements.
+```
+
+This how to run a basic inline query. The results will be printed to the STDOUT.
 
 ```terminal
 sqlcmd -S localhost -U sa -P yourpassword -Q "SELECT @@VERSION"
