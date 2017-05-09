@@ -34,7 +34,7 @@ Get:1 http://us.archive.ubuntu.com/ubuntu xenial/main amd64 default-jre amd64 2:
 Setting up default-jre (2:1.8-56ubuntu2) ...
 ```
 
-## Step 1.2 Install Jthe ava Development Kit (JDK) 
+## Step 1.2 Install the Java Development Kit (JDK) 
 
 ```terminal
 sudo apt-get install default-jdk
@@ -51,7 +51,7 @@ Setting up default-jdk (2:1.8-56ubuntu2) ...
 ```
 ## Step 1.3 Install Maven
 
-Maven can be used to help manage dependencies, build, test and run your Java project.
+[Maven](https://maven.apache.org/) can be used to help manage dependencies, build, test and run your Java project.
 
 ```terminal
   sudo apt-get install maven
