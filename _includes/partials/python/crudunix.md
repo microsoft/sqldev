@@ -92,10 +92,5 @@ Successfuly Deleted!
 Reading data from table
 Jake United States
 ```
-Exit the virtual environment by typing the following command in the console.
-
-```terminal
-deactivate
-```
 
 > Congrats you created your first Python app with SQL Server! Check out the next section to learn about how you can make your Python app faster with SQL Server's Columnstore feature.
