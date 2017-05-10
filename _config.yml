@@ -24,7 +24,7 @@ menu:
       macOS: csharp/macos
       RHEL: csharp/rhel
       Ubuntu: csharp/ubuntu
-      Windows: csharp/windows
+      Windows: csharp/win
   Java:
     logo: java.png
     pages:
