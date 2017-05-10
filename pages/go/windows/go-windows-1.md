@@ -1,12 +1,12 @@
 ---
 layout: page-steps
-language: C#
+language: Go
 title: Windows
 permalink: /csharp/windows/
 redirect_from:
-  - /csharp/
-  - /csharp/windows/step/
-  - /csharp/windows/step/1
+  - /go/
+  - /go/windows/step/
+  - /go/windows/step/1
 ---
 
 > In this section, you will get SQL Server 2017 running on Docker. After that you will install the necessary dependencies to run .NET Core.
