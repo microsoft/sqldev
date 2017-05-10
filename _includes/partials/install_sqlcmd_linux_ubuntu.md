@@ -28,8 +28,7 @@ sqlcmd -S localhost -U sa -P yourpassword -Q "SELECT @@VERSION"
 ```results
 --------------------------------------------------------
 {% include partials/sql_server_version.md %}
-  Copyright (c) Microsoft Corporation
-  on Linux (Ubuntu 16.04)
+    on Linux (Ubuntu 16.04)
 
 1 rows(s) returned
 
