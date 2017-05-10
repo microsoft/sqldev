@@ -2,7 +2,7 @@
 layout: page-steps
 language: C#
 title: Windows
-permalink: /csharp/windows1/step/3
+permalink: /csharp/win/step/3
 ---
 
 {% include partials/step3/title.md %}

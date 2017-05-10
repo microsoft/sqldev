@@ -2,11 +2,11 @@
 layout: page-steps
 language: C#
 title: Windows
-permalink: /csharp/windows1/
+permalink: /csharp/win/
 redirect_from:
   - /csharp/
-  - /csharp/windows1/step/
-  - /csharp/windows1/step/1
+  - /csharp/win/step/
+  - /csharp/win/step/1
 ---
 
 > In this section, you will get SQL Server 2017 on Windows. After that you will install the necessary dependencies to create .NET Framework apps with SQL Server. 
