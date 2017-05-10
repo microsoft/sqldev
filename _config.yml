@@ -4,7 +4,7 @@ title: Build an app using SQL Server
 description: > 
   Get started with SQL Server on macOS, Linux, and Windows.
 url: https://sqlchoice.azurewebsites.net
-destination: ./en-us/sql-server/developer-get-started
+destination: ../wwwroot/en-us/sql-server/developer-get-started
 baseurl: /en-us/sql-server/developer-get-started
 
 disqus:
