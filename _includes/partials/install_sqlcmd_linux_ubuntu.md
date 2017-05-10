@@ -27,7 +27,7 @@ sqlcmd -S localhost -U sa -P yourpassword -Q "SELECT @@VERSION"
 
 ```results
 --------------------------------------------------------
-{% include partials/sql_server_version.md %}  on Linux (Ubuntu 16.04)
+{% include partials/sql_server_version.md %}    on Linux (Ubuntu 16.04)
 
 1 rows(s) returned
 
