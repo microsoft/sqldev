@@ -1,0 +1,75 @@
+// Colors
+$color-brand: #5C2D91;
+$color-brand-dark: darken($color-brand, 10%);
+$color-brand-darker: darken($color-brand, 20%);
+$color-brand-bright: lighten($color-brand, 10%);
+$color-brand-brighter: lighten($color-brand, 20%);
+$color-brand-brightest: lighten($color-brand, 50%);
+
+$color-secondary: #036CBF;
+$color-secondary-dark: darken($color-secondary, 10%);
+$color-secondary-darker: darken($color-secondary, 20%);
+$color-secondary-bright: lighten($color-secondary, 10%);
+$color-secondary-brighter: lighten($color-secondary, 20%);
+$color-secondary-brightest: lighten($color-secondary, 60%);
+
+$color-background-dark: #333333;
+$color-background-darker: #000000;
+$color-background-bright: #F2F2F2;
+$color-background-brighter: #FFF;
+
+$color-foreground-dark: #5B4C4C;
+$color-foreground-darker: #000000;
+$color-foreground-bright: #EEEEEE;
+$color-foreground-brighter: #FFFFFF;
+
+$color-star: #F5CB01;
+$color-next: #008400;
+
+// Animations
+$animation-speed-fast: .15s;
+$animation-speed-default: .35s;
+$animation-speed-slow: .5s;
+$animation-speed-slower: 2s;
+
+// Fonts
+$font-weight-light: 200;
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+
+$font-size-xs: .4rem;    // 6px
+$font-size-s: .85rem;    // 13.6px
+$font-size-m: 1rem;      // 16px
+$font-size-l: 1.125rem;   // 18px
+$font-size-xl: 1.5rem;   // 24px
+$font-size-xxl: 2.2rem;   // 35px
+
+// Medias
+$media-screen-xxs: 360px;
+$media-screen-xs: 640px;
+$media-screen-s: 768px;
+$media-screen-m: 1024px;
+$media-screen-l: 1280px;
+$media-screen-xl: 1440px;
+$media-screen-xxl: 1680px;
+$media-screen-xxxl: 1920px;
+
+// Margins
+$margin-center: 10vw;
+$margin-logo: 8vw;
+
+// Wrapper
+$wrapper-default: 15vw;
+$wrapper-s: 5vw;
+
+// Borders
+$border-menu-color: rgba($color-background-darker, .1);
+$border-menu-size: 1px;
+$border-menu-radius: .3rem;
+
+// Shadows
+$shadow-default: 0 .1rem 0.6rem 0 rgba($color-background-darker, .1);
+
+// Variables for mixins
+$medias: xxs, xs, s, m, l, xl, xxl, xxxl;
+$mediavalues: $media-screen-xxs, $media-screen-xs, $media-screen-s, $media-screen-m, $media-screen-l, $media-screen-xl, $media-screen-xxl, $media-screen-xxxl;

@@ -1,0 +1,119 @@
+---
+layout: default-menutop
+---
+<article class="sql-page_steps">
+
+  {% if site.steps %}
+    {% assign separator = '/step/' %}
+    {% assign baseLink = page.permalink | split: separator %}
+    {% assign baseNumber = baseLink[1] | times: 1 %}
+
+    <h1 class="sql-page_steps-hero">
+      Create {{page.language}} apps using SQL Server on {{page.title}}
+    </h1>
+
+    <header class="sql-page_steps-steps js-stepsheader">
+      {% for step in site.steps %}
+        {% assign number = step[0] %}
+        {% assign value = step[1] | replace: '$$', page.language %}
+
+        <div class="sql-page_steps-step">
+          {%if number > 1 %}
+            <a class="sql-page_steps-link {% if number == baseNumber %} sql-page_steps-link--active {% endif %}"
+               href="{{ baseLink[0] | append: separator | append: number | append: '.html' | replace: '//', '/' | relative_url }}"
+               target="_self">
+               <span class="sql-page_steps-number">{{ number }}</span>
+               {{ value }}
+            </a>
+          {% else %}
+            <a class="sql-page_steps-link {% if baseNumber == 0 %} sql-page_steps-link--active {% endif %}"
+               href="{{ baseLink[0] | relative_url }}"
+               target="_self">
+               <span class="sql-page_steps-number">{{ number }}</span>
+               {{ value }}
+              </a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </header>
+  {% endif %}
+
+  <div class="sql-page_steps-loading js-loading">
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <div></div>
+    <div></div>
+    <p></p>
+    <div></div>
+    <div></div>
+    <p></p>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <p></p>
+    <p></p>
+    <div></div>
+    <div></div>
+    <div></div>
+    <p></p>
+    <div></div>
+    <div></div>
+    <p></p>
+    <p></p>
+    <div></div>
+    <div></div>
+    
+  </div>
+
+  <div class="js-steps is-hidden">
+    {{content}}
+  </div>
+
+  {% if site.steps %}
+    {% assign stepsSize = site.steps | size %}
+    {% if baseNumber < stepsSize %}
+      {% assign nextNumber = baseNumber | plus: 1 %}
+
+      {% if nextNumber == 1 %}
+        {% assign nextNumber = nextNumber | plus: 1 %}
+      {% endif %}
+
+      <a class="sql-page_steps-next"
+        href="{{ baseLink[0] | append: separator | append: nextNumber | append: '.html' | replace: '//', '/' | relative_url }}"
+        target="_self">
+        Go to step {{nextNumber}}
+      </a>
+
+    {% else %}
+
+          {% if {{page.language}} == "Python" %}
+            <a class="sql-page_steps-next" href="https://github.com/mkleehammer/pyodbc">Check out the Python Driver pyodbc on GitHub</a>
+          {% elsif {{page.language}} == "Ruby" %}
+            <a class="sql-page_steps-next" href="https://github.com/rails-sqlserver/tiny_tds">Check out the Ruby Driver TinyTDS on GitHub</a>
+          {% elsif {{page.language}} == "PHP" %}
+            <a class="sql-page_steps-next" href="https://github.com/Microsoft/msphpsql">Check out the PHP Driver on GitHub</a>
+          {% elsif {{page.language}} == "Java" %}
+            <a class="sql-page_steps-next" href="https://github.com/Microsoft/mssql-jdbc">Check out the JDBC Driver on GitHub</a>
+          {% elsif {{page.language}} == "C#" %}
+            <a class="sql-page_steps-next" href="https://github.com/dotnet/core">Check out .NET Core on GitHub</a>
+          {% elsif {{page.language}} == "Node.js" %}
+            <a class="sql-page_steps-next" href="https://github.com/tediousjs/tedious">Check out the Node.js Driver Tedious on GitHub</a>
+          {% else %}
+            cta6
+          {% endif %}
+
+      {% include resources.html %}
+    {% endif %}
+  {% endif %}
+
+  {% include questions.html %}
+
+  {% if site.disqus.shortname %}
+      <footer class="sql-disqus">
+        {% include disqus_comments.html %}
+      </footer>
+  {% endif %}
+</article>

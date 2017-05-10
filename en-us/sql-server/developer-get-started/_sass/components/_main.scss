@@ -1,0 +1,13 @@
+@import '../base/variables';
+@import '../base/functions';
+
+.sql-main {
+    background-image: image('bg.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    min-height: 50vh;
+
+    &.is-default {
+        background-image: none;
+    }
+}

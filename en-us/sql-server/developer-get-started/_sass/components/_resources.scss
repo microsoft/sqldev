@@ -1,0 +1,82 @@
+@import '../base/variables';
+
+.sql-resources {
+    $padding: 5vw;
+
+    border: $border-menu-size solid $border-menu-color;
+    border-radius: $border-menu-radius;
+    box-shadow: $shadow-default;
+    margin-bottom: 3rem;
+    padding-bottom: 2.5rem;
+    padding-left: $padding;
+    padding-right: $padding;
+    padding-top: 2rem;
+
+    &-header {
+        align-items: center;
+        border-bottom: $border-menu-size solid $color-foreground-dark;
+        display: flex;
+        justify-content: flex-start;
+        padding-bottom: 2rem;
+    }
+
+    &-title {
+        font-weight: $font-weight-bold;
+    }
+
+    &-button {
+        background-color: $color-background-bright;
+        border: $border-menu-size solid $border-menu-color;
+        border-radius: $border-menu-radius;
+        color: $color-secondary;
+        margin-left: 1rem;
+        padding: 1rem;
+
+        &:hover {
+            background-color: $color-secondary;
+            color: $color-foreground-brighter;
+            transition: all $animation-speed-default;
+        }
+    }
+
+    &-list {
+        padding-top: 2rem;
+    }
+
+    &-items {
+        columns: 2;
+        padding-left: 2.1rem;
+        padding-top: 2rem;
+    }
+
+    &-item {
+        font-size: $font-size-m;
+        line-height: $font-size-m * 1.25;
+        margin-bottom: .75rem;
+        margin-right: 1.5rem;
+
+        &:before {
+            $size: .4rem;
+            background-color: $color-background-darker;
+            border-radius: 50%;
+            content: '';
+            display: inline-block;
+            height: $size;
+            padding-right: .25rem;
+            transform: translateY(-.1rem);
+            width: $size;
+        }
+    }
+
+    &-link {
+        border-bottom: 2px solid $color-secondary;
+        color: $color-secondary;
+        text-decoration: none;
+
+        &:hover {
+            border-color: $color-secondary-dark;
+            color: $color-secondary-dark;
+            transition: all $animation-speed-default;
+        }
+    }
+}

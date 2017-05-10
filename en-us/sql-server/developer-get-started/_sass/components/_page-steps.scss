@@ -1,0 +1,310 @@
+@import '../base/variables';
+
+.sql-page_steps {
+    $pages: Terminal, SQL, JavaScript, Results, Java, XML, Csharp, PHP, Python, Ruby, Javascript;
+    $colors: #295651, #8A0F1B, #AB9807, #458B00, #C9720E, #1C66DD, #8000FF, #8DB6CD, #54D35D, #AA3333, #ab9807;
+
+    &-hero {
+        $padding: 2rem;
+        color: $color-secondary;
+        font-size: $font-size-xl;
+        padding-bottom: $padding * 1.25;
+        padding-top: $padding;
+        text-align: center;
+    }
+
+    &-steps {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 3rem;
+
+        &.is-sticky {
+            $top: -5rem;
+
+            animation: page-steps-sticky $animation-speed-default forwards;
+            justify-content: center;
+            left: 0;
+            position: fixed;
+            top: $top;
+            width: 100%;
+            z-index: 100;
+
+            @keyframes page-steps-sticky {
+                0% {
+                    top: $top;
+                }
+
+                90% {
+                    top: 0;
+                }
+
+                100% {
+                    top: -.2rem;
+                }
+            }
+        }
+    }
+
+    &-intro {
+        font-size: $font-size-m;
+        line-height: $font-size-m * 1.25;
+        margin-bottom: 3rem;
+        margin-top: 1rem;
+    }
+
+    $height: 4rem;
+    $height-s: 2rem;
+    &-step {
+        $padding: 1.5rem;
+        $margin: .5vw;
+
+        align-items: center;
+        background-color: $color-background-bright;
+        border-radius: $height;
+        color: $color-foreground-dark;
+        display: flex;
+        font-size: $font-size-m;
+        height: $height;
+        margin-left: $margin;
+        margin-right: $margin;
+        padding-bottom: $padding;
+        padding-left: $padding / 2;
+        padding-right: $padding / 2;
+        padding-top: $padding;
+
+        &:hover {
+            background-color: $color-brand;
+            transition: background-color $animation-speed-default;
+        }
+    }
+
+    &-link {
+        align-items: center;
+        color: $color-brand;
+        display: flex;
+        height: $height;
+    }
+
+    &-number {
+        $height: $height * .8;
+        align-content: center;
+        align-items: center;
+        background-color: $color-background-brighter;
+        border: 1px solid $color-brand;
+        border-radius: 50%;
+        color: $color-brand;
+        display: inline-flex;
+        font-size: $height * .6;
+        height: $height;
+        justify-content: center;
+        margin-right: 1rem;
+        width: $height;
+    }
+
+    &-link--active &-number {
+        background-color: $color-brand;
+        color: $color-foreground-brighter;
+    }
+
+    &-step:hover &-link {
+        color: $color-foreground-brighter;
+        transition: color $animation-speed-default;
+    }
+
+    &-step:hover &-number {
+        background-color: $color-background-brighter;
+        border-color: $color-background-brighter;
+        color: $color-brand;
+        transition: all $animation-speed-default;
+    }
+
+    &-steps.is-sticky &-step {
+        $margin: .5vw;
+        border: $border-menu-size solid rgba($color-brand, .2);
+        border-radius: .5rem;
+        border-top: 0;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        box-shadow: $shadow-default;
+        height: $height-s;
+        margin-left: $margin;
+        margin-right: $margin;
+        margin-top: 0;
+    }
+
+    &-steps.is-sticky &-number {
+        $height: $height-s * .8;
+        font-size: $height * .6;
+        height: $height;
+        width: $height;
+    }
+
+    $padding-block: 5vw;
+    $padding-title: 1rem;
+    &-block {
+        background-color: $color-background-bright;
+        box-shadow: inset 0 $padding-title * 3 0 $color-secondary;
+        margin-bottom: 2.5rem;
+        padding-bottom: $padding-block / 2;
+        padding-left: $padding-block * 2;
+        padding-right: $padding-block;
+    }
+
+    &-title {
+        color: $color-foreground-brighter;
+        font-size: $font-size-l;
+        margin-bottom: 1.5rem;
+        margin-left: - $padding-block * 2;
+        margin-top: 1rem;
+        padding-bottom: $padding-title;
+        padding-left: $padding-title * 2;
+        padding-top: $padding-title;
+    }
+
+    &-copy {
+        $padding: .5rem;
+        background-color: $color-background-dark;
+        cursor: pointer;
+        font-size: $font-size-s;
+        margin-top: 0 !important;
+        opacity: .8;
+        padding-bottom: $padding / 2;
+        padding-left: $padding;
+        padding-right: $padding;
+        padding-top: $padding / 2;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: opacity $animation-speed-default;
+
+        &:hover {
+            opacity: 1;
+            transition: opacity $animation-speed-default;
+        }
+    }
+
+    &-star {
+        color: $color-star;
+        padding-right: .5em;
+    }
+
+    &-loading {
+        margin: 2rem;
+        padding-bottom: 100vh;
+        width: 100%;
+
+        // Fake loading data structure
+
+        p,
+        div {
+            background-color: $color-background-bright;
+            height: $font-size-m;
+            margin-bottom: 1rem;
+            padding: .5rem;
+            width: 100%;
+        }
+
+        div {
+            height: $font-size-m * 5;
+        }
+    }
+
+    &-next {
+        border-radius: .25rem;
+        background-color: $color-next;
+        color: $color-foreground-brighter;
+        display: block;
+        margin-bottom: 3rem;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 0;
+        padding: 1rem;
+        text-align: center;
+        width: 15rem;
+
+        &:hover {
+            background-color: darken($color-next, 10%);
+            transition: background-color $animation-speed-default;
+        }
+    }
+
+    // Styles to improve markdown, not the best practise but necessary
+    &-intro,
+    &-block {
+        a {
+            border-bottom: 2px solid $color-secondary;
+            color: $color-secondary;
+            text-decoration: none;
+
+            &:hover {
+                border-color: $color-secondary-dark;
+                color: $color-secondary-dark;
+                transition: all $animation-speed-default;
+            }
+        }
+    }
+
+    &-block {
+        font-size: $font-size-m;
+        line-height: $font-size-m * 1.35;
+
+        p,
+        ol,
+        div {
+            margin-top: 1rem;
+            margin-bottom: .5rem;
+        }
+
+        ol {
+            list-style-position: inside;
+            list-style-type: decimal;
+        }
+        
+        li {
+            margin-bottom: .75rem;
+
+            p {
+                display: inline-block;
+                margin-top: 0;
+                max-width: 90%;
+                vertical-align: top;
+            }
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .highlighter-rouge {
+            position: relative;
+        }
+
+        .highlight {
+            max-height: 80vh;
+            min-height: 4rem;
+        }
+
+        pre[class*="language-"] {
+            margin-top: 0 !important;
+            font-size: 85%;
+        }
+
+        .prism-show-language {
+            margin-top: 0;
+            width: 0;
+
+            &-label {
+                margin-top: .3rem;
+                top: 0 !important;
+
+                @each $item in $pages {
+                    $i: index($pages, $item);
+                    &.#{$item} {
+                        background-color: nth($colors, $i);
+                    }
+                }
+            }
+        }
+    }
+}
