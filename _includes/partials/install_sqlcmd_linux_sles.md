@@ -28,10 +28,7 @@ sqlcmd -S localhost -U sa -P yourpassword -Q "SELECT @@VERSION"
 
 ```results
 --------------------------------------------------------
-Microsoft SQL Server vNext (CTP2.0) - 14.0.500.272 (X64) 
-  Apr 13 2017 11:44:40 
-  Copyright (c) Microsoft Corporation
-  on Linux (SUSE Linux Enterprise Server 12 SP2)
+{% include partials/sql_server_version.md %}    on Linux (SUSE Linux Enterprise Server 12 SP2)
 
 1 rows(s) returned
 
