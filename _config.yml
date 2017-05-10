@@ -3,7 +3,7 @@
 title: Build an app using SQL Server
 description: > 
   Get started with SQL Server on macOS, Linux, and Windows.
-url: "https://microsoft.github.io/sqldev/"
+url: "https://sqlchoice.azurewebsites.net/en-us/sql-server/developer-get-started/"
 
 disqus:
   shortname: sqlchoice
