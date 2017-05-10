@@ -22,10 +22,7 @@ sqlcmd -S 127.0.0.1 -U sa -P your_password -Q "SELECT @@VERSION"
 
 ```results
 --------------------------------------------------------
-Microsoft SQL Server vNext (CTP2.0) - 14.0.500.272 (X64) 
-  Apr 13 2017 11:44:40 
-  Copyright (c) Microsoft Corporation
-  on Linux (Ubuntu 16.04)
+{% include partials/sql_server_version.md %}    on Linux (Ubuntu 16.04)
 
 1 rows(s) returned
 
