@@ -18,15 +18,7 @@ redirect_from:
 ## Step 1.2 Install Java
 If you already have Java installed on your machine, skip the next three steps. 
 
-Install the **Java Runtime Environment (JRE)** by following the steps below. 
-1. Click "Accept License Agreement" on the [**JRE download page**](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
-
-    ![downloads](https://sqlchoice.blob.core.windows.net/sqlchoice/static/images/jre_windows_license.JPG "downloads")
-
-2. Download the appropriate JRE installer for Windows based on your operating system requirements (32 or 64-bit) 
-3. Run the installer and follow the installation prompts to complete the JRE installation
-
-Next, install the **Java Development Kit (JDK)** by following the steps below. 
+Install the **Java Development Kit (JDK)** by following the steps below. 
 1. Click "Accept License Agreement" on the [**JDK download page**](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
     ![downloadjdk](https://sqlchoice.blob.core.windows.net/sqlchoice/static/images/jdk_windows_license.JPG "downloadjdk")
@@ -38,7 +30,7 @@ Add the JDK to your PATH environment variable
 1. Press start 
 2. Search for "Advanced System Settings" 
 3. Click on the "Environment Variables" button 
-4. Add the location of the bin folder of the JDK installation to the PATH variable in **System Variables**. The following is a typical value for the PATH variable C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Java\jdk1.8.0\bin
+4. Add the location of the bin folder of the JDK installation to the PATH variable in **System Variables**. The following is a typical value for the PATH variable: C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Java\jdk1.8.0\bin
 
 ## 1.3 Install Maven
 
