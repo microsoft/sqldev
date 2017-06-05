@@ -1,9 +1,8 @@
 [SQLCMD](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-connect-and-query-sqlcmd){:target="_blank"} is a command line tool that enables you to connect to SQL Server and run queries.
 
 ```terminal
-sudo su
-zypper ar https://packages.microsoft.com/config/sles/12/prod.repo
-zypper update
+sudo zypper ar https://packages.microsoft.com/config/sles/12/prod.repo
+sudo zypper update
 exit
 sudo ACCEPT_EULA=Y zypper install msodbcsql mssql-tools
 sudo zypper install unixODBC-devel
