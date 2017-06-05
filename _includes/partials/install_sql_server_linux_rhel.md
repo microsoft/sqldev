@@ -3,8 +3,7 @@ Note: To ensure optimal performance of SQL Server, your machine should have at l
 1. Register the Microsoft Linux repository
 
     ```terminal
-        curl https://packages.microsoft.com/config/rhel/7/mssql-server.repo | sudo tee /etc/yum.repos.d/mssql-server.repo
-    exit
+    curl https://packages.microsoft.com/config/rhel/7/mssql-server.repo | sudo tee /etc/yum.repos.d/mssql-server.repo
     ```
 
 2. Install SQL Server
