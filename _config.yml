@@ -63,7 +63,15 @@ menu:
       macOS*: ruby/mac
       RHEL*: ruby/rhel
       Ubuntu*: ruby/ubuntu
-
+  Go:
+    logo: golang.png
+    pages:
+      macOS*: go/mac
+      RHEL*: go/rhel
+      SLES*: go/sles
+      Ubuntu*: go/ubuntu
+      Windows*: go/windows
+      
 resources:
   sqlserver-csharp:
     pre: Check out what's new with
