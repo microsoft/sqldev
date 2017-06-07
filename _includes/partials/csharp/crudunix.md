@@ -9,8 +9,10 @@ Change to your home directory. Create a new .NET Core project. This will create 
 cd ~/
 dotnet new console -o SqlServerSample
 ```
+
 ```results
 The template "Console Application" created successfully.
+```
 
 You should already have a file called **SqlServerSample.csproj** in your .NET Core project located at: ~/SqlServerSample
 
