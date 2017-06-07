@@ -37,7 +37,7 @@ You should already have a file called **Program.cs** in your .NET Core project l
 
 Open this file in your favorite text editor and replace the contents with the code below. Don't forget to replace the username and password with your own. Save and close the file.
 
-```c#
+```csharp
 using System;
 using System.Text;
 using System.Data.SqlClient;
@@ -104,7 +104,7 @@ Connecting to SQL Server ... Done.
 All done. Press any key to finish...
 ```
 Now replace the code in **Program.cs** by opening the file in your favorite text editor and copying and pasting the code below into the file. This will create a database and a table, and will insert, update, delete, and read a few rows. Don't forget to update the username and password with your own. Save and close the file.
-```c#
+```csharp
 using System;
 using System.Text;
 using System.Data.SqlClient;
@@ -286,7 +286,7 @@ Open this file in your favorite text editor and replace the contents with the co
 For this sample, let's create two tables. The first will hold data about "users". Create a **User.cs** file in your .NET Core project located at: ~/SqlServerEFSample/User.cs
 
 Copy and paste the code below into your newly created **User.cs** file. Save and close the file.
-```c#
+```csharp
 using System;
 using System.Collections.Generic;
 
@@ -313,7 +313,7 @@ namespace SqlServerEFSample
 Let's create a second table to assign tasks to users. Create a **Task.cs** file in your .NET Core project located at: ~/SqlServerEFSample/Task.cs
 
 Copy and paste the code below into your newly created **Task.cs** file. Save and close the file.
-```c#
+```csharp
 using System;
 
 namespace SqlServerEFSample
@@ -336,7 +336,7 @@ namespace SqlServerEFSample
 Let's also create a class for the Entity Framework Database context. Use your favorite text editor to create the file **EFSampleContext.cs** file in your .NET Core project located at: ~/SqlServerEFSample/EFSampleContext.cs
 
 Copy and paste the code below into your newly created **EFSampleContext.cs** file. Save and close the file.
-```c#
+```csharp
 using Microsoft.EntityFrameworkCore;
 
 namespace SqlServerEFSample
@@ -362,7 +362,7 @@ Replace the code in the **Program.cs** file in your .NET Core project located at
 
 Open this file in your favorite text editor and replace the contents with the code below. Don't forget to update the username and password with your own. Save and close the file.
 
-```c#
+```csharp
 using System;
 using System.Linq;
 using System.Data.SqlClient;
