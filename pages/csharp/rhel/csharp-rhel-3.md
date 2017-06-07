@@ -1,7 +1,7 @@
 ---
 layout: page-steps
 language: C#
-title: RHEK
+title: RHEL
 permalink: /csharp/rhel/step/3
 ---
 
