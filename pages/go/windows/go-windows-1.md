@@ -2,24 +2,24 @@
 layout: page-steps
 language: Go
 title: Windows
-permalink: /csharp/windows/
+permalink: /go/windows/
 redirect_from:
   - /go/
   - /go/windows/step/
   - /go/windows/step/1
 ---
 
-> In this section, you will get SQL Server 2017 running on Docker. After that you will install the necessary dependencies to run .NET Core.
+> In this section, you will get SQL Server 2017 on your Windows machine and then you will install the necessary dependencies to run GoLang.
 
-## Step 1.1 Install SQL Server on Windows
+## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_windows.md %}
 
-## Step 1.2 Install Visual Studio Community Edition and .NET Framework
-If you already have Visual Studio installed on your machine, skip the next few steps.
+## Step 1.2 Install GoLang
 
-Visual Studio Community edition is a fully-featured, extensible, free IDE for creating modern applications for Android, iOS, Windows, as well as web & database applications and cloud services.
+If you already have Go installed on your machine, skip this step. To install GoLang, download the msi file for Windows at the [Go Downloads page](https://golang.org/dl/).
 
-1. Download the installer from **[here](https://www.visualstudio.com/thank-you-downloading-visual-studio/?sku=Community&rel=15)**. 
-1. Run the installer and follow the installation prompts to complete the installation.
+## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
-> You have successfully installed Visual Studio Community Edition and the .NET Framework on your Windows machine. You now have everything you need to start writing your C# apps with SQL Server!
+{% include partials/install_sqlcmd_windows.md %}
+
+> You have successfully installed and setup GoLang and mssql-tools on your Ubuntu computer. You now have everything you need to start writing your Go apps with SQL Server!

@@ -1,5 +1,5 @@
 
-> After getting SQL Server and GoLang installed, you can now proceed to create your new Go projects. Here we will explore two simple applications. One of them will perform basic Insert, Update, Delete, and Select operations, while the second one will make use of Gorm, a popular object relational mapping (ORM) framework for Go to execute the same operations.
+> After getting SQL Server and GoLang installed, you can now proceed to create your new Go projects. Here we will explore three simple applications. One of them will connect and print the SQL Server version of your database server, the other one will perform basic Insert, Update, Delete, and Select operations, and the third one will make use of [GORM](http://jinzhu.me/gorm/), a popular object relational mapping (ORM) framework for Go to execute the same operations.
 
 ## Create a Go app that connects to SQL Server and executes queries
 
@@ -25,7 +25,7 @@ Create a database that will be used for the rest of this tutorial by connecting 
 
 Now you will create a simple Go app that connects to SQL Server.
 
-Using your favorite editor, create a file named connect.go in the SqlServerSample folder. Copy and paste the below contents into the file. Don't forget to update the username and password with your own.
+Using [your favorite text editor](https://code.visualstudio.com/), create a file named connect.go in the SqlServerSample folder. Copy and paste the below contents into the file. Don't forget to update the username and password with your own.
 
 This sample uses the GoLang Context methods to ensure that there's an active connection to the database server.
 

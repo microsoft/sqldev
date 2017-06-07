@@ -14,7 +14,7 @@ redirect_from:
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_mac.md %}
 
-## Step 1.2 Install Homebrew
+## Step 1.2 Install Homebrew and GoLang
 
 If you already have GoLang installed on your machine, skip this step. Use the following commands to install Homebrew. Make sure to restart your terminal session once you're done. 
 

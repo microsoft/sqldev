@@ -1,24 +1,24 @@
 ---
 layout: page-steps
 language: Go
-title: SLES
-permalink: /go/sles/
+title: Ubuntu
+permalink: /go/ubuntu/
 
 redirect_from:
   - /go/
-  - /go/sles/step/
-  - /go/sles/step/1
+  - /go/ubuntu/step/
+  - /go/ubuntu/step/1
 ---
 
 
-> In this section, you will get SQL Server 2017 on your SLES machine and then you will install the necessary dependencies to run GoLang.
+> In this section, you will get SQL Server 2017 on your Ubuntu machine and then you will install the necessary dependencies to run GoLang.
 
 ## Step 1.1 Install SQL Server
-{% include partials/install_sql_server_linux_sles.md %}
+{% include partials/install_sql_server_linux_ubuntu.md %}
 
 ## Step 1.2 Install GoLang
 
-If you already have GoLang installed on your machine, skip this step. To install GoLang, follow these commands:
+If you already have Go installed on your machine, skip this step. To install GoLang, follow these commands:
 
 1. Run the following commands:
 
@@ -38,6 +38,6 @@ If you already have GoLang installed on your machine, skip this step. To install
 
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
-{% include partials/install_sqlcmd_linux_sles.md %}
+{% include partials/install_sqlcmd_linux_ubuntu.md %}
 
-> You have successfully installed and setup GoLang and mssql-tools on your RHEL computer. You now have everything you need to start writing your Go apps with SQL Server!
+> You have successfully installed and setup GoLang and mssql-tools on your Ubuntu computer. You now have everything you need to start writing your Go apps with SQL Server!
