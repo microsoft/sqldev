@@ -108,7 +108,7 @@ func main() {
 
 ## Step 3.3 Measure how long it takes to run the query
 
-Run your Node.js app from the terminal.
+Run your Go app from the terminal.
 
 ```terminal
   go run columnstore.go
