@@ -45,4 +45,4 @@ If you need to get Ubuntu, check out the Ubuntu Downloads website.
     Please confirm the password for the system administrator (SA) account:
     ```
 
-You now have SQL Server running locally on your Ubuntu machine! Check out the next section to continue installing prerequisites.
+> You now have SQL Server running locally on your Ubuntu machine! Check out the next section to continue installing prerequisites.

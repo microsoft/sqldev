@@ -32,4 +32,4 @@ Note: To ensure optimal performance of SQL Server, your machine should have at l
     Please confirm the password for the system administrator (SA) account:
     ```
 
-You now have SQL Server running locally on your RHEL machine! Check out the next section to continue installing prerequisites.
+> You now have SQL Server running locally on your RHEL machine! Check out the next section to continue installing prerequisites.

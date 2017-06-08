@@ -31,4 +31,4 @@ Please enter a password for the system administrator (SA) account:
 Please confirm the password for the system administrator (SA) account:
 ```
 
-You now have SQL Server running locally on your SLES machine! Check out the next section to continue installing prerequisites.
+> You now have SQL Server running locally on your SLES machine! Check out the next section to continue installing prerequisites.
