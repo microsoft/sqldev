@@ -1,6 +1,6 @@
 ---
 layout: page-steps
-language: GO
+language: Go
 title: macOS
 permalink: /go/mac/
 redirect_from:
@@ -9,14 +9,14 @@ redirect_from:
   - /go/mac/step/1
 ---
 
-> In this section, you will get SQL Server 2017 running on Docker. After that you will install the necessary dependencies to run .NET Core.
+> In this section, you will get SQL Server 2017 running on Docker on your Mac and then you will install the necessary dependencies to run GoLang.
 
 ## Step 1.1 Install SQL Server
 {% include partials/install_sql_server_mac.md %}
 
-## Step 1.2 Install Homebrew and .NET Core
+## Step 1.2 Install Homebrew and GoLang
 
-If you already have .NET Core installed on your machine, skip this step. Install Homebrew, OpenSSL, and .NET Core using the following commands. 
+If you already have GoLang installed on your machine, skip this step. Use the following commands to install Homebrew. Make sure to restart your terminal session once you're done. 
 
 1. Install Homebrew.
 
@@ -24,32 +24,25 @@ If you already have .NET Core installed on your machine, skip this step. Install
 
 1. Restart the terminal session.
 
-1. Update Homebrew and install OpenSSL.
+1. Update Homebrew and install GoLang.
 
     ```terminal
     brew update
-    brew install openssl
+    brew install go
     ```
 
-    ```results
-    ==> Downloading https://homebrew.bintray.com/bottles/openssl-1.0.2j.el_capitan.bottle.t
-    ######################################################################## 100.0%
-    ==> Pouring openssl-1.0.2j.el_capitan.bottle.tar.gz
-    ==> Using the sandbox
-    ==> Caveats
-    …
-    ==> Summary
-      /usr/local/Cellar/openssl/1.0.2j: 1,695 files, 12M
-    ```
-
-1. Ensure that OpenSSL is set up properly by running the following commands.
+1. Set up the GOPATH, GOROOT and GOBIN environment variables and add these to the PATH with the following commands:
 
     ```terminal
-    ln -s /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib /usr/local/lib/
-    ln -s /usr/local/opt/openssl/lib/libssl.1.0.0.dylib /usr/local/lib
+    echo "export GOPATH=$HOME/golang" >> ~/.bash_profile
+    echo "export GOROOT=/usr/local/opt/go/libexec" >> ~/.bash_profile
+    echo "export GOBIN=$GOPATH/bin" >> ~/.bash_profile
+    echo "export PATH=$PATH:$GOPATH" >> ~/.bash_profile
+    echo "export PATH=$PATH:$GOROOT/bin" >> ~/.bash_profile
     ```
 
-1. Install .NET Core on macOS
-    Download the **[official installer](https://go.microsoft.com/fwlink/?linkid=843444)**. This installer will install the tools and put them on your PATH so you can run dotnet from the Console.
+## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
-> You have successfully installed .NET Core on your Mac. You now have everything you need to start writing your C# apps with SQL Server!
+{% include partials/install_sqlcmd_mac.md %}
+
+> You have successfully installed and setup GoLang and mssql-tools on your Mac. You now have everything you need to start writing your Go apps with SQL Server!
