@@ -216,20 +216,20 @@ func main() {
 }
 
 func CreateEmployee(name string, location string) (int64, error) {
-	ctx := context.Background()
-	var err error
+    ctx := context.Background()
+    var err error
 
-	if db == nil {
-		log.Fatal("What?")
-	}
+    if db == nil {
+        log.Fatal("What?")
+    }
 
-	// Check if database is alive.
-	err = db.PingContext(ctx)
-	if err != nil {
-		log.Fatal("Error pinging database: " + err.Error())
-	}
+    // Check if database is alive.
+    err = db.PingContext(ctx)
+    if err != nil {
+        log.Fatal("Error pinging database: " + err.Error())
+    }
 
-	tsql := fmt.Sprintf("INSERT INTO TestSchema.Employees (Name, Location) VALUES (@Name,@Location);")
+    tsql := fmt.Sprintf("INSERT INTO TestSchema.Employees (Name, Location) VALUES (@Name,@Location);")
 
     // Execute non-query with named parameters
     result, err := db.ExecContext(
