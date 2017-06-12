@@ -229,17 +229,21 @@ func CreateEmployee(name string, location string) (int64, error) {
         log.Fatal("Error pinging database: " + err.Error())
     }
 
-    tsql := fmt.Sprintf("INSERT INTO TestSchema.Employees (Name, Location) VALUES ('%s','%s');",
-        name, location)
+    tsql := fmt.Sprintf("INSERT INTO TestSchema.Employees (Name, Location) VALUES (@Name,@Location);")
 
-    // Execute non-query
-    result, err := db.ExecContext(ctx, tsql)
-    if err != nil {
-        log.Fatal("Error inserting new row: " + err.Error())
-        return -1, err
-    }
+    // Execute non-query with named parameters
+    result, err := db.ExecContext(
+        ctx, 
+        tsql, 
+        sql.Named("Location", location), 
+        sql.Named("Name", name))
 
-    return result.LastInsertId()
+	if err != nil {
+		log.Fatal("Error inserting new row: " + err.Error())
+		return -1, err
+	}
+
+	return result.LastInsertId()
 }
 
 func ReadEmployees() (int, error) {

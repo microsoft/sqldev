@@ -30,7 +30,7 @@ menu:
     pages:
       macOS: java/mac
       RHEL: java/rhel
-      SLES*: java/sles
+      SLES: java/sles
       Ubuntu: java/ubuntu
       Windows: java/windows
   Node.js:
@@ -38,7 +38,7 @@ menu:
     pages:
       macOS: node/mac
       RHEL: node/rhel
-      SLES*: node/sles
+      SLES: node/sles
       Ubuntu: node/ubuntu
       Windows: node/windows
   PHP:
@@ -46,7 +46,7 @@ menu:
     pages:
       macOS: php/mac
       RHEL: php/rhel
-      SLES*: php/sles
+      SLES: php/sles
       Ubuntu: php/ubuntu
       Windows: php/windows
   Python:
@@ -54,15 +54,15 @@ menu:
     pages:
       macOS: python/mac
       RHEL: python/rhel
-      SLES*: python/sles
+      SLES: python/sles
       Ubuntu: python/ubuntu
       Windows: python/windows
   Ruby:
     logo: ruby.png
     pages:
-      macOS*: ruby/mac
-      RHEL*: ruby/rhel
-      Ubuntu*: ruby/ubuntu
+      macOS: ruby/mac
+      RHEL: ruby/rhel
+      Ubuntu: ruby/ubuntu
   Go:
     logo: golang.png
     pages:
