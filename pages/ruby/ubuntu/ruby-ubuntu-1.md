@@ -36,6 +36,7 @@ exec $SHELL
 ```
 
 ## Step 1.3 Install Ruby
+Use the commands below to install Ruby using rbenv.
 ```terminal
 rbenv install 2.3.1
 rbenv global 2.3.1
