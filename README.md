@@ -22,10 +22,8 @@ This folder contains the css files used the style the website
 This folder contains images and js scripts used in the tutorials website
 
 
-## Use GitHub, Git, and this repository
-For information about how to contribute, how to use the GitHub UI to contribute small changes, and how to fork and clone the repository for more significant contributions, see [Install and set up tools for authoring in GitHub](contributor-guide/tools-and-setup.md).
-
-If you install GitBash and choose to work locally, the steps for creating a new local working branch, making changes, and submitting the changes back to the main branch are listed in [Git commands for creating a new article or updating an existing article](contributor-guide/git-commands-for-master.md)
+## Use GitHub
+For information about how to contribute, how to use the GitHub UI to contribute small changes, and how to fork and clone the repository for more significant contributions, see [Authoring in GitHub](authoring-in-github.md).
 
 ### Branches
 We recommend that you create local working branches that target a specific scope of change. Each branch should be limited to a single concept/article both to streamline work flow and reduce the possibility of merge conflicts.  The following efforts are of the appropriate scope for a new branch:
@@ -42,6 +40,15 @@ All the articles in this repository use GitHub flavored markdown.  Here's a list
 
 ## Article metadata
 Article metadata enables certain functionalities, such as author attribution, contributor attribution, breadcrumbs, article descriptions, and SEO optimizations as well as reporting Microsoft uses to evaluate the performance of the content. So, the metadata is important! [Here's the guidance for making sure your metadata is done right](/article-metadata.md).
+
+## Labels
+
+Automated labels are assigned to pull requests to help us manage the pull request workflow and to help let you know what's going on with your pull request:
+
+* Contribution License Agreement related
+  * cla-not-required: The change is relatively minor and does not require that you sign a CLA.
+  * cla-required: The scope of the change is relatively large and requires that you sign a CLA.
+  * cla-signed: The contributor signed the CLA, so the pull request can now move forward for review.
 
 ## Microsoft Open Source Code of Conduct
 
