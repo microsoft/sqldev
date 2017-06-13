@@ -39,12 +39,18 @@ exec $SHELL
 ```
 
 ## Step 1.4 Install Ruby
-Use the commands below to install Ruby using rbenv.
+Use the commands below to install Ruby using rbenv and check the version.
+
 ```terminal
-rbenv install 2.3.1
-rbenv global 2.3.1
+rbenv install 2.4.0
+rbenv global 2.4.0
 ruby -v
 ```
+
+```results
+ruby 2.4.0p0 (2016-12-24 revision 57164) [x86_64-linux] 
+```
+
 ## Step 1.5 Install FreeTDS
 
 FreeTDS is a driver that enables you to connect to SQL Server. It is a prerequisite for the connector you'll get later in the tutorial to connect to SQL Server. Run the following commands to install FreeTDS:
