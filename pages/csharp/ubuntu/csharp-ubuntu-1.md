@@ -16,7 +16,7 @@ redirect_from:
 
 ## Step 1.2 Install .NET Core 
 
-If you already have .NET Core installed on your machine, skip this step. Install Homebrew, OpenSSL, and .NET Core using the following commands. 
+If you already have .NET Core installed on your machine, skip this step. Otherwise, install it using the following commands.
 
 ```terminal
 sudo sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ xenial main" > /etc/apt/sources.list.d/dotnetdev.list'
