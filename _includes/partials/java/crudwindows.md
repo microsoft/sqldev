@@ -300,6 +300,11 @@ Save and close the file.
         <artifactId>mssql-jdbc</artifactId>
         <version>6.1.0.jre8</version>
     </dependency>
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-core</artifactId>
+		<version>5.2.3.Final</version>
+    </dependency>
     <!-- your existing dependencies -->
 </dependencies>
 <properties>
