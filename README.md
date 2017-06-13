@@ -43,6 +43,15 @@ All the articles in this repository use GitHub flavored markdown.  Here's a list
 ## Article metadata
 Article metadata enables certain functionalities, such as author attribution, contributor attribution, breadcrumbs, article descriptions, and SEO optimizations as well as reporting Microsoft uses to evaluate the performance of the content. So, the metadata is important! [Here's the guidance for making sure your metadata is done right](/article-metadata.md).
 
+## Labels
+
+Automated labels are assigned to pull requests to help us manage the pull request workflow and to help let you know what's going on with your pull request:
+
+* Contribution License Agreement related
+  * cla-not-required: The change is relatively minor and does not require that you sign a CLA.
+  * cla-required: The scope of the change is relatively large and requires that you sign a CLA.
+  * cla-signed: The contributor signed the CLA, so the pull request can now move forward for review.
+
 ## Microsoft Open Source Code of Conduct
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
