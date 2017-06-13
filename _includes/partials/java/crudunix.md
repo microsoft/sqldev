@@ -27,9 +27,9 @@ Change directories into your newly created project.
     cd SqlServerSample
 ```
 
-Add the Microsoft JDBC Driver for SQL Server dependency to your Maven project by opening your favorite text editor and copying and pasting the following lines into your **pom.xml** file. Do not overwrite the existing values prepopulated in the file. The JDBC dependency must be pasted within the larger "dependencies" section "dependencies" section (&lt;dependency> &lt;/dependency>).
+Add the Microsoft JDBC Driver for SQL Server dependency to your Maven project by opening your favorite text editor and copying and pasting the following lines into your **pom.xml** file. Do not overwrite the existing values prepopulated in the file. The JDBC dependency must be pasted within the larger "dependencies" section (&lt;dependency> &lt;/dependency>).
 
-Specify the version of Java to compile the project against by adding the "properties" section below into the pom.xml file. Add the <properties> section below after the <dependencies> section.
+Specify the version of Java to compile the project against by adding the "properties" section below into the pom.xml file. Add the &lt;properties> section below after the &lt;dependencies> section.
 
 Save and close the file.
 
@@ -286,9 +286,9 @@ Change directories into your newly created project.
 ```terminal
 cd SqlServerHibernateSample
 ```
-Add the Microsoft JDBC Driver for SQL Server and Hibernate dependencies to your Maven project by opening your favorite text editor and copying and pasting the following lines into your **pom.xml** file. Do not overwrite the existing values prepopulated in the file. The JDBC and Hibernate dependencies must be pasted within the "dependencies" section (&lt;dependency> &lt;/dependency>).
+Add the Microsoft JDBC Driver for SQL Server and Hibernate dependencies to your Maven project by opening your favorite text editor and copying and pasting the following lines into your **pom.xml** file. Do not overwrite the existing values prepopulated in the file. The JDBC and Hibernate dependencies must be pasted within the larger "dependencies" section (&lt;dependency> &lt;/dependency>).
 
-Specify the version of Java to compile the project against by adding the "properties" section below into the pom.xml file. Add the <properties> section below after the <dependencies> section.
+Specify the version of Java to compile the project against by adding the "properties" section below into the pom.xml file. Add the &lt;properties> section below after the &lt;dependencies> section.
 
 Save and close the file.
 
@@ -300,10 +300,10 @@ Save and close the file.
         <artifactId>mssql-jdbc</artifactId>
         <version>6.1.0.jre8</version>
     </dependency>
-	<dependency>
-		<groupId>org.hibernate</groupId>
-		<artifactId>hibernate-core</artifactId>
-		<version>5.2.3.Final</version>
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>5.2.3.Final</version>
     </dependency>
     <!-- your existing dependencies -->
 </dependencies>
