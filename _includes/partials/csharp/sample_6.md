@@ -10,20 +10,18 @@ namespace SqlServerEFSample
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("** C# CRUD sample with Entity Framework Core and SQL Server **\n");
+            Console.WriteLine("** C# CRUD sample with Entity Framework and SQL Server **\n");
             try
             {
                 // Build connection string
                 SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
                 builder.DataSource = "localhost";   // update me
                 builder.UserID = "sa";              // update me
-                builder.Password = "your_password";      // update me
+                builder.Password = "Yukon900";      // update me
                 builder.InitialCatalog = "EFSampleDB";
 
                 using (EFSampleContext context = new EFSampleContext(builder.ConnectionString))
                 {
-                    context.Database.EnsureDeleted();
-                    context.Database.EnsureCreated();
                     Console.WriteLine("Created database schema from C# classes.");
 
                     // Create demo: Create a User instance and save it to the database
@@ -49,7 +47,7 @@ namespace SqlServerEFSample
                                 where t.IsComplete == false &&
                                 t.AssignedTo.FirstName.Equals("Anna")
                                 select t;
-                    foreach(var t in query)
+                    foreach (var t in query)
                     {
                         Console.WriteLine(t.ToString());
                     }
@@ -67,7 +65,7 @@ namespace SqlServerEFSample
                     query = from t in context.Tasks
                             where t.DueDate < dueDate2016
                             select t;
-                    foreach(Task t in query)
+                    foreach (Task t in query)
                     {
                         Console.WriteLine("Deleting task: " + t.ToString());
                         context.Tasks.Remove(t);
@@ -76,7 +74,7 @@ namespace SqlServerEFSample
 
                     // Show tasks after the 'Delete' operation - there should be 0 tasks
                     Console.WriteLine("\nTasks after delete:");
-                    List<Task> tasksAfterDelete = (from t in context.Tasks select t).ToList<Task>();
+                    List <Task> tasksAfterDelete = (from t in context.Tasks select t).ToList <Task> ();
                     if (tasksAfterDelete.Count == 0)
                     {
                         Console.WriteLine("[None]");
