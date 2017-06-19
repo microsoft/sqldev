@@ -1,7 +1,7 @@
 Note: To ensure optimal performance of SQL Server, your machine should have at least 4 GB of memory.
 If you need to get Ubuntu, check out the Ubuntu Downloads website.
 
-1. Register the Microsoft Linux repositories and add they keys
+1. Register the Microsoft Linux repositories and add their keys
 
     ```terminal
     curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
