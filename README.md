@@ -10,13 +10,13 @@ Firstly, thank you for your interest in contributing to our tutorials. We use Je
 The content in the repository follows the standard Jekyll folder structure:
 
 ### \pages
-The *\pages* folder contains the documentation articles formatted as markdown files with an *.md* extension for each langauge + OS comibination
+The *\pages* folder contains the documentation articles formatted as markdown files with an *.md* extension for each langauge + operating system combination
 
 ### \_includes
-This folder contains reusable content sections to be included in one or more articles. This folder also contains base html files that are used accross the site.
+This folder contains reusable content sections to be included in one or more articles. This folder also contains base html files that are used across the site.
 
 ### \_sass
-This folder contains the css files used the style the website
+This folder contains the CSS files used the style the website
 
 ### \assets
 This folder contains images and js scripts used in the tutorials website
