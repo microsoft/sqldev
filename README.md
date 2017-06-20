@@ -1,32 +1,31 @@
 
 # SQL Server Tutorials Documentation Contributor Guide
-You've found the GitHub repository that houses the source for the SQL Server tutorials that is published on [http://aka.ms/sqldev](http://aka.ms/sqldev).
+You've found the GitHub repository that houses the source for the SQL Server tutorials that are published on [http://aka.ms/sqldev](http://aka.ms/sqldev).
 
 
 ## Contribute to SQL Server tutorials 
-Firstly, thank you for your interest in contributing to our tutorials. We use Jekyll + Markdown for our documentation. To contribute, simply make a PR with changes in the Markdown files/new Markdown files. We will review it within 24 hours. 
+Firstly, thank you for your interest in contributing to our tutorials. We use Jekyll + Markdown for our documentation. To contribute, simply make a pull request (PR) with changes in the Markdown files or add new Markdown files. We will do our best to review changes within 24 hours. 
 
 ## Repository organization
 The content in the repository follows the standard Jekyll folder structure:
 
 ### \pages
-The *\pages* folder contains the documentation articles formatted as markdown files with an *.md* extension for each langauge + operating system combination
+This folder contains the documentation articles formatted as markdown files with an *.md* extension for each langauge + operating system combination.
 
 ### \_includes
 This folder contains reusable content sections to be included in one or more articles. This folder also contains base html files that are used across the site.
 
 ### \_sass
-This folder contains the CSS files used the style the website
+This folder contains the CSS files used to style the website.
 
 ### \assets
-This folder contains images and js scripts used in the tutorials website
-
+This folder contains images and js scripts used in the tutorials website.
 
 ## Use GitHub
 For information about how to contribute, how to use the GitHub UI to contribute small changes, and how to fork and clone the repository for more significant contributions, see [Authoring in GitHub](authoring-in-github.md).
 
 ### Branches
-We recommend that you create local working branches that target a specific scope of change. Each branch should be limited to a single concept/article both to streamline work flow and reduce the possibility of merge conflicts.  The following efforts are of the appropriate scope for a new branch:
+We recommend that you create local working branches that target a specific scope of change. Each branch should be limited to a single concept/article both to streamline work flow and reduce the possibility of merge conflicts. The following efforts are of the appropriate scope for a new branch:
 
 * A new article (and associated images)
 * Spelling and grammar edits on an article.
