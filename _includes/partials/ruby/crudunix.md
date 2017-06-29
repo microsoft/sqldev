@@ -173,6 +173,10 @@ pp Task.all
 
 ActiveRecord::Base.connection.close
 ```
+Run the Ruby script from the terminal.
+```terminal
+ruby activerecordcrud.rb
+```
 
 ```results
 Drop and create new database 'SampleDB'
