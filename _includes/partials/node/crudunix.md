@@ -1,7 +1,7 @@
 
 > In this section you will create three simple Node.js apps. One of them will just connect to the database, the second will perform basic Insert, Update, Delete, and Select, and the third one will make use of Sequelize, one of the most popular Node.js Object-relational mappers, to execute the same operations.
 
-## Create a Node.js app that connects to SQL Server and executes queries
+## Step 2.1 Create a Node.js app that connects to SQL Server and executes queries
 
 Create a new project directory and initialize Node dependencies.
 
