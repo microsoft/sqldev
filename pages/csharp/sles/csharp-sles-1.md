@@ -20,7 +20,7 @@ If you already have .NET Core installed on your machine, skip this step. Otherwi
 
 ```terminal
 sudo zypper install libunwind libicu
-curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?linkid=848824
+curl -sSL -o dotnet.tar.gz https://aka.ms/dotnet-sdk-2.0.0-preview2-linux-x64-bin
 sudo mkdir -p /opt/dotnet && sudo tar zxf dotnet.tar.gz -C /opt/dotnet
 sudo ln -s /opt/dotnet/dotnet /usr/local/bin
 ```
