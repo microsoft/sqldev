@@ -22,9 +22,10 @@ redirect_from:
     wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm
     rpm -Uvh remi-release-7.rpm epel-release-latest-7.noarch.rpm
     subscription-manager repos --enable=rhel-7-server-optional-rpms
+    yum install yum-utils
+    yum-config-manager --enable remi-php70
     yum update
-    yum install php70-php httpd php-cli php-common php-devel php-fpm php-mbstring php-mcrypt php-pear
-    yum groupinstall "Development Tools"
+    yum install php httpd php-cli php-common php-pdo php-devel php-fpm php-mbstring php-mycrypt php-pear
 ```
 
 > You have successfuly installed PHP on your RHEL machine! 
