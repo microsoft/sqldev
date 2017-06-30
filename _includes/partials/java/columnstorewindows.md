@@ -48,7 +48,7 @@ Save and close the file.
     <dependency>
         <groupId>com.microsoft.sqlserver</groupId>
         <artifactId>mssql-jdbc</artifactId>
-        <version>6.1.0.jre8</version>
+        <version>6.2.0.jre8</version>
     </dependency>
     <!-- your existing dependencies -->
 </dependencies>
