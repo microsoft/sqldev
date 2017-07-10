@@ -21,7 +21,7 @@ mkdir SqlServerColumnstoreSample
 cd SqlServerColumnstoreSample
 ```
 
-Using your favorite text editor, create a new file called columnstore.php in the SqlServerColumnstoreSample folder. Paste the following code inside it.
+Using your favorite text editor, create a new file called columnstore.py in the SqlServerColumnstoreSample folder. Paste the following code inside it.
 
 ```python
 import pyodbc
@@ -47,7 +47,7 @@ with cursor.execute(tsql):
 Run your Python script from the terminal.
 
 ```terminal
-php columnstore.py
+python columnstore.py
 ```
 
 ```results
@@ -65,7 +65,7 @@ sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE CLUSTERED COLU
 
 
 ```terminal
-php columnstore.py
+python columnstore.py
 ```
 
 ```results
