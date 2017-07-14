@@ -9,13 +9,18 @@ permalink: /php/windows/step/2
 
 ## Step 2.1 Install the PHP Driver for SQL Server
 
+Download the Microsoft PHP Drivers for SQL Server from the [download center](https://www.microsoft.com/en-us/download/details.aspx?id=55642)
+
+Pick the appropriate dll - for example **php_pdo_sqlsrv_71_nts** for the **PDO Driver** and **php_sqlsrv_71_nts** for the **SQLSRV driver**
+
+Copy the dll's to the **C:\Program Files\iis express\PHP\v7.1\ext** folder
+
+Register the dll's in the **php.ini** file
+
 ```terminal
-    choco install -y wget
-    cd C:\Program^ Files\iis^ express\PHP\v7.0\ext
-    wget "http://aka.ms/php_sqlsrv_7_nts.dll"
-    wget "https://aka.ms/php_pdo_sqlsrv_7_nts.dll"
-    echo extension=php_sqlsrv_7_nts.dll >> C:\Program^ Files\iis^ express\PHP\v7.0\php.ini
-    echo extension=php_pdo_sqlsrv_7_nts.dll >> C:\Program^ Files\iis^ express\PHP\v7.0\php.ini
+    cd C:\Program^ Files\iis^ express\PHP\v7.1\ext
+    echo extension=php_sqlsrv_71_nts.dll >> C:\Program^ Files\iis^ express\PHP\v7.1\php.ini
+    echo extension=php_pdo_sqlsrv_71_nts.dll >> C:\Program^ Files\iis^ express\PHP\v7.1\php.ini
 ```
     
 ## Step 2.2 Create a database for your application 
