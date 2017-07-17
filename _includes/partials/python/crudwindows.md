@@ -1,5 +1,5 @@
 
-> In this section you will create a simple Python app. The PHP app will perform basic Insert, Update, Delete, and Select.
+> In this section you will create a simple Python app. The Python app will perform basic Insert, Update, Delete, and Select.
 
 ## Step 2.1 Install the Python driver for SQL Server 
 
