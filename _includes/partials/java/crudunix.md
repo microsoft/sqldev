@@ -41,7 +41,7 @@ Using your favorite editor, create a file named connect.js in the SqlServerSampl
     <dependency>
         <groupId>com.microsoft.sqlserver</groupId>
         <artifactId>mssql-jdbc</artifactId>
-        <version>6.2.0.jre8</version>
+        <version>6.2.1.jre8</version>
     </dependency>
     <!-- your existing dependencies -->
 </dependencies>
