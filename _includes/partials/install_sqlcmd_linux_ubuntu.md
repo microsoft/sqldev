@@ -32,4 +32,4 @@ sqlcmd -S localhost -U sa -P yourpassword -Q "SELECT @@VERSION"
 Executed in 1 ns
 ```
 
-> You have successfully installed SQL Server Command Line Utilities on your Ubuntu
+> You have successfully installed SQL Server Command Line Utilities on your Ubuntu machine!
