@@ -31,10 +31,10 @@ yum install scl-utils
 ```
 3. Install .NET Core
 ```terminal
-yum install rh-dotnetcore11
+yum install rh-dotnetcore20
 ```
 4. Enable the .NET Core software collection
 ```terminal
-scl enable rh-dotnetcore11 bash
+scl enable rh-dotnetcore20 bash
 ```
 > You have successfully installed .NET Core on your RHEL machine. You now have everything you need to start writing your C# apps with SQL Server!
