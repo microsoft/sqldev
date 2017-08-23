@@ -136,7 +136,8 @@ public class App {
 				// Calculate performance gain from adding columnstore index
 				System.out.println("Performance improvement with columnstore index: "
 						+ elapsedTimeWithoutIndex / elapsedTimeWithIndex + "x!");
-
+				
+				connection.close();
 			}
 		} catch (Exception e) {
 			System.out.println("");
