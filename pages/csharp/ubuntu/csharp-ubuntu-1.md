@@ -19,21 +19,12 @@ redirect_from:
 If you already have .NET Core installed on your machine, skip this step. Otherwise, install it using the following commands.
 
 ```terminal
-sudo sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ xenial main" > /etc/apt/sources.list.d/dotnetdev.list'
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-xenial-prod xenial main" > /etc/apt/sources.list.d/dotnetdev.list'
 sudo apt-get update
-sudo apt-get install dotnet-sdk-2.0.0-preview2-006497
+sudo apt-get install dotnet-sdk-2.0.0
 ```
-```results
-Reading package lists... Done
-Building dependency tree
-Reading state information... Done
-The following NEW packages will be installed:
-  dotnet-sdk-2.0.0-preview2-006497
-0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
-...
-This software may collect information about you and your use of the software, and send that to Microsoft.
-Please visit http://aka.ms/dotnet-cli-eula for more information.
-```
+
 > You have successfully installed .NET Core on your Ubuntu machine. You now have everything you need to start writing your C# apps with SQL Server!
 
