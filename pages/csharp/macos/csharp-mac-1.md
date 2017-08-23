@@ -49,6 +49,6 @@ If you already have .NET Core installed on your machine, skip this step. Install
     ln -s /usr/local/opt/openssl/lib/libssl.1.0.0.dylib /usr/local/lib
     ```
 
-5. Install .NET Core by downloading the **[official installer](https://aka.ms/dotnet-sdk-2.0.0-preview2-osx-x64)**. This installer will install the tools and put them on your PATH so you can run dotnet from the Console.
+5. Install .NET Core by downloading the **[official installer](https://download.microsoft.com/download/0/F/D/0FD852A4-7EA1-4E2A-983A-0484AC19B92C/dotnet-sdk-2.0.0-osx-gs-x64.pkg)**. This installer will install the tools and put them on your PATH so you can run dotnet from the Console.
 
 > You have successfully installed .NET Core on your Mac. You now have everything you need to start writing your C# apps with SQL Server!
