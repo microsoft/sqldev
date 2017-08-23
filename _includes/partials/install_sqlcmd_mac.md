@@ -29,4 +29,4 @@ sqlcmd -S 127.0.0.1 -U sa -P your_password -Q "SELECT @@VERSION"
 Executed in 1 ns
 ```
 
-> You have successfully installed SQL Server Command Line Utilities on your macOS
+> You have successfully installed SQL Server Command Line Utilities on your macOS!

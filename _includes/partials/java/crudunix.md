@@ -196,7 +196,7 @@ public class App {
 								resultSet.getInt(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3));
 					}
 				}
-
+				connection.close();
 				System.out.println("All done.");
 			}
 		} catch (Exception e) {
