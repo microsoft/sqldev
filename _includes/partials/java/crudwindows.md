@@ -725,6 +725,3 @@ Tasks after delete:
 All done.
 ```
 > Congrats you created your first two Java apps with SQL Server! Check out the next section to learn about how you can make your Java apps faster with SQL Server’s Columnstore feature
-
-
-
