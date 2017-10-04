@@ -312,7 +312,7 @@ Save and close the file.
 	<artifactId>SqlServerHibernateSample</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0.0</version>
-	<name>SqlServerSample</name>
+	<name>SqlServerHibernateSample</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>
