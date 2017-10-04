@@ -47,7 +47,7 @@ Save and close the file.
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.sqlsamples</groupId>
-	<artifactId>SqlServerSample</artifactId>
+	<artifactId>SqlServerColumnstoreSample</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0.0</version>
 	<name>SqlServerSample</name>
