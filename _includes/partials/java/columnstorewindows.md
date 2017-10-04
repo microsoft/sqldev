@@ -50,7 +50,7 @@ Save and close the file.
 	<artifactId>SqlServerColumnstoreSample</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0.0</version>
-	<name>SqlServerSample</name>
+	<name>SqlServerColumnstoreSample</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>
