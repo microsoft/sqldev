@@ -36,28 +36,42 @@ package: com.sqlsamples
 [INFO] Final Memory: 14M/208M
 [INFO] ------------------------------------------------------------------------
 ```
-Add the Microsoft JDBC Driver for SQL Server dependency to your Maven project by opening your favorite text editor and copying and pasting the following lines into your **pom.xml** file. Do not overwrite the existing values prepopulated in the file. The JDBC dependency must be pasted within the larger "dependencies" section (<dependency> </dependency>).
+You should already have a file called **pom.xml** in your Maven project located at: _\SqlServerColumnstoreSample_
 
-Specify the version of Java to compile the project against by adding the "properties" section below into the pom.xml file. Add the <properties> section below after the <dependencies> section.
+Open this file in your favorite text editor and replace the contents with the code below to add the Microsoft JDBC Driver for SQL Server to your Maven project and specify the version of Java to compile the project against.
 
 Save and close the file.
 
 ```xml
-<!-- prepopulated content by Maven -->
-<dependencies>
-    <dependency>
-        <groupId>com.microsoft.sqlserver</groupId>
-        <artifactId>mssql-jdbc</artifactId>
-        <version>6.2.1.jre8</version>
-    </dependency>
-    <!-- your existing dependencies -->
-</dependencies>
-<properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <!-- your existing properties -->
-</properties>
-<!-- prepopulated content by Maven -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.sqlsamples</groupId>
+	<artifactId>SqlServerSample</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0.0</version>
+	<name>SqlServerSample</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- add the JDBC Driver -->
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>6.2.2.jre8</version>
+		</dependency>
+	</dependencies>
+	<properties>
+		<!-- specify which version of Java to build against-->
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+</project>
 ```
 Change directories into your newly created project.
 
