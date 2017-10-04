@@ -26,30 +26,42 @@ Change directories into your newly created project.
 ```terminal
     cd SqlServerSample
 ```
+You should already have a file called **pom.xml** in your Maven project located at: _~/SqlServerSample_
 
-Add the Microsoft JDBC Driver for SQL Server dependency to your Maven project by opening your favorite text editor and copying and pasting the following lines into your **pom.xml** file. Do not overwrite the existing values prepopulated in the file. The JDBC dependency must be pasted within the larger "dependencies" section (&lt;dependency> &lt;/dependency>).
-
-Specify the version of Java to compile the project against by adding the "properties" section below into the pom.xml file. Add the &lt;properties> section below after the &lt;dependencies> section.
+Open this file in your favorite text editor and replace the contents with the code below to add the Microsoft JDBC Driver for SQL Server to your Maven project and specify the version of Java to compile the project against.
 
 Save and close the file.
 
-Using your favorite editor, create a file named connect.js in the SqlServerSample folder. Copy and paste the below contents into the file.
-
 ```xml
-<!-- prepopulated content by Maven -->
-<dependencies>
-    <dependency>
-        <groupId>com.microsoft.sqlserver</groupId>
-        <artifactId>mssql-jdbc</artifactId>
-        <version>6.2.1.jre8</version>
-    </dependency>
-    <!-- your existing dependencies -->
-</dependencies>
-<properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <!-- your existing properties -->
-</properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.sqlsamples</groupId>
+	<artifactId>SqlServerSample</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0.0</version>
+	<name>SqlServerSample</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- add the JDBC Driver -->
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>6.2.2.jre8</version>
+		</dependency>
+	</dependencies>
+	<properties>
+		<!-- specify which version of Java to build against-->
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+</project>
 ```
 You should already have a file called **App.java** in your Maven project located at: SqlServerSample/src/main/java/com/sqlsamples/App.java
 
@@ -268,12 +280,12 @@ mvn archetype:generate "-DgroupId=com.sqlsamples" "-DartifactId=SqlServerHiberna
 ...
 [INFO] Using following parameters for creating project from Old (1.x) Archetype: maven-archetype-quickstart:1.0
 [INFO] ----------------------------------------------------------------------------
-[INFO] Parameter: basedir, Value: C:\Users\usr1
+[INFO] Parameter: basedir, Value: /Users/usr1
 [INFO] Parameter: package, Value: com.sqlsamples
 [INFO] Parameter: artifactId, Value: SqlServerHibernateSample
 [INFO] Parameter: packageName, Value: com.sqlsamples
 [INFO] Parameter: version, Value: 1.0.0
-[INFO] project created from Old (1.x) Archetype in dir: C:\Users\usr1\SqlServerHibernateSample
+[INFO] project created from Old (1.x) Archetype in dir: /Users/usr1/SqlServerHibernateSample
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
@@ -286,33 +298,48 @@ Change directories into your newly created project.
 ```terminal
 cd SqlServerHibernateSample
 ```
-Add the Microsoft JDBC Driver for SQL Server and Hibernate dependencies to your Maven project by opening your favorite text editor and copying and pasting the following lines into your **pom.xml** file. Do not overwrite the existing values prepopulated in the file. The JDBC and Hibernate dependencies must be pasted within the larger "dependencies" section (&lt;dependency> &lt;/dependency>).
+You should already have a file called **pom.xml** in your Maven project located at: _\SqlServerHibernateSample_
 
-Specify the version of Java to compile the project against by adding the "properties" section below into the pom.xml file. Add the &lt;properties> section below after the &lt;dependencies> section.
+Open this file in your favorite text editor and replace the contents with the code below to add the Microsoft JDBC Driver for SQL Server and Hibernate to your Maven project and specify the version of Java to compile the project against.
 
 Save and close the file.
 
 ```xml
-<!-- prepopulated content by Maven -->
-<dependencies>
-    <dependency>
-        <groupId>com.microsoft.sqlserver</groupId>
-        <artifactId>mssql-jdbc</artifactId>
-        <version>6.2.0.jre8</version>
-    </dependency>
-    <dependency>
-        <groupId>org.hibernate</groupId>
-        <artifactId>hibernate-core</artifactId>
-        <version>5.2.3.Final</version>
-    </dependency>
-    <!-- your existing dependencies -->
-</dependencies>
-<properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <!-- your existing properties -->
-</properties>
-<!-- prepopulated content by Maven -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.sqlsamples</groupId>
+	<artifactId>SqlServerSample</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0.0</version>
+	<name>SqlServerSample</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- add the JDBC Driver -->
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>6.2.2.jre8</version>
+		</dependency>
+		<!-- add Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.2.3.Final</version>
+    	</dependency>
+	</dependencies>
+	<properties>
+		<!-- specify which version of Java to build against-->
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+</project>
 ```
 For this sample, let's create two tables. The first will hold data about "users". Create a **User.java** file in your Maven project located at: SqlServerHibernateSample/src/main/java/com/sqlsamples/User.java
 
