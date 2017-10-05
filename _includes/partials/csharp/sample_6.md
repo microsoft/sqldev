@@ -17,7 +17,7 @@ namespace SqlServerEFSample
                 SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
                 builder.DataSource = "localhost";   // update me
                 builder.UserID = "sa";              // update me
-                builder.Password = "Yukon900";      // update me
+                builder.Password = "your_password";      // update me
                 builder.InitialCatalog = "EFSampleDB";
 
                 using (EFSampleContext context = new EFSampleContext(builder.ConnectionString))
