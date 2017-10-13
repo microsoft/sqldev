@@ -1,4 +1,5 @@
-1. If you don’t have SQL Server 2016 Developer (or above) installed, click [**here**](http://go.microsoft.com/fwlink/?LinkID=799009) to download the SQL Server exe 
+1. If you don’t have SQL Server 2017 Developer (or above) installed, click [**here**](https://go.microsoft.com/fwlink/?linkid=853016
+) to download the SQL Server exe 
 2. Run it to start the SQL installer 
 3. Click **Basic** in *Select an installation type* 
 4. Click **Accept** after you have read the license terms 
