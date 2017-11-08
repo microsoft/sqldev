@@ -43,7 +43,7 @@ Add the Maven bin directory to your PATH environment variable and add the JRE to
 2. Search for "Advanced System Settings" 
 3. Click on the "Environment Variables" button 
 4. Add the location of the bin folder of the Maven installation to the PATH variable 
-5. Create a new System Variable for "JAVA_HOME" and point it to the location of the JRE in the JDK folder (ex. C:\Program Files\Java\jdk1.8.0_102\jre) 
+5. Create a new System Variable for "JAVA_HOME" and point it to the JDK folder (ex. C:\Program Files\Java\jdk1.8.0_102) 
 6. Check that Maven was installed properly by running the following command.
 
 ```terminal
@@ -53,7 +53,7 @@ Add the Maven bin directory to your PATH environment variable and add the JRE to
 Apache Maven 3.3.9 (bb52d8502b132ec0a5a3f4c09453c07478323dc5; 2015-11-10T08:41:47-08:00)
 Maven home: C:\apache-maven-3.3.9\bin\..
 Java version: 1.8.0_102, vendor: Oracle Corporation
-Java home: C:\Program Files\Java\jdk1.8.0_102\jre
+Java home: C:\Program Files\Java\jdk1.8.0_102
 Default locale: en_US, platform encoding: Cp1252
 OS name: "windows 10", version: "10.0", arch: "amd64", family: "dos"
 ```
