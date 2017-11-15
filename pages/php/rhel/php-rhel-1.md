@@ -25,10 +25,16 @@ redirect_from:
     yum install yum-utils
     yum-config-manager --enable remi-php70
     yum update
-    yum install php httpd php-cli php-common php-pdo php-devel php-fpm php-mbstring php-mycrypt php-pear
+    yum install php httpd php-cli php-common php-pdo php-devel php-fpm php-mbstring php-mcrypt php-pear
 ```
 
 > You have successfuly installed PHP on your RHEL machine! 
+
+> SELinux is installed by default and runs in Enforcing mode. To allow Apache to connect to a database through SELinux, run the following command: 
+ 
+```terminal
+    sudo setsebool -P httpd_can_network_connect_db 1
+```
 
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
