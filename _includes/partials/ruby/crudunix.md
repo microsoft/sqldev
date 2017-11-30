@@ -125,7 +125,7 @@ ActiveRecord::Base.establish_connection(
   :adapter=> "sqlserver",
   :host => "localhost",
   :username => "sa",
-  :password => "your_password
+  :password => "your_password"
 )
 
 #Create new database SampleDB
