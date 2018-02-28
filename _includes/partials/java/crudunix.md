@@ -53,7 +53,7 @@ Save and close the file.
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
-			<version>6.2.2.jre8</version>
+			<version>6.4.0.jre8</version>
 		</dependency>
 	</dependencies>
 	<properties>
@@ -325,7 +325,7 @@ Save and close the file.
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
-			<version>6.2.2.jre8</version>
+			<version>6.4.0.jre8</version>
 		</dependency>
 		<!-- add Hibernate -->
 		<dependency>
