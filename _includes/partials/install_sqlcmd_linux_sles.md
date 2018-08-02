@@ -4,7 +4,7 @@
 sudo zypper ar https://packages.microsoft.com/config/sles/12/prod.repo
 sudo zypper update
 exit
-sudo ACCEPT_EULA=Y zypper install msodbcsql mssql-tools
+sudo ACCEPT_EULA=Y zypper install msodbcsql17 mssql-tools
 sudo zypper install unixODBC-devel
 echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
 echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc

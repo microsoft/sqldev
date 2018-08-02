@@ -3,7 +3,7 @@
 ```terminal
 brew tap microsoft/mssql-release https://github.com/Microsoft/homebrew-mssql-release
 brew update
-HOMEBREW_NO_ENV_FILTERING=1 ACCEPT_EULA=y brew install --no-sandbox msodbcsql mssql-tools
+HOMEBREW_NO_ENV_FILTERING=1 ACCEPT_EULA=y brew install --no-sandbox msodbcsql17 mssql-tools
 ```
 
 After installing SQLCMD, you can connect to SQL Server using the following command:
