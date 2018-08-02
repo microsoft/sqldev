@@ -2,7 +2,7 @@
 
 ```terminal
 curl https://packages.microsoft.com/config/rhel/7/prod.repo | sudo tee /etc/yum.repos.d/mssql-tools.repo
-sudo ACCEPT_EULA=Y yum install msodbcsql mssql-tools
+sudo ACCEPT_EULA=Y yum install msodbcsql17 mssql-tools
 sudo yum install unixODBC-devel
 echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
 echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
