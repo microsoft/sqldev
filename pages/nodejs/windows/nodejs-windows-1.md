@@ -25,7 +25,6 @@ For choco to work, you now need to restart the terminal session by closing and o
 
 ```terminal
 choco install -y nodejs
-choco install -y npm
 ```
 
 ```results
