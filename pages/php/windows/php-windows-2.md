@@ -9,7 +9,7 @@ permalink: /php/windows/step/2
 
 ## Step 2.1 Install the PHP Driver for SQL Server
 
-Download the Microsoft PHP Drivers for SQL Server from the [download center](https://www.microsoft.com/en-us/download/details.aspx?id=55642)
+Download the Microsoft PHP Drivers for SQL Server from the [download center](https://www.microsoft.com/en-us/download/details.aspx?id=57163)
 
 Pick the appropriate dll - for example **php_pdo_sqlsrv_71_nts** for the **PDO Driver** and **php_sqlsrv_71_nts** for the **SQLSRV driver**
 
