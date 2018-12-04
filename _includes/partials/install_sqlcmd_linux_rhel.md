@@ -1,12 +1,16 @@
 [SQLCMD](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-connect-and-query-sqlcmd){:target="_blank"} is a command line tool that enables you to connect to SQL Server and run queries.
 
 ```terminal
-curl https://packages.microsoft.com/config/rhel/7/prod.repo | sudo tee /etc/yum.repos.d/mssql-tools.repo
+sudo su
+curl https://packages.microsoft.com/config/rhel/7/prod.repo > /etc/yum.repos.d/mssql-tools.repo
 sudo ACCEPT_EULA=Y yum install msodbcsql17 mssql-tools
-sudo yum install unixODBC-devel
+exit
+sudo yum remove unixODBC-utf16 unixODBC-utf16-devel #to avoid conflicts
+sudo ACCEPT_EULA=Y yum install msodbcsql17 mssql-tools
 echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
 echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
 source ~/.bashrc
+sudo yum install unixODBC-devel
 ```
 
 After installing SQLCMD, you can connect to SQL Server using the following command:

@@ -1,17 +1,13 @@
 
 > In this section you will create a simple PHP app. The PHP app will perform basic Insert, Update, Delete, and Select.
 
-## Step 2.1 Install the PHP Driver for SQL Server
+## Step 2.1 Install the PHP Drivers for SQL Server
 
 > If using PHP 7.3, replace sqlsrv and pdo_sqlsrv with sqlsrv-5.4.0preview and pdo_sqlsrv-5.4.0preview or later, as earlier versions are not compatible with PHP 7.3.
 
 ```terminal
-sudo pecl install sqlsrv
-sudo pecl install pdo_sqlsrv
-sudo su
-echo extension=pdo_sqlsrv.so >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/30-pdo_sqlsrv.ini
-echo extension=sqlsrv.so >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/20-sqlsrv.ini
-exit
+    sudo pecl install pdo_sqlsrv
+    sudo pecl install sqlsrv
 ```
     
 ## Step 2.2 Create a database for your application 
@@ -164,3 +160,4 @@ Reading data from table
 
 
 > Congratulations! You have created your first PHP app with SQL Server! Check out the next section to learn about how you can make your PHP faster with SQL Server's Columnstore feature.
+

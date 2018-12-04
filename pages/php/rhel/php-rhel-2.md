@@ -5,5 +5,5 @@ title: RHEL
 permalink: /php/rhel/step/2
 ---
 
-{% include partials/php/crudunix.md %}
+{% include partials/php/crudunix-rhel.md %}
 

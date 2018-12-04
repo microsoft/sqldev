@@ -23,21 +23,25 @@ redirect_from:
 
 3. Install PHP
 
+> To install PHP 7.0, 7.1, or 7.3, replace php@7.2 with php@7.0, php@7.1, or php@7.3 respectively in the following commands.
+
     ```terminal
     brew tap 
-    brew tap homebrew/dupes
-    brew tap homebrew/versions
-    brew tap homebrew/homebrew-php
-    brew install php70 --with-pear --with-httpd24 --with-cgi
-    echo 'export PATH="/usr/local/sbin:$PATH"' >> ~/.bash_profile
-    echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile
-    ```
+    brew tap homebrew/core
+    brew install php@7.2
+   ```
 
+PHP should now be in your path -- run `php -v` to verify that you are running the correct version of PHP. If PHP is not in your path or it is not the correct version, run the following:
+
+    ```terminal
+    brew link --force --overwrite php@7.2
+    ```
+    
 4. Install other required packages
 
 ```terminal
     brew install llvm --with-clang --with-clang-extra-tools
-    brew install autoconf
+    brew install autoconf automake libtool
 ```
 > You have successfully installed PHP on your macOS!
 
