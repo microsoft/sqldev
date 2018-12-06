@@ -16,7 +16,7 @@ redirect_from:
 
 ## Step 1.2 Install PHP and other required packages
 
-> To install PHP 7.0, 7.1, or 7.3, replace 7.2 with 7.0, 7.1, or 7.3 in the following commands.
+> To install PHP 7.0, 7.1, or 7.3, replace `7.2` with `7.0`, `7.1`, or `7.3` in the following commands.
 
 ```terminal
 add-apt-repository ppa:ondrej/php -y

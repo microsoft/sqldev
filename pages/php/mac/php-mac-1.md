@@ -23,7 +23,7 @@ redirect_from:
 
 3. Install PHP
 
-> To install PHP 7.0, 7.1, or 7.3, replace php@7.2 with php@7.0, php@7.1, or php@7.3 respectively in the following commands.
+> To install PHP 7.0, 7.1, or 7.3, replace `php@7.2` with `php@7.0`, `php@7.1`, or `php@7.3` respectively in the following commands.
 
     ```terminal
     brew tap 
@@ -40,7 +40,6 @@ PHP should now be in your path -- run `php -v` to verify that you are running th
 4. Install other required packages
 
 ```terminal
-    brew install llvm --with-clang --with-clang-extra-tools
     brew install autoconf automake libtool
 ```
 > You have successfully installed PHP on your macOS!

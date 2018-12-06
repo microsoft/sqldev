@@ -16,10 +16,11 @@ redirect_from:
 
 ## Step 1.2 Install PHP and other required packages
 
-> To install PHP 7.0, skip the command below adding the repository - 7.0 is the default PHP on suse 12. To install PHP 7.1, replace the repository URL below with the following URL: `https://download.opensuse.org/repositories/devel:/languages:/php:/php71/SLE_12_SP1/devel:languages:php:php71.repo`
+> To install PHP 7.0 or 7.1, replace the repository URL below with one of the following URLs: `https://download.opensuse.org/repositories/devel:languages:php:php70/SLE_12_SP3/devel:languages:php:php70.repo`
+`https://download.opensuse.org/repositories/devel:languages:php:php71/SLE_12_SP3/devel:languages:php:php71.repo`
 
 ```terminal
-    sudo zypper -n ar -f https://download.opensuse.org/repositories/devel:languages:php/SLE_12_SP1/devel:languages:php.repo
+    sudo zypper -n ar -f https://download.opensuse.org/repositories/devel:languages:php/SLE_12_SP3/devel:languages:php.repo
     sudo zypper --gpg-auto-import-keys refresh
     sudo zypper install php7 php7-pear php7-devel
 ```
