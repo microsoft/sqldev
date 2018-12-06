@@ -12,7 +12,8 @@ sudo ACCEPT_EULA=Y apt-get install msodbcsql17 mssql-tools
 echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
 echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
 source ~/.bashrc
-sudo apt-get install unixodbc-dev```
+sudo apt-get install unixodbc-dev
+```
 
 After installing SQLCMD, you can connect to SQL Server using the following command:
 
