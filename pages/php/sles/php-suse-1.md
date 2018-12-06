@@ -20,9 +20,10 @@ redirect_from:
 `https://download.opensuse.org/repositories/devel:languages:php:php71/SLE_12_SP3/devel:languages:php:php71.repo`
 
 ```terminal
-    sudo zypper -n ar -f https://download.opensuse.org/repositories/devel:languages:php/SLE_12_SP3/devel:languages:php.repo
-    sudo zypper --gpg-auto-import-keys refresh
-    sudo zypper install php7 php7-pear php7-devel
+    sudo su
+    zypper -n ar -f https://download.opensuse.org/repositories/devel:languages:php/SLE_12_SP3/devel:languages:php.repo
+    zypper --gpg-auto-import-keys refresh
+    zypper install php7 php7-pear php7-devel
 ```
 > You have successfully installed PHP on your SLES machine! 
 

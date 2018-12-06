@@ -19,6 +19,7 @@ redirect_from:
 > To install PHP 7.0, 7.1, or 7.3, replace `remi-php72` with `remi-php70`, `remi-php71`, or `remi-php73` respectively in the following commands.
 
 ```terminal
+    sudo su
     wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
     wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm
     rpm -Uvh remi-release-7.rpm epel-release-latest-7.noarch.rpm

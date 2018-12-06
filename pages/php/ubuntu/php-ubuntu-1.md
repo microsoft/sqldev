@@ -19,6 +19,7 @@ redirect_from:
 > To install PHP 7.0, 7.1, or 7.3, replace `7.2` with `7.0`, `7.1`, or `7.3` in the following commands.
 
 ```terminal
+sudo su
 add-apt-repository ppa:ondrej/php -y
 apt-get update
 apt-get install php7.2 php7.2-dev php7.2-xml -y --allow-unauthenticated
