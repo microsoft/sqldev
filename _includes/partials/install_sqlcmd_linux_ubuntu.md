@@ -1,14 +1,18 @@
 [SQLCMD](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-connect-and-query-sqlcmd){:target="_blank"} is a command line tool that enables you to connect to SQL Server and run queries.
 
+> For Ubuntu 18.04 or 18.10, replace `16.04` in the following commands with `18.04` (the 18.04 repository is for both Ubuntu 18.04 and 18.10).
+
 ```terminal
-curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list | sudo tee /etc/apt/sources.list.d/mssql-tools.list
+sudo su 
+curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
+exit
 sudo apt-get update
-sudo ACCEPT_EULA=Y apt-get install mssql-tools
-sudo apt-get install unixodbc-dev
+sudo ACCEPT_EULA=Y apt-get install msodbcsql17 mssql-tools
 echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
 echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
 source ~/.bashrc
+sudo apt-get install unixodbc-dev
 ```
 
 After installing SQLCMD, you can connect to SQL Server using the following command:

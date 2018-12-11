@@ -1,28 +1,29 @@
----
-layout: page-steps
-language: PHP
-title: Windows
-permalink: /php/windows/step/2
----
 
 > In this section you will create a simple PHP app. The PHP app will perform basic Insert, Update, Delete, and Select.
 
 ## Step 2.1 Install the PHP Driver for SQL Server
 
-Download the Microsoft PHP Drivers for SQL Server from the [download center](https://www.microsoft.com/en-us/download/details.aspx?id=57163)
-
-Pick the appropriate dll - for example **php_pdo_sqlsrv_72_nts** for the **PDO Driver** and **php_sqlsrv_72_nts** for the **SQLSRV driver**
-
-Copy the dll's to the **C:\Program Files\iis express\PHP\v7.2\ext** folder
-
-Register the dll's in the **php.ini** file
+> If using PHP 7.3, replace `sqlsrv` and `pdo_sqlsrv` in the following commands with `sqlsrv-5.4.0preview` and `pdo_sqlsrv-5.4.0preview` or later, as earlier versions are not compatible with PHP 7.3.
 
 ```terminal
-    cd C:\Program^ Files\iis^ express\PHP\v7.2\ext
-    echo extension=php_sqlsrv_72_nts.dll >> C:\Program^ Files\iis^ express\PHP\v7.2\php.ini
-    echo extension=php_pdo_sqlsrv_72_nts.dll >> C:\Program^ Files\iis^ express\PHP\v7.2\php.ini
+sudo pecl install sqlsrv
+sudo pecl install pdo_sqlsrv
+sudo su
+echo extension=pdo_sqlsrv.so >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/30-pdo_sqlsrv.ini
+echo extension=sqlsrv.so >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/20-sqlsrv.ini
+exit
 ```
-    
+An issue in PECL may prevent correct installation of the latest version of the drivers even if you have upgraded GCC. To install, download the packages and compile manually (similar steps for pdo_sqlsrv):
+
+```terminal
+pecl download sqlsrv
+tar xvzf sqlsrv-5.3.0.tgz
+cd sqlsrv-5.3.0/
+phpize
+./configure --with-php-config=/usr/bin/php-config
+make
+sudo make install
+```
 ## Step 2.2 Create a database for your application 
 
 Create the database using sqlcmd

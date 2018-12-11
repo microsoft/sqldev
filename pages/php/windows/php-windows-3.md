@@ -106,4 +106,4 @@ Sum: 50000000
 QueryTime: 5ms
 ```
 
-> Congrats you just made your PHP app faster using Columnstore Indexes! 
+> Congratulations! You just made your PHP app faster using Columnstore Indexes! 

@@ -1,6 +1,6 @@
 {% include partials/step3/title.md %}
 
-## Step 3.1 Create a new table with 5 million using sqlcmd
+## Step 3.1 Create a new table with 5 million rows using sqlcmd
 
 ```terminal
 sqlcmd -S localhost -U sa -P your_password -d SampleDB -t 60000 -Q "WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a))
@@ -99,4 +99,4 @@ Sum: 50000000
 QueryTime: 5ms
 ```
 
-> Congrats you just made your PHP app faster using Columnstore Indexes! 
+> Congratulations! You just made your PHP app faster using Columnstore Indexes! 

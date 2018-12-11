@@ -16,10 +16,14 @@ redirect_from:
 
 ## Step 1.2 Install PHP and other required packages
 
+> To install PHP 7.0 or 7.1, replace the repository URL below with one of the following URLs: `https://download.opensuse.org/repositories/devel:languages:php:php70/SLE_12_SP3/devel:languages:php:php70.repo`
+`https://download.opensuse.org/repositories/devel:languages:php:php71/SLE_12_SP3/devel:languages:php:php71.repo`
 
 ```terminal
-    sudo zypper update
-    sudo zypper install php7 php7-devel php7-openssl php7-phar php7-mcrypt php7-mbstring php7-pear gcc gcc-c++ make apache2
+    sudo su
+    zypper -n ar -f https://download.opensuse.org/repositories/devel:languages:php/SLE_12_SP3/devel:languages:php.repo
+    zypper --gpg-auto-import-keys refresh
+    zypper install php7 php7-pear php7-devel
 ```
 > You have successfully installed PHP on your SLES machine! 
 

@@ -3,10 +3,15 @@
 
 ## Step 2.1 Install the PHP Driver for SQL Server
 
+> If using PHP 7.3, replace `sqlsrv` and `pdo_sqlsrv` in the following commands with `sqlsrv-5.4.0preview` and `pdo_sqlsrv-5.4.0preview` or later, as earlier versions are not compatible with PHP 7.3.
+
 ```terminal
-    sudo pecl install sqlsrv pdo_sqlsrv
-    sudo echo "extension= pdo_sqlsrv.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
-    sudo echo "extension= sqlsrv.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+sudo pecl install sqlsrv
+sudo pecl install pdo_sqlsrv
+sudo su
+echo extension=pdo_sqlsrv.so >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/30-pdo_sqlsrv.ini
+echo extension=sqlsrv.so >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/20-sqlsrv.ini
+exit
 ```
     
 ## Step 2.2 Create a database for your application 
@@ -158,4 +163,4 @@ Reading data from table
 ```
 
 
-> Congrats you created your first PHP app with SQL Server! Check out the next section to learn about how you can make your PHP faster with SQL Server's Columnstore feature.
+> Congratulations! You have created your first PHP app with SQL Server! Check out the next section to learn about how you can make your PHP faster with SQL Server's Columnstore feature.
