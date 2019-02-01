@@ -3,8 +3,6 @@
 
 ## Step 2.1 Install the PHP Drivers for SQL Server
 
-> If using PHP 7.3, replace `sqlsrv` and `pdo_sqlsrv` in the following commands with `sqlsrv-5.4.0preview` and `pdo_sqlsrv-5.4.0preview` or later, as earlier versions are not compatible with PHP 7.3.
-
 ```terminal
     sudo pecl install pdo_sqlsrv
     sudo pecl install sqlsrv
