@@ -25,6 +25,7 @@ apt-get update
 apt-get install php7.3 php7.3-dev php7.3-xml -y --allow-unauthenticated
 ```
 > You have successfully installed PHP on your Ubuntu machine! 
+
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
 {% include partials/install_sqlcmd_linux_ubuntu.md %}

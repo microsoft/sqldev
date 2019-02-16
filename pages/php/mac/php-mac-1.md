@@ -21,7 +21,7 @@ redirect_from:
 
 2. Restart the terminal session.
 
-3. Install PHP
+3. Install PHP.
 
 > To install 7.1, or 7.2, replace `php@7.3` with `php@7.1` or `php@7.2` respectively in the following commands.
 
@@ -37,7 +37,7 @@ PHP should now be in your path -- run `php -v` to verify that you are running th
     brew link --force --overwrite php@7.3
 ```
     
-4. Install other required packages
+4. Install other required packages.
 
 ```terminal
     brew install autoconf automake libtool

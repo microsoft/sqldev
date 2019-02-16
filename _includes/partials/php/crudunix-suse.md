@@ -15,7 +15,7 @@ exit
     
 ## Step 2.2 Create a database for your application 
 
-Create the database using sqlcmd
+Create the database using sqlcmd.
 
 ```terminal
 sqlcmd -S localhost -U sa -P your_password -Q "CREATE DATABASE SampleDB;"

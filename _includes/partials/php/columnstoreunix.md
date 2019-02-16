@@ -81,7 +81,7 @@ Sum: 50000000
 QueryTime: 363ms
 ```
 
-## Step 3.4 Add a columnstore index to your table.
+## Step 3.4 Add a columnstore index to your table
 
 ```terminal
 sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE CLUSTERED COLUMNSTORE INDEX Columnstoreindex ON Table_with_5M_rows;"

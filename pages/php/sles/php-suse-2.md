@@ -5,4 +5,4 @@ title: SLES
 permalink: /php/sles/step/2
 ---
 
-{% include partials/php/crudunix.md %}
+{% include partials/php/crudunix-suse.md %}

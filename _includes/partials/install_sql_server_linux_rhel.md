@@ -1,19 +1,19 @@
 Note: To ensure optimal performance of SQL Server, your machine should have at least 4 GB of memory.
 
-1. Register the Microsoft Linux repository
+1. Register the Microsoft Linux repository.
 
     ```terminal
     curl https://packages.microsoft.com/config/rhel/7/mssql-server-2017.repo | sudo tee /etc/yum.repos.d/mssql-server-2017.repo
     ```
 
-2. Install SQL Server
+2. Install SQL Server.
 
     ```terminal
     sudo yum update
     sudo yum install mssql-server
     ```
 
-3. Setup your SQL Server
+3. Setup your SQL Server.
 
     ```terminal
     sudo /opt/mssql/bin/mssql-conf setup
