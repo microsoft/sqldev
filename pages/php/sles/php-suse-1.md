@@ -16,14 +16,17 @@ redirect_from:
 
 ## Step 1.2 Install PHP and other required packages
 
-> To install PHP 7.0 or 7.1, replace the repository URL below with one of the following URLs: `https://download.opensuse.org/repositories/devel:languages:php:php70/SLE_12_SP3/devel:languages:php:php70.repo`
-`https://download.opensuse.org/repositories/devel:languages:php:php71/SLE_12_SP3/devel:languages:php:php71.repo`
+> In the following instructions, replace <SuseVersion> with your version of Suse - if you are using Suse Enterprise Linux 15, it will be SLE_15 or SLE_15_SP1, and similarly for other versions. Not all versions of PHP are available for all versions of Suse Linux - please refer to `http://download.opensuse.org/repositories/devel:/languages:/php` to see which versions of Suse have the default version PHP available, or to `http://download.opensuse.org/repositories/devel:/languages:/php:/` to see which other versions of PHP are available for which versions of Suse.
+
+> Packages for PHP 7.3 are not available for Suse 12. To install PHP 7.1, replace the repository URL below with the following URL:
+      `https://download.opensuse.org/repositories/devel:/languages:/php:/php71/<SuseVersion>/devel:languages:php:php71.repo`. To install PHP 7.2, replace the repository URL below with the following URL:
+      `https://download.opensuse.org/repositories/devel:/languages:/php:/php72/<SuseVersion>/devel:languages:php:php72.repo`.
 
 ```terminal
-    sudo su
-    zypper -n ar -f https://download.opensuse.org/repositories/devel:languages:php/SLE_12_SP3/devel:languages:php.repo
-    zypper --gpg-auto-import-keys refresh
-    zypper install php7 php7-pear php7-devel
+sudo su
+zypper -n ar -f https://download.opensuse.org/repositories/devel:languages:php/<SuseVersion>/devel:languages:php.repo
+zypper --gpg-auto-import-keys refresh
+zypper -n install php7 php7-pear php7-devel php7-openssl
 ```
 > You have successfully installed PHP on your SLES machine! 
 

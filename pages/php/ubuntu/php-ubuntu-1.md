@@ -16,15 +16,16 @@ redirect_from:
 
 ## Step 1.2 Install PHP and other required packages
 
-> To install PHP 7.0, 7.1, or 7.3, replace `7.2` with `7.0`, `7.1`, or `7.3` in the following commands.
+> To install PHP 7.1 or 7.2, replace `7.3` with `7.1` or `7.2` in the following commands.
 
 ```terminal
 sudo su
 add-apt-repository ppa:ondrej/php -y
 apt-get update
-apt-get install php7.2 php7.2-dev php7.2-xml -y --allow-unauthenticated
+apt-get install php7.3 php7.3-dev php7.3-xml -y --allow-unauthenticated
 ```
 > You have successfully installed PHP on your Ubuntu machine! 
+
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
 {% include partials/install_sqlcmd_linux_ubuntu.md %}

@@ -3,8 +3,6 @@
 
 ## Step 2.1 Install the PHP Driver for SQL Server
 
-> If using PHP 7.3, replace `sqlsrv` and `pdo_sqlsrv` in the following commands with `sqlsrv-5.4.0preview` and `pdo_sqlsrv-5.4.0preview` or later, as earlier versions are not compatible with PHP 7.3.
-
 ```terminal
 sudo pecl install sqlsrv
 sudo pecl install pdo_sqlsrv
@@ -16,7 +14,7 @@ exit
     
 ## Step 2.2 Create a database for your application 
 
-Create the database using sqlcmd
+Create the database using sqlcmd.
 
 ```terminal
 sqlcmd -S localhost -U sa -P your_password -Q "CREATE DATABASE SampleDB;"

@@ -7,15 +7,15 @@ permalink: /php/windows/step/2
 
 > In this section you will create a simple PHP app. The PHP app will perform basic Insert, Update, Delete, and Select.
 
-## Step 2.1 Install the PHP Driver for SQL Server
+## Step 2.1 Install the PHP Drivers for SQL Server
 
-Download the Microsoft PHP Drivers for SQL Server from the [download center](https://www.microsoft.com/en-us/download/details.aspx?id=57163)
+Download the Microsoft PHP Drivers for SQL Server from the [download center](https://www.microsoft.com/en-us/download/details.aspx?id=57163).
 
-Pick the appropriate dll - for example **php_pdo_sqlsrv_72_nts** for the **PDO Driver** and **php_sqlsrv_72_nts** for the **SQLSRV driver**
+Pick the appropriate dll - for example **php_pdo_sqlsrv_72_nts.dll** for the **PDO Driver** and **php_sqlsrv_72_nts.dll** for the **SQLSRV driver**.
 
-Copy the dll's to the **C:\Program Files\iis express\PHP\v7.2\ext** folder
+Copy the dll's to the **C:\Program Files\iis express\PHP\v7.2\ext** folder.
 
-Register the dll's in the **php.ini** file
+Register the dll's in the **php.ini** file.
 
 ```terminal
     cd C:\Program^ Files\iis^ express\PHP\v7.2\ext
@@ -25,7 +25,7 @@ Register the dll's in the **php.ini** file
     
 ## Step 2.2 Create a database for your application 
 
-Create the database using sqlcmd
+Create the database using sqlcmd.
 
 ```terminal
 sqlcmd -S localhost -U sa -P your_password -Q "CREATE DATABASE SampleDB;"

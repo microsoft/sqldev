@@ -16,7 +16,7 @@ redirect_from:
 
 ## Step 1.2 Install PHP and other required packages
 
-> To install PHP 7.0, 7.1, or 7.3, replace `remi-php72` with `remi-php70`, `remi-php71`, or `remi-php73` respectively in the following commands.
+> To install PHP 7.1 or 7.2, replace `remi-php73` with `remi-php71` or `remi-php72` respectively in the following commands.
 
 ```terminal
     sudo su
@@ -25,7 +25,7 @@ redirect_from:
     rpm -Uvh remi-release-7.rpm epel-release-latest-7.noarch.rpm
     subscription-manager repos --enable=rhel-7-server-optional-rpms
     yum install yum-utils
-    yum-config-manager --enable remi-php72
+    yum-config-manager --enable remi-php73
     yum update
     yum install php php-pdo php-xml php-pear php-devel re2c gcc-c++ gcc
 ```

@@ -1,18 +1,18 @@
 Note: To ensure optimal performance of SQL Server, your machine should have at least 4 GB of memory.
 
-1. Register the Microsoft Linux repository and add they keys
+1. Register the Microsoft Linux repository and add they keys.
 
     ```terminal
         sudo zypper addrepo -fc https://packages.microsoft.com/config/sles/12/mssql-server-2017.repo
         sudo zypper --gpg-auto-import-keys refresh
     ```
-2. Install SQL Server
+2. Install SQL Server.
 
     ```terminal
         sudo zypper update
         sudo zypper install mssql-server
     ```
-3. Setup your SQL Server
+3. Setup your SQL Server.
 
     ```terminal
         sudo /opt/mssql/bin/mssql-conf setup

@@ -1,5 +1,7 @@
 [SQLCMD](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-connect-and-query-sqlcmd){:target="_blank"} is a command line tool that enables you to connect to SQL Server and run queries.
 
+> The repository URL below is for both Suse 12 and 15.
+
 ```terminal
 sudo zypper ar https://packages.microsoft.com/config/sles/12/prod.repo
 sudo zypper update
