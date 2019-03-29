@@ -29,7 +29,7 @@ server = 'localhost'
 database = 'SampleDB'
 username = 'sa'
 password = 'your_password'
-cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password)
+cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
 cursor = cnxn.cursor()
 tsql = "SELECT SUM(Price) as sum FROM Table_with_5M_rows"
 a = datetime.now()
