@@ -28,7 +28,7 @@ redirect_from:
     ```terminal
       brew install node
     ```
-    
+
     ```results
       ==> Downloading https://homebrew.bintray.com/bottles/node-6.7.0.el_captian.bottle.tar.gz
       ################################################################## 100.0%
@@ -41,10 +41,11 @@ redirect_from:
       ==> Summary
       /usr/local/Cellar/node/6.7.0: 3,669 files, 40.8M
     ```
+
 > You now have Node.js installed! The next section will walk you through getting the tools to interact with your database.
 
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
 {% include partials/install_sqlcmd_mac.md %}
-    
+
 > You now have everything you need to start writing Node.js apps with SQL Server!

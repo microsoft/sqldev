@@ -6,4 +6,3 @@ permalink: /php/rhel/step/2
 ---
 
 {% include partials/php/crudunix-rhel.md %}
-

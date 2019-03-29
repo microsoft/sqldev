@@ -63,7 +63,6 @@ sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE CLUSTERED COLU
 
 ## Step 3.5 Measure how long it takes to run the query with a columnstore index
 
-
 ```terminal
 python columnstore.py
 ```
@@ -73,4 +72,4 @@ Sum: 50000000
 QueryTime: 5ms
 ```
 
-> Congrats you just made your Python app faster using Columnstore Indexes! 
+> Congratulations! You just made your Python app faster using Columnstore Indexes!

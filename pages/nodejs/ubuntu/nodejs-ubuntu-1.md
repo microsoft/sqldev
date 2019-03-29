@@ -12,6 +12,7 @@ redirect_from:
 > In this section, you will get SQL Server 2017 running on Ubuntu. After that you will install the necessary dependencies to create Node.js apps with SQL Server
 
 ## Step 1.1 Install SQL Server
+
 {% include partials/install_sql_server_linux_ubuntu.md %}
 
 ## Step 1.2 Node.js
@@ -38,5 +39,3 @@ v.6.9.1
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
 {% include partials/install_sqlcmd_linux_ubuntu.md %}
-
-

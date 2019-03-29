@@ -96,7 +96,6 @@ sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE CLUSTERED COLU
 
 ## Step 3.5 Measure how long it takes to run the query with a columnstore index
 
-
 ```terminal
 php columnstore.php
 ```
@@ -106,4 +105,4 @@ Sum: 50000000
 QueryTime: 5ms
 ```
 
-> Congratulations! You just made your PHP app faster using Columnstore Indexes! 
+> Congratulations! You just made your PHP app faster using Columnstore Indexes!

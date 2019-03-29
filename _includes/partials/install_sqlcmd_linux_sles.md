@@ -12,7 +12,6 @@ source ~/.bashrc
 sudo zypper install unixODBC-devel
 ```
 
-
 After installing SQLCMD, you can connect to SQL Server using the following command:
 
 ```terminal

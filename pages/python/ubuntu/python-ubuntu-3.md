@@ -6,4 +6,3 @@ permalink: /python/ubuntu/step/3
 ---
 
 {% include partials/python/columnstoreunix.md %}
-

@@ -12,6 +12,7 @@ redirect_from:
 > In this section, you will get SQL Server 2017 on your Windows machine and then you will install the necessary dependencies to run GoLang.
 
 ## Step 1.1 Install SQL Server
+
 {% include partials/install_sql_server_windows.md %}
 
 ## Step 1.2 Install GoLang

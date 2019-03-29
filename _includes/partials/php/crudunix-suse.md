@@ -4,6 +4,7 @@
 ## Step 2.1 Install the PHP Driver for SQL Server
 
 > If you get an error message saying `Connection to 'pecl.php.net:443' failed: Unable to find the socket transport "ssl"`, edit the pecl script at /usr/bin/pecl and remove the `-n` switch in the last line. This switch prevents PECL from loading ini files when PHP is called, which prevents the OpenSSL extension from loading.
+
 ```terminal
 sudo pecl install sqlsrv
 sudo pecl install pdo_sqlsrv
@@ -12,8 +13,8 @@ echo extension=pdo_sqlsrv.so >> `php --ini | grep "Scan for additional .ini file
 echo extension=sqlsrv.so >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/20-sqlsrv.ini
 exit
 ```
-    
-## Step 2.2 Create a database for your application 
+
+## Step 2.2 Create a database for your application
 
 Create the database using sqlcmd.
 
@@ -64,7 +65,7 @@ sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "INSERT INTO TestSchem
 sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "SELECT * FROM TestSchema.Employees;"
 ```
 
-Using your favorite text editor, create a new file called crud.php in the SqlServerSample folder. Paste the code below inside into the new file. This will insert, update, delete, and read a few rows. 
+Using your favorite text editor, create a new file called crud.php in the SqlServerSample folder. Paste the code below inside into the new file. This will insert, update, delete, and read a few rows.
 
 ```php
 <?php
@@ -142,6 +143,7 @@ function FormatErrors( $errors )
 }
 ?>
 ```
+
 Run your PHP script from the terminal.
 
 ```terminal
@@ -160,6 +162,5 @@ Reading data from table
 3 Tom Germany
 4 Jake United States
 ```
-
 
 > Congratulations! You have created your first PHP app with SQL Server! Check out the next section to learn about how you can make your PHP faster with SQL Server's Columnstore feature.

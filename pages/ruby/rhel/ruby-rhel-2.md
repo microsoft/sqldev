@@ -6,4 +6,3 @@ permalink: /ruby/rhel/step/2
 ---
 
 {% include partials/ruby/crudunix.md %}
-

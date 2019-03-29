@@ -1,7 +1,7 @@
 
 > In this section you will create a simple Python app. The Python app will perform basic Insert, Update, Delete, and Select.
 
-## Step 2.1 Install the Python driver for SQL Server 
+## Step 2.1 Install the Python driver for SQL Server
 
 ```terminal
 pip install virtualenv #To create virtual environments to isolate package installations between projects
@@ -10,7 +10,7 @@ venv\Scripts\activate
 pip install pyodbc
 ```
 
-## Step 2.2 Create a database for your application 
+## Step 2.2 Create a database for your application
 
 Connect to SQL Server using SQLCMD and execute the following statement to create a database called SampleDB.
 
@@ -34,7 +34,7 @@ sqlcmd -S localhost -U sa -P your_password -Q "USE DATABASE SampleDB; CREATE TAB
 sqlcmd -S localhost -U sa -P your_password -Q "USE DATABASE SampleDB; INSERT INTO Employees (Name, Location) VALUES (N'Jared', N'Australia'), (N'Nikita', N'India'), (N'Tom', N'Germany');"
 ```
 
-Using your favorite text editor, create a new file called crud.py in the SqlServerSample folder. Paste the code below inside into the new file. This will insert, update, delete, and read a few rows. 
+Using your favorite text editor, create a new file called crud.py in the SqlServerSample folder. Paste the code below inside into the new file. This will insert, update, delete, and read a few rows.
 
 ```python
 import pyodbc
@@ -49,21 +49,21 @@ print ('Inserting a new row into table')
 #Insert Query
 tsql = "INSERT INTO Employees (Name, Location) VALUES (?,?);"
 with cursor.execute(tsql,'Jake','United States'):
-    print ('Successfuly Inserted!')
+    print ('Successfully Inserted!')
 
 
 #Update Query
 print ('Updating Location for Nikita')
 tsql = "UPDATE Employees SET Location = ? WHERE Name = ?"
 with cursor.execute(tsql,'Sweden','Nikita'):
-    print ('Successfuly Updated!')
+    print ('Successfully Updated!')
 
 
 #Delete Query
 print ('Deleting user Jared')
 tsql = "DELETE FROM Employees WHERE Name = ?"
 with cursor.execute(tsql,'Jared'):
-    print ('Successfuly Deleted!')
+    print ('Successfully Deleted!')
 
 
 #Select Query
@@ -84,13 +84,13 @@ python crud.py
 
 ```results
 Inserting a new row into table
-Successfuly Inserted!
+Successfully Inserted!
 Updating Location for Nikita
-Successfuly Updated!
+Successfully Updated!
 Deleting user Jared
-Successfuly Deleted!
+Successfully Deleted!
 Reading data from table
 Jake United States
 ```
 
-> Congrats you created your first Python app with SQL Server! Check out the next section to learn about how you can make your Python app faster with SQL Server's Columnstore feature.
+> Congratulations! You created your first Python app with SQL Server! Check out the next section to learn about how you can make your Python app faster with SQL Server's Columnstore feature.

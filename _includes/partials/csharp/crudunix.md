@@ -76,12 +76,14 @@ namespace SqlServerSample
     }
 }
 ```
+
 Change directories into the project folder and restore the dependencies in the csproj by running the following commands.
 
 ```terminal
 cd ~/SqlServerSample
 dotnet restore
 ```
+
 ```results
 Restoring packages for /Users/usr1/SqlServerSample/SqlServerSample.csproj...
   Generating MSBuild file /Users/usr1/SqlServerSample/obj/SqlServerSample.csproj.nuget.g.props.
@@ -95,15 +97,20 @@ Restoring packages for /Users/usr1/SqlServerSample/SqlServerSample.csproj...
   Feeds used:
       https://api.nuget.org/v3/index.json
 ```
+
 Now build and run.
+
 ```terminal
 dotnet run
 ```
+
 ```results
 Connecting to SQL Server ... Done.
 All done. Press any key to finish...
 ```
+
 Now replace the code in **Program.cs** by opening the file in your favorite text editor and copying and pasting the code below into the file. This will create a database and a table, and will insert, update, delete, and read a few rows. Don't forget to update the username and password with your own. Save and close the file.
+
 ```csharp
 using System;
 using System.Text;
@@ -234,11 +241,13 @@ namespace SqlServerSample
     }
 }
 ```
+
 Build and run your project.
 
 ```terminal
 dotnet run
 ```
+
 ```results
 Connect to SQL Server and demo Create, Read, Update and Delete operations.
 Connecting to SQL Server ... Done.
@@ -253,18 +262,22 @@ Reading data from table, press any key to continue...
 4 Jake United States
 All done. Press any key to finish...
 ```
+
 > You created your first C# + SQL Server app with .NET Core on Ubuntu! Check out the next section to create a C# app using an ORM!
 
 ## Step 2.2 Create a C# app that connects to SQL Server using the Entity Framework Core ORM in .NET Core
 
 Change to your home directory. Create a new .NET Core project. This will create the project directory with a basic .NET Core Program.cs and csproj file.
+
 ```terminal
 cd ~/
 dotnet new console -o SqlServerEFSample
 ```
+
 ```results
 The template "Console Application" created successfully.
 ```
+
 You should already have a file called **SqlServerEFSample.csproj** in your .NET Core project located at: ~/SqlServerEFSample
 Open this file in your favorite text editor and replace the contents with the code below to add Entity Framework Core to your project. Save and close the file.
 
@@ -283,9 +296,11 @@ Open this file in your favorite text editor and replace the contents with the co
 
 </Project>
 ```
+
 For this sample, let's create two tables. The first will hold data about "users". Create a **User.cs** file in your .NET Core project located at: ~/SqlServerEFSample/User.cs
 
 Copy and paste the code below into your newly created **User.cs** file. Save and close the file.
+
 ```csharp
 using System;
 using System.Collections.Generic;
@@ -310,9 +325,11 @@ namespace SqlServerEFSample
     }
 }
 ```
+
 Let's create a second table to assign tasks to users. Create a **Task.cs** file in your .NET Core project located at: ~/SqlServerEFSample/Task.cs
 
 Copy and paste the code below into your newly created **Task.cs** file. Save and close the file.
+
 ```csharp
 using System;
 
@@ -333,9 +350,11 @@ namespace SqlServerEFSample
     }
 }
 ```
+
 Let's also create a class for the Entity Framework Database context. Use your favorite text editor to create the file **EFSampleContext.cs** file in your .NET Core project located at: ~/SqlServerEFSample/EFSampleContext.cs
 
 Copy and paste the code below into your newly created **EFSampleContext.cs** file. Save and close the file.
+
 ```csharp
 using Microsoft.EntityFrameworkCore;
 
@@ -358,6 +377,7 @@ namespace SqlServerEFSample
     }
 }
 ```
+
 Replace the code in the **Program.cs** file in your .NET Core project located at: ~/SqlServerEFSample/Program.cs
 
 Open this file in your favorite text editor and replace the contents with the code below. Don't forget to update the username and password with your own. Save and close the file.
@@ -465,7 +485,9 @@ namespace SqlServerEFSample
     }
 }
 ```
+
 Change directories into the project folder and restore the dependencies in the csproj by running the following commands.
+
 ```terminal
 cd ~/SqlServerEFSample
 dotnet restore
@@ -486,6 +508,7 @@ Restoring packages for /Users/usr1/SqlServerEFSample/SqlServerEFSample.csproj...
   Feeds used:
       https://api.nuget.org/v3/index.json
 ```
+
 Now build and run.
 
 ```terminal
@@ -516,4 +539,5 @@ Tasks after delete:
 [None]
 All done. Press any key to finish...
 ```
-> Congrats you just created two C# apps! Check out the next section to learn about how you can **make your C# apps faster with SQL Server's Columnstore feature**
+
+> Congratulations! You just created two C# apps! Check out the next section to learn about how you can **make your C# apps faster with SQL Server's Columnstore feature**.

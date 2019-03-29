@@ -6,4 +6,3 @@ permalink: /python/mac/step/3
 ---
 
 {% include partials/python/columnstoreunix.md %}
-

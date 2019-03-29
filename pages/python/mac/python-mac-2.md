@@ -6,4 +6,3 @@ permalink: /python/mac/step/2
 ---
 
 {% include partials/python/crudunix.md %}
-

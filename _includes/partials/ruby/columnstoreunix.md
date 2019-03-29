@@ -9,6 +9,7 @@ mkdir SqlServerColumnstoreSample
 cd SqlServerSample
 gem install tiny_tds
 ```
+
 Using your favorite text editor, create a file called **columnstore.rb** in the SqlServerColumnstoreSample folder. Copy and paste the below code inside it. Save and close the file.
 
 ```ruby
@@ -75,4 +76,4 @@ Query time WITH columnstore index: 5ms
 Performance improvement with columnstore index: 71x!
 ```
 
-> Congrats you just made your Ruby app faster using Columnstore Indexes! 
+> Congratulations! You just made your Ruby app faster using Columnstore Indexes!

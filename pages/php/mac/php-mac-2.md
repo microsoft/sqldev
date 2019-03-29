@@ -6,4 +6,3 @@ permalink: /php/mac/step/2
 ---
 
 {% include partials/php/crudmac.md %}
-

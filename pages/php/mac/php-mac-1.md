@@ -12,9 +12,11 @@ redirect_from:
 > In this section, you will get SQL Server 2017 running on Docker. After that you will install the necessary dependencies to create PHP apps with SQL Server
 
 ## Step 1.1 Install SQL Server
+
 {% include partials/install_sql_server_mac.md %}
 
 ## Step 1.2 Install Homebrew, PHP and other required packages
+
 1. Install Homebrew.
 
     {% include partials/install_homebrew.md %}
@@ -36,15 +38,15 @@ PHP should now be in your path -- run `php -v` to verify that you are running th
 ```terminal
     brew link --force --overwrite php@7.3
 ```
-    
+
 4. Install other required packages.
 
 ```terminal
     brew install autoconf automake libtool
 ```
+
 > You have successfully installed PHP on your macOS!
 
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
 {% include partials/install_sqlcmd_mac.md %}
-    

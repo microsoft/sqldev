@@ -20,14 +20,16 @@ redirect_from:
 To install the Node.js package, you first need to enable the Web and Scripting module in the subscription.
 
 ```terminal
-    sudo zypper in -t patch SUSE-SLE-Module-Web-Scripting-12-2015-427=1    
-```    
+    sudo zypper in -t patch SUSE-SLE-Module-Web-Scripting-12-2015-427=1
+```
+
 Install Node.js by updating the repository lists and then installing the nodejs6 package.
 
 ```terminal
     sudo zypper refresh
     sudo zypper install nodejs6
-```    
+```
+
 You can verify your Node.js installation using this command:
 
 ```terminal
@@ -37,10 +39,11 @@ You can verify your Node.js installation using this command:
 ```results
 v.6.9.5
 ```
+
 > You now have Node.js installed! The next section will walk you through getting the tools to interact with your database.
 
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
 {% include partials/install_sqlcmd_linux_sles.md %}
-    
+
 > You have successfully installed SQL Server Command Line Utilities on SUSE Linux Enterprise Server. You now have everything you need to start writing Node.js apps with SQL Server!

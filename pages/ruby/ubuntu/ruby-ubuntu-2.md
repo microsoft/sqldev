@@ -6,4 +6,3 @@ permalink: /ruby/ubuntu/step/2
 ---
 
 {% include partials/ruby/crudunix.md %}
-
