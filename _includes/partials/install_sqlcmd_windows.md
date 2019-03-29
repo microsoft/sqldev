@@ -11,6 +11,7 @@ sqlcmd -S localhost -U sa -P your_password
 ```
 
 This how to run a basic inline query. The results will be printed to STDOUT.
+
 ```terminal
 sqlcmd -S localhost -U sa -P yourpassword -Q "SELECT @@VERSION"
 ```
@@ -26,5 +27,5 @@ Microsoft SQL Server 2016 (RTM) - 13.0.1601.5 (X64)
 
 Executed in 1 ns.
 ```
-> You have successfully installed SQL Server Command Line Utilities on your Windows machine! 
 
+> You have successfully installed SQL Server Command Line Utilities on your Windows machine! 

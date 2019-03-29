@@ -5,7 +5,6 @@ title: Windows
 permalink: /node/windows/step/2
 ---
 
-
 > In this section you will create two simple Node.js apps. One of them will perform basic Insert, Update, Delete, and Select, while the second one will make use of Sequelize, one of the most popular Node.js Object-relational mappers, to execute the same operations.
 
 ## Step 2.1 Create a Node.js app that connects to SQL Server and executes queries
@@ -308,6 +307,7 @@ Create the app directory and initialize Node dependencies.
     npm install tedious
     npm install sequelize
 ```
+
 a. Open your favourite text editor and create the file orm.js in the directory SqlServerSequelizeSample. 
 b. Paste the contents below into orm.js 
 c. Update the variable for password to use your own password specified in the first module. 
@@ -419,6 +419,7 @@ d. Save and close orm.js
         })
     })
 ```
+
 Run the orm.js app
 
 ```terminal
@@ -465,4 +466,4 @@ Run the orm.js app
     All done!
 ```
 
-> Congrats you created your first two Node.js apps with SQL Server! Check out the next section to learn about how you can make your Node.js apps faster with SQL Server’s Columnstore feature
+> Congratulations! You created your first two Node.js apps with SQL Server! Check out the next section to learn about how you can make your Node.js apps faster with SQL Server’s Columnstore feature.

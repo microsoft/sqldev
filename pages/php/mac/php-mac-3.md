@@ -6,4 +6,3 @@ permalink: /php/mac/step/3
 ---
 
 {% include partials/php/columnstoreunix.md %}
-

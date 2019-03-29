@@ -12,6 +12,7 @@ redirect_from:
 > In this section, you will get SQL Server 2017 on Docker. After that you will install the necessary dependencies to create Java apps with SQL Server.
 
 ## Step 1.1 Install SQL Server
+
 {% include partials/install_sql_server_mac.md %}
 
 ## Step 1.2 Install Homebrew and Java
@@ -44,14 +45,17 @@ Cloning into '/usr/local/Homebrew/Library/Taps/caskroom/homebrew-cask'...
 ==> installer: The upgrade was successful.
      java was successfully installed!
 ```
+
 > You have sucessfully install Homebrew and Java on your macOS! 
 
 ## Step 1.3 Install Maven
+
 [Maven](https://maven.apache.org/) can be used to help manage dependencies, build, test and run your Java project.
 
 ```terminal
 brew install maven
 ```
+
 ```results
 ==> Using the sandbox
 ==> Downloading https://www.apache.org/dyn/closer.cgi?path=maven/maven-3/3.3.9/binaries/apache-maven-3
@@ -59,10 +63,13 @@ brew install maven
 ######################################################################## 100.0%
      /usr/local/Cellar/maven/3.3.9: 95 files, 9.6M, built in 6 seconds
 ```
+
 Check that you have Maven properly installed by running the following command.
+
 ```terminal
 mvn -v
 ```
+
 ```results
 Apache Maven 3.3.9 (bb52d8502b132ec0a5a3f4c09453c07478323dc5; 2015-11-10T08:41:47-08:00)
 Maven home: /Users/usr1/apache-maven-3.3.9
@@ -71,7 +78,5 @@ Java home: /Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk/Contents/Home/jre
 Default locale: en_US, platform encoding: UTF-8
 OS name: "mac os x", version: "10.11.6", arch: "x86_64", family: "mac"
 ```
+
 > You have successfully installed Java and Maven on your Mac. You now have everything you need to start writing your Java apps with SQL Server!
-
-
-

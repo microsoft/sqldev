@@ -134,7 +134,6 @@ if ($getResults == FALSE)
     die(FormatErrors(sqlsrv_errors()));
 while ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
     echo ($row['Id'] . " " . $row['Name'] . " " . $row['Location'] . PHP_EOL);
-
 }
 sqlsrv_free_stmt($getResults);
 
@@ -152,6 +151,7 @@ function FormatErrors( $errors )
 }
 ?>
 ```
+
 Run your PHP script from the terminal.
 
 ```terminal
@@ -170,6 +170,5 @@ Reading data from table
 3 Tom Germany
 4 Jake United States
 ```
-
 
 > Congratulations! You have created your first PHP app with SQL Server! Check out the next section to learn about how you can make your PHP faster with SQL Server's Columnstore feature.

@@ -7,8 +7,8 @@
     sudo pecl install pdo_sqlsrv
     sudo pecl install sqlsrv
 ```
-    
-## Step 2.2 Create a database for your application 
+
+## Step 2.2 Create a database for your application
 
 Create the database using sqlcmd.
 
@@ -137,6 +137,7 @@ function FormatErrors( $errors )
 }
 ?>
 ```
+
 Run your PHP script from the terminal.
 
 ```terminal
@@ -156,6 +157,4 @@ Reading data from table
 4 Jake United States
 ```
 
-
 > Congratulations! You have created your first PHP app with SQL Server! Check out the next section to learn about how you can make your PHP faster with SQL Server's Columnstore feature.
-

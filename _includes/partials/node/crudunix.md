@@ -301,6 +301,7 @@ Create the app directory and initialize Node dependencies.
     npm install tedious
     npm install sequelize
 ```
+
 1. Open your favourite text editor and create the file orm.js in the directory SqlServerSequelizeSample. 
 1. Paste the contents below into orm.js 
 1. Update the variable for password to use your own password specified in the first module. 
@@ -412,6 +413,7 @@ Create the app directory and initialize Node dependencies.
         })
     })
 ```
+
 Run the orm.js app
 
 ```terminal
@@ -458,5 +460,4 @@ Run the orm.js app
     All done!
 ```
 
-> Congrats you created your first two Node.js apps with SQL Server! Check out the next section to learn about how you can make your Node.js apps faster with SQL Server’s Columnstore feature
-
+> Congratulations! You created your first two Node.js apps with SQL Server! Check out the next section to learn about how you can make your Node.js apps faster with SQL Server’s Columnstore feature

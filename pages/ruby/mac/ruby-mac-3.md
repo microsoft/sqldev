@@ -6,4 +6,3 @@ permalink: /ruby/mac/step/3
 ---
 
 {% include partials/ruby/columnstoreunix.md %}
-

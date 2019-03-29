@@ -37,7 +37,7 @@ import (
     "database/sql"
     "context"
     "log"
-    "fmt" 
+    "fmt"
 )
 
 // Replace with your own connection parameters
@@ -52,14 +52,14 @@ func main() {
     var err error
 
     // Create connection string
-	connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d",
-		server, user, password, port)
-    
+    connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d",
+        server, user, password, port)
+
     // Create connection pool
-	db, err = sql.Open("sqlserver", connString)
-	if err != nil {
-		log.Fatal("Error creating connection pool: " + err.Error())
-	}
+    db, err = sql.Open("sqlserver", connString)
+    if err != nil {
+        log.Fatal("Error creating connection pool: " + err.Error())
+    }
     log.Printf("Connected!\n")
 
     // Close the database connection pool after program executes
@@ -68,23 +68,23 @@ func main() {
     SelectVersion()
 }
 
-// Gets and prints SQL Server version 
+// Gets and prints SQL Server version
 func SelectVersion(){
-    // Use background context 
+    // Use background context
     ctx := context.Background()
 
     // Ping database to see if it's still alive.
     // Important for handling network issues and long queries.
     err := db.PingContext(ctx)
-	if err != nil {
-		log.Fatal("Error pinging database: " + err.Error())
-	}
+    if err != nil {
+        log.Fatal("Error pinging database: " + err.Error())
+    }
 
-	var result string
+    var result string
 
     // Run query and scan for result
-	err = db.QueryRowContext(ctx, "SELECT @@version").Scan(&result)
-	if err != nil {
+    err = db.QueryRowContext(ctx, "SELECT @@version").Scan(&result)
+    if err != nil {
         log.Fatal("Scan failed:", err.Error())
     }
     fmt.Printf("%s\n", result)
@@ -388,6 +388,7 @@ Create the app directory and initialize Go dependencies.
     go get github.com/denisenkom/go-mssqldb
     go install github.com/denisenkom/go-mssqldb
 ```
+
 Paste the contents below into a file called `orm.go`. Make sure to replace the password variable to your own.
 
 ```go
@@ -427,7 +428,7 @@ Paste the contents below into a file called `orm.go`. Make sure to replace the p
         var users []User
         var tasks []Task
         db.Find(&users)
-        
+
         for _, user := range users{
             db.Model(&user).Related(&tasks)
             fmt.Printf("%s %s's tasks:\n", user.FirstName, user.LastName)
@@ -453,10 +454,10 @@ Paste the contents below into a file called `orm.go`. Make sure to replace the p
     }
 
     func main() {
-        connectionString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s", 
+        connectionString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s",
                                             server, user, password, port, database)
         db, err := gorm.Open("mssql", connectionString)
-        
+
         if err != nil {
             log.Fatal("Failed to create connection pool. Error: " + err.Error())
         }
@@ -469,14 +470,14 @@ Paste the contents below into a file called `orm.go`. Make sure to replace the p
 
         // Create awesome Users
         fmt.Println("Creating awesome users...")
-        db.Create(&User{FirstName: "Andrea", LastName: "Lam"}) 		//UserID: 1
-        db.Create(&User{FirstName: "Meet", LastName: "Bhagdev"}) 	//UserID: 2
-        db.Create(&User{FirstName: "Luis", LastName: "Bosquez"})	//UserID: 3
+        db.Create(&User{FirstName: "Andrea", LastName: "Lam"})      //UserID: 1
+        db.Create(&User{FirstName: "Meet", LastName: "Bhagdev"})    //UserID: 2
+        db.Create(&User{FirstName: "Luis", LastName: "Bosquez"})    //UserID: 3
 
         // Create appropriate Tasks for each user
         fmt.Println("Creating new appropriate tasks...")
         db.Create(&Task{
-            Title: "Do laundry", DueDate: "2017-03-30", IsComplete: false, UserID: 1}) 
+            Title: "Do laundry", DueDate: "2017-03-30", IsComplete: false, UserID: 1})
         db.Create(&Task{
             Title: "Mow the lawn", DueDate: "2017-03-30", IsComplete: false, UserID: 2})
         db.Create(&Task{
@@ -491,11 +492,12 @@ Paste the contents below into a file called `orm.go`. Make sure to replace the p
         // Update - update Task title to something more appropriate
         fmt.Println("Updating Andrea's task...")
         UpdateSomeonesTask(db, 1)
-        
+
         // Delete - delete Luis's task
         DeleteSomeonesTasks(db, 3)
     }
 ```
+
 Run the orm.go app
 
 ```terminal
@@ -536,5 +538,4 @@ IsComplete:false
 Deleted all tasks for user 3
 ```
 
-> Congrats you created your first three Go apps with SQL Server! Check out the next section to learn about how you can make your apps faster with SQL Server’s Columnstore feature.
-
+> Congratulations! You created your first three Go apps with SQL Server! Check out the next section to learn about how you can make your apps faster with SQL Server’s Columnstore feature.

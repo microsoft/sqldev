@@ -19,7 +19,6 @@ This how to run a basic inline query. The results will be printed to the STDOUT.
 sqlcmd -S 127.0.0.1 -U sa -P your_password -Q "SELECT @@VERSION"
 ```
 
-
 ```results
 --------------------------------------------------------
 {% include partials/sql_server_version.md %}    on Linux (Ubuntu 16.04)

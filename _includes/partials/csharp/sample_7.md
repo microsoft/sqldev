@@ -73,11 +73,11 @@ namespace SqlServerColumnstoreSample
 
                     // Execute the same SQL query again after columnstore index was added
                     double elapsedTimeWithIndex = SumPrice(connection);
-				    Console.WriteLine("Query time WITH columnstore index: " + elapsedTimeWithIndex + "ms");
+                    Console.WriteLine("Query time WITH columnstore index: " + elapsedTimeWithIndex + "ms");
 
                     // Calculate performance gain from adding columnstore index
-				    Console.WriteLine("Performance improvement with columnstore index: "
-						+ Math.Round(elapsedTimeWithoutIndex / elapsedTimeWithIndex) + "x!");
+                    Console.WriteLine("Performance improvement with columnstore index: "
+                        + Math.Round(elapsedTimeWithoutIndex / elapsedTimeWithIndex) + "x!");
                 }
                 Console.WriteLine("All done. Press any key to finish...");
                 Console.ReadKey(true);

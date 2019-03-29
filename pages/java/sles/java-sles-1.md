@@ -11,8 +11,8 @@ redirect_from:
 
 > In this section, you will get SQL Server 2017 on SUSE Linux Enterprise Server (SLES). After that you will install the necessary dependencies to create Java apps with SQL Server.
 
-
 ## Step 1.1 Install SQL Server
+
 {% include partials/install_sql_server_linux_sles.md %}
 
 ## Step 1.2 Install Java
@@ -43,11 +43,13 @@ Java home: /usr/lib64/jvm/java-1.8.0-openjdk-1.8.0/jre
 Default locale: en_US, platform encoding: UTF-8
 OS name: "linux", version: "4.4.38-93-default", arch: "amd64", family: "unix"
 ```
+
 Check that you have Maven properly installed by running the following command.
 
 ```terminal
 mvn -v
 ```
+
 ```results
 Apache Maven 3.0.5 (Red Hat 3.0.5-17)
 Maven home: /usr/share/maven
@@ -56,6 +58,7 @@ Java home: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.111-2.b15.el7_3.x86_64/jre
 Default locale: en_US, platform encoding: UTF-8
 OS name: "linux", version: "3.10.0-327.36.3.el7.x86_64", arch: "amd64", family: "unix"
 ```
+
 Note: If you're using an older version of Java, such as 1.7, your results above may differ slightly. If you want to use an updated version of Java, please update your Java home variable.
 
 > You have successfully installed Java and Maven on SLES. You now have everything you need to start writing your Java apps with SQL Server!

@@ -12,9 +12,10 @@ redirect_from:
 > In this section, you will get SQL Server 2017 on Ubuntu. After that you will install the necessary dependencies to create .NET Core apps with SQL Server.
 
 ## Step 1.1 Install SQL Server
+
 {% include partials/install_sql_server_linux_ubuntu.md %}
 
-## Step 1.2 Install .NET Core 
+## Step 1.2 Install .NET Core
 
 If you already have .NET Core installed on your machine, skip this step. Otherwise, install it using the following commands.
 
@@ -27,4 +28,3 @@ sudo apt-get install dotnet-sdk-2.0.0
 ```
 
 > You have successfully installed .NET Core on your Ubuntu machine. You now have everything you need to start writing your C# apps with SQL Server!
-

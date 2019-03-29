@@ -5,7 +5,6 @@ title: Windows
 permalink: /node/windows/step/3
 ---
 
-
 > In this section we will show you a simple example of [Columnstore Indexes](https://docs.microsoft.com/en-us/sql/relational-databases/indexes/columnstore-indexes-overview) and how they can improve data processing speeds. Columnstore Indexes can achieve up to 100x better performance on analytical workloads and up to 10x better data compression than traditional rowstore indexes.
 
 ## Step 3.1 Create a new table with 5 million using sqlcmd
@@ -30,6 +29,7 @@ ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId
 INTO Table_with_5M_rows
 FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;"
 ```
+
 Connect to the database using sqlcmd and run the SQL script to create the table with 5 million rows. This may take a few minutes to run.
 
 ```terminal
@@ -46,6 +46,7 @@ npm install tedious
 npm install node-uuid
 npm install async
 ```
+
 Using you favorite text editor, create a file called columnstore.js in the SqlServerColumnstoreSample folder.
 
 ```javascript
@@ -129,4 +130,4 @@ Sum: 50000000
 QueryTime: 5ms
 ```
 
-> Congrats you just made your Node.js app faster using Columnstore Indexes! 
+> Congratulations! You just made your Node.js app faster using Columnstore Indexes!

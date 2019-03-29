@@ -8,12 +8,14 @@ permalink: /csharp/win/step/2
 > After getting SQL Server and .NET Framework on your Windows machine, you can now proceed to create your new C# projects. Here we will explore two simple applications. One of them will perform basic Insert, Update, Delete, and Select operations, while the second one will make use of [Entity Framework](https://www.asp.net/entity-framework), a popular object relational mapping (ORM) framework for C# to execute the same operations.
 
 ## Step 2.1 Create a C# app that connects to SQL Server and executes queries
+
 **Create a C# console application**
-1. Launch Visual Studio Community 
+
+1. Launch Visual Studio Community
 1. Click **File -> New -> Project**
-1. In the **New project** dialog, click **Windows** located under **Visual C#** in the **Templates** node 
-1. Click **Console Application Visual C#** 
-1. Name the project _"SqlServerSample"_ 
+1. In the **New project** dialog, click **Windows** located under **Visual C#** in the **Templates** node
+1. Click **Console Application Visual C#**
+1. Name the project _"SqlServerSample"_
 1. Click **OK** to create the project
 
 Visual Studio creates a new C# Console Application project and opens the file **Program.cs**. Replace the contents of Program.cs by copying and pasting the code below into the file. Don't forget to replace the username and password with your own. Save and close the file.
@@ -58,16 +60,18 @@ All done. Press any key to finish...
 ## Step 2.2 Create a C# app that connects to SQL Server using the Entity Framework ORM in .NET Framework
 
 **Create a C# console application**
-1. Launch Visual Studio Community 
-1. Click **File -> New -> Project** 
+
+1. Launch Visual Studio Community
+1. Click **File -> New -> Project**
 1. In the **New project** dialog, click **Windows** located under **Visual C#** in the **Templates** node 
-1. Click **Console Application Visual C#** 
-1. Name the project "_SqlServerEFSample"_ 
+1. Click **Console Application Visual C#**
+1. Name the project "_SqlServerEFSample"_
 1. Click **OK** to create the project
 
 Visual Studio creates a new C# Console Application project and opens the file **Program.cs**.
 
 **Add Entity Framework dependencies to your project**
+
 1. Open the Package Manager Console in Visual Studio with "Tools -> Nuget Package Manager -> Package Manager Console"
 1. Type: "Install-Package EntityFramework" 
 1. Hit enter
@@ -95,25 +99,28 @@ Close the Package Manager Console. You have successfully added the required Enti
 For this sample, let's create two tables. The first will hold data about "users" and the other will hold data about “tasks”.
 
 **Create User.cs:**
+
 1. Click **Project -> Add Class**
-1. Type "User.cs" in the name field 
+1. Type "User.cs" in the name field
 1. Click **Add** to add the new class to your project
 
 Copy and paste the following code into the **User.cs** file. Save and close the file.
 
 {% include partials/csharp/sample_3.md %}
 
-**Create Task.cs:** 
+**Create Task.cs:**
+
 1. Click **Project -> Add Class**
-2. Type "Task.cs" in the name field 
+2. Type "Task.cs" in the name field
 3. Click **Add** to add the new class to your project
 
 Copy and paste the following code into the **Task.cs** file. Save and close the file.
 {% include partials/csharp/sample_4.md %}
 
 **Create EFSampleContext.cs:**
-1. Click Project -> Add Class 
-2. Type "EFSampleContext.cs" in the name field 
+
+1. Click Project -> Add Class
+2. Type "EFSampleContext.cs" in the name field
 3. Click Add to add the new class to your project
 
 Copy and paste the following code into the **EFSampleContext.cs** file. Save and close the file.
@@ -149,4 +156,4 @@ Tasks after delete:
 All done. Press any key to finish...
 ```
 
-> Congrats you just created two C# apps! Check out the next section to learn about how you can **make your C# apps faster with SQL Server's Columnstore feature.**
+> Congratulations! You just created two C# apps! Check out the next section to learn about how you can **make your C# apps faster with SQL Server's Columnstore feature.**

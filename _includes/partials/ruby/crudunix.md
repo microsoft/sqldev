@@ -10,6 +10,7 @@ mkdir SqlServerSample
 cd SqlServerSample
 gem install tiny_tds
 ```
+
 Using your favorite editor, create a file named **connect.rb** in the SqlServerSample folder. Copy and paste the below contents into the file. Don't forget to update the username and password with your own. Save and close the file.
 
 ```ruby
@@ -27,11 +28,14 @@ Run the Ruby script from the terminal.
 ```terminal
 ruby connect.rb
 ```
+
 ```results
 Connecting to SQL Server
 Done.
 ```
+
 Using your favorite text editor, create a new file called **crud.rb** in the SqlServerSample folder. Copy and paste the following code inside it. This will insert, update, delete, and read a few rows. Don't forget to update the username and password with your own. Save and close the file.
+
 ```ruby
 require 'tiny_tds'
 @client = TinyTds::Client.new username: 'sa', password: 'your_password',
@@ -81,9 +85,11 @@ puts "All done."
 ```
 
 Run the Ruby script from the terminal.
+
 ```terminal
 ruby crud.rb
 ````
+
 ```results
 Connecting to SQL Server
 Done
@@ -102,6 +108,7 @@ Reading data from table
 {"Id"=>4, "Name"=>"Jake", "Location"=>"United States"}
 All done.
 ```
+
 > You created your first Ruby + SQL Server app! Check out the next section to create an app using Ruby on Rails!
 
 ## Step 2.2 Create a Ruby app that connects to SQL Server using the Active Record ORM 
@@ -113,6 +120,7 @@ mkdir SqlServerSample
 cd SqlServerSample
 gem install active_record tiny_tds activerecord-sqlserver-adapter
 ```
+
 Using your favorite editor, create a file named **activerecordcrud.rb** in the SqlServerSample folder. Copy and paste the below contents into the file. Don't forget to update the username and password with your own. Save and close the file.
 
 ```ruby
@@ -150,7 +158,7 @@ end
 Task.create!(taskname:'Install SQL Server 2017 on Windows', user:'Andrea', duedate: '2017-07-01')
 Task.create!(taskname:'Upgrade from SQL Server 2014 to 2017', user:'Meet', duedate: '2017-07-01')
 Task.create!(taskname:'Write new SQL Server content', user:'Luis', duedate: '2017-07-01')
-pp "Created new tasks:" 
+pp "Created new tasks:"
 pp Task.all
 
 #Update due date for specific task
@@ -168,12 +176,14 @@ pp tasks_to_delete
 tasks_to_delete.destroy!
 
 #Read all tasks
-puts "Printing all tasks:" 
+puts "Printing all tasks:"
 pp Task.all
 
 ActiveRecord::Base.connection.close
 ```
+
 Run the Ruby script from the terminal.
+
 ```terminal
 ruby activerecordcrud.rb
 ```
@@ -230,6 +240,4 @@ Printing all tasks:
   duedate: Sat, 01 Jul 2017>]
   ```
 
-> Congrats you created your first two Ruby apps with SQL Server! Check out the next section to learn about how you can make your Ruby apps faster with SQL Server’s Columnstore feature
-
-
+> Congratulations! You created your first two Ruby apps with SQL Server! Check out the next section to learn about how you can make your Ruby apps faster with SQL Server’s Columnstore feature.

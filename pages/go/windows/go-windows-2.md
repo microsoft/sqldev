@@ -5,7 +5,6 @@ title: Windows
 permalink: /go/windows/step/2
 ---
 
-> 
 > After getting SQL Server and GoLang installed, you can now proceed to create your new Go projects. Here we will explore three simple applications. One of them will connect and print the SQL Server version of your database server, the other one will perform basic Insert, Update, Delete, and Select operations, and the third one will make use of [GORM](http://jinzhu.me/gorm/), a popular object relational mapping (ORM) framework for Go to execute the same operations.
 
 ## Create a Go app that connects to SQL Server and executes queries
@@ -39,12 +38,12 @@ This sample uses the GoLang Context methods to ensure that there's an active con
 ```go
 package main
 
-import ( 
+import (
     _ "github.com/denisenkom/go-mssqldb"
     "database/sql"
     "context"
     "log"
-    "fmt" 
+    "fmt"
 )
 
 // Replace with your own connection parameters
@@ -59,14 +58,14 @@ func main() {
     var err error
 
     // Create connection string
-	connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d",
-		server, user, password, port)
-    
+    connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d",
+        server, user, password, port)
+
     // Create connection pool
-	db, err = sql.Open("sqlserver", connString)
-	if err != nil {
-		log.Fatal("Error creating connection pool: " + err.Error())
-	}
+    db, err = sql.Open("sqlserver", connString)
+    if err != nil {
+        log.Fatal("Error creating connection pool: " + err.Error())
+    }
     log.Printf("Connected!\n")
 
     // Close the database connection pool after program executes
@@ -75,23 +74,23 @@ func main() {
     SelectVersion()
 }
 
-// Gets and prints SQL Server version 
+// Gets and prints SQL Server version
 func SelectVersion(){
-    // Use background context 
+    // Use background context
     ctx := context.Background()
 
     // Ping database to see if it's still alive.
     // Important for handling network issues and long queries.
     err := db.PingContext(ctx)
-	if err != nil {
-		log.Fatal("Error pinging database: " + err.Error())
-	}
+    if err != nil {
+        log.Fatal("Error pinging database: " + err.Error())
+    }
 
-	var result string
+    var result string
 
     // Run query and scan for result
-	err = db.QueryRowContext(ctx, "SELECT @@version").Scan(&result)
-	if err != nil {
+    err = db.QueryRowContext(ctx, "SELECT @@version").Scan(&result)
+    if err != nil {
         log.Fatal("Scan failed:", err.Error())
     }
     fmt.Printf("%s\n", result)
@@ -175,12 +174,12 @@ Using your favorite text editor, create a new file called crud.go in the SqlServ
 ```go
 package main
 
-import ( 
+import (
     _ "github.com/denisenkom/go-mssqldb"
     "database/sql"
     "context"
     "log"
-    "fmt" 
+    "fmt"
 )
 
 var db *sql.DB
@@ -251,7 +250,7 @@ func CreateEmployee(name string, location string) (int64, error) {
 
 func ReadEmployees() (int, error) {
     ctx := context.Background()
-    
+
     // Check if database is alive.
     err := db.PingContext(ctx)
     if err != nil {
@@ -293,7 +292,7 @@ func ReadEmployees() (int, error) {
 // Update an employee's information
 func UpdateEmployee(name string, location string) (int64, error) {
     ctx := context.Background()
-    
+
     // Check if database is alive.
     err := db.PingContext(ctx)
     if err != nil {
@@ -304,9 +303,9 @@ func UpdateEmployee(name string, location string) (int64, error) {
 
     // Execute non-query with named parameters
     result, err := db.ExecContext(
-        ctx, 
-        tsql, 
-        sql.Named("Location", location), 
+        ctx,
+        tsql,
+        sql.Named("Location", location),
         sql.Named("Name", name))
     if err != nil {
         log.Fatal("Error updating row: " + err.Error())
@@ -319,7 +318,7 @@ func UpdateEmployee(name string, location string) (int64, error) {
 // Delete an employee from database
 func DeleteEmployee(name string) (int64, error) {
     ctx := context.Background()
-    
+
     // Check if database is alive.
     err := db.PingContext(ctx)
     if err != nil {
@@ -370,6 +369,7 @@ Create the app directory and initialize Go dependencies.
     go get github.com/denisenkom/go-mssqldb
     go install github.com/denisenkom/go-mssqldb
 ```
+
 Paste the contents below into a file called `orm.go`. Make sure to replace the password variable to your own.
 
 ```go
@@ -409,12 +409,12 @@ Paste the contents below into a file called `orm.go`. Make sure to replace the p
         var users []User
         var tasks []Task
         db.Find(&users)
-        
+
         for _, user := range users{
             db.Model(&user).Related(&tasks)
             fmt.Printf("%s %s's tasks:\n", user.FirstName, user.LastName)
             for _, task := range tasks {
-                fmt.Printf("Title: %s\nDueDate: %s\nIsComplete:%t\n\n", 
+                fmt.Printf("Title: %s\nDueDate: %s\nIsComplete:%t\n\n",
                                 task.Title, task.DueDate, task.IsComplete)
             }
         }
@@ -424,7 +424,7 @@ Paste the contents below into a file called `orm.go`. Make sure to replace the p
     func UpdateSomeonesTask(db *gorm.DB, userId int){
         var task Task
         db.Where("user_id = ?", userId).First(&task).Update("Title", "Buy donuts for Luis")
-        fmt.Printf("Title: %s\nDueDate: %s\nIsComplete:%t\n\n", 
+        fmt.Printf("Title: %s\nDueDate: %s\nIsComplete:%t\n\n",
                         task.Title, task.DueDate, task.IsComplete)
     }
 
@@ -435,10 +435,10 @@ Paste the contents below into a file called `orm.go`. Make sure to replace the p
     }
 
     func main() {
-        connectionString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s", 
+        connectionString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s",
                                             server, user, password, port, database)
         db, err := gorm.Open("mssql", connectionString)
-        
+
         if err != nil {
             log.Fatal("Failed to create connection pool. Error: " + err.Error())
         }
@@ -458,7 +458,7 @@ Paste the contents below into a file called `orm.go`. Make sure to replace the p
         // Create appropriate Tasks for each user
         fmt.Println("Creating new appropriate tasks...")
         db.Create(&Task{
-            Title: "Do laundry", DueDate: "2017-03-30", IsComplete: false, UserID: 1}) 
+            Title: "Do laundry", DueDate: "2017-03-30", IsComplete: false, UserID: 1})
         db.Create(&Task{
             Title: "Mow the lawn", DueDate: "2017-03-30", IsComplete: false, UserID: 2})
         db.Create(&Task{
@@ -473,11 +473,12 @@ Paste the contents below into a file called `orm.go`. Make sure to replace the p
         // Update - update Task title to something more appropriate
         fmt.Println("Updating Andrea's task...")
         UpdateSomeonesTask(db, 1)
-        
+
         // Delete - delete Luis's task
         DeleteSomeonesTasks(db, 3)
     }
 ```
+
 Run the orm.go app
 
 ```terminal
@@ -518,4 +519,4 @@ IsComplete:false
 Deleted all tasks for user 3
 ```
 
-> Congrats you created your first three Go apps with SQL Server! Check out the next section to learn about how you can make your apps faster with SQL Server’s Columnstore feature.
+> Congratulations! You created your first three Go apps with SQL Server! Check out the next section to learn about how you can make your apps faster with SQL Server’s Columnstore feature.
