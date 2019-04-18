@@ -32,9 +32,14 @@ Using your favorite editor, create a file named connect.js in the SqlServerSampl
 
     // Create connection to database
     var config = {
-      userName: 'sa', // update me
-      password: 'your_password', // update me
       server: 'localhost',
+      authentication: {
+          type: 'default',
+          options: {
+              userName: 'sa', // update me
+              password: 'your_password' // update me
+          }
+      },
       options: {
           database: 'SampleDB'
       }
@@ -129,9 +134,14 @@ var async = require('async');
 
 // Create connection to database
 var config = {
-  userName: 'sa', // update me
-  password: 'your_password', // update me
   server: 'localhost',
+  authentication: {
+      type: 'default',
+      options: {
+          userName: 'sa', // update me
+          password: 'your_password' // update me
+      }
+  },
   options: {
     database: 'SampleDB'
   }
