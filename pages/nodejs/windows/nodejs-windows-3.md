@@ -56,9 +56,14 @@ var uuid = require('node-uuid');
 var async = require('async');
 
 var config = {
-    userName: 'sa',
-    password: 'your_password',
     server: 'localhost',
+    authentication: {
+        type: 'default',
+        options: {
+            userName: 'sa', // update me
+            password: 'your_password' // update me
+        }
+    },
     options: {
         database: 'SampleDB'
     }
