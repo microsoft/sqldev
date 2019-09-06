@@ -67,11 +67,11 @@ menu:
   Go:
     logo: golang.png
     pages:
-      macOS*: go/mac
-      RHEL*: go/rhel
-      SLES*: go/sles
-      Ubuntu*: go/ubuntu
-      Windows*: go/windows
+      macOS: go/mac
+      RHEL: go/rhel
+      SLES: go/sles
+      Ubuntu: go/ubuntu
+      Windows: go/windows
       
 resources:
   sqlserver-csharp:
