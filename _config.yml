@@ -23,7 +23,7 @@ menu:
     pages:
       macOS: csharp/macos
       RHEL: csharp/rhel
-      SLES*: csharp/sles
+      SLES: csharp/sles
       Ubuntu: csharp/ubuntu
       Windows: csharp/win
   Java:
