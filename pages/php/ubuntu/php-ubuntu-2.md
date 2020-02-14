@@ -5,4 +5,4 @@ title: Ubuntu
 permalink: /php/ubuntu/step/2
 ---
 
-{% include partials/php/crudunix.md %}
+{% include partials/php/crudunix-ubuntu.md %}

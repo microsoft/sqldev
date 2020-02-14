@@ -25,18 +25,18 @@ redirect_from:
 
 3. Install PHP.
 
-> To install 7.1, or 7.2, replace `php@7.3` with `php@7.1` or `php@7.2` respectively in the following commands.
+> To install PHP 7.2 or 7.3, replace `php@7.4` with `php@7.2` or `php@7.3` respectively in the following commands.
 
 ```terminal
     brew tap 
     brew tap homebrew/core
-    brew install php@7.3
+    brew install php@7.4
 ```
 
 PHP should now be in your path -- run `php -v` to verify that you are running the correct version of PHP. If PHP is not in your path or it is not the correct version, run the following:
 
 ```terminal
-    brew link --force --overwrite php@7.3
+    brew link --force --overwrite php@7.4
 ```
 
 4. Install other required packages.

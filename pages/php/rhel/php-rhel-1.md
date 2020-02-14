@@ -17,26 +17,35 @@ redirect_from:
 
 ## Step 1.2 Install PHP and other required packages
 
-> To install PHP 7.1 or 7.2, replace `remi-php73` with `remi-php71` or `remi-php72` respectively in the following commands.
+To install PHP on Red Hat 7, run the following:
+
+> To install PHP 7.2 or 7.3, replace `remi-php74` with `remi-php72` or `remi-php73` respectively in the following commands.
 
 ```terminal
     sudo su
-    wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-    wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm
-    rpm -Uvh remi-release-7.rpm epel-release-latest-7.noarch.rpm
+    yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    yum install https://rpms.remirepo.net/enterprise/remi-release-7.rpm
     subscription-manager repos --enable=rhel-7-server-optional-rpms
     yum install yum-utils
-    yum-config-manager --enable remi-php73
+    yum-config-manager --enable remi-php74
     yum update
     yum install php php-pdo php-xml php-pear php-devel re2c gcc-c++ gcc
 ```
 
-> Compiling the PHP drivers with PECL with PHP 7.2 requires a more recent GCC than the default:
+To install PHP on Red Hat 8, run the following:
+
+> To install PHP 7.2 or 7.3, replace `remi-7.4` with `remi-7.2` or `remi-7.3` respectively in the following commands.
 
 ```terminal
-   sudo yum-config-manager --enable rhel-server-rhscl-7-rpms
-   sudo yum install devtoolset-7
-   scl enable devtoolset-7 bash
+    sudo su
+    dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+    dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+    dnf install yum-utils
+    dnf module reset php
+    dnf module install php:remi-7.4
+    subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
+    dnf update
+    dnf install php-pdo php-pear php-devel
 ```
 
 > You have successfully installed PHP on your RHEL machine!
