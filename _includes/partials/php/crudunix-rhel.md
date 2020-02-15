@@ -12,18 +12,6 @@ echo extension=sqlsrv.so >> `php --ini | grep "Scan for additional .ini files" |
 exit
 ```
 
-An issue in PECL may prevent correct installation of the latest version of the drivers even if you have upgraded GCC. To install, download the packages and compile manually (similar steps for pdo_sqlsrv):
-
-```terminal
-pecl download sqlsrv
-tar xvzf sqlsrv-5.6.0.tgz
-cd sqlsrv-5.6.0/
-phpize
-./configure --with-php-config=/usr/bin/php-config
-make
-sudo make install
-```
-
 ## Step 2.2 Create a database for your application
 
 Create the database using sqlcmd.

@@ -9,18 +9,18 @@ permalink: /php/windows/step/2
 
 ## Step 2.1 Install the PHP Drivers for SQL Server
 
-Download the Microsoft PHP Drivers for SQL Server from the [download center](https://www.microsoft.com/en-us/download/details.aspx?id=57163).
+Download the Microsoft PHP Drivers for SQL Server from the [download page](https://docs.microsoft.com/sql/connect/php/download-drivers-php-sql-server).
 
-Pick the appropriate dll - for example **php_pdo_sqlsrv_72_nts.dll** for the **PDO Driver** and **php_sqlsrv_72_nts.dll** for the **SQLSRV driver**.
+Pick the appropriate dll - for example **php_pdo_sqlsrv_74_nts.dll** for the **PDO Driver** and **php_sqlsrv_74_nts.dll** for the **SQLSRV driver**.
 
-Copy the dll's to the **C:\Program Files\iis express\PHP\v7.2\ext** folder.
+Copy the dll files to the **C:\Program Files\iis express\PHP\v7.4\ext** folder.
 
-Register the dll's in the **php.ini** file.
+Register the dll files in the **php.ini** file.
 
 ```terminal
-    cd C:\Program^ Files\iis^ express\PHP\v7.2\ext
-    echo extension=php_sqlsrv_72_nts.dll >> C:\Program^ Files\iis^ express\PHP\v7.2\php.ini
-    echo extension=php_pdo_sqlsrv_72_nts.dll >> C:\Program^ Files\iis^ express\PHP\v7.2\php.ini
+    cd C:\Program^ Files\iis^ express\PHP\v7.4\ext
+    echo extension=php_sqlsrv_74_nts.dll >> C:\Program^ Files\iis^ express\PHP\v7.4\php.ini
+    echo extension=php_pdo_sqlsrv_74_nts.dll >> C:\Program^ Files\iis^ express\PHP\v7.4\php.ini
 ```
     
 ## Step 2.2 Create a database for your application 
@@ -84,6 +84,7 @@ $connectionOptions = array(
     "Uid" => "sa",
     "PWD" => "your_password"
 );
+
 //Establishes the connection
 $conn = sqlsrv_connect($serverName, $connectionOptions);
 

@@ -17,7 +17,7 @@ redirect_from:
 
 ## Step 1.2 Install PHP and Chocolatey
 
-You can download PHP using the [**Web Platform Installer**](https://www.microsoft.com/web/downloads/platform.aspx). Once you download Web PI, open it up and download the entry which says **'PHP 7.2.7 (x64) for IIS Express'**.
+You can download PHP using the [**Web Platform Installer**](https://www.microsoft.com/web/downloads/platform.aspx). Once you download Web PI, open it up and download the entry which says **'PHP 7.4.1 (x64) for IIS Express'**.
 
 Next, install Chocolatey. Chocolatey is a package manager like apt-get and yum for Windows. We will use Chocolatey later in the tutorial. Use an elevated Command-line session (run as administrator):
 

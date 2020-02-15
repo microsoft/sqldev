@@ -6,10 +6,10 @@
 ```terminal
 sudo pecl install sqlsrv
 sudo pecl install pdo_sqlsrv
-sudo su
-echo extension=pdo_sqlsrv.so >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/30-pdo_sqlsrv.ini
-echo extension=sqlsrv.so >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/20-sqlsrv.ini
+printf "; priority=20\nextension=sqlsrv.so\n" > /etc/php/7.4/mods-available/sqlsrv.ini
+printf "; priority=30\nextension=pdo_sqlsrv.so\n" > /etc/php/7.4/mods-available/pdo_sqlsrv.ini
 exit
+sudo phpenmod -v 7.4 sqlsrv pdo_sqlsrv
 ```
 
 ## Step 2.2 Create a database for your application

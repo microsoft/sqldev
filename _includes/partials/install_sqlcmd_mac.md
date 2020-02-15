@@ -1,9 +1,9 @@
-[SQLCMD for Mac](https://blogs.technet.microsoft.com/dataplatforminsider/2017/04/03/sql-server-command-line-tools-for-mac-preview-now-available/){:target="_blank"} is a command line utility that enables you to connect to SQL Server and run queries.
+[SQLCMD](https://docs.microsoft.com/sql/linux/sql-server-linux-setup-tools){:target="_blank"} is a command line utility that enables you to connect to SQL Server and run queries.
 
 ```terminal
 brew tap microsoft/mssql-release https://github.com/Microsoft/homebrew-mssql-release
 brew update
-brew install msodbcsql17 mssql-tools
+HOMEBREW_NO_ENV_FILTERING=1 ACCEPT_EULA=Y brew install msodbcsql17 mssql-tools
 ```
 
 After installing SQLCMD, you can connect to SQL Server using the following command:
@@ -28,4 +28,4 @@ sqlcmd -S 127.0.0.1 -U sa -P your_password -Q "SELECT @@VERSION"
 Executed in 1 ns
 ```
 
-> You have successfully installed SQL Server Command Line Utilities on your macOS!
+> You have successfully installed SQL Server Command Line Utilities on your macOS machine!
