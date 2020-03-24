@@ -2,7 +2,7 @@
 layout: page-steps
 language: C#
 title: Windows
-permalink: /csharp/win/step/2
+permalink: /csharp/win/az/step/2
 ---
 
 > After getting SQL Server and .NET Framework on your Windows machine, you can now proceed to create your new C# projects. Here we will explore two simple applications. One of them will perform basic Insert, Update, Delete, and Select operations, while the second one will make use of [Entity Framework](https://www.asp.net/entity-framework), a popular object relational mapping (ORM) framework for C# to execute the same operations.
@@ -25,7 +25,7 @@ permalink: /csharp/win/step/2
 
 Visual Studio creates a new C# Console Application project and opens the file **Program.cs**. Replace the contents of Program.cs by copying and pasting the code below into the file. Don't forget to replace the username and password with your own. Save and close the file.
 
-{% include partials/csharp/sample_1.md %}
+{% include partials/csharp/az-sample_1.md %}
 
 Press **F5** to build and run the project.
 
@@ -36,7 +36,7 @@ Press any key to finish...
 
 Now replace the code in **Program.cs** by copying and pasting the code below into the file. This will create a database and a table, and will [insert](https://msdn.microsoft.com/en-us/library/ms174335.aspx), [update](https://msdn.microsoft.com/en-us/library/ms177523.aspx), [delete](https://msdn.microsoft.com/en-us/library/ms189835.aspx), and read a few rows. Don't forget to update the username and password with your own. Save and close the file.
 
-{% include partials/csharp/sample_2.md %}
+{% include partials/csharp/az-sample_2.md %}
 
 Press **F5** to build and run your project.
 
@@ -44,7 +44,6 @@ Press **F5** to build and run your project.
 Connect to SQL Server and demo Create, Read, Update and Delete operations.
 Connecting to SQL Server ...
 Done.
-Dropping and creating database 'SampleDB' ... Done.
 Creating sample table with data, press any key to continue...
 Done.
 Inserting a new row into table, press any key to continue...
@@ -111,7 +110,7 @@ For this sample, let's create two tables. The first will hold data about "users"
 
 Copy and paste the following code into the **User.cs** file. Save and close the file.
 
-{% include partials/csharp/sample_3.md %}
+{% include partials/csharp/az-sample_3.md %}
 
 **Create Task.cs:**
 

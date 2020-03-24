@@ -1,0 +1,2 @@
+Note! May features available in SQL Server are also availble in Azure SQL DB.  Please reference **[this link](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-features)** for a full breakdown of which features are available in Azure DB.
+Fortunately for us, supported features include innovations that can significantly improve your application’s throughput, latency, and security. Enjoy!

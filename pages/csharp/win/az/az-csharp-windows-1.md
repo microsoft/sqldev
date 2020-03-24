@@ -2,11 +2,11 @@
 layout: page-steps
 language: C#
 title: Windows
-permalink: /csharp/win/
+permalink: /csharp/win/az
 redirect_from:
   - /csharp/
-  - /csharp/win/step/
-  - /csharp/win/step/1
+  - /csharp/win/az/step/
+  - /csharp/win/az/step/1
 ---
 
 > In this section, you create an Azure Hosted SQL Database. After that you will install the necessary dependencies to create .NET Framework apps with SQL Server. 
