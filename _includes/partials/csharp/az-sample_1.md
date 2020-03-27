@@ -3,7 +3,7 @@ using System;
 using System.Text;
 using System.Data.SqlClient;
 
-namespace SqlServerSample
+namespace AzureSqlSample
 {
     class Program
     {
@@ -13,13 +13,13 @@ namespace SqlServerSample
             {
                 // Build connection string
                 SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-                builder.DataSource = "your_server";   // update me
+                builder.DataSource = "your_server.database.database.windows.net";   // update me
                 builder.UserID = "your_user";              // update me
                 builder.Password = "your_password";      // update me
                 builder.InitialCatalog = "your_database";	// update me
 
-                // Connect to SQL
-                Console.Write("Connecting to SQL Server ... ");
+                // Connect to Azure SQL
+                Console.Write("Connecting to Azure SQL ... ");
                 using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
                     connection.Open();

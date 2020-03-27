@@ -2,31 +2,43 @@
 using System;
 using System.Text;
 using System.Data.SqlClient;
+using Microsoft.Azure.KeyVault;
+using Microsoft.Azure.KeyVault.Models;
+using Microsoft.Azure.Services.AppAuthentication;
+using System.Threading.Tasks;
 
-namespace AzureSqlSample
+namespace AzureSQLSample
 {
     class Program
     {
         static void Main(string[] args)
+        {
+            Task task = Program.DoWork(args);
+            var result = task.Wait(TimeSpan.FromMinutes(30));
+        }
+
+        static async Task DoWork(string[] args)
         {
             string sql;
             Console.WriteLine("Connect to Azure SQL and demo Create, Read, Update and Delete operations.");
 
             // Build connection string
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-            builder.DataSource = "your_server_name.database.windows.net";   // update me
+            builder.DataSource = "your_server.database.windows.net";   // update me
             builder.UserID = "your_user";              // update me
-            builder.Password = "your_password";      // update me
-            builder.InitialCatalog = "your_database_name";
+            builder.Password = await GetPasswordFromKeyVault();      // taken from Key Vault
+            builder.InitialCatalog = "your_db"; // Update me
 
-            // Connect to Azure SQL
-            Console.Write("Connecting to Azure SQL  ... ");
+            // Connect to SQL
+            Console.Write("Connecting to SQL Server ... ");
             using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
             {
                 try
                 {
-                    // Connect to Azure SQL
-                    Console.Write("Connecting to Azure SQL ... ");
+                    Console.WriteLine("Connect to SQL Server and demo Create, Read, Update and Delete operations.");
+
+                    // Connect to SQL
+                    Console.Write("Connecting to SQL Server ... ");
                     connection.Open();
                     Console.WriteLine("Done.");
 
@@ -119,6 +131,7 @@ namespace AzureSqlSample
                     Console.WriteLine("Cleaning up table.");
                     using (SqlCommand command = new SqlCommand("Drop table employees", connection))
                     {
+
                         command.ExecuteNonQuery();
                     }
                 }
@@ -127,6 +140,17 @@ namespace AzureSqlSample
             Console.WriteLine("All done. Press any key to finish...");
             Console.ReadKey(true);
         }
+
+        private static async Task<string> GetPasswordFromKeyVault()
+        {
+            Console.WriteLine("Trying to get Password from Key Vault.  Press a key to continue...");
+            Console.ReadKey(true);
+            /* The next four lines of code show you how to use AppAuthentication library to fetch secrets from your key vault */
+            AzureServiceTokenProvider azureServiceTokenProvider = new AzureServiceTokenProvider();
+            KeyVaultClient keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
+            SecretBundle secret = await keyVaultClient.GetSecretAsync("https://your_key_vault_name.vault.azure.net/secrets/AppSecret");  // update me
+            return secret.Value;
+        }
     }
-}
+```
 ```
