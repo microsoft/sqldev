@@ -30,6 +30,11 @@ namespace AzureSqlSample
                     connection.Open();
                     Console.WriteLine("Done.");
 
+		    using (SqlCommand command = new SqlCommand("DROP TABLE IF EXISTS Employees", connection))
+                    {
+                        command.ExecuteNonQuery();
+                    }
+
 
                     // Create a Table and insert some sample data
                     Console.Write("Creating sample table with data, press any key to continue...");
@@ -117,7 +122,7 @@ namespace AzureSqlSample
                 finally
                 {
                     Console.WriteLine("Cleaning up table.");
-                    using (SqlCommand command = new SqlCommand("Drop table employees", connection))
+                    using (SqlCommand command = new SqlCommand("DROP TABLE IF EXISTS Employees", connection))
                     {
                         command.ExecuteNonQuery();
                     }

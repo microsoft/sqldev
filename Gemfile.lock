@@ -1,13 +1,13 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.5.1)
-      public_suffix (~> 2.0, >= 2.0.2)
+    addressable (2.7.0)
+      public_suffix (>= 2.0.2, < 5.0)
     colorator (1.1.0)
-    ffi (1.9.18)
-    ffi (1.9.18-x64-mingw32)
+    ffi (1.12.2)
+    ffi (1.12.2-x64-mingw32)
     forwardable-extended (2.6.0)
-    jekyll (3.4.3)
+    jekyll (3.3.0)
       addressable (~> 2.4)
       colorator (~> 1.0)
       jekyll-sass-converter (~> 1.0)
@@ -22,27 +22,31 @@ GEM
       jekyll (~> 3.3)
     jekyll-redirect-from (0.12.1)
       jekyll (~> 3.3)
-    jekyll-sass-converter (1.5.0)
+    jekyll-sass-converter (1.5.2)
       sass (~> 3.4)
-    jekyll-watch (1.5.0)
-      listen (~> 3.0, < 3.1)
-    kramdown (1.13.2)
+    jekyll-watch (1.5.1)
+      listen (~> 3.0)
+    kramdown (1.17.0)
     liquid (3.0.6)
-    listen (3.0.8)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
+    listen (3.2.1)
+      rb-fsevent (~> 0.10, >= 0.10.3)
+      rb-inotify (~> 0.9, >= 0.9.10)
     mercenary (0.3.6)
     minima (2.1.1)
       jekyll (~> 3.3)
-    pathutil (0.14.0)
+    pathutil (0.16.2)
       forwardable-extended (~> 2.6)
-    public_suffix (2.0.5)
-    rb-fsevent (0.9.8)
-    rb-inotify (0.9.8)
-      ffi (>= 0.5.0)
+    public_suffix (4.0.3)
+    rb-fsevent (0.10.3)
+    rb-inotify (0.10.1)
+      ffi (~> 1.0)
     rouge (1.11.1)
-    safe_yaml (1.0.4)
-    sass (3.4.23)
+    safe_yaml (1.0.5)
+    sass (3.7.4)
+      sass-listen (~> 4.0.0)
+    sass-listen (4.0.0)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
 
 PLATFORMS
   ruby
@@ -50,14 +54,14 @@ PLATFORMS
 
 DEPENDENCIES
   bundler
-  jekyll (= 3.4.3)
+  jekyll (= 3.3.0)
   jekyll-feed
   jekyll-redirect-from
   kramdown
   minima (= 2.1.1)
 
 RUBY VERSION
-   ruby 2.3.3p222
+   ruby 2.6.5p114
 
 BUNDLED WITH
-   1.14.6
+   1.17.2

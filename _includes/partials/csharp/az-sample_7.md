@@ -29,7 +29,6 @@ namespace AzureSQLSample
             builder.UserID = "your_user";              // update me
             builder.Password = await GetPasswordFromKeyVault();      // taken from Key Vault
             builder.InitialCatalog = "your_db"; // Update me
-            builder.ConnectTimeout = (int) TimeSpan.FromMinutes(10).TotalSeconds;
 
             // Connect to SQL
             Console.Write("Connecting to Azure SQL ... ");
@@ -94,6 +93,13 @@ namespace AzureSQLSample
                 }
                 finally
                 {
+		    string dropTableIfExists = @"DROP TABLE IF EXISTS Table_with_3M_rows";
+                    using (SqlCommand command = new SqlCommand(dropTableIfExists, connection))
+                    {
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Done.");
+                    }
+
                     Console.WriteLine("All done. Press any key to finish...");
                     Console.ReadKey(true);
                 }

@@ -14,6 +14,7 @@ namespace AzureSQLSample
         static void Main(string[] args)
         {
             Task task = Program.DoWork(args);
+	    // Becuase this program takes user input, have a long wait.		
             var result = task.Wait(TimeSpan.FromMinutes(30));
         }
 
@@ -41,6 +42,13 @@ namespace AzureSQLSample
                     Console.Write("Connecting to SQL Server ... ");
                     connection.Open();
                     Console.WriteLine("Done.");
+
+		    string dropTableIfExists = @"DROP TABLE IF EXISTS Employees";
+                    using (SqlCommand command = new SqlCommand(dropTableIfExists, connection))
+                    {
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Done.");
+                    }
 
 
                     // Create a Table and insert some sample data
@@ -129,10 +137,11 @@ namespace AzureSQLSample
                 finally
                 {
                     Console.WriteLine("Cleaning up table.");
-                    using (SqlCommand command = new SqlCommand("Drop table employees", connection))
+		    string dropTableIfExists = @"DROP TABLE IF EXISTS Employees";
+                    using (SqlCommand command = new SqlCommand(dropTableIfExists, connection))
                     {
-
                         command.ExecuteNonQuery();
+                        Console.WriteLine("Done.");
                     }
                 }
             }
