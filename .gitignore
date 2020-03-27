@@ -251,3 +251,4 @@ paket-files/
 .idea/
 *.sln.iml
 pages/nodejs/redhat/nodejs-rhel-1.md
+pages/csharp/win/azurehosted/csharp-windows-1.md

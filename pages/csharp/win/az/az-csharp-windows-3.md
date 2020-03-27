@@ -28,13 +28,14 @@ Visual Studio creates a new C# Console Application project and opens the file **
 Press **F5** to build and run your project.
 
 ```results
-*** SQL Server Columnstore demo ***
-Connecting to SQL Server ... Done.
-Inserting 5 million rows into table 'Table_with_5M_rows'. This takes ~1 minute, please wait ... Done.
-Query time WITHOUT columnstore index: 363.09ms
-Adding a columnstore to table 'Table_with_5M_rows'  ... Done.
-Query time WITH columnstore index: 5.123ms
-Performance improvement with columnstore index: 71x!
+Trying to get Password from Key Vault.  Press a key to continue...
+Connecting to Azure SQL ... Connecting to Azure SQL ... Done.
+Done.
+Inserting 3 million rows into table 'Table_with_3M_rows'. This takes ~1 minute, please wait ... Done.
+Query time WITHOUT columnstore index: 1102.4951ms
+Adding a columnstore to table 'Table_with_3M_rows'  ... Done.
+Query time WITH columnstore index: 110.8972ms
+Performance improvement with columnstore index: 10x!
 All done. Press any key to finish...
 ```
 
