@@ -5,7 +5,6 @@ title: macOS
 permalink: /csharp/macos/az/step/1
 redirect_from:
   - /csharp/macos/az/step/
-  - /csharp/macos/az/step/1
 ---
 
 > In this section, you will get setup an Azure SQL instance. After that you will install the necessary dependencies to create .NET Core apps with Auzre SQL.
