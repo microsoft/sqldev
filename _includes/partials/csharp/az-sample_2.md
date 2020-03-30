@@ -10,21 +10,21 @@ namespace AzureSqlSample
         static void Main(string[] args)
         {
             string sql;
-            Console.WriteLine("Connect to Azure SQL and demo Create, Read, Update and Delete operations.");
-
+            
             // Build connection string
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
             builder.DataSource = "your_server_name.database.windows.net";   // update me
             builder.UserID = "your_user";              // update me
             builder.Password = "your_password";      // update me
-            builder.InitialCatalog = "your_database_name";
+            builder.InitialCatalog = "your_database_name";  // update me
 
             // Connect to Azure SQL
-            Console.Write("Connecting to Azure SQL  ... ");
-            using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+             using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
             {
                 try
                 {
+		    Console.WriteLine("Connect to Azure SQL and demo Create, Read, Update and Delete operations.");
+
                     // Connect to Azure SQL
                     Console.Write("Connecting to Azure SQL ... ");
                     connection.Open();

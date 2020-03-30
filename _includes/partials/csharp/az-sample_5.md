@@ -14,36 +14,33 @@ namespace AzureSQLSample
         static void Main(string[] args)
         {
             Task task = Program.DoWork(args);
-	    // Becuase this program takes user input, have a long wait.		
+            // Becuase this program takes user input, have a long wait.		
             var result = task.Wait(TimeSpan.FromMinutes(30));
         }
 
         static async Task DoWork(string[] args)
         {
             string sql;
-            Console.WriteLine("Connect to Azure SQL and demo Create, Read, Update and Delete operations.");
-
+            
             // Build connection string
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-            builder.DataSource = "your_server.database.windows.net";   // update me
-            builder.UserID = "your_user";              // update me
+            builder.DataSource = "your_server_name.database.windows.net";   // update me
+            builder.UserID = "your_user_id";              // update me
             builder.Password = await GetPasswordFromKeyVault();      // taken from Key Vault
-            builder.InitialCatalog = "your_db"; // Update me
+            builder.InitialCatalog = "your_database"; // Update me
 
-            // Connect to SQL
-            Console.Write("Connecting to SQL Server ... ");
             using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
             {
                 try
                 {
-                    Console.WriteLine("Connect to SQL Server and demo Create, Read, Update and Delete operations.");
+                    Console.WriteLine("Connect to Azure SQL and demo Create, Read, Update and Delete operations.");
 
-                    // Connect to SQL
-                    Console.Write("Connecting to SQL Server ... ");
+                    // Connect to Azure SQL
+                    Console.Write("Connecting to Azure SQL ... ");
                     connection.Open();
                     Console.WriteLine("Done.");
 
-		    string dropTableIfExists = @"DROP TABLE IF EXISTS Employees";
+                    string dropTableIfExists = @"DROP TABLE IF EXISTS Employees";
                     using (SqlCommand command = new SqlCommand(dropTableIfExists, connection))
                     {
                         command.ExecuteNonQuery();
@@ -137,7 +134,7 @@ namespace AzureSQLSample
                 finally
                 {
                     Console.WriteLine("Cleaning up table.");
-		    string dropTableIfExists = @"DROP TABLE IF EXISTS Employees";
+                    string dropTableIfExists = @"DROP TABLE IF EXISTS Employees";
                     using (SqlCommand command = new SqlCommand(dropTableIfExists, connection))
                     {
                         command.ExecuteNonQuery();
@@ -161,5 +158,5 @@ namespace AzureSQLSample
             return secret.Value;
         }
     }
-```
+} 
 ```
