@@ -1,8 +1,8 @@
 ---
 layout: page-steps
 language: C#
-title: macOS and Azure SQL
-permalink: /csharp/macos/az/step/3
+title: Ubuntu and Azure SQL
+permalink: /csharp/ubuntu/az/step/3
 ---
 
 {% include partials/csharp/az-columnstoreunix.md %}
