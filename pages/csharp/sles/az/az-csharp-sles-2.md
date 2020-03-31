@@ -1,7 +1,7 @@
 ---
 layout: page-steps
 language: C#
-title: SLES
+title: SLES and Azure SQL
 permalink: /csharp/sles/az/step/2
 ---
 

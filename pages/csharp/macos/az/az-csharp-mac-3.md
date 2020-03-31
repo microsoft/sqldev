@@ -1,7 +1,7 @@
 ---
 layout: page-steps
 language: C#
-title: macOS
+title: macOS and Azure SQL
 permalink: /csharp/macos/az/step/3
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: page-steps
 language: C#
-title: Ubuntu
+title: Ubuntu and Azure SQL
 permalink: /csharp/ubuntu/az/step/2
 ---
 
