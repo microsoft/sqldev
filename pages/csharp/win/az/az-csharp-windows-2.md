@@ -5,7 +5,7 @@ title: Windows
 permalink: /csharp/win/az/step/2
 ---
 
-> After getting Azure SQL and .NET Framework on your Windows machine, you can now proceed to create your new C# projects. Here we will explore two simple applications. One of them will perform basic Insert, Update, Delete, and Select operations, while the second one will make use of [Entity Framework](https://www.asp.net/entity-framework), a popular object relational mapping (ORM) framework for C# to execute the same operations.
+> After getting Azure SQL and .NET Framework on your Windows machine, you can now proceed to create your new C# projects. One of them will perform basic Insert, Update, Delete, and Select, and then we will expand it to use Azure Key Vault. <TODO: Linky>
 
 ## Step 2.1 Get Connection Information to use in Connection Strings, and Create a Firewall Rule.
 
@@ -41,20 +41,16 @@ Press **F5** to build and run your project.
 
 ```results
 Connect to Azure SQL and demo Create, Read, Update and Delete operations.
-Connecting to Azure SQL  ...
-Done.
-Creating sample table with data, press any key to continue...
-Done.
-Inserting a new row into table, press any key to continue...
-1 row(s) inserted
-Updating 'Location' for user 'Nikita', press any key to continue...
-1 row(s) updated
-Deleting user 'Jared', press any key to continue...
-1 row(s) deleted
+Connecting to Azure SQL ... Done.
+Creating sample table with data, press any key to continue...Done.
+Inserting a new row into table, press any key to continue...1 row(s) inserted
+Updating 'Location' for user 'Nikita', press any key to continue...1 row(s) updated
+Deleting user 'Jared', press any key to continue...1 row(s) deleted
 Reading data from table, press any key to continue...
 2 Nikita United States
 3 Tom Germany
 4 Jake United States
+Cleaning up table.
 All done. Press any key to finish...
 ```
 
@@ -64,19 +60,21 @@ All done. Press any key to finish...
 
 **Create an Azure Key Vault and put your Secret into it.**
 
-First, you need to create an Azure Key Vault.  Do this by following the instructions [**here**](https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-key-vault-manage-portal?view=azs-2002)
+First, you need to create an Azure Key Vault.  
 It is recommended that you create a Key Vault in the same resource group as your database and server.
 
 1. From the Azure Portal, select "+ Create a Resource".  Search for "Key Vault" and select that.
 1. In the "Create key vault" page, fill out the resource group and key vault name.
 1. Select "Review and Create", then "Create".
 
+For future reference, there are more details [**here**](https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-key-vault-manage-portal?view=azs-2002).
+
 Now that you have created the Key Vault, you need to add a secret called **AppSecret** to your vault.
 
 1. From the Azure Portal dashboard, select All resources, select the key vault that you created earlier, and then select the Keys tile.
 1. In the Keys pane, select Generate/Import.
 1. Name your key AppSecret, then make the secret your password.
-1. You can leave the values for Content TYpe, activation date, expiration date, and Enabled (Yes) as the defaults.
+1. You can leave the values for Content Type, activation date, expiration date, and Enabled (Yes) as the defaults.
 1. Select Create to start the deployment.
 
 **Install Nuget packages to connect your app to Azure Key Vault**
@@ -223,5 +221,26 @@ In addition to adding that code, we add the call to it, and change the structure
 Once that is done, your final code should look like the following. It's OK to just copy/paste this code and replace the code in Program.cs with this, updating your database connection info and keyvault name afterwards.
 
 {% include partials/csharp/az-sample_5.md %}
+
+Then, run the program.  Your output should look like this:
+
+```results
+Trying to get Password from Key Vault.  Press a key to continue...
+Connect to Azure SQL and demo Create, Read, Update and Delete operations.
+Connecting to Azure SQL ... Done.
+Done.
+Creating sample table with data, press any key to continue...Done.
+Inserting a new row into table, press any key to continue...1 row(s) inserted
+Updating 'Location' for user 'Nikita', press any key to continue...1 row(s) updated
+Deleting user 'Jared', press any key to continue...1 row(s) deleted
+Reading data from table, press any key to continue...
+2 Nikita United States
+3 Tom Germany
+4 Jake United States
+Cleaning up table.
+Done.
+All done. Press any key to finish...
+```
+
 
 > Congratulations! You just created a C# app and secured your credentials by placing them in Azure Key Vault! Check out the next section to learn about how you can **make your C# apps faster with SQL Server's Columnstore feature.**
