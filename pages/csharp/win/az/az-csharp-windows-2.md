@@ -242,5 +242,232 @@ Done.
 All done. Press any key to finish...
 ```
 
+## Step 2.3 Create a C# app that connects to Azure SQL using the Entity Framework ORM in .NET Framework
+
+**Create a C# console application**
+
+1. Launch Visual Studio Community
+1. Click **File -> New -> Project**
+1. In the **New project** dialog, click **Windows** located under **Visual C#** in the **Templates** node 
+1. Click **Console Application Visual C#**
+1. Name the project "_AzureSqlEFSample"_
+1. Click **OK** to create the project
+
+Visual Studio creates a new C# Console Application project and opens the file **Program.cs**.
+
+**Add Entity Framework and Azure Key Vault dependencies to your project**
+
+1. Open the Package Manager Console in Visual Studio with "Tools -> Nuget Package Manager -> Package Manager Console"
+1. Type: "Install-Package EntityFramework" 
+1. Hit enter
+
+```results
+Attempting to gather dependency information for package 'EntityFramework.6.1.3' with respect to project 'AzureSqlEFSample', targeting '.NETFramework,Version=v4.5.2'
+Attempting to resolve dependencies for package 'EntityFramework.6.1.3' with DependencyBehavior 'Lowest'
+Resolving actions to install package 'EntityFramework.6.1.3'
+Resolved actions to install package 'EntityFramework.6.1.3'
+  GET https://api.nuget.org/packages/entityframework.6.1.3.nupkg
+  OK https://api.nuget.org/packages/entityframework.6.1.3.nupkg 17ms
+Installing EntityFramework 6.1.3.
+Adding package 'EntityFramework.6.1.3' to folder 'c:\users\usr1\documents\visual studio 2015\Projects\AzureSqlEFSample\packages'
+Added package 'EntityFramework.6.1.3' to folder 'c:\users\usr1\documents\visual studio 2015\Projects\AzureSqlEFSample\packages'
+Added package 'EntityFramework.6.1.3' to 'packages.config'
+Executing script file 'c:\users\usr1\documents\visual studio 2015\Projects\AzureSqlEFSample\packages\EntityFramework.6.1.3\tools\init.ps1'
+Executing script file 'c:\users\usr1\documents\visual studio 2015\Projects\AzureSqlEFSample\packages\EntityFramework.6.1.3\tools\install.ps1'
+
+Type 'get-help EntityFramework' to see all available Entity Framework commands.
+Successfully installed 'EntityFramework 6.1.3' to AzureSqlEFSample
+```
+
+1. Open the Package Manager Console in Visual Studio with "Tools-> Nuget Package Manager -> Package Manager Console"
+1. Type: "Install-Package Microsoft.Azure.Services.AppAuthentication -Version 1.4.0"
+1. Hit Enter
+
+```results
+Attempting to gather dependency information for package 'Microsoft.Azure.Services.AppAuthentication.1.4.0' with respect to project 'AzureSqlSample', targeting '.NETFramework,Version=v4.6.1'
+Gathering dependency information took 1.96 sec
+Attempting to resolve dependencies for package 'Microsoft.Azure.Services.AppAuthentication.1.4.0' with DependencyBehavior 'Lowest'
+Resolving dependency information took 0 ms
+Resolving actions to install package 'Microsoft.Azure.Services.AppAuthentication.1.4.0'
+Resolved actions to install package 'Microsoft.Azure.Services.AppAuthentication.1.4.0'
+Retrieving package 'Microsoft.Azure.Services.AppAuthentication 1.4.0' from 'nuget.org'.
+Retrieving package 'Microsoft.IdentityModel.Clients.ActiveDirectory 5.2.0' from 'nuget.org'.
+Retrieving package 'System.Net.Http 4.3.4' from 'nuget.org'.
+Retrieving package 'System.Security.Cryptography.Algorithms 4.3.0' from 'nuget.org'.
+Retrieving package 'System.Security.Cryptography.Encoding 4.3.0' from 'nuget.org'.
+Retrieving package 'System.Security.Cryptography.Primitives 4.3.0' from 'nuget.org'.
+Retrieving package 'System.Security.Cryptography.X509Certificates 4.3.0' from 'nuget.org'.
+  GET https://api.nuget.org/v3-flatcontainer/system.net.http/4.3.4/system.net.http.4.3.4.nupkg
+  GET https://api.nuget.org/v3-flatcontainer/microsoft.identitymodel.clients.activedirectory/5.2.0/microsoft.identitymodel.clients.activedirectory.5.2.0.nupkg
+  OK https://api.nuget.org/v3-flatcontainer/microsoft.identitymodel.clients.activedirectory/5.2.0/microsoft.identitymodel.clients.activedirectory.5.2.0.nupkg 4ms
+  OK https://api.nuget.org/v3-flatcontainer/system.net.http/4.3.4/system.net.http.4.3.4.nupkg 6ms
+Installing Microsoft.IdentityModel.Clients.ActiveDirectory 5.2.0.
+Installing System.Net.Http 4.3.4.
+  GET https://api.nuget.org/v3-flatcontainer/system.security.cryptography.algorithms/4.3.0/system.security.cryptography.algorithms.4.3.0.nupkg
+  GET https://api.nuget.org/v3-flatcontainer/system.security.cryptography.primitives/4.3.0/system.security.cryptography.primitives.4.3.0.nupkg
+  OK https://api.nuget.org/v3-flatcontainer/system.security.cryptography.primitives/4.3.0/system.security.cryptography.primitives.4.3.0.nupkg 7ms
+Installing System.Security.Cryptography.Primitives 4.3.0.
+  OK https://api.nuget.org/v3-flatcontainer/system.security.cryptography.algorithms/4.3.0/system.security.cryptography.algorithms.4.3.0.nupkg 28ms
+  GET https://api.nuget.org/v3-flatcontainer/system.security.cryptography.x509certificates/4.3.0/system.security.cryptography.x509certificates.4.3.0.nupkg
+Installing System.Security.Cryptography.Algorithms 4.3.0.
+  OK https://api.nuget.org/v3-flatcontainer/system.security.cryptography.x509certificates/4.3.0/system.security.cryptography.x509certificates.4.3.0.nupkg 8ms
+Installing System.Security.Cryptography.X509Certificates 4.3.0.
+  GET https://api.nuget.org/v3-flatcontainer/microsoft.azure.services.appauthentication/1.4.0/microsoft.azure.services.appauthentication.1.4.0.nupkg
+  OK https://api.nuget.org/v3-flatcontainer/microsoft.azure.services.appauthentication/1.4.0/microsoft.azure.services.appauthentication.1.4.0.nupkg 11ms
+Installing Microsoft.Azure.Services.AppAuthentication 1.4.0.
+  GET https://api.nuget.org/v3-flatcontainer/system.security.cryptography.encoding/4.3.0/system.security.cryptography.encoding.4.3.0.nupkg
+  OK https://api.nuget.org/v3-flatcontainer/system.security.cryptography.encoding/4.3.0/system.security.cryptography.encoding.4.3.0.nupkg 8ms
+Installing System.Security.Cryptography.Encoding 4.3.0.
+Adding package 'System.Security.Cryptography.Encoding.4.3.0' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'System.Security.Cryptography.Encoding.4.3.0' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'System.Security.Cryptography.Encoding.4.3.0' to 'packages.config'
+Successfully installed 'System.Security.Cryptography.Encoding 4.3.0' to AzureSqlSample
+Adding package 'System.Security.Cryptography.Primitives.4.3.0' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'System.Security.Cryptography.Primitives.4.3.0' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'System.Security.Cryptography.Primitives.4.3.0' to 'packages.config'
+Successfully installed 'System.Security.Cryptography.Primitives 4.3.0' to AzureSqlSample
+Adding package 'System.Security.Cryptography.Algorithms.4.3.0' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'System.Security.Cryptography.Algorithms.4.3.0' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'System.Security.Cryptography.Algorithms.4.3.0' to 'packages.config'
+Successfully installed 'System.Security.Cryptography.Algorithms 4.3.0' to AzureSqlSample
+Adding package 'System.Security.Cryptography.X509Certificates.4.3.0' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'System.Security.Cryptography.X509Certificates.4.3.0' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'System.Security.Cryptography.X509Certificates.4.3.0' to 'packages.config'
+Successfully installed 'System.Security.Cryptography.X509Certificates 4.3.0' to AzureSqlSample
+Adding package 'System.Net.Http.4.3.4' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'System.Net.Http.4.3.4' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'System.Net.Http.4.3.4' to 'packages.config'
+Successfully installed 'System.Net.Http 4.3.4' to AzureSqlSample
+Adding package 'Microsoft.IdentityModel.Clients.ActiveDirectory.5.2.0' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'Microsoft.IdentityModel.Clients.ActiveDirectory.5.2.0' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'Microsoft.IdentityModel.Clients.ActiveDirectory.5.2.0' to 'packages.config'
+Successfully installed 'Microsoft.IdentityModel.Clients.ActiveDirectory 5.2.0' to AzureSqlSample
+Adding package 'Microsoft.Azure.Services.AppAuthentication.1.4.0' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'Microsoft.Azure.Services.AppAuthentication.1.4.0' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'Microsoft.Azure.Services.AppAuthentication.1.4.0' to 'packages.config'
+Successfully installed 'Microsoft.Azure.Services.AppAuthentication 1.4.0' to AzureSqlSample
+Executing nuget actions took 2.29 sec
+Time Elapsed: 00:00:04.3427048
+```
+
+1. Type: "Install-Package Microsoft.Azure.KeyVault -Version 3.0.5"
+1. Hit Enter
+
+
+```results
+Attempting to gather dependency information for package 'Microsoft.Azure.KeyVault.3.0.5' with respect to project 'AzureSqlSample', targeting '.NETFramework,Version=v4.6.1'
+Gathering dependency information took 734.8 ms
+Attempting to resolve dependencies for package 'Microsoft.Azure.KeyVault.3.0.5' with DependencyBehavior 'Lowest'
+Resolving dependency information took 0 ms
+Resolving actions to install package 'Microsoft.Azure.KeyVault.3.0.5'
+Resolved actions to install package 'Microsoft.Azure.KeyVault.3.0.5'
+Retrieving package 'Microsoft.Azure.KeyVault 3.0.5' from 'nuget.org'.
+Retrieving package 'Microsoft.Azure.KeyVault.WebKey 3.0.5' from 'nuget.org'.
+Retrieving package 'Microsoft.Rest.ClientRuntime 2.3.20' from 'nuget.org'.
+Retrieving package 'Microsoft.Rest.ClientRuntime.Azure 3.3.18' from 'nuget.org'.
+Retrieving package 'Newtonsoft.Json 10.0.3' from 'nuget.org'.
+  GET https://api.nuget.org/v3-flatcontainer/microsoft.azure.keyvault/3.0.5/microsoft.azure.keyvault.3.0.5.nupkg
+  OK https://api.nuget.org/v3-flatcontainer/microsoft.azure.keyvault/3.0.5/microsoft.azure.keyvault.3.0.5.nupkg 6ms
+Installing Microsoft.Azure.KeyVault 3.0.5.
+  GET https://api.nuget.org/v3-flatcontainer/microsoft.rest.clientruntime.azure/3.3.18/microsoft.rest.clientruntime.azure.3.3.18.nupkg
+  OK https://api.nuget.org/v3-flatcontainer/microsoft.rest.clientruntime.azure/3.3.18/microsoft.rest.clientruntime.azure.3.3.18.nupkg 16ms
+Installing Microsoft.Rest.ClientRuntime.Azure 3.3.18.
+  GET https://api.nuget.org/v3-flatcontainer/microsoft.rest.clientruntime/2.3.20/microsoft.rest.clientruntime.2.3.20.nupkg
+  OK https://api.nuget.org/v3-flatcontainer/microsoft.rest.clientruntime/2.3.20/microsoft.rest.clientruntime.2.3.20.nupkg 6ms
+Installing Microsoft.Rest.ClientRuntime 2.3.20.
+  GET https://api.nuget.org/v3-flatcontainer/microsoft.azure.keyvault.webkey/3.0.5/microsoft.azure.keyvault.webkey.3.0.5.nupkg
+  OK https://api.nuget.org/v3-flatcontainer/microsoft.azure.keyvault.webkey/3.0.5/microsoft.azure.keyvault.webkey.3.0.5.nupkg 6ms
+Installing Microsoft.Azure.KeyVault.WebKey 3.0.5.
+  GET https://api.nuget.org/v3-flatcontainer/newtonsoft.json/10.0.3/newtonsoft.json.10.0.3.nupkg
+  OK https://api.nuget.org/v3-flatcontainer/newtonsoft.json/10.0.3/newtonsoft.json.10.0.3.nupkg 6ms
+Installing Newtonsoft.Json 10.0.3.
+Adding package 'Newtonsoft.Json.10.0.3' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'Newtonsoft.Json.10.0.3' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'Newtonsoft.Json.10.0.3' to 'packages.config'
+Executing script file 'C:\Users\usr1\testproject\website\AzureSqlSample\packages\Newtonsoft.Json.10.0.3\tools\install.ps1'
+Successfully installed 'Newtonsoft.Json 10.0.3' to AzureSqlSample
+Adding package 'Microsoft.Rest.ClientRuntime.2.3.20' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'Microsoft.Rest.ClientRuntime.2.3.20' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'Microsoft.Rest.ClientRuntime.2.3.20' to 'packages.config'
+Successfully installed 'Microsoft.Rest.ClientRuntime 2.3.20' to AzureSqlSample
+Adding package 'Microsoft.Rest.ClientRuntime.Azure.3.3.18' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'Microsoft.Rest.ClientRuntime.Azure.3.3.18' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'Microsoft.Rest.ClientRuntime.Azure.3.3.18' to 'packages.config'
+Successfully installed 'Microsoft.Rest.ClientRuntime.Azure 3.3.18' to AzureSqlSample
+Adding package 'Microsoft.Azure.KeyVault.WebKey.3.0.5' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'Microsoft.Azure.KeyVault.WebKey.3.0.5' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'Microsoft.Azure.KeyVault.WebKey.3.0.5' to 'packages.config'
+Successfully installed 'Microsoft.Azure.KeyVault.WebKey 3.0.5' to AzureSqlSample
+Adding package 'Microsoft.Azure.KeyVault.3.0.5' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'Microsoft.Azure.KeyVault.3.0.5' to folder 'C:\Users\usr1\testproject\website\AzureSqlSample\packages'
+Added package 'Microsoft.Azure.KeyVault.3.0.5' to 'packages.config'
+Successfully installed 'Microsoft.Azure.KeyVault 3.0.5' to AzureSqlSample
+Executing nuget actions took 2.39 sec
+Time Elapsed: 00:00:03.2162165
+
+```
+
+Close the Package Manager Console. You have successfully added the required Entity Framework and Azure Key Vault dependencies to your project.
+
+For this sample, let's create two tables. The first will hold data about "users" and the other will hold data about “tasks”.
+
+**Create User.cs:**
+
+1. Click **Project -> Add Class**
+1. Type "User.cs" in the name field
+1. Click **Add** to add the new class to your project
+
+Copy and paste the following code into the **User.cs** file. Save and close the file.
+
+{% include partials/csharp/az-sample_users.md %}
+
+**Create Task.cs:**
+
+1. Click **Project -> Add Class**
+2. Type "Task.cs" in the name field
+3. Click **Add** to add the new class to your project
+
+Copy and paste the following code into the **Task.cs** file. Save and close the file.
+{% include partials/csharp/az-sample_task.md %}
+
+**Create EFSampleContext.cs:**
+
+1. Click Project -> Add Class
+2. Type "EFSampleContext.cs" in the name field
+3. Click Add to add the new class to your project
+
+Copy and paste the following code into the **EFSampleContext.cs** file. Save and close the file.
+{% include partials/csharp/az-sample_6.md %}
+
+Replace the code in the **Program.cs** file in your by copying and pasting the code into the file. Don't forget to update the connection nwith your own. Save and close the file.
+{% include partials/csharp/az-sample_8.md %}
+
+Press **F5** to build and run the project.
+
+```results
+** C# CRUD sample with Entity Framework and Azure SQL **
+
+Created database schema from C# classes.
+
+Created User: User [id=1, name=Anna Shrestinian]
+
+Created Task: Task [id=1, title=Ship Helsinki, dueDate=4/1/2017 12:00:00 AM, IsComplete=False]
+
+Assigned Task: 'Ship Helsinki' to user 'Anna Shrestinian'
+
+Incomplete tasks assigned to 'Anna':
+Task [id=1, title=Ship Helsinki, dueDate=4/1/2017 12:00:00 AM, IsComplete=False]
+
+Updating task: Task [id=1, title=Ship Helsinki, dueDate=4/1/2017 12:00:00 AM, IsComplete=False]
+dueDate changed: Task [id=1, title=Ship Helsinki, dueDate=6/30/2016 12:00:00 AM, IsComplete=False]
+
+Deleting all tasks with a dueDate in 2016
+Deleting task: Task [id=1, title=Ship Helsinki, dueDate=6/30/2016 12:00:00 AM, IsComplete=False]
+
+Tasks after delete:
+[None]
+All done. Press any key to finish...
+```
+
 
 > Congratulations! You just created a C# app and secured your credentials by placing them in Azure Key Vault! Check out the next section to learn about how you can **make your C# apps faster with SQL Server's Columnstore feature.**
