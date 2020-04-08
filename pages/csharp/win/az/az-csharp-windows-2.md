@@ -242,7 +242,7 @@ Done.
 All done. Press any key to finish...
 ```
 
-## Step 2.3 Create a C# app that connects to Azure SQL using the Entity Framework ORM in .NET Framework
+## Step 2.4 Create a C# app that connects to Azure SQL using the Entity Framework ORM in .NET Framework
 
 **Create a C# console application**
 
@@ -419,7 +419,7 @@ For this sample, let's create two tables. The first will hold data about "users"
 
 Copy and paste the following code into the **User.cs** file. Save and close the file.
 
-{% include partials/csharp/az-sample_users.md %}
+{% include partials/csharp/az-sample_user.md %}
 
 **Create Task.cs:**
 
@@ -447,22 +447,17 @@ Press **F5** to build and run the project.
 ```results
 ** C# CRUD sample with Entity Framework and Azure SQL **
 
-Created database schema from C# classes.
+Trying to get Password from Key Vault.  Press a key to continue...
 
-Created User: User [id=1, name=Anna Shrestinian]
-
-Created Task: Task [id=1, title=Ship Helsinki, dueDate=4/1/2017 12:00:00 AM, IsComplete=False]
-
-Assigned Task: 'Ship Helsinki' to user 'Anna Shrestinian'
+Created Task: Task [id=3, title=Ship Helsinki, dueDate=4/1/2017 12:00:00 AM, IsComplete=False]
 
 Incomplete tasks assigned to 'Anna':
-Task [id=1, title=Ship Helsinki, dueDate=4/1/2017 12:00:00 AM, IsComplete=False]
 
-Updating task: Task [id=1, title=Ship Helsinki, dueDate=4/1/2017 12:00:00 AM, IsComplete=False]
-dueDate changed: Task [id=1, title=Ship Helsinki, dueDate=6/30/2016 12:00:00 AM, IsComplete=False]
+Updating task: Task [id=3, title=Ship Helsinki, dueDate=4/1/2017 12:00:00 AM, IsComplete=False]
+dueDate changed: Task [id=3, title=Ship Helsinki, dueDate=6/30/2016 12:00:00 AM, IsComplete=False]
 
 Deleting all tasks with a dueDate in 2016
-Deleting task: Task [id=1, title=Ship Helsinki, dueDate=6/30/2016 12:00:00 AM, IsComplete=False]
+Deleting task: Task [id=3, title=Ship Helsinki, dueDate=6/30/2016 12:00:00 AM, IsComplete=False]
 
 Tasks after delete:
 [None]
