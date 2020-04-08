@@ -20,7 +20,7 @@ Open this file in your favorite text editor and replace the contents with the co
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,60 +32,65 @@ Open this file in your favorite text editor and replace the contents with the co
 
 You should already have a file called **Program.cs** in your .NET Core project located at: _~/AzureSqlColumnstoreSample_
 
-Open this file in your favorite text editor and replace the contents with the code below. Don't forget to replace the username and password with your own. Save and close the file.
+Open this file in your favorite text editor and replace the contents with the code below. Don't forget to replace the connection info with your own. Save and close the file.
 
 ```csharp
+using Microsoft.Azure.KeyVault;
+using Microsoft.Azure.KeyVault.Models;
+using Microsoft.Azure.Services.AppAuthentication;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SqlServerColumnstoreSample
+namespace AzureSqlColumnstoreSample
 {
     class Program
     {
         static void Main(string[] args)
         {
-            try
+            System.Threading.Tasks.Task task = Program.DoWork(args);
+            // Becuase this program takes user input, have a long wait.
+            var result = task.Wait(TimeSpan.FromMinutes(30));
+        }
+
+        static async System.Threading.Tasks.Task DoWork(string[] args)
+        {
+
+            Console.WriteLine("*** Azure SQL Columnstore demo ***");
+
+            // Build connection string
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+            builder.DataSource = "your_server.database.windows.net";   //  update me
+            builder.UserID = "your_user";              //  update me
+            builder.Password = await GetPasswordFromKeyVault();
+            builder.InitialCatalog = "your_database";
+
+            // Connect to Azure SQL
+            Console.Write("Connecting to Azure SQL ... ");
+            using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
             {
-                Console.WriteLine("*** SQL Server Columnstore demo ***");
-
-                // Build connection string
-                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-                builder.DataSource = "localhost";   //  update me
-                builder.UserID = "sa";              //  update me
-                builder.Password = "your_password";      // update me
-                builder.InitialCatalog = "master";
-
-                // Connect to SQL
-                Console.Write("Connecting to SQL Server ... ");
-                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                string sql;
+                try
                 {
                     connection.Open();
-                    Console.WriteLine("Done.");
-
-                    // Create a sample database
-                    Console.Write("Dropping and creating database 'SampleDB' ... ");
-                    String sql = "DROP DATABASE IF EXISTS [SampleDB]; CREATE DATABASE [SampleDB]";
-                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    string dropTable = "Drop table if exists Table_with_3M_rows";
+                    using (SqlCommand command = new SqlCommand(dropTable, connection))
                     {
                         command.ExecuteNonQuery();
-                        Console.WriteLine("Done.");
+                        Console.WriteLine("Table cleaned up.");
                     }
 
-                    // Insert 5 million rows into the table 'Table_with_5M_rows'
-                    Console.Write("Inserting 5 million rows into table 'Table_with_5M_rows'. This takes ~1 minute, please wait ... ");
+                    // Insert 5 million rows into the table 'Table_with_3M_rows'
+                    Console.Write("Inserting 3 million rows into table 'Table_with_3M_rows'. This takes ~1 minute, please wait ... ");
                     StringBuilder sb = new StringBuilder();
-                    sb.Append("USE SampleDB; ");
                     sb.Append("WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a))");
-                    sb.Append("SELECT TOP(5000000)");
+                    sb.Append("SELECT TOP(3000000)");
                     sb.Append("ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId ");
                     sb.Append(",a.a + b.a + c.a + d.a + e.a + f.a + g.a + h.a AS OrderId ");
                     sb.Append(",a.a * 10 AS Price ");
                     sb.Append(",CONCAT(a.a, N' ', b.a, N' ', c.a, N' ', d.a, N' ', e.a, N' ', f.a, N' ', g.a, N' ', h.a) AS ProductName ");
-                    sb.Append("INTO Table_with_5M_rows ");
+                    sb.Append("INTO Table_with_3M_rows ");
                     sb.Append("FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;");
                     sql = sb.ToString();
                     using (SqlCommand command = new SqlCommand(sql, connection))
@@ -99,8 +104,8 @@ namespace SqlServerColumnstoreSample
                     Console.WriteLine("Query time WITHOUT columnstore index: " + elapsedTimeWithoutIndex + "ms");
 
                     // Add a Columnstore Index
-                    Console.Write("Adding a columnstore to table 'Table_with_5M_rows'  ... ");
-                    sql = "CREATE CLUSTERED COLUMNSTORE INDEX columnstoreindex ON Table_with_5M_rows;";
+                    Console.Write("Adding a columnstore to table 'Table_with_3M_rows'  ... ");
+                    sql = "CREATE CLUSTERED COLUMNSTORE INDEX columnstoreindex ON Table_with_3M_rows;";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         command.ExecuteNonQuery();
@@ -115,18 +120,39 @@ namespace SqlServerColumnstoreSample
                     Console.WriteLine("Performance improvement with columnstore index: "
                         + Math.Round(elapsedTimeWithoutIndex / elapsedTimeWithIndex) + "x!");
                 }
-                Console.WriteLine("All done. Press any key to finish...");
-                Console.ReadKey(true);
+
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+                finally
+                {
+                    string dropTable = "Drop table if exists Table_with_3M_rows";
+                    using (SqlCommand command = new SqlCommand(dropTable, connection))
+                    {
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Table cleaned up.");
+                    }
+                }
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
+            Console.WriteLine("All done. Press any key to finish...");
+            Console.ReadKey(true);
+        }
+
+        private static async Task<string> GetPasswordFromKeyVault()
+        {
+            Console.WriteLine("Trying to get Password from Key Vault.  Press a key to continue...");
+            Console.ReadKey(true);
+            /* The next four lines of code show you how to use AppAuthentication library to fetch secrets from your key vault */
+            AzureServiceTokenProvider azureServiceTokenProvider = new AzureServiceTokenProvider();
+            KeyVaultClient keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
+            SecretBundle secret = await keyVaultClient.GetSecretAsync("https://your_keyvault_name.vault.azure.net/secrets/AppSecret"); // update me
+            return secret.Value;
         }
 
         public static double SumPrice(SqlConnection connection)
         {
-            String sql = "SELECT SUM(Price) FROM Table_with_5M_rows";
+            String sql = "SELECT SUM(Price) FROM Table_with_3M_rows";
             long startTicks = DateTime.Now.Ticks;
             using (SqlCommand command = new SqlCommand(sql, connection))
             {
@@ -154,34 +180,20 @@ cd ~/AzureSqlColumnstoreSample
 dotnet restore
 ```
 
-```results
-Restoring packages for /Users/usr1/AzureSqlColumnstoreSample/SqlServerSample.csproj...
-  Generating MSBuild file /Users/usr1/AzureSqlColumnstoreSample/obj/AzureSqlColumnstoreSample.csproj.nuget.g.props.
-  Generating MSBuild file /Users/usr1/AzureSqlColumnstoreSample/obj/AzureSqlColumnstoreSample.csproj.nuget.g.targets.
-  Writing lock file to disk. Path: /Users/usr1/AzureSqlColumnstoreSample/obj/project.assets.json
-  Restore completed in 5.79 sec for /Users/usr1/AzureSqlColumnstoreSample/AzureSqlColumnstoreSample.csproj.
-
-  NuGet Config files used:
-      /Users/usr1/.nuget/NuGet/NuGet.Config
-
-  Feeds used:
-      https://api.nuget.org/v3/index.json
-```
-
 Now build and run.
 ```terminal
 dotnet run
 ```
 
 ```results
-***Azure SQL Columnstore demo ***
-Connecting to SQL Server ... Done.
-Dropping and creating database 'SampleDB' ... Done.
-Inserting 5 million rows into table 'Table_with_5M_rows'. This takes ~1 minute, please wait ... Done.
-Query time WITHOUT columnstore index: 363.09ms
-Adding a columnstore to table 'Table_with_5M_rows'  ... Done.
-Query time WITH columnstore index: 5.123ms
-Performance improvement with columnstore index: 71x!
+*** Azure SQL Columnstore demo ***
+Trying to get Password from Key Vault.  Press a key to continue...
+Connecting to Azure SQL ... Table cleaned up.
+Inserting 3 million rows into table 'Table_with_3M_rows'. This takes ~1 minute, please wait ... Done.
+Query time WITHOUT columnstore index: 960.0711ms
+Adding a columnstore to table 'Table_with_3M_rows'  ... Done.
+Query time WITH columnstore index: 71.7226ms
+Performance improvement with columnstore index: 13x!
 All done. Press any key to finish...
 ```
 
