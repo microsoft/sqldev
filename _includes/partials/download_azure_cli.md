@@ -7,4 +7,6 @@
 az login
 ```
 
+**Please Note** You may have to login again to your machine after restart or long periods of inactivity.
+
 At this time, you have authenticated yourself and your machine to Azure, so your application can connect. 
