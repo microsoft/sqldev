@@ -24,4 +24,10 @@ Visual Studio Community edition is a fully-featured, extensible, free IDE for cr
 1. Download the installer from **[here](https://www.visualstudio.com/thank-you-downloading-visual-studio/?sku=Community&rel=15)**.
 1. Run the installer and follow the installation prompts to complete the installation.
 
-> You have successfully installed Visual Studio Community Edition and the .NET Framework on your Windows machine. You now have everything you need to start writing your C# apps with SQL Server!
+## Step 1.3 Install The Azure CLI and Login to Azure
+
+{% include partials/download_azure_cli.md %}
+
+> You have successfully installed Visual Studio Community Edition and the .NET Framework on your Windows machine, and connected to Azure using the command line interface. You now have everything you need to start writing your C# apps with SQL Server!
+
+

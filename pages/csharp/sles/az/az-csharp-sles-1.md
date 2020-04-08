@@ -26,4 +26,8 @@ mkdir -p ~/dotnet && tar zxf dotnet.tar.gz -C ~/dotnet
 export PATH=$PATH:$HOME/dotnet
 ```
 
-> You have successfully installed .NET Core on your SLES machine. You now have everything you need to start writing your C# apps with SQL Server!
+## Step 1.3 Install The Azure CLI and Login to Azure
+
+{% include partials/download_azure_cli.md %}
+
+> You have successfully installed .NET Core on your SLES machine, and authenticated to Azure. You now have everything you need to start writing your C# apps with Azure SQL!
