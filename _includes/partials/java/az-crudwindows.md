@@ -60,13 +60,11 @@ Save and close the file.
   <version>1.0.0</version>
 
   <name>AzureSqlSample</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -206,7 +204,7 @@ public class App {
 
         System.out.println("Connect to Azure SQL and demo Create, Read, Update and Delete operations.");
 
-        //Update the username and password below
+        //Update the connection information below
         String connectionUrl = "jdbc:sqlserver://your_server_name.database.windows.net;databaseName=your_database_name;user=your_user;password=your_password";
 
         try {
@@ -418,24 +416,29 @@ Save and close the file.
       <scope>test</scope>
     </dependency>
     <!-- add the JDBC Driver -->
-        <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
-            <version>7.0.0.jre8</version>
-        </dependency>
-        <!-- add Hibernate -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.2.3.Final</version>
-        </dependency>
-<dependency>
-    <groupId>javax.xml.bind</groupId>
-     <artifactId>jaxb-api</artifactId>
-    <version>2.3.0</version>
- </dependency>
+    <dependency>
+        <groupId>com.microsoft.sqlserver</groupId>
+        <artifactId>mssql-jdbc</artifactId>
+        <version>7.0.0.jre8</version>
+    </dependency>
+    <!-- add Hibernate -->
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>5.2.3.Final</version>
+    </dependency>
+    <dependency>
+        <groupId>org.javassist</groupId>
+        <artifactId>javassist</artifactId>
+        <version>3.23.1-GA</version>
+    </dependency>
+    <dependency>
+        <groupId>javax.xml.bind</groupId>
+        <artifactId>jaxb-api</artifactId>
+        <version>2.3.0</version>
+     </dependency>
   </dependencies>
- <properties>
+  <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
