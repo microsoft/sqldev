@@ -9,7 +9,7 @@
               {% assign submenu_name = submenu[0] %}
               {% assign submenu_options = submenu[1] %}
 
-              <div class="sql-menutop-sub {%if page.language == submenu_name %} is-active {% endif %}">
+              <div class="sql-menutop-sub {%if page.language == submenu_name %} is-active {% endif %}" tabindex="0">
                   {%if submenu_options %}
                     {% for option in submenu_options %}
                       {% assign key = option[0] %}
