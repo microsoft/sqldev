@@ -105,6 +105,12 @@
             }
         }
     }
+    
+          
+    &-sub:focus-within &-items {
+        animation: menu-block-cursor $animation-speed-default * .8 forwards; // change time to have the click event just in time
+        display: block;
+    }
 
     &-sub:hover &-link {
         color: $color-brand;
