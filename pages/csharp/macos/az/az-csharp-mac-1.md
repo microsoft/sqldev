@@ -2,9 +2,11 @@
 layout: page-steps
 language: C#
 title: macOS and Azure SQL
-permalink: /csharp/macos/az/step/1
+permalink: /csharp/macos/az
 redirect_from:
+  - /csharp/macos/az/step/1
   - /csharp/macos/az/step/
+  - /csharp/macos/az/1
 ---
 
 > In this section, you will get setup an Azure SQL instance. After that you will install the necessary dependencies to create .NET Core apps with Auzre SQL.
