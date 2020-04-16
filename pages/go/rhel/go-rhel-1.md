@@ -2,10 +2,11 @@
 layout: page-steps
 language: Go
 title: RHEL
-permalink: /go/rhel/
+permalink: go/rhel/lh/
 
 redirect_from:
   - /go/
+  - /go/rhel/
   - /go/rhel/step/
   - /go/rhel/step/1
 ---

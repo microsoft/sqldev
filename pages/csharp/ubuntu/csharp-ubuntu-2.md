@@ -2,7 +2,7 @@
 layout: page-steps
 language: C#
 title: Ubuntu
-permalink: /csharp/ubuntu/step/2
+permalink: /csharp/ubuntu/lh/step/2
 ---
 
 {% include partials/csharp/crudunix.md %}

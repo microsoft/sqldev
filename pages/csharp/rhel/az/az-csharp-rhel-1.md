@@ -2,7 +2,7 @@
 layout: page-steps
 language: C#
 title: RHEL and Azure SQL
-permalink: /csharp/rhel/az/
+permalink: csharp/rhel/az/
 redirect_from:
   - /rhel/az/
   - /csharp/rhel/az/step/

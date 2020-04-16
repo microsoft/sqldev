@@ -2,9 +2,10 @@
 layout: page-steps
 language: C#
 title: RHEL
-permalink: /csharp/rhel/
+permalink: csharp/rhel/lh/
 redirect_from:
   - /rhel/
+  - /csharp/rhel/
   - /csharp/rhel/step/
   - /csharp/rhel/step/1
 ---
