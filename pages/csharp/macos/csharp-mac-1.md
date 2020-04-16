@@ -2,9 +2,10 @@
 layout: page-steps
 language: C#
 title: macOS
-permalink: /csharp/macos/
+permalink: csharp/macos/lh/
 redirect_from:
   - /csharp/
+  - /csharp/macos/
   - /csharp/macos/step/
   - /csharp/macos/step/1
 ---

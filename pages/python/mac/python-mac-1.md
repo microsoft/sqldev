@@ -2,9 +2,11 @@
 layout: page-steps
 language: Python
 title: macOS
-permalink: /python/mac/
+permalink: python/macos/lh/
 redirect_from:
   - /python/
+  - /python/macos/
+  - /python/mac/
   - /python/mac/step/
   - /python/mac/step/1
 ---

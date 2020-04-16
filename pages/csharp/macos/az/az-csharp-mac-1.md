@@ -2,7 +2,7 @@
 layout: page-steps
 language: C#
 title: macOS and Azure SQL
-permalink: /csharp/macos/az
+permalink: csharp/macos/az/
 redirect_from:
   - /csharp/macos/az/step/1
   - /csharp/macos/az/step/

@@ -2,9 +2,10 @@
 layout: page-steps
 language: Python
 title: RHEL
-permalink: /python/rhel/
+permalink: python/rhel/lh/
 redirect_from:
   - /python/
+  - /python/rhel/
   - /python/rhel/step/
   - /python/rhel/step/1
 ---

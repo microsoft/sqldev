@@ -2,9 +2,10 @@
 layout: page-steps
 language: PHP
 title: Ubuntu
-permalink: /php/ubuntu/
+permalink: php/ubuntu/lh/
 redirect_from:
   - /php/
+  - /php/ubuntu/
   - /php/ubuntu/step/
   - /php/ubuntu/step/1
 ---

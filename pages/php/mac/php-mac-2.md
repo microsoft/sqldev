@@ -2,7 +2,7 @@
 layout: page-steps
 language: PHP
 title: macOS
-permalink: /php/mac/step/2
+permalink: /php/macos/lh/step/2
 ---
 
 {% include partials/php/crudmac.md %}

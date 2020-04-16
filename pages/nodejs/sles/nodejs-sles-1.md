@@ -2,9 +2,10 @@
 layout: page-steps
 language: Node.js
 title: SLES
-permalink: /node/sles/
+permalink: node/sles/lh/
 redirect_from:
   - /node/
+  - /node/sles/
   - /node/sles/step/
   - /node/sles/step/1
 ---

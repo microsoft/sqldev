@@ -2,9 +2,10 @@
 layout: page-steps
 language: Ruby
 title: Ubuntu
-permalink: /ruby/ubuntu/
+permalink: ruby/ubuntu/lh/
 redirect_from:
   - /ruby/
+  - /ruby/ubuntu/
   - /ruby/ubuntu/step/
   - /ruby/ubuntu/step/1
 ---

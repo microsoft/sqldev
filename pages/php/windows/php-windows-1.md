@@ -2,9 +2,10 @@
 layout: page-steps
 language: PHP
 title: Windows
-permalink: /php/windows/
+permalink: php/windows/lh/
 redirect_from:
   - /php/
+  - /php/windows/
   - /php/windows/step/
   - /php/windows/step/1
 ---
