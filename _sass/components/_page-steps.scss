@@ -2,7 +2,7 @@
 
 .sql-page_steps {
     $pages: Terminal, SQL, JavaScript, Results, Java, XML, Csharp, PHP, Python, Ruby, Javascript;
-    $colors: #295651, #8A0F1B, #AB9807, #458B00, #C9720E, #1C66DD, #8000FF, #8DB6CD, #54D35D, #AA3333, #ab9807;
+    $colors: #295651, #8A0F1B, #907307, #458500, #B2620E, #1C66DD, #8000FF, #008299, #1C7B1C, #AA3333, #907307;
 
     &-hero {
         $padding: 2rem;
@@ -144,7 +144,6 @@
     $padding-title: 1rem;
     &-block {
         background-color: $color-background-bright;
-        box-shadow: inset 0 $padding-title * 3 0 $color-secondary;
         margin-bottom: 2.5rem;
         padding-bottom: $padding-block / 2;
         padding-left: $padding-block * 2;
@@ -152,10 +151,12 @@
     }
 
     &-title {
+        background-color: $color-secondary;
         color: $color-foreground-brighter;
         font-size: $font-size-l;
         margin-bottom: 1.5rem;
         margin-left: - $padding-block * 2;
+        margin-right: -$padding-block;
         margin-top: 1rem;
         padding-bottom: $padding-title;
         padding-left: $padding-title * 2;
@@ -251,9 +252,18 @@
 
         p,
         ol,
-        div {
+        div,
+        button {
             margin-top: 1rem;
             margin-bottom: .5rem;
+        }
+
+        button {
+            appearance: none;
+            border: none;
+            color: #F8F8F2;
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+            line-height: 1.5;
         }
 
         ol {

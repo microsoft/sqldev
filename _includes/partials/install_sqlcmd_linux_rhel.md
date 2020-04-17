@@ -1,4 +1,4 @@
-[SQLCMD](https://docs.microsoft.com/sql/linux/sql-server-linux-connect-and-query-sqlcmd){:target="_blank"} is a command line tool that enables you to connect to SQL Server and run queries.
+[SQLCMD](https://docs.microsoft.com/sql/linux/sql-server-linux-connect-and-query-sqlcmd){:target="_blank" rel="noopener noreferrer"} is a command line tool that enables you to connect to SQL Server and run queries.
 
 ```terminal
 sudo su
