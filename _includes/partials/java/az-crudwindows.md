@@ -370,10 +370,10 @@ You need to add the required dependencies to the pom.xml to get the appropriate 
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.sqlsamples</groupId>
-  <artifactId>AzureSqlKeyVaultSample</artifactId>
+  <artifactId>AzureSqlSample</artifactId>
   <version>1.0.0</version>
 
-  <name>AzureSqlKeyVaultSample</name>
+  <name>AzureSqlSample</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -466,13 +466,34 @@ You need to add the required dependencies to the pom.xml to get the appropriate 
 
 **Set up your environment to Authenticate to Azure Key Vault**
 
-https://docs.microsoft.com/en-us/azure/key-vault/quick-create-java  
+This section takes you through the steps described [**on this site**](https://docs.microsoft.com/en-us/azure/key-vault/quick-create-java) to set up your machine for authentication to the key vault.  You need to do this to use the **DefaultAzureCredentialBuilder()**.
+
+1. Open a command window and execute **az login** if you have not already.
+1. Create a service prinicpal (make sure you take note of the output, as you will use it in the next two steps.):
+
+```terminal
+az ad sp create-for-rbac -n "http://mySP" --sdk-auth
+```
+
+1. Give the serpvice prinicpal access to your key vault.
+
+```terminal
+az keyvault set-policy -n <your-unique-keyvault-name> --spn <clientId-of-your-service-principal> --secret-permissions delete get list set --key-permissions create decrypt delete encrypt get list unwrapKey wrapKey
+```
+
+1. Set environment variables.  You can do this from the command line in the following way:
+
+```terminal
+setx AZURE_CLIENT_ID <your_client_id>
+setx AZURE_CLIENT_SECRET <your_client_secret>
+setx AZURE_TENANT_ID <your_tenantID>
+setx KEY_VAULT_NAME <your_key_vault_name>
+```
+
+**Update your App.java to use the Key Vault for Authentication**
 
 Now we add calls to the Key Vault libraries, and your final code should look like the following. It's OK to just copy/paste this code and replace the code in App.java with this, updating your database connection info and keyvault name afterwards.
-Before trying to execute, be sure that your machine is authenticated to Azure (see Step 1.  Make sure you have executed az login).  Otherwise you will have trouble connecting to the key vault.
 
-
-Now, copy/paste this code into your App.Java (TODO: update path.)
 
 ```java
 package com.sqlsamples;
