@@ -2,10 +2,9 @@
 layout: page-steps
 language: Java
 title: Windows and Azure SQL
-permalink: /java/windows/az
+permalink: /java/windows/az/step/1
 redirect_from:
   - /java/windows/az/step/
-  - /java/windows/az/step/1
 ---
 
 > In this section, you create an Azure Hosted SQL Database. After that you will install the necessary dependencies to create .NET Framework apps with SQL Server. 
@@ -27,13 +26,6 @@ Install the **Java Long-terms supoort for Azure** by following the steps below.
   Java --version
 ```
 
-Add the JDK to your PATH environment variable (Not sure if this is required after installing from above...TBD)
-
-1. Press start
-2. Search for "Advanced System Settings"
-3. Click on the "Environment Variables" button
-4. Add the location of the bin folder of the JDK installation to the PATH variable in **System Variables**. The following is a typical value for the PATH variable: C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Java\jdk1.8.0\bin
-
 ## 1.3 Install Maven
 
 [Maven](https://maven.apache.org/) can be used to help manage dependencies, build, test and run your Java project. Follow the instructions below to install Maven.
@@ -46,9 +38,9 @@ Add the Maven bin directory to your PATH environment variable and add the JRE to
 1. Press start 
 2. Search for "Advanced System Settings" 
 3. Click on the "Environment Variables" button 
-4. Add the location of the bin folder of the Maven installation to the PATH variable 
+4. Add the location of the bin folder of the Maven installation to the PATH variable in **System Variables**. The following is a typical value for the PATH variable: C:\WINDOWS\system32;C:\WINDOWS;C:\Maven\bin
 5. Create a new System Variable for "JAVA_HOME" and point it to the JDK folder (ex. C:\Program Files\Zulu-11)
-6. Check that Maven was installed properly by running the following command.
+6. Check that Maven was installed properly by opening a new command window (to refresh the variables), and then running the following command.
 
 ```terminal
   mvn --version

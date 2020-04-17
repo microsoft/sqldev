@@ -131,7 +131,7 @@ Save and close the file.
 
 You should already have a file called **App.java** in your Maven project located at: AzureSqlSample\src\main\java\com\sqlsamples\App.java
 
-Open this file in your favorite text editor and replace the contents with the code below. Don't forget to replace the username and password with your own. Save and close the file.
+Open this file in your favorite text editor and replace the contents with the code below. Don't forget to replace the connection information with your own. Save and close the file.
 
 ```java
 package com.sqlsamples;
@@ -187,7 +187,7 @@ Connecting to SQL Server ...
 Done.
 ```
 
-Now replace the code in App.java by opening the file in your favorite text editor and copying and pasting the code below into the file. This will create a database and a table, and will insert, update, delete, and read a few rows. Don't forget to update the username and password with your own. Save and close the file.
+Now replace the code in App.java by opening the file in your favorite text editor and copying and pasting the code below into the file. This will create a database and a table, and will insert, update, delete, and read a few rows. Don't forget to update the connection information with your own. Save and close the file.
 
 ```java
 package com.sqlsamples;
@@ -204,7 +204,7 @@ public class App {
 
         System.out.println("Connect to Azure SQL and demo Create, Read, Update and Delete operations.");
 
-        //Update the connection information below
+        // Update the connection information below
         String connectionUrl = "jdbc:sqlserver://your_server_name.database.windows.net;databaseName=your_database_name;user=your_user;password=your_password";
 
         try {
@@ -352,7 +352,309 @@ Table cleaned up.
 
 >You created your first Java + Azure SQL app with Maven! Check out the next section to create a Java App using an ORM!
 
-## Step 2.3 Create a Java app that connects to SQL Server using the popular framework Hibernate
+## Step 2.3 Secure your app by putting Credentials in Azure Key Vault
+
+**Create an Azure Key Vault and put your Secret into it.**
+
+{% include partials/create_key_vault_and_store_creds.md %}
+
+**Add required dependencies to pom.xml**
+
+You need to add the required dependencies to the pom.xml to get the appropriate packages for referencing the key vault.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.sqlsamples</groupId>
+  <artifactId>AzureSqlKeyVaultSample</artifactId>
+  <version>1.0.0</version>
+
+  <name>AzureSqlKeyVaultSample</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>com.microsoft.sqlserver</groupId>
+        <artifactId>mssql-jdbc</artifactId>
+        <version>7.0.0.jre8</version>
+    </dependency>
+<dependency>
+    <groupId>com.azure</groupId>
+    <artifactId>azure-security-keyvault-secrets</artifactId>
+    <version>4.0.1</version>
+</dependency>
+
+<dependency>
+    <groupId>com.azure</groupId>
+    <artifactId>azure-security-keyvault-keys</artifactId>
+    <version>4.0.0</version>
+</dependency>
+<dependency>
+    <groupId>com.azure</groupId>
+    <artifactId>azure-identity</artifactId>
+    <version>1.0.4</version>
+</dependency>
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-jdk14</artifactId>
+    <version>1.7.25</version>
+</dependency>
+  </dependencies>
+
+  <build>
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+      <plugins>
+        <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+        <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
+        <plugin>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.7.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>3.0.0</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>
+```
+
+**Set up your environment to Authenticate to Azure Key Vault**
+
+https://docs.microsoft.com/en-us/azure/key-vault/quick-create-java  
+
+Now we add calls to the Key Vault libraries, and your final code should look like the following. It's OK to just copy/paste this code and replace the code in App.java with this, updating your database connection info and keyvault name afterwards.
+Before trying to execute, be sure that your machine is authenticated to Azure (see Step 1.  Make sure you have executed az login).  Otherwise you will have trouble connecting to the key vault.
+
+
+Now, copy/paste this code into your App.Java (TODO: update path.)
+
+```java
+package com.sqlsamples;
+
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.DriverManager;
+
+import com.azure.identity.DefaultAzureCredentialBuilder;
+import com.azure.security.keyvault.secrets.SecretClient;
+import com.azure.security.keyvault.secrets.models.KeyVaultSecret;
+import com.azure.security.keyvault.secrets.SecretClientBuilder;
+
+public class App {
+
+    public static void main(String[] args) {
+
+        System.out.println("Connect to Azure SQL and demo Create, Read, Update and Delete operations.");
+
+	// Get the key vault secret
+	//
+	System.out.println("Fetching Secret from Key Vault.");
+	SecretClient secretClient = new SecretClientBuilder()
+		 .vaultUrl("https://your_keyvault_name.vault.azure.net/")
+		 .credential(new DefaultAzureCredentialBuilder().build())
+		 .buildClient();
+	KeyVaultSecret secret = secretClient.getSecret("AppSecret");
+	System.out.println("Secret Fetched.");
+
+        // Update the connection information below
+        String connectionUrl = "jdbc:sqlserver://your_server.database.windows.net;databaseName=your_db;user=your_user;password=" + secret.getValue();
+
+        try {
+            // Load Azure SQL JDBC driver and establish connection.
+            System.out.print("Connecting to Azure SQL ... ");
+            try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+                System.out.println("Done.");
+
+		// Delete the Employees table if it exists
+		try (Statement statement = connection.createStatement()) {
+                    statement.executeUpdate("Drop table if exists Employees");
+                    System.out.println("Done.");
+		} catch (Exception e) {
+	            System.out.println();
+        	    e.printStackTrace();
+		}
+
+                // Create a Table and insert some sample data
+                System.out.print("Creating sample table with data, press ENTER to continue...");
+                System.in.read();
+                String sql = new StringBuilder().append("CREATE TABLE Employees ( ")
+                        .append(" Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ").append(" Name NVARCHAR(50), ")
+                        .append(" Location NVARCHAR(50) ").append("); ")
+                        .append("INSERT INTO Employees (Name, Location) VALUES ").append("(N'Jared', N'Australia'), ")
+                        .append("(N'Nikita', N'India'), ").append("(N'Tom', N'Germany'); ").toString();
+                try (Statement statement = connection.createStatement()) {
+                    statement.executeUpdate(sql);
+                    System.out.println("Done.");
+                }
+
+                // INSERT demo
+                System.out.print("Inserting a new row into table, press ENTER to continue...");
+                System.in.read();
+                sql = new StringBuilder().append("INSERT Employees (Name, Location) ").append("VALUES (?, ?);")
+                        .toString();
+                try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                    statement.setString(1, "Jake");
+                    statement.setString(2, "United States");
+                    int rowsAffected = statement.executeUpdate();
+                    System.out.println(rowsAffected + " row(s) inserted");
+                }
+
+                // UPDATE demo
+                String userToUpdate = "Nikita";
+                System.out.print("Updating 'Location' for user '" + userToUpdate + "', press ENTER to continue...");
+                System.in.read();
+                sql = "UPDATE Employees SET Location = N'United States' WHERE Name = ?";
+                try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                    statement.setString(1, userToUpdate);
+                    int rowsAffected = statement.executeUpdate();
+                    System.out.println(rowsAffected + " row(s) updated");
+                }
+
+                // DELETE demo
+                String userToDelete = "Jared";
+                System.out.print("Deleting user '" + userToDelete + "', press ENTER to continue...");
+                System.in.read();
+                sql = "DELETE FROM Employees WHERE Name = ?;";
+                try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                    statement.setString(1, userToDelete);
+                    int rowsAffected = statement.executeUpdate();
+                    System.out.println(rowsAffected + " row(s) deleted");
+                }
+
+                // READ demo
+                System.out.print("Reading data from table, press ENTER to continue...");
+                System.in.read();
+                sql = "SELECT Id, Name, Location FROM Employees;";
+                try (Statement statement = connection.createStatement();
+                        ResultSet resultSet = statement.executeQuery(sql)) {
+                    while (resultSet.next()) {
+                        System.out.println(
+                                resultSet.getInt(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3));
+                    }
+                }
+                connection.close();
+                System.out.println("All done.");
+            }
+        } catch (Exception e) {
+            System.out.println();
+            e.printStackTrace();
+	}
+	finally {
+
+		try (Connection connection = DriverManager.getConnection(connectionUrl)){
+                // Delete the Employees table if it exists
+		Statement statement = connection.createStatement();
+                statement.executeUpdate("Drop table if exists Employees");
+                System.out.println("Table cleaned up.");
+		} catch (Exception e) {
+	            System.out.println();
+        	    e.printStackTrace();
+		}
+	}
+    }
+}
+```
+
+Now, build and run the program:
+
+```terminal
+mvn package
+```
+
+```results
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] Building AuzreSqlSample1.0.0
+[INFO] ------------------------------------------------------------------------
+...
+[INFO] --- maven-jar-plugin:3.0.2:jar (default-jar) @ AzureSqlKeyVaultSample ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.462 s
+[INFO] Finished at: 2020-04-17T11:29:54-07:00
+[INFO] ------------------------------------------------------------------------
+```
+
+Now run the application. You can remove the "-q" in the command below to show info messages from Maven.
+
+```terminal
+mvn -q exec:java "-Dexec.mainClass=com.sqlsamples.App"
+```
+
+```results
+Connect to Azure SQL and demo Create, Read, Update and Delete operations.
+Fetching Secret from Key Vault.
+Secret Fetched.
+Connecting to Azure SQL ... Done.
+Done.
+Creating sample table with data, press ENTER to continue...
+Done.
+Inserting a new row into table, press ENTER to continue...1 row(s) inserted
+Updating 'Location' for user 'Nikita', press ENTER to continue...
+1 row(s) updated
+Deleting user 'Jared', press ENTER to continue...1 row(s) deleted
+Reading data from table, press ENTER to continue...
+2 Nikita United States
+3 Tom Germany
+4 Jake United States
+All done.
+Table cleaned up.
+```
+
+Now, you have secured your credentials in azure key vault, and fetched them for use in your application!  Now, lets look at using ORM to something something transition words.
+
+
+## Step 2.4 Create a Java app that connects to SQL Server using the popular framework Hibernate
 
 In your home directory, create your Maven starter package. This will create the project directory with a basic Maven project and pom.xml file. This step can also be performed in an IDE such as NetBeans or Eclipse.
 
@@ -616,7 +918,7 @@ public class Task {
 
 Replace the code in the **App.java** file in your Maven project located at: AzureSqlHibernateSample\src\main\java\com\sqlsamples\App.java.
 
-Open this file in your favorite text editor and replace the contents with the code below. Don't forget to update the username and password with your own. Save and close the file.
+Open this file in your favorite text editor and replace the contents with the code below. Don't forget to update the connection information. Save and close the file.
 
 ```java
 package com.sqlsamples;
