@@ -48,7 +48,10 @@ pre[class*="language-"] {
 	white-space: normal;
 }
 
-.token.comment,
+.token.comment {
+	color: #6A9B49;
+}
+
 .token.prolog,
 .token.doctype,
 .token.cdata {
@@ -68,7 +71,7 @@ pre[class*="language-"] {
 .token.constant,
 .token.symbol,
 .token.deleted {
-	color: #f92672;
+	color: #F93FAF;
 }
 
 .token.boolean,
@@ -127,7 +130,7 @@ div.prism-show-language {
 
 div.prism-show-language > div.prism-show-language-label {
 	color: white;
-	background-color: #CFCFCF;
+	background-color: #757575;
 	display: inline-block;
 	position: absolute;
 	bottom: auto;
@@ -147,7 +150,6 @@ div.prism-show-language > div.prism-show-language-label {
 	-ms-transform: none;
 	-o-transform: none;
 	transform: none;
-	opacity: 0.8;
 }
 
 .prism-previewer,

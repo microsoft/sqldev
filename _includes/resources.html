@@ -5,6 +5,7 @@
         </h3>
         <a class="sql-resources-button"
             target="_blank"
+            rel="noopener noreferrer"
             href="https://msdn.microsoft.com/en-us/library/mt590198(v=sql.1).aspx">
             Read the SQL Server documentation
         </a>
@@ -20,7 +21,7 @@
                     {% assign item = resource[1] %}
                     {% if item.condition == null or item.condition == page.language %}
                         <li class="sql-resources-item">
-                            {{item.pre}} <a class="sql-resources-link" href="{{item.link}}" target="_blank">{{item.text}}</a>
+                            {{item.pre}} <a class="sql-resources-link" href="{{item.link}}" target="_blank" rel="noopener noreferrer">{{item.text}}</a>
                         </li>
                     {% endif %}
                 {% endfor %}
