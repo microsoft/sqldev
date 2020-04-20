@@ -7,7 +7,6 @@ To showcase the capabilities of Columnstore indexes, let's create a Java applica
 Change to your home directory. Create your Maven starter package. This will create the project directory with a basic Maven project and pom.xml file.
 
 ```terminal
-cd ~/
 mvn archetype:generate -DgroupId=com.sqlsamples -DartifactId=AzureSqlColumnstoreSample -DarchetypeArtifactId=maven-archetype-quickstart -Dversion=1.0.0
 ```
 
@@ -65,6 +64,27 @@ Save and close the file.
             <artifactId>mssql-jdbc</artifactId>
             <version>7.0.0.jre8</version>
         </dependency>
+    <!-- Add Key Vault -->
+    <dependency>
+    <groupId>com.azure</groupId>
+        <artifactId>azure-security-keyvault-secrets</artifactId>
+        <version>4.0.1</version>
+    </dependency>
+    <dependency>
+        <groupId>com.azure</groupId>
+        <artifactId>azure-security-keyvault-keys</artifactId>
+        <version>4.0.0</version>
+    </dependency>
+    <dependency>
+        <groupId>com.azure</groupId>
+        <artifactId>azure-identity</artifactId>
+        <version>1.0.4</version>
+    </dependency>
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-jdk14</artifactId>
+        <version>1.7.25</version>
+    </dependency>
     </dependencies>
     <properties>
         <!-- specify which version of Java to build against-->
@@ -93,14 +113,29 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import com.azure.identity.DefaultAzureCredentialBuilder;
+import com.azure.security.keyvault.secrets.SecretClient;
+import com.azure.security.keyvault.secrets.models.KeyVaultSecret;
+import com.azure.security.keyvault.secrets.SecretClientBuilder;
+
 public class App {
 
     public static void main(String[] args) {
 
         System.out.println("*** Azure SQL Columnstore demo ***");
 
+        // Get the key vault secret
+	//
+	System.out.println("Fetching Secret from Key Vault.");
+	SecretClient secretClient = new SecretClientBuilder()
+		 .vaultUrl("https://your_keyvault_name.vault.azure.net/")
+		 .credential(new DefaultAzureCredentialBuilder().build())
+		 .buildClient();
+	KeyVaultSecret secret = secretClient.getSecret("AppSecret");
+	System.out.println("Secret Fetched.");
+
         // Update the connection information below
-        String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=master;user=sa;password=your_password";
+        String connectionUrl = "jdbc:sqlserver://your_server.database.windows.net;databaseName=your_db;user=your_user;password=" + secret.getValue();
 
         // Load SQL Server JDBC driver and establish connection.
         try {
@@ -111,7 +146,7 @@ public class App {
 
                 // Create an example database
                 System.out.print("Dropping Table if already created ... ");
-                String sql = "DROP TABLE IF EXISTS [Table_with_3M_rows];"
+                String sql = "DROP TABLE IF EXISTS [Table_with_3M_rows];";
                 try (Statement statement = connection.createStatement()) {
                     statement.executeUpdate(sql);
                     System.out.println("Done.");
@@ -158,6 +193,18 @@ public class App {
             System.out.println("");
             e.printStackTrace();
         }
+        finally {
+
+		try (Connection connection = DriverManager.getConnection(connectionUrl)){
+                // Delete the Employees table if it exists
+		Statement statement = connection.createStatement();
+                statement.executeUpdate("Drop table if exists Table_with_3M_rows");
+                System.out.println("Table cleaned up.");
+		} catch (Exception e) {
+	            System.out.println();
+        	    e.printStackTrace();
+		}
+	}
     }
 
     public static long SumPrice(Connection connection) {
@@ -180,7 +227,6 @@ public class App {
 Build the project and create a jar package using the following command:
 
 ```terminal
-cd ~/AzureSqlColumnstoreSample
 mvn package
 ```
 
@@ -210,13 +256,16 @@ mvn -q exec:java -Dexec.mainClass=com.sqlsamples.App
 
 ```results
 *** Azure SQL Columnstore demo ***
+Fetching Secret from Key Vault.
+Secret Fetched.
 Connecting to Azure SQL ... Done.
 Dropping Table if already created ... Done.
 Inserting 3 million rows into table 'Table_with_3M_rows'. This takes ~1 minute, please wait ... Done.
-Query time WITHOUT columnstore index: 1529ms
+Query time WITHOUT columnstore index: 1534ms
 Adding a columnstore to table 'Table_with_3M_rows'  ... Done.
 Query time WITH columnstore index: 78ms
 Performance improvement with columnstore index: 19x!
+Table cleaned up.
 ```
 
 > Congratulations! You just made your Java app faster using Columnstore Indexes!
