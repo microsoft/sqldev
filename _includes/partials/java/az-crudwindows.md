@@ -183,7 +183,7 @@ mvn -q exec:java "-Dexec.mainClass=com.sqlsamples.App"
 ```
 
 ```results
-Connecting to SQL Server ...
+Connecting to Azure SQL ...
 Done.
 ```
 
@@ -350,7 +350,7 @@ All done.
 Table cleaned up.
 ```
 
->You created your first Java + Azure SQL app with Maven! Check out the next section to create a Java App using an ORM!
+>You created your first Java + Azure SQL app with Maven!  Now try securing your credentials in Azure Key Vault.
 
 ## Step 2.3 Secure your app by putting Credentials in Azure Key Vault
 
@@ -673,7 +673,7 @@ All done.
 Table cleaned up.
 ```
 
-> Now, you have secured your credentials in azure key vault, and fetched them for use in your application!  Now, lets look at using ORM to something something transition words.
+> Now, you have secured your credentials in azure key vault, and fetched them for use in your application!  Check out the next section to create a Java App using an ORM!
 
 ## Step 2.4 Create a Java app that connects to SQL Server using the popular framework Hibernate
 
