@@ -128,7 +128,7 @@ public class App {
 	//
 	System.out.println("Fetching Secret from Key Vault.");
 	SecretClient secretClient = new SecretClientBuilder()
-		 .vaultUrl("https://your_keyvault_name.vault.azure.net/")
+		 .vaultUrl("https://your_keyvault_name.vault.azure.net/")  // Update me
 		 .credential(new DefaultAzureCredentialBuilder().build())
 		 .buildClient();
 	KeyVaultSecret secret = secretClient.getSecret("AppSecret");

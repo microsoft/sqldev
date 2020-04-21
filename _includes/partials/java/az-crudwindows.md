@@ -183,7 +183,7 @@ mvn -q exec:java "-Dexec.mainClass=com.sqlsamples.App"
 ```
 
 ```results
-Connecting to SQL Server ...
+Connecting to Azure SQL ...
 Done.
 ```
 
@@ -350,7 +350,7 @@ All done.
 Table cleaned up.
 ```
 
->You created your first Java + Azure SQL app with Maven! Check out the next section to create a Java App using an ORM!
+>You created your first Java + Azure SQL app with Maven!  Now try securing your credentials in Azure Key Vault.
 
 ## Step 2.3 Secure your app by putting Credentials in Azure Key Vault
 
@@ -637,7 +637,7 @@ mvn package
 [INFO] Building AuzreSqlSample1.0.0
 [INFO] ------------------------------------------------------------------------
 ...
-[INFO] --- maven-jar-plugin:3.0.2:jar (default-jar) @ AzureSqlKeyVaultSample ---
+[INFO] --- maven-jar-plugin:3.0.2:jar (default-jar) @ AzureSqlSample ---
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
@@ -651,6 +651,7 @@ Now run the application. You can remove the "-q" in the command below to show in
 ```terminal
 mvn -q exec:java "-Dexec.mainClass=com.sqlsamples.App"
 ```
+
 
 ```results
 Connect to Azure SQL and demo Create, Read, Update and Delete operations.
@@ -672,8 +673,7 @@ All done.
 Table cleaned up.
 ```
 
-Now, you have secured your credentials in azure key vault, and fetched them for use in your application!  Now, lets look at using ORM to something something transition words.
-
+> Now, you have secured your credentials in azure key vault, and fetched them for use in your application!  Check out the next section to create a Java App using an ORM!
 
 ## Step 2.4 Create a Java app that connects to SQL Server using the popular framework Hibernate
 
@@ -797,40 +797,31 @@ Copy and paste the code below into your newly created **User.java** file. Save a
 ```java
 package com.sqlsamples;
 
-import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
 
 @Entity
-@Table(name = "Tasks")
-public class Task {
+@Table(name = "Users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
-    private String title;
-    private Boolean isComplete;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dueDate;
+    private String firstName;
+    private String lastName;
 
-    // Specify a Many:1 mapping between Task and User
-    @ManyToOne
-    private User user;
+    // Specify a 1:Many mapping between User and Task via the "user" field in
+    // the "Tasks" class.
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Task> tasks = new ArrayList<Task>();
 
-    public Task() {
+    public User() {
     }
 
-    public Task(String title, Date dueDate) {
-        this.title = title;
-        this.dueDate = dueDate;
-        this.isComplete = false;
-    }
-
-    public Task(String title, Date dueDate, User user) {
-        this.title = title;
-        this.dueDate = dueDate;
-        this.isComplete = false;
-        this.user = user;
+    public User(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public Long getId() {
@@ -841,35 +832,37 @@ public class Task {
         this.id = id;
     }
 
-    public String getTitle() {
-        return this.title;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public User getUser() {
-        return this.user;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public Date getDueDate() {
-        return this.dueDate;
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
     }
 
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override
     public String toString() {
-        SimpleDateFormat ft = new SimpleDateFormat("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
-        return "Task [id=" + this.id + ", title=" + this.title + ", dueDate=" + ft.format(this.dueDate)
-                + ", isComplete=" + this.isComplete.toString() + "]";
+        return "User [id=" + this.id + ", name=" + this.getFullName() + "]";
     }
 }
 ```
@@ -974,15 +967,20 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import com.azure.identity.DefaultAzureCredentialBuilder;
+import com.azure.security.keyvault.secrets.SecretClient;
+import com.azure.security.keyvault.secrets.models.KeyVaultSecret;
+import com.azure.security.keyvault.secrets.SecretClientBuilder;
+
 /**
  * Java CRUD sample with Hibernate and Azure SQL
  *
  */
 public class App {
-    String connectionUrl = "jdbc:sqlserver://your_server_name.database.windows.net"; // update me
+    String connectionUrl = "jdbc:sqlserver://your_server.database.windows.net"; // update me
     String userName = "your_user"; // update me
-    String password = "your_password"; // update me
-    String sampleDatabaseName = "your_database"; // update me
+    String password = "Will_Be_Updated_From_Key_Vault"; 
+    String sampleDatabaseName = "your_db"; // update me
 
     // Main entry point
     public static void main(String[] args) {
@@ -993,6 +991,17 @@ public class App {
     // Helper to run the demp app
     public void runDemo()
     {
+	// Get the key vault secret
+	//
+	System.out.println("Fetching Secret from Key Vault.");
+	SecretClient secretClient = new SecretClientBuilder()
+		 .vaultUrl("https://your_key_vault.vault.azure.net/") // Update me
+		 .credential(new DefaultAzureCredentialBuilder().build())
+		 .buildClient();
+	KeyVaultSecret secret = secretClient.getSecret("AppSecret");
+	password = secret.getValue();
+	System.out.println("Secret Fetched.");
+
         // Configure Hibernate logging to only log SEVERE errors
         @SuppressWarnings("unused")
         org.jboss.logging.Logger logger = org.jboss.logging.Logger.getLogger("org.hibernate");

@@ -1,7 +1,12 @@
 
 > In this section you will create two simple Java apps. One of them will perform basic Insert, Update, Delete, and Select, while the second one will make use of [Hibernate](http://hibernate.org/orm/), one of the most popular Java Object-relational mappers, to execute the same operations.
 
-## Step 2.1 Create a Java app that connects to Azure SQL and executes queries
+## Step 2.1 Get Connection Information to use in Connection Strings, and Create a Firewall Rule.
+
+{% include partials/get_azure_sql_connection_info.md %}
+
+## Step 2.2 Create a Java app that connects to Azure SQL and executes queries
+
 
 In your home directory, create your Maven starter package. This will create the project directory with a basic Maven project and pom.xml file. This step can also be performed in an IDE such as NetBeans or Eclipse.
 
@@ -59,6 +64,52 @@ Save and close the file.
             <version>7.0.0.jre8</version>
         </dependency>
     </dependencies>
+
+ <build>
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+      <plugins>
+        <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+        <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
+        <plugin>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.7.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>3.0.0</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
     <properties>
         <!-- specify which version of Java to build against-->
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -269,6 +320,8 @@ mvn package
 
 Now run the application. You can remove the "-q" in the command below to show info messages from Maven.
 
+**Note:** You may see some warnings about illegal reflective access.  This is a problem with some libraries used by Maven, and is outside the scope of this tutorial.
+
 ```terminal
 mvn -q exec:java "-Dexec.mainClass=com.sqlsamples.App"
 ```
@@ -298,9 +351,334 @@ Done.
 Table dropped.
 ```
 
->You created your first Java + Azure SQL app with Maven! Check out the next section to create a Java App using an ORM!
+>You created your first Java + Azure SQL app with Maven! Now try securing your credentials in Azure Key Vault.
 
-## Step 2.2 Create a Java app that connects to Azure SQL using the popular framework Hibernate
+## Step 2.3 Secure your app by putting Credentials in Azure Key Vault
+
+**Create an Azure Key Vault and put your Secret into it.**
+
+{% include partials/create_key_vault_and_store_creds.md %}
+
+**Add required dependencies to pom.xml**
+
+You need to add the required dependencies to the pom.xml to get the appropriate packages for referencing the key vault.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.sqlsamples</groupId>
+  <artifactId>AzureSqlSample</artifactId>
+  <version>1.0.0</version>
+
+  <name>AzureSqlSample</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>com.microsoft.sqlserver</groupId>
+        <artifactId>mssql-jdbc</artifactId>
+        <version>7.0.0.jre8</version>
+    </dependency>
+<dependency>
+    <groupId>com.azure</groupId>
+    <artifactId>azure-security-keyvault-secrets</artifactId>
+    <version>4.0.1</version>
+</dependency>
+
+<dependency>
+    <groupId>com.azure</groupId>
+    <artifactId>azure-security-keyvault-keys</artifactId>
+    <version>4.0.0</version>
+</dependency>
+<dependency>
+    <groupId>com.azure</groupId>
+    <artifactId>azure-identity</artifactId>
+    <version>1.0.4</version>
+</dependency>
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-jdk14</artifactId>
+    <version>1.7.25</version>
+</dependency>
+  </dependencies>
+
+  <build>
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+      <plugins>
+        <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+        <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
+        <plugin>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.7.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>3.0.0</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>
+```
+
+**Set up your environment to Authenticate to Azure Key Vault**
+
+This section takes you through the steps described [**on this site**](https://docs.microsoft.com/en-us/azure/key-vault/quick-create-java) to set up your machine for authentication to the key vault.  You need to do this to use the **DefaultAzureCredentialBuilder()**.
+
+1. Open a command window and execute **az login** if you have not already.
+1. Create a service prinicpal (make sure you take note of the output, as you will use it in the next two steps.):
+
+```terminal
+az ad sp create-for-rbac -n "http://mySP" --sdk-auth
+```
+
+1. Give the serpvice prinicpal access to your key vault.
+
+```terminal
+az keyvault set-policy -n <your-unique-keyvault-name> --spn <clientId-of-your-service-principal> --secret-permissions delete get list set --key-permissions create decrypt delete encrypt get list unwrapKey wrapKey
+```
+
+1. Set environment variables.  You can do this from the command line in the following way:
+
+```terminal
+export AZURE_CLIENT_ID=9d937378-9ce7-4a62-8c62-c106f838b09d
+
+export AZURE_CLIENT_SECRET=6053cef4-3fe2-437c-b101-65ef56b28172
+
+export AZURE_TENANT_ID=72f988bf-86f1-41af-91ab-2d7cd011db47
+
+export KEY_VAULT_NAME=websitekeyvaultkatsmith
+```
+
+**Update your App.java to use the Key Vault for Authentication**
+
+Now we add calls to the Key Vault libraries, and your final code should look like the following. It's OK to just copy/paste this code and replace the code in App.java with this, updating your database connection info and keyvault name afterwards.
+
+
+```java
+package com.sqlsamples;
+
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.DriverManager;
+
+import com.azure.identity.DefaultAzureCredentialBuilder;
+import com.azure.security.keyvault.secrets.SecretClient;
+import com.azure.security.keyvault.secrets.models.KeyVaultSecret;
+import com.azure.security.keyvault.secrets.SecretClientBuilder;
+
+public class App {
+
+    public static void main(String[] args) {
+
+        System.out.println("Connect to Azure SQL and demo Create, Read, Update and Delete operations.");
+
+	// Get the key vault secret
+	//
+	System.out.println("Fetching Secret from Key Vault.");
+	SecretClient secretClient = new SecretClientBuilder()
+		 .vaultUrl("https://your_keyvault_name.vault.azure.net/")  // Update me
+		 .credential(new DefaultAzureCredentialBuilder().build())
+		 .buildClient();
+	KeyVaultSecret secret = secretClient.getSecret("AppSecret");
+	System.out.println("Secret Fetched.");
+
+        // Update the connection information below
+        String connectionUrl = "jdbc:sqlserver://your_server.database.windows.net;databaseName=your_db;user=your_user;password=" + secret.getValue();
+
+        try {
+            // Load Azure SQL JDBC driver and establish connection.
+            System.out.print("Connecting to Azure SQL ... ");
+            try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+                System.out.println("Done.");
+
+		// Delete the Employees table if it exists
+		try (Statement statement = connection.createStatement()) {
+                    statement.executeUpdate("Drop table if exists Employees");
+                    System.out.println("Done.");
+		} catch (Exception e) {
+	            System.out.println();
+        	    e.printStackTrace();
+		}
+
+                // Create a Table and insert some sample data
+                System.out.print("Creating sample table with data, press ENTER to continue...");
+                System.in.read();
+                String sql = new StringBuilder().append("CREATE TABLE Employees ( ")
+                        .append(" Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ").append(" Name NVARCHAR(50), ")
+                        .append(" Location NVARCHAR(50) ").append("); ")
+                        .append("INSERT INTO Employees (Name, Location) VALUES ").append("(N'Jared', N'Australia'), ")
+                        .append("(N'Nikita', N'India'), ").append("(N'Tom', N'Germany'); ").toString();
+                try (Statement statement = connection.createStatement()) {
+                    statement.executeUpdate(sql);
+                    System.out.println("Done.");
+                }
+
+                // INSERT demo
+                System.out.print("Inserting a new row into table, press ENTER to continue...");
+                System.in.read();
+                sql = new StringBuilder().append("INSERT Employees (Name, Location) ").append("VALUES (?, ?);")
+                        .toString();
+                try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                    statement.setString(1, "Jake");
+                    statement.setString(2, "United States");
+                    int rowsAffected = statement.executeUpdate();
+                    System.out.println(rowsAffected + " row(s) inserted");
+                }
+
+                // UPDATE demo
+                String userToUpdate = "Nikita";
+                System.out.print("Updating 'Location' for user '" + userToUpdate + "', press ENTER to continue...");
+                System.in.read();
+                sql = "UPDATE Employees SET Location = N'United States' WHERE Name = ?";
+                try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                    statement.setString(1, userToUpdate);
+                    int rowsAffected = statement.executeUpdate();
+                    System.out.println(rowsAffected + " row(s) updated");
+                }
+
+                // DELETE demo
+                String userToDelete = "Jared";
+                System.out.print("Deleting user '" + userToDelete + "', press ENTER to continue...");
+                System.in.read();
+                sql = "DELETE FROM Employees WHERE Name = ?;";
+                try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                    statement.setString(1, userToDelete);
+                    int rowsAffected = statement.executeUpdate();
+                    System.out.println(rowsAffected + " row(s) deleted");
+                }
+
+                // READ demo
+                System.out.print("Reading data from table, press ENTER to continue...");
+                System.in.read();
+                sql = "SELECT Id, Name, Location FROM Employees;";
+                try (Statement statement = connection.createStatement();
+                        ResultSet resultSet = statement.executeQuery(sql)) {
+                    while (resultSet.next()) {
+                        System.out.println(
+                                resultSet.getInt(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3));
+                    }
+                }
+                connection.close();
+                System.out.println("All done.");
+            }
+        } catch (Exception e) {
+            System.out.println();
+            e.printStackTrace();
+	}
+	finally {
+
+		try (Connection connection = DriverManager.getConnection(connectionUrl)){
+                // Delete the Employees table if it exists
+		Statement statement = connection.createStatement();
+                statement.executeUpdate("Drop table if exists Employees");
+                System.out.println("Table cleaned up.");
+		} catch (Exception e) {
+	            System.out.println();
+        	    e.printStackTrace();
+		}
+	}
+    }
+}
+```
+
+Now, build and run the program:
+
+```terminal
+mvn package
+```
+
+```results
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] Building AuzreSqlSample1.0.0
+[INFO] ------------------------------------------------------------------------
+...
+[INFO] --- maven-jar-plugin:3.0.2:jar (default-jar) @ AzureSqlKeyVaultSample ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.462 s
+[INFO] Finished at: 2020-04-17T11:29:54-07:00
+[INFO] ------------------------------------------------------------------------
+```
+
+Now run the application. You can remove the "-q" in the command below to show info messages from Maven.
+
+```terminal
+mvn -q exec:java "-Dexec.mainClass=com.sqlsamples.App"
+```
+
+```results
+Connect to Azure SQL and demo Create, Read, Update and Delete operations.
+Fetching Secret from Key Vault.
+Secret Fetched.
+Connecting to Azure SQL ... Done.
+Done.
+Creating sample table with data, press ENTER to continue...
+Done.
+Inserting a new row into table, press ENTER to continue...1 row(s) inserted
+Updating 'Location' for user 'Nikita', press ENTER to continue...
+1 row(s) updated
+Deleting user 'Jared', press ENTER to continue...1 row(s) deleted
+Reading data from table, press ENTER to continue...
+2 Nikita United States
+3 Tom Germany
+4 Jake United States
+All done.
+Table cleaned up.
+```
+
+> Now, you have secured your credentials in azure key vault, and fetched them for use in your application!  Check out the next section to create a Java App using an ORM!
+
+## Step 2.4 Create a Java app that connects to SQL Server using the popular framework Hibernate
 
 In your home directory, create your Maven starter package. This will create the project directory with a basic Maven project and pom.xml file. This step can also be performed in an IDE such as NetBeans or Eclipse.
 
@@ -315,21 +693,23 @@ mvn archetype:generate "-DgroupId=com.sqlsamples" "-DartifactId=AzureSqlHibernat
 [INFO] Building Maven Stub Project (No POM) 1
 [INFO] ------------------------------------------------------------------------
 ...
+[INFO] ----------------------------------------------------------------------------
 [INFO] Using following parameters for creating project from Old (1.x) Archetype: maven-archetype-quickstart:1.0
 [INFO] ----------------------------------------------------------------------------
-[INFO] Parameter: basedir, Value: /Users/usr1
+[INFO] Parameter: basedir, Value: C:\Users\User
 [INFO] Parameter: package, Value: com.sqlsamples
+[INFO] Parameter: groupId, Value: com.sqlsamples
 [INFO] Parameter: artifactId, Value: AzureSqlHibernateSample
 [INFO] Parameter: packageName, Value: com.sqlsamples
 [INFO] Parameter: version, Value: 1.0.0
-[INFO] project created from Old (1.x) Archetype in dir: /Users/usr1/AzureSqlHibernateSample
+[INFO] project created from Old (1.x) Archetype in dir: C:\Users\User\AzureSqlHibernateSample
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 2.945 s
-[INFO] Finished at: 2016-11-03T22:09:08-07:00
-[INFO] Final Memory: 16M/495M
+[INFO] Total time:  6.151 s
+[INFO] Finished at: 2020-04-09T13:38:30-07:00
 [INFO] ------------------------------------------------------------------------
+
 ```
 
 Change directories into your newly created project.
@@ -347,42 +727,73 @@ Save and close the file.
 ```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.sqlsamples</groupId>
-    <artifactId>AzureSqlHibernateSample</artifactId>
-    <packaging>jar</packaging>
-    <version>1.0.0</version>
-    <name>AzureSqlHibernateSample</name>
-    <url>http://maven.apache.org</url>
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- add the JDBC Driver -->
-        <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
-            <version>7.0.0.jre8</version>
-        </dependency>
-        <!-- add Hibernate -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.2.3.Final</version>
-        </dependency>
-    </dependencies>
-    <properties>
-        <!-- specify which version of Java to build against-->
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.sqlsamples</groupId>
+  <artifactId>AzureSqlHibernateSample</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0.0</version>
+  <name>AzureSqlHibernateSample</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- add the JDBC Driver -->
+    <dependency>
+        <groupId>com.microsoft.sqlserver</groupId>
+        <artifactId>mssql-jdbc</artifactId>
+        <version>7.0.0.jre8</version>
+    </dependency>
+    <!-- add Hibernate -->
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>5.2.3.Final</version>
+    </dependency>
+    <dependency>
+        <groupId>org.javassist</groupId>
+        <artifactId>javassist</artifactId>
+        <version>3.23.1-GA</version>
+    </dependency>
+    <dependency>
+        <groupId>javax.xml.bind</groupId>
+        <artifactId>jaxb-api</artifactId>
+        <version>2.3.0</version>
+     </dependency>
+    <!-- Add Key Vault -->
+    <dependency>
+    <groupId>com.azure</groupId>
+        <artifactId>azure-security-keyvault-secrets</artifactId>
+        <version>4.0.1</version>
+    </dependency>
+    <dependency>
+        <groupId>com.azure</groupId>
+        <artifactId>azure-security-keyvault-keys</artifactId>
+        <version>4.0.0</version>
+    </dependency>
+    <dependency>
+        <groupId>com.azure</groupId>
+        <artifactId>azure-identity</artifactId>
+        <version>1.0.4</version>
+    </dependency>
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-jdk14</artifactId>
+        <version>1.7.25</version>
+    </dependency>
+  </dependencies>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
 </project>
 ```
 
-For this sample, let's create two tables. The first will hold data about "users". Create a **User.java** file in your Maven project located at: AzureSqlHibernateSample/src/main/java/com/sqlsamples/User.java
+For this sample, let's create two tables. The first will hold data about "users". Create a **User.java** file in your Maven project located at: AzureSqlHibernateSample\src\main\java\com\sqlsamples\User.java
 
 Copy and paste the code below into your newly created **User.java** file. Save and close the file.
 
@@ -397,7 +808,8 @@ import javax.persistence.*;
 @Table(name = "Users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
     private String firstName;
     private String lastName;
@@ -458,7 +870,7 @@ public class User {
 }
 ```
 
-Let's create a second table to assign tasks to users. Create a **Task.java** file in your Maven project located at: AzureSqlHibernateSample/src/main/java/com/sqlsamples/Task.java.
+Let's create a second table to assign tasks to users. Create a **Task.java** file in your Maven project located at: AzureSqlHibernateSample\src\main\java\com\sqlsamples\Task.java.
 
 Copy and paste the code below into your newly created **Task.java** file. Save and close the file.
 
@@ -473,7 +885,8 @@ import java.text.SimpleDateFormat;
 @Table(name = "Tasks")
 public class Task {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
     private String title;
     private Boolean isComplete;
@@ -541,9 +954,9 @@ public class Task {
 }
 ```
 
-Replace the code in the **App.java** file in your Maven project located at: AzureSqlHibernateSample/src/main/java/com/sqlsamples/App.java.
+Replace the code in the **App.java** file in your Maven project located at: AzureSqlHibernateSample\src\main\java\com\sqlsamples\App.java.
 
-Open this file in your favorite text editor and replace the contents with the code below. Don't forget to update the username and password with your own. Save and close the file.
+Open this file in your favorite text editor and replace the contents with the code below. Don't forget to update the connection information. Save and close the file.
 
 ```java
 package com.sqlsamples;
@@ -557,15 +970,20 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import com.azure.identity.DefaultAzureCredentialBuilder;
+import com.azure.security.keyvault.secrets.SecretClient;
+import com.azure.security.keyvault.secrets.models.KeyVaultSecret;
+import com.azure.security.keyvault.secrets.SecretClientBuilder;
+
 /**
- * Java CRUD sample with Hibernate and SQL Server
+ * Java CRUD sample with Hibernate and Azure SQL
  *
  */
 public class App {
-    String connectionUrl = "jdbc:sqlserver://localhost:1433"; // update me
-    String userName = "sa"; // update me
-    String password = "your_password"; // update me
-    String sampleDatabaseName = "SampleDB";
+    String connectionUrl = "jdbc:sqlserver://your_server.database.windows.net"; // update me
+    String userName = "your_user"; // update me
+    String password = "Will_Be_Updated_From_Key_Vault"; 
+    String sampleDatabaseName = "your_db"; // update me
 
     // Main entry point
     public static void main(String[] args) {
@@ -576,12 +994,23 @@ public class App {
     // Helper to run the demp app
     public void runDemo()
     {
+	// Get the key vault secret
+	//
+	System.out.println("Fetching Secret from Key Vault.");
+	SecretClient secretClient = new SecretClientBuilder()
+		 .vaultUrl("https://your_key_vault.vault.azure.net/") // Update me
+		 .credential(new DefaultAzureCredentialBuilder().build())
+		 .buildClient();
+	KeyVaultSecret secret = secretClient.getSecret("AppSecret");
+	password = secret.getValue();
+	System.out.println("Secret Fetched.");
+
         // Configure Hibernate logging to only log SEVERE errors
         @SuppressWarnings("unused")
         org.jboss.logging.Logger logger = org.jboss.logging.Logger.getLogger("org.hibernate");
         java.util.logging.Logger.getLogger("org.hibernate").setLevel(java.util.logging.Level.SEVERE);
 
-        System.out.println("**Java CRUD sample with Hibernate and SQL Server **\n");
+        System.out.println("**Java CRUD sample with Hibernate and Azure SQL **\n");
         try {
             // We're creating the Hibernate configuration via code. An alternative is to use a 'hibernate.cfg.xml' file.
             Configuration cfg = createHibernateConfiguration();
@@ -590,8 +1019,10 @@ public class App {
             cfg.addAnnotatedClass(User.class);
             cfg.addAnnotatedClass(Task.class);
 
-            // Hibernate needs an existing database. Use JDBC to create one for this sample.
-            createSampleDatabase();
+	    System.out.println("added classes to config");
+        
+
+            // Hibernate needs an existing database. We already have one created.
 
             // Create the Hibernate SessionFactory and Session.
             // This causes Hibernate to create Tables and Relationships in the database from our Annotated classes.
@@ -672,27 +1103,6 @@ public class App {
         }
     }
 
-    // Hibernate needs an existing database. Use JDBC to create one for this
-    // sample.
-    private void createSampleDatabase() throws java.sql.SQLException {
-        // Load SQL Server JDBC driver and establish connection.
-        String url = this.connectionUrl + ";databaseName=master;" + "user=" + this.userName + ";password="
-                + this.password;
-        System.out.print("Connecting to SQL Server ... ");
-        try (Connection connection = DriverManager.getConnection(url)) {
-            System.out.println("Done.");
-
-            // Create a sample database
-            System.out.print("Dropping and creating database '" + this.sampleDatabaseName + "' ... ");
-            String sql = "DROP DATABASE IF EXISTS [" + this.sampleDatabaseName + "]; CREATE DATABASE ["
-                    + this.sampleDatabaseName + "]";
-            try (Statement statement = connection.createStatement()) {
-                statement.executeUpdate(sql);
-                System.out.println("Done.\n");
-            }
-        }
-    }
-
     // Create Hibernate configuration via code instead of using a
     // 'hibernate.cfg.xml' file.
     private Configuration createHibernateConfiguration() {
@@ -733,15 +1143,16 @@ mvn package
 [INFO] Building AzureSqlHibernateSample 1.0.0
 [INFO] ------------------------------------------------------------------------
 ...
+[INFO] 
 [INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ AzureSqlHibernateSample ---
-[INFO] Building jar:
+[INFO] Building jar: /home/kate/AzureSqlHibernateSample/target/AzureSqlHibernateSample-1.0.0.jar
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 1.834 s
-[INFO] Finished at: 2016-11-03T22:18:00-07:00
-[INFO] Final Memory: 22M/498M
+[INFO] Total time:  2.706 s
+[INFO] Finished at: 2020-04-21T09:57:05-07:00
 [INFO] ------------------------------------------------------------------------
+
 ```
 
 Now run the application. You can remove the "-q" in the command below to show info messages from Maven.
@@ -751,29 +1162,30 @@ mvn -q exec:java "-Dexec.mainClass=com.sqlsamples.App"
 ```
 
 ```results
-**Java CRUD sample with Hibernate and SQL Server **
+Fetching Secret from Key Vault.
+Secret Fetched.
+**Java CRUD sample with Hibernate and Azure SQL **
 
-Connecting to SQL Server ... Done.
-Dropping and creating database 'HibernateSampleDB' ... Done.
-
+added classes to config
 Created database schema from Java classes.
 
-Created User: User [id=1, name=Anna Shrestinian]
-Created Task: Task [id=1, title=Ship Helsinki, dueDate=Sat 2017.04.01 at 12:00:00 AM PDT, isComplete=false]
+Created User: User [id=14, name=Anna Shrestinian]
+Created Task: Task [id=15, title=Ship Helsinki, dueDate=Sat 2017.04.01 at 12:00:00 AM PDT, isComplete=false]
 Assigned Task: 'Ship Helsinki' to user 'Anna Shrestinian'
 
 Incomplete tasks assigned to 'Anna':
-Task [id=1, title=Ship Helsinki, dueDate=Sat 2017.04.01 at 12:00:00 AM PDT, isComplete=false]
+Task [id=15, title=Ship Helsinki, dueDate=Sat 2017.04.01 at 12:00:00 AM PDT, isComplete=false]
 
-Updating task: Task [id=1, title=Ship Helsinki, dueDate=Sat 2017.04.01 at 12:00:00 AM PDT, isComplete=false]
-dueDate changed: Task [id=1, title=Ship Helsinki, dueDate=Thu 2016.06.30 at 12:00:00 AM PDT, isComplete=false]
+Updating task: Task [id=15, title=Ship Helsinki, dueDate=Sat 2017.04.01 at 12:00:00 AM PDT, isComplete=false]
+dueDate changed: Task [id=15, title=Ship Helsinki, dueDate=Thu 2016.06.30 at 12:00:00 AM PDT, isComplete=false]
 
 Deleting all tasks with a dueDate in 2016
-Deleting task:Task [id=1, title=Ship Helsinki, dueDate=Thu 2016.06.30 at 12:00:00 AM PDT, isComplete=false]
+Deleting task:Task [id=15, title=Ship Helsinki, dueDate=Thu 2016.06.30 at 12:00:00 AM PDT, isComplete=false]
 
 Tasks after delete:
 [None]
 All done.
+
 ```
 
 > Congratulations! You created your first two Java apps with SQL Server! Check out the next section to learn about how you can make your Java apps faster with SQL Server’s Columnstore feature.
