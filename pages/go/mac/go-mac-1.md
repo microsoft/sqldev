@@ -2,7 +2,7 @@
 layout: page-steps
 language: Go
 title: macOS
-permalink: go/macos/lh/
+permalink: go/macos/server/
 redirect_from:
   - /go/
   - /go/macos/

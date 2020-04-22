@@ -5,13 +5,18 @@
        
     <img class="sql-header-micro" src="http://sqlchoice.azurewebsites.net/en-us/sql-server/developer-get-started/assets/images/micro-logo.png" alt="Microsoft logo">
 
-			
+
  
       <div class="u-wrapper">
         <h1 class="sql-header-title">{{ site.title | escape }}</h1>
 
         <h2 class="sql-header-subtitle">Get started with SQL Server on macOS, Linux, and Windows.</h2>
       </div>
+
+	  <select id="sql-host">
+		  <option value="local" selected>SQL Server</option>
+		  <option value="azure">Azure SQL</option>
+	  </select>
 
       {% if site.menu %}
         <div class="sql-menu">

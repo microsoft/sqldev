@@ -2,7 +2,7 @@
 layout: page-steps
 language: Java
 title: Ubuntu
-permalink: java/ubuntu/lh/
+permalink: java/ubuntu/server/
 redirect_from:
   - /java/
   - /java/ubuntu/

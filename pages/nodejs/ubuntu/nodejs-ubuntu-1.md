@@ -2,7 +2,7 @@
 layout: page-steps
 language: Node.js
 title: Ubuntu
-permalink: node/ubuntu/lh/
+permalink: node/ubuntu/server/
 redirect_from:
   - /node/
   - /node/ubuntu/

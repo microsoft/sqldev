@@ -2,7 +2,7 @@
 layout: page-steps
 language: Ruby
 title: RHEL
-permalink: ruby/rhel/lh/
+permalink: ruby/rhel/server/
 redirect_from:
   - /ruby/
   - /ruby/rhel/

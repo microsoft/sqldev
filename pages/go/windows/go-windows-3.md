@@ -2,7 +2,7 @@
 layout: page-steps
 language: GO
 title: Windows
-permalink: /go/windows/lh/step/3
+permalink: /go/windows/server/step/3
 ---
 
 {% include partials/step3/title.md %}

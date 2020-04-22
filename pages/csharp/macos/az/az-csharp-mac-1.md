@@ -1,7 +1,7 @@
 ---
 layout: page-steps
 language: C#
-title: macOS and Azure SQL
+title: macOS
 permalink: csharp/macos/az/
 redirect_from:
   - /csharp/macos/az/step/1

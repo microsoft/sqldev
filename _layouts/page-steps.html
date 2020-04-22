@@ -8,9 +8,17 @@ layout: default-menutop
     {% assign baseLink = page.permalink | split: separator %}
     {% assign baseNumber = baseLink[1] | times: 1 %}
 
+    {% if page.permalink contains '/az' %}
     <h1 class="sql-page_steps-hero">
-      Create {{page.language}} apps using SQL Server on {{page.title}}
+        Create {{page.language}} apps using Azure SQL on {{page.title}}
     </h1>
+    {% else %}
+    <h1 class="sql-page_steps-hero">
+        Create {{page.language}} apps using SQL Server on {{page.title}}
+    </h1>
+	{% endif %}
+	
+	<button class="sql-switch">Click to switch hosts</button>
 
     <header class="sql-page_steps-steps js-stepsheader">
       {% for step in site.steps %}

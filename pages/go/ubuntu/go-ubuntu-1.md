@@ -2,7 +2,7 @@
 layout: page-steps
 language: Go
 title: Ubuntu
-permalink: go/ubuntu/lh/
+permalink: go/ubuntu/server/
 
 redirect_from:
   - /go/
