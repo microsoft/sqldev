@@ -1,8 +1,13 @@
 ---
 layout: page-steps
 language: Java
+<<<<<<< HEAD
 title: Windows and Azure SQL
 permalink: /java/windows/az/step/1
+=======
+title: Windows 
+permalink: /java/windows/az
+>>>>>>> url normalization change, cookie refactor, double click bug, menulink changes
 redirect_from:
   - /java/windows/az/step/
 ---

@@ -2,7 +2,7 @@
 layout: page-steps
 language: PHP
 title: macOS
-permalink: php/macos/lh/
+permalink: php/macos/server/
 redirect_from:
   - /php/
   - /php/macos/

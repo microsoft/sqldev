@@ -2,7 +2,7 @@
 layout: page-steps
 language: Java
 title: SLES
-permalink: java/sles/lh/
+permalink: java/sles/server/
 redirect_from:
   - /java/
   - /java/sles/

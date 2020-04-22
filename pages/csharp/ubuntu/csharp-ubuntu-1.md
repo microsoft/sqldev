@@ -2,7 +2,7 @@
 layout: page-steps
 language: C#
 title: Ubuntu
-permalink: csharp/ubuntu/lh/
+permalink: csharp/ubuntu/server/
 redirect_from:
   - /csharp/
   - /csharp/ubuntu/

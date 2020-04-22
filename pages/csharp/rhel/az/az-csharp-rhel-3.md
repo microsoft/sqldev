@@ -1,7 +1,7 @@
 ---
 layout: page-steps
 language: C#
-title: RHEL and Azure SQL
+title: RHEL
 permalink: /csharp/rhel/az/step/3
 ---
 

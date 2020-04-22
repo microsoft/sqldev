@@ -1,12 +1,33 @@
 (function() {
   var close = document.getElementById("cookie_close");
   var banner = document.getElementById("msccBanner");
-  close.addEventListener("click", function() {
-    banner.classList.add("hide");
-    banner.classList.remove("active");
-	console.log("adding analytics");
-	
-	(function(i, s, o, g, r, a, m) {
+  var cookie = getCookie("cookieMS");
+
+  function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
+  function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(";");
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == " ") {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+  function initGA() {
+    (function(i, s, o, g, r, a, m) {
       i["GoogleAnalyticsObject"] = r;
       (i[r] =
         i[r] ||
@@ -54,5 +75,24 @@
         });
       });
     });
-  });
+  }
+
+  if (cookie) {
+    banner.classList.add("hide");
+    banner.classList.remove("active");
+  }
+
+  if (!cookie) {
+    banner.classList.add("active");
+    banner.classList.remove("hide");
+  }
+
+  if (close) {
+    close.addEventListener("click", function() {
+      banner.classList.add("hide");
+      banner.classList.remove("active");
+      setCookie("cookieMS", true, 30);
+      initGA();
+    });
+  }
 })();
