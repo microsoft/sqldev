@@ -8,9 +8,8 @@ redirect_from:
   - /java/ubuntu/az/step/1
 ---
 
-> In this section, you create an Azure Hosted SQL Database. After that you will install the necessary dependencies to create Java apps with SQL Server.
+> In this section, you create an Azure Hosted SQL Database. After that you will install the necessary dependencies to create Java apps with Azure SQL.
  
-
 ## Step 1.1 Create Azure Hosted SQL Database
 
 {% include partials/setup_azure_sql_instance.md %}
