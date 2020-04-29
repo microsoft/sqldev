@@ -2,7 +2,7 @@
 layout: page-steps
 language: Node.js
 title: macOS
-permalink: node/macos/lh/
+permalink: node/macos/server/
 redirect_from:
   - /node/
   - /node/macos/

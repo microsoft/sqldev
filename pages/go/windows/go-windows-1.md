@@ -2,7 +2,7 @@
 layout: page-steps
 language: Go
 title: Windows
-permalink: go/windows/lh/
+permalink: go/windows/server/
 redirect_from:
   - /go/
   - /go/windows/

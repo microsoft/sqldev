@@ -2,7 +2,7 @@
 layout: page-steps
 language: Go
 title: SLES
-permalink: go/sles/lh/
+permalink: go/sles/server/
 
 redirect_from:
   - /go/

@@ -2,7 +2,7 @@
 layout: page-steps
 language: Go
 title: RHEL
-permalink: go/rhel/lh/
+permalink: go/rhel/server/
 
 redirect_from:
   - /go/

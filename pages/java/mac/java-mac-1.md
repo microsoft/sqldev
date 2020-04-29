@@ -2,7 +2,7 @@
 layout: page-steps
 language: Java
 title: macOS
-permalink: java/macos/lh/
+permalink: java/macos/server/
 redirect_from:
   - /java/
   - /java/mac/

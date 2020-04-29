@@ -28,8 +28,31 @@
         color: $color-foreground-bright;
         font-size: $font-size-l;
         font-weight: $font-weight-normal;
-        margin-bottom: 2.5rem;
+        margin-bottom: 1.5rem;
         padding-top: 2rem;
+    }
+    
+    &-dropdown {
+        height: 2.25rem;
+        margin-left: .75rem;
+        padding-left: .75em;
+        padding-right: 2.75em;
+        text-align-last: center;
+        font-size: 1rem;
+        color: #036CBF;
+        font-weight: 600;
+        border-radius: 5px;
+
+        &-container {
+            padding-bottom: 1.5rem;
+        }
+
+        &-title {
+            color: $color-foreground-bright;
+            font-size: $font-size-l;
+            font-weight: $font-weight-normal;
+            padding-top: 1.5rem;
+        }
     }
 
     &-sub {

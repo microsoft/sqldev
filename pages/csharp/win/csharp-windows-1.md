@@ -2,7 +2,7 @@
 layout: page-steps
 language: C#
 title: Windows
-permalink: csharp/win/lh/
+permalink: csharp/win/server/
 redirect_from:
   - /csharp/
   - /csharp/win/

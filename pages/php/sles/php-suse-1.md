@@ -2,7 +2,7 @@
 layout: page-steps
 language: PHP
 title: SLES
-permalink: php/sles/lh/
+permalink: php/sles/server/
 redirect_from:
   - /php/
   - /php/sles/

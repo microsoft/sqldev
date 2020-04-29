@@ -9,7 +9,7 @@
     background-color: $color-brand;
     display: flex;
     justify-content: space-between;
-    margin-top: 2rem;
+    margin-top: 5rem;
     padding-left: $margin-logo;
 
     &-link {
@@ -108,7 +108,6 @@
     
           
     &-sub:focus-within &-items {
-        animation: menu-block-cursor $animation-speed-default * .8 forwards; // change time to have the click event just in time
         display: block;
     }
 

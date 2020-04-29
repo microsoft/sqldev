@@ -110,9 +110,6 @@
 */
     var checkContent = function ($container) {
         // Terminal
-
-        console.log(window.location.href);
-        console.log("test");
         var path = window.location.href;
         var windows = "windows";
         var isWindows;

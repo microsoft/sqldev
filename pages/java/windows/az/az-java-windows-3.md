@@ -1,7 +1,7 @@
 ---
 layout: page-steps
 language: Java
-title: Windows and Azure SQL
+title: Windows
 permalink: /java/windows/az/step/3
 ---
 

@@ -1,14 +1,14 @@
 ---
 layout: page-steps
 language: C#
-title: Ubuntu and Azure SQL
+title: Ubuntu
 permalink: /csharp/ubuntu/az/
 redirect_from:
   - /csharp/ubuntu/az/step/
   - /csharp/ubuntu/az/step/1
 ---
 
-> In this section, you will get setup an Azure SQL instance. After that you will install the necessary dependencies to create .NET Core apps with Auzre SQL.
+> In this section, you will get setup an Azure SQL instance. After that you will install the necessary dependencies to create .NET Core apps with Azure SQL.
 
 ## Step 1.1 Create Azure Hosted SQL Database
 
