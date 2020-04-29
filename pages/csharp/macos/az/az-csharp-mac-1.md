@@ -9,7 +9,7 @@ redirect_from:
   - /csharp/macos/az/1
 ---
 
-> In this section, you will get setup an Azure SQL instance. After that you will install the necessary dependencies to create .NET Core apps with Auzre SQL.
+> In this section, you will get setup an Azure SQL instance. After that you will install the necessary dependencies to create .NET Core apps with Azure SQL.
 
 ## Step 1.1 Create Azure Hosted SQL Database
 

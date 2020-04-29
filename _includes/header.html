@@ -1,26 +1,27 @@
 <header class="sql-header" role="banner">
-	
-	
+    
+    
     <div class="sql-header-content">
        
     <img class="sql-header-micro" src="http://sqlchoice.azurewebsites.net/en-us/sql-server/developer-get-started/assets/images/micro-logo.png" alt="Microsoft logo">
 
 
- 
       <div class="u-wrapper">
         <h1 class="sql-header-title">{{ site.title | escape }}</h1>
 
-        <h2 class="sql-header-subtitle">Get started with SQL Server on macOS, Linux, and Windows.</h2>
+        <h2 class="sql-header-subtitle">Get started with Azure SQL DB on the cloud or SQL Server on macOS, Linux, and Windows.</h2>
       </div>
-
-	  <select id="sql-host">
-		  <option value="local" selected>SQL Server</option>
-		  <option value="azure">Azure SQL</option>
-	  </select>
-
+      
       {% if site.menu %}
-        <div class="sql-menu">
-          <h2 class="sql-menu-title">Choose a language and operating system below</h2>
+      <div class="sql-menu">
+        <h2 class="sql-menu-title">Choose a language and operating system below</h2>
+        <div class="sql-menu-dropdown-container">
+          <label class="sql-menu-dropdown-title">Follow instruction with</label>
+          <select id="sql-host" class="sql-menu-dropdown">
+            <option value="server">SQL Server</option>
+            <option value="azure" selected>Azure SQL DB</option>
+          </select>
+        </div>
           <div class="sql-menu-wrapper u-wrapper">
             {% for submenu in site.menu %}
               {% assign submenu_name = submenu[0] %}

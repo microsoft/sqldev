@@ -8,17 +8,28 @@ layout: default-menutop
     {% assign baseLink = page.permalink | split: separator %}
     {% assign baseNumber = baseLink[1] | times: 1 %}
 
+    <div class="sql-page_steps-dropdown-container">
+        <label class="sql-page_steps-dropdown-title">SQL instruction with</label>
+        <select id="sql-steps-host" class="sql-page_steps-dropdown">
+            {% if page.permalink contains '/az' %}
+                <option value="server">SQL Server</option>
+                <option value="azure" selected>Azure SQL DB</option>
+            {% else %}
+                <option value="server" selected>SQL Server</option>
+                <option value="azure">Azure SQL DB</option>
+            {% endif %}
+        </select>
+    </div>
+
     {% if page.permalink contains '/az' %}
     <h1 class="sql-page_steps-hero">
-        Create {{page.language}} apps using Azure SQL on {{page.title}}
+        Create {{page.language}} apps using Azure SQL DB on {{page.title}}
     </h1>
     {% else %}
     <h1 class="sql-page_steps-hero">
         Create {{page.language}} apps using SQL Server on {{page.title}}
     </h1>
-	{% endif %}
-	
-	<button class="sql-switch">Click to switch hosts</button>
+    {% endif %}
 
     <header class="sql-page_steps-steps js-stepsheader">
       {% for step in site.steps %}
@@ -31,7 +42,11 @@ layout: default-menutop
                href="{{ baseLink[0] | append: separator | append: number | append: '.html' | replace: '//', '/' | relative_url }}"
                target="_self">
                <span class="sql-page_steps-number">{{ number }}</span>
+               {%if number == 2 %}
+               {{ value }} {% if page.permalink contains '/az' %} Azure SQL DB {% else %} SQL server {% endif %}
+               {% else %}
                {{ value }}
+               {% endif %}
             </a>
           {% else %}
             <a class="sql-page_steps-link {% if baseNumber == 0 %} sql-page_steps-link--active {% endif %}"

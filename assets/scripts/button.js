@@ -15,7 +15,6 @@
 	}
 
 	if(location.includes("/server")) {
-		console.log("hello")
 		urls.forEach(function(url){
 			url.href = url.href.replace("/az", "/server");
 		})
