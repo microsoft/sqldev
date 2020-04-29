@@ -1,11 +1,26 @@
 # Site settings
 # Access it in the templates via {{ site.myvariable }}.
-title: Build an app using SQL Server
+title: Build an app with Azure SQL DB or SQL Server
 description: > 
-  Get started with SQL Server on macOS, Linux, and Windows.
-url: https://sqlchoice.azurewebsites.net
+  Get started with Azure SQL DB on the cloud or SQL Server on macOS, Linux, and Windows.
+ 
+#PRO
+# 
+#url: https://sqlchoice.azurewebsites.net
+#destination: ../wwwroot/en-us/sql-server/developer-get-started
+#baseurl: /en-us/sql-server/developer-get-started
+ 
+#STAGING
+#
+url: https://sqlgetstartedtest.z5.web.core.windows.net/
 destination: ../wwwroot/en-us/sql-server/developer-get-started
-baseurl: /en-us/sql-server/developer-get-started
+baseurl: 
+ 
+#DEV
+#  
+# url: http://localhost:4000
+# destination: ../wwwroot/en-us/sql-server/developer-get-started
+# baseurl: 
 
 disqus:
   shortname: sqlchoice
@@ -14,7 +29,7 @@ gitter: https://gitter.im/Microsoft/mssql-developers
 
 steps:
   1: Set up your environment
-  2: Create $$ application with SQL server
+  2: Create $$ application with
   3: Make your $$ app up to 100x faster
 
 menu:
