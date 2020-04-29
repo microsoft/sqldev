@@ -15,25 +15,26 @@
     &-title {
         color: $color-secondary;
         display: block;
-        font-size: $font-size-xxl;
+        font-size: 2rem;
         margin-bottom: 1.5rem;
         margin-top: 4rem;
+        font-weight: 600;
     }
 
     &-subtitle {
         color: $color-foreground-darker;
         display: block;
         font-size: $font-size-xl;
-        font-weight: $font-weight-light;
+        font-weight: $font-weight-normal;
         margin-bottom: 3rem;
         margin-top: 1rem;
     }
 
     &-micro {
-        left: 1rem;
+        left: 2rem;
         position: absolute;
-        top: 1rem;
-		width: 6rem;
-		z-index: 0;
+        top: 2rem;
+        width: 9rem;
+        z-index: 0;
     }
 }
