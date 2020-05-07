@@ -18,7 +18,7 @@ In your home directory, create your Maven starter package. This will create the 
 ...
 ...
 [INFO] Total time: 20.272 s
-[INFO] Finished at: 2016-11-03T21:24:28-07:00
+[INFO] Finished at: 2020-01-13T21:24:28-07:00
 [INFO] Final Memory: 18M/403M
 [INFO] ------------------------------------------------------------------------
 ```
@@ -56,7 +56,7 @@ Save and close the file.
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
-            <version>7.0.0.jre8</version>
+            <version>8.2.2.jre8</version>
         </dependency>
     </dependencies>
     <properties>
@@ -111,7 +111,7 @@ Build the project and create a jar package using the following command:
 [INFO] ------------------------------------------------------------------------
 ...
 ...
-[INFO] Finished at: 2016-11-03T21:33:45-07:00
+[INFO] Finished at: 2020-01-13T21:33:45-07:00
 [INFO] Final Memory: 16M/371M
 [INFO] ------------------------------------------------------------------------
 ```
@@ -249,7 +249,7 @@ mvn package
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
 [INFO] Total time: 1.687 s
-[INFO] Finished at: 2016-11-03T22:06:24-07:00
+[INFO] Finished at: 2020-01-13T22:06:24-07:00
 [INFO] Final Memory: 20M/493M
 [INFO] ------------------------------------------------------------------------
 ```
@@ -310,7 +310,7 @@ mvn archetype:generate "-DgroupId=com.sqlsamples" "-DartifactId=SqlServerHiberna
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
 [INFO] Total time: 2.945 s
-[INFO] Finished at: 2016-11-03T22:09:08-07:00
+[INFO] Finished at: 2020-01-13T22:09:08-07:00
 [INFO] Final Memory: 16M/495M
 [INFO] ------------------------------------------------------------------------
 ```
@@ -348,7 +348,7 @@ Save and close the file.
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
-            <version>7.0.0.jre8</version>
+            <version>8.2.2.jre8</version>
         </dependency>
         <!-- add Hibernate -->
         <dependency>
@@ -722,7 +722,7 @@ mvn package
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
 [INFO] Total time: 1.834 s
-[INFO] Finished at: 2016-11-03T22:18:00-07:00
+[INFO] Finished at: 2020-01-13T22:18:00-07:00
 [INFO] Final Memory: 22M/498M
 [INFO] ------------------------------------------------------------------------
 ```
