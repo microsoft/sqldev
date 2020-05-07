@@ -62,7 +62,7 @@ Save and close the file.
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
-            <version>7.0.0.jre8</version>
+            <version>8.2.2.jre8</version>
         </dependency>
     <!-- Add Key Vault -->
     <dependency>

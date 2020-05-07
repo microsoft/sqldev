@@ -77,7 +77,7 @@ Save and close the file.
     <dependency>
         <groupId>com.microsoft.sqlserver</groupId>
         <artifactId>mssql-jdbc</artifactId>
-        <version>7.0.0.jre8</version>
+        <version>8.2.2.jre8</version>
     </dependency>
   </dependencies>
 
@@ -391,7 +391,7 @@ You need to add the required dependencies to the pom.xml to get the appropriate 
     <dependency>
         <groupId>com.microsoft.sqlserver</groupId>
         <artifactId>mssql-jdbc</artifactId>
-        <version>7.0.0.jre8</version>
+        <version>8.2.2.jre8</version>
     </dependency>
 <dependency>
     <groupId>com.azure</groupId>
@@ -742,7 +742,7 @@ Save and close the file.
     <dependency>
         <groupId>com.microsoft.sqlserver</groupId>
         <artifactId>mssql-jdbc</artifactId>
-        <version>7.0.0.jre8</version>
+        <version>8.2.2.jre8</version>
     </dependency>
     <!-- add Hibernate -->
     <dependency>

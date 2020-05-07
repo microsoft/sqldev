@@ -33,7 +33,7 @@ package: com.sqlsamples
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
 [INFO] Total time: 18.520 s
-[INFO] Finished at: 2016-10-15T13:49:20-07:00
+[INFO] Finished at: 2020-01-15T13:49:20-07:00
 [INFO] Final Memory: 14M/208M
 [INFO] ------------------------------------------------------------------------
 ```
@@ -65,7 +65,7 @@ Save and close the file.
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
-            <version>7.0.0.jre8</version>
+            <version>8.2.2.jre8</version>
         </dependency>
     </dependencies>
     <properties>
@@ -199,7 +199,7 @@ mvn package
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
 [INFO] Total time: 1.625 s
-[INFO] Finished at: 2016-11-03T22:20:42-07:00
+[INFO] Finished at: 2020-01-13T22:20:42-07:00
 [INFO] Final Memory: 17M/368M
 [INFO] ------------------------------------------------------------------------
 ```
