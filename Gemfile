@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-ruby "2.2.2"
+ruby "2.4.9"
 gem "kramdown"
 gem "bundler"
 gem "jekyll", "3.4.3"

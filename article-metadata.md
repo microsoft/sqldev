@@ -5,11 +5,12 @@ The metadata section looks like this:
 layout: page-steps
 language: <programming language>
 title: <operating system>
-permalink: /<programming language>/<operating system>/
+permalink: /<programming language>/<operating system>/<platform>
 redirect_from:
   - /<programming language>/
-  - /<programming language>/<operating system>/step/
-  - /<programming language>/<operating system>/step/<step number>
+  - /<programming language>/<operating system>/<platform>/<step number>
+  - /<programming language>/<operating system>/<platform>/step/
+  - /<programming language>/<operating system>/<platform>/step/<step number>
 ---
   ```
   
