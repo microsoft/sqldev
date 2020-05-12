@@ -7,7 +7,7 @@ redirect_from:
   - /java/windows/az/step/
 ---
 
-> In this section, you create an Azure Hosted SQL Database. After that you will install the necessary dependencies to create .NET Framework apps with SQL Server. 
+> In this section, you create an Azure Hosted SQL Database. After that you will install the necessary dependencies to create .NET Framework apps with Azure SQL. 
 
 ## Step 1.1 Create Azure Hosted SQL Database
 
