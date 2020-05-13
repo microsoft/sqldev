@@ -20,6 +20,8 @@ redirect_from:
 
 **title**: Required; Operating system/platform for the tutorial. Example: Ubuntu, RHEL, SLES, Windows, macOS.
 
+**platform**: Required; Instructions for SQL server or Azure SQL platform. Example: server, az.
+
 **permalink**: Required; Programming language and the operating system the tutorial is for. If this is a **C#** tutorial, please use the full word "csharp" in this section. 
 
 **redirect_from**: Required; Programming language, operating system, and step number. If this is a **C#** tutorial, please use the full word "csharp" in this section. 
