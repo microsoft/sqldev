@@ -9,7 +9,7 @@ redirect_from:
   - /node/windows/az/step/1
 ---
 
-> In this section, you create an Azure Hosted SQL Database. After that you will install the necessary dependencies to create .NET Framework apps with Azure SQL. 
+> In this section, you create an Azure Hosted SQL Database. After that you will install the necessary dependencies to create Node.js apps with Azure SQL. 
 
 ## Step 1.1 Create Azure Hosted SQL Database
 
@@ -43,7 +43,7 @@ Chocolatey installed 1/1 packages. 0 packages failed.
  > You have succesfuly installed Node.js and Chocolatey on your machine!
 
 
-## Step 1.3 Install sqlcmd - A Command Line Utility for SQL Server
+## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
 {% include partials/az-install_sqlcmd-windows.md %}
 
