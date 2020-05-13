@@ -45,4 +45,10 @@ Chocolatey installed 1/1 packages. 0 packages failed.
 
 ## Step 1.3 Install sqlcmd - A Command Line Utility for SQL Server
 
-{% include partials/az-install_sqlcmd_windows.md %}
+{% include partials/az-install_sqlcmd-windows.md %}
+
+## Step 1.4 Install The Azure CLI and Login to Azure
+
+{% include partials/download_azure_cli.md %}
+
+> You have now installed authenticated your machine to Azure.  

@@ -2,38 +2,42 @@
 layout: page-steps
 language: Node.js
 title: Windows
-permalink: /node/windows/step/3
+permalink: /node/windows/az/step/3
 ---
 
 > In this section we will show you a simple example of [Columnstore Indexes](https://docs.microsoft.com/en-us/sql/relational-databases/indexes/columnstore-indexes-overview) and how they can improve data processing speeds. Columnstore Indexes can achieve up to 100x better performance on analytical workloads and up to 10x better data compression than traditional rowstore indexes.
 
-## Step 3.1 Create a new table with 5 million using sqlcmd
+## Step 3.1 Create a new table with 3 million rows using sqlcmd
 
 Change to your home directory and create a folder for your project.
 
 ```terminal
 cd ~/
-mkdir SqlServerColumnstoreSample
-cd SqlServerColumnstoreSample
+mkdir AzureSqlColumnstoreSample
+cd AzureSqlColumnstoreSample
 ```
 
-Using your favorite text editor, create a new file called CreateSampleTable.sql in the folder SqlServerColumnstoreSample. Paste the T-SQL code below into your new SQL file. Save and close the file.
+Using your favorite text editor, create a new file called CreateSampleTable.sql in the folder AzureSqlColumnstoreSample. Paste the T-SQL code below into your new SQL file. Save and close the file.
 
 ```SQL
-sqlcmd -S localhost -U sa -P your_password -d SampleDB -t 60000 -Q "WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a))
-SELECT TOP(5000000)
-ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId
+WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a))
+SELECT TOP(3000000)
+ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId 
 ,a.a + b.a + c.a + d.a + e.a + f.a + g.a + h.a AS OrderId
 ,a.a * 10 AS Price
 ,CONCAT(a.a, N' ', b.a, N' ', c.a, N' ', d.a, N' ', e.a, N' ', f.a, N' ', g.a, N' ', h.a) AS ProductName
-INTO Table_with_5M_rows
-FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;"
+INTO Table_with_3M_rows
+FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;
 ```
 
-Connect to the database using sqlcmd and run the SQL script to create the table with 5 million rows. This may take a few minutes to run.
+Connect to the database using sqlcmd and run the SQL script to create the table with 3 million rows. This may take a few minutes to run.
 
 ```terminal
-  sqlcmd -S localhost -U sa -P your_password -d SampleDB -i ./CreateSampleTable.sql
+  sqlcmd -S your_server.database.windows.net -U your_user -P your_password -d your_database -i ./CreateSampleTable.sql
+```
+
+```results
+  (3000000 rows affected)
 ```
 
 ## Step 3.2 Create a Node.js that queries this tables and measures the time taken
@@ -47,7 +51,7 @@ npm install node-uuid
 npm install async
 ```
 
-Using you favorite text editor, create a file called columnstore.js in the SqlServerColumnstoreSample folder.
+Using you favorite text editor, create a file called columnstore.js in the AzuresSqlColumnstoreSample folder.
 
 ```javascript
 var Connection = require('tedious').Connection;
@@ -56,23 +60,24 @@ var uuid = require('node-uuid');
 var async = require('async');
 
 var config = {
-    server: 'localhost',
+    server: 'your_server.database.windows.net',  // update me
     authentication: {
         type: 'default',
         options: {
-            userName: 'sa', // update me
-            password: 'your_password' // update me
+            userName: 'your_user', 		// update me
+            password: 'your_password' 		// update me
         }
     },
     options: {
-        database: 'SampleDB'
+	encrypt: true, 
+	trustServerCertificate: true,
+	database: 'your_database'		// update me
     }
-    // When you connect to Azure SQL Database, you need these next options.
-    //options: {encrypt: true, database: 'yourDatabase'}
-};
+    };
 
 
 var connection = new Connection(config);
+connection.connect();
 function exec(sql) {
     var timerName = "QueryTime";
 
@@ -98,7 +103,7 @@ function exec(sql) {
 connection.on('connect', function(err) {
     async.waterfall([
         function(){
-            exec('SELECT SUM(Price) FROM Table_with_5M_rows');
+            exec('SELECT SUM(Price) FROM Table_with_3M_rows');
         },
     ]);
 });
@@ -113,14 +118,14 @@ Run your Node.js app from the terminal.
 ```
 
 ```results
-Sum: 50000000
-QueryTime: 363ms
+Sum: 30000000
+QueryTime: 818.3ms
 ```
 
 ## Step 3.4 Add a columnstore index to your table.
 
 ```terminal
-sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE CLUSTERED COLUMNSTORE INDEX Columnstoreindex ON Table_with_5M_rows;"
+sqlcmd -S your_server.database.windows.net -U your_user -P your_password -d your_database -Q "CREATE CLUSTERED COLUMNSTORE INDEX Columnstoreindex ON Table_with_3M_rows;"
 ```
 
 ## Step 3.5 Re-run the columnstore.js script and notice how long the query took to complete this time.
@@ -131,8 +136,8 @@ sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE CLUSTERED COLU
 ```
 
 ```results
-Sum: 50000000
-QueryTime: 5ms
+Sum: 30000000
+QueryTime: 78.587ms
 ```
 
 > Congratulations! You just made your Node.js app faster using Columnstore Indexes!
