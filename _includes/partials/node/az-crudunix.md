@@ -1,15 +1,10 @@
----
-layout: page-steps
-language: Node.js
-title: Windows
-permalink: /node/windows/az/step/2
----
 
-> In this section you will create two simple Node.js apps. One of them will perform basic Insert, Update, Delete, and Select, while the second one will make use of Sequelize, one of the most popular Node.js Object-relational mappers, to execute the same operations.
+> In this section you will create three simple Node.js apps. One of them will just connect to the database, the second will perform basic Insert, Update, Delete, and Select, and the third one will make use of Sequelize, one of the most popular Node.js Object-relational mappers, to execute the same operations.
 
 ## Step 2.1 Get Connection Information to use in Connection Strings, and Create a Firewall Rule.
 
 {% include partials/get_azure_sql_connection_info.md %}
+
 
 ## Step 2.2 Create a Node.js app that connects to Azure SQL and executes queries
 
@@ -24,7 +19,6 @@ Create a new project directory and initialize Node dependencies.
     npm install tedious
     npm install async
 ```
-
 
 Now you will create a simple Node.js app that connects to Azure SQL.
 
@@ -46,9 +40,10 @@ Using your favorite editor, create a file named connect.js in the AzureSqlSample
           }
       },
       options: {
-          database: 'your_database',			// update me
 	  trustServerCertificate: true,
-	  encrypt: true
+	  encrypt: true,
+          database: 'your_database'			// update me
+		
       }
     }
     var connection = new Connection(config);
@@ -142,19 +137,22 @@ var async = require('async');
 
 // Create connection to database
 var config = {
-   server: 'your_server.database.windows.net',
-	authentication: {
-		type: 'default',
-		options: {
-			userName: 'your_user',
-			password: 'your_password'
-		}
-	},
-	options: {
-		database: 'your_database',
-		trustServerCertificate: true
-	}
+  server: 'your_server.database.windows.net',	// update me
+  authentication: {
+      type: 'default',
+      options: {
+          userName: 'your_user', 		// update me
+          password: 'your_password' 		// update me
+      }
+  },
+  options: {
+    encrypt: true, 
+      database: 'your_database',			// update me
+      trustServerCertificate: true,
+      encrypt: true
+  }
 }
+
 var connection = new Connection(config);
 connection.connect();
 
@@ -307,7 +305,7 @@ Reading rows from the Table...
 Done!
 ```
 
-## Step 2.3 Create a Node.js app that connects to Azure SQL using the popular Sequelize ORM
+## Step 2.3 Create a Node.js app that connects to SQL Server using the popular Sequelize ORM
 
 Create the app directory and initialize Node dependencies.
 
@@ -321,27 +319,28 @@ Create the app directory and initialize Node dependencies.
     npm install sequelize
 ```
 
-a. Open your favourite text editor and create the file orm.js in the directory AzreSqlSequelizeSample. 
-b. Paste the contents below into orm.js 
-c. Update the connection information to point to your server and database. 
-d. Save and close orm.js
+1. Open your favourite text editor and create the file orm.js in the directory AzureSqlSequelizeSample. 
+1. Paste the contents below into orm.js 
+1. Update the variable for password to use your own password specified in the first module. 
+1. Save and close orm.js
 
 ```javascript
     var Sequelize = require('sequelize');
-    var userName = 'your_user';     			// update me
+    var userName = 'your_user';				// update me
     var password = 'your_password'; 			// update me
-    var hostName = 'your_server.database.windows.net';  // update me
-    var sampleDbName = 'your_database';  		//update me
+    var hostName = 'your_server.database.windows.net';	// update me
+    var sampleDbName = 'your_database';			// update me
 
     // Initialize Sequelize to connect to sample DB
     var sampleDb = new Sequelize(sampleDbName, userName, password, {
         dialect: 'mssql',
         host: hostName,
         port: 1433, // Default port
-        logging: false, // disable logging; default: console.log,
+        logging: false, // disable logging; default: console.log
 	encrypt: true,
 
         dialectOptions: {
+	    encrypt: true,
             requestTimeout: 30000 // timeout = 30 seconds
         }
     });
@@ -415,15 +414,15 @@ d. Save and close orm.js
                                 // Delete demo: delete all tasks with a dueDate in 2016
                                 console.log('\nDeleting all tasks with with a dueDate in 2016');
                                 Task.destroy({
-                                    where: { dueDate: {[Sequelize.Op.lte]: new Date(2016,12,31)}},
-                                }).then(function() {  // delete this line and the below, and corresponding closing braces and see what happens.
-                                	Task.findAll()
-					.then(function(tasks) {
+                                    where: { dueDate: {[Sequelize.Op.lte]: new Date(2016,12,31)}}
+                                })
+                                .then(function() {
+                                    Task.findAll()
+                                    .then(function(tasks) {
                                         console.log('Tasks in database after delete:',
                             JSON.stringify(tasks));
                                         console.log('\nAll done!');
-				    })
-                           
+                                    })
                                 })
                             })
                         })
@@ -445,35 +444,32 @@ Run the orm.js app
 
 Created database schema from model.
 
-Created User: {
-  id: 1,
+Created User: { id: 1,
   firstName: 'Anna',
   lastName: 'Shrestinian',
-  updatedAt: 2020-05-12T16:16:34.907Z,
-  createdAt: 2020-05-12T16:16:34.907Z
-}
+  updatedAt: 2020-05-13T22:41:20.084Z,
+  createdAt: 2020-05-13T22:41:20.084Z }
 
-Created Task: {
-  id: 1,
+Created Task: { id: 1,
   title: 'Ship Helsinki',
   dueDate: 2017-05-01T07:00:00.000Z,
   isComplete: false,
-  updatedAt: 2020-05-12T16:16:35.017Z,
-  createdAt: 2020-05-12T16:16:35.017Z
-}
+  updatedAt: 2020-05-13T22:41:20.191Z,
+  createdAt: 2020-05-13T22:41:20.191Z }
 
 Assigned task 'Ship Helsinki' to user Anna Shrestinian
 
 Incomplete tasks assigned to Anna:
- [{"id":1,"firstName":"Anna","lastName":"Shrestinian","createdAt":"2020-05-12T16:16:34.907Z","updatedAt":"2020-05-12T16:16:34.907Z","tasks":[{"id":1,"title":"Ship Helsinki","dueDate":"2017-05-01T07:00:00.000Z","isComplete":false,"createdAt":"2020-05-12T16:16:35.017Z","updatedAt":"2020-05-12T16:16:35.193Z","userId":1}]}]
+ [{"id":1,"firstName":"Anna","lastName":"Shrestinian","createdAt":"2020-05-13T22:41:20.084Z","updatedAt":"2020-05-13T22:41:20.084Z","tasks":[{"id":1,"title":"Ship Helsinki","dueDate":"2017-05-01T07:00:00.000Z","isComplete":false,"createdAt":"2020-05-13T22:41:20.191Z","updatedAt":"2020-05-13T22:41:20.363Z","userId":1}]}]
 
-Updating task: Ship Helsinki Mon May 01 2017 00:00:00 GMT-0700 (Pacific Daylight Time)
-dueDate changed: Ship Helsinki Sat Jul 30 2016 00:00:00 GMT-0700 (Pacific Daylight Time)
+Updating task: Ship Helsinki Mon May 01 2017 00:00:00 GMT-0700 (PDT)
+dueDate changed: Ship Helsinki Sat Jul 30 2016 00:00:00 GMT-0700 (PDT)
 
 Deleting all tasks with with a dueDate in 2016
 Tasks in database after delete: []
 
 All done!
+
 ```
 
-> Congratulations! You created your first two Node.js apps with Azure SQL! Check out the next section to learn about how you can make your Node.js apps faster with Azure SQL’s Columnstore feature.
+> Congratulations! You created your first two Node.js apps with Azure SQL! Check out the next section to learn about how you can make your Node.js apps faster with SQL Server’s Columnstore feature
