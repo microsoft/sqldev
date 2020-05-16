@@ -54,6 +54,7 @@ namespace SqlServerColumnstoreSample
                     sql = sb.ToString();
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
+                        // command.CommandTimeout = 60000; // If the command execution times out, change the number of milliseconds of timeout.
                         command.ExecuteNonQuery();
                         Console.WriteLine("Done.");
                     }
