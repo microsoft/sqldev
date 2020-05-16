@@ -1,4 +1,4 @@
-1. If you don’t have SQL Server 2017 Developer (or above) installed, click [**here**](https://go.microsoft.com/fwlink/?linkid=853016
+1. If you don’t have SQL Server 2019 Developer (or above) installed, click [**here**](https://go.microsoft.com/fwlink/?linkid=866662
 ) to download the SQL Server exe.
 2. Run it to start the SQL installer.
 3. Click **Basic** in *Select an installation type*.
