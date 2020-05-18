@@ -32,13 +32,15 @@ Connect to the database using sqlcmd and run the SQL script to create the table 
 ## Step 3.2 Create a Node.js that queries this tables and measures the time taken
 
 In your project folder, initialize Node dependencies.
-
 ```terminal
 npm init -y
 npm install tedious
 npm install node-uuid
 npm install async
+npm install @azure/keyvault-secrets
+npm install @azure/identity
 ```
+
 Using you favorite text editor, create a file called columnstore.js in your folder.
 
 ```javascript
@@ -46,27 +48,55 @@ var Connection = require('tedious').Connection;
 var Request = require('tedious').Request;
 var uuid = require('node-uuid');
 var async = require('async');
+const KeyVaultSecrets = require("@azure/keyvault-secrets");
+const Identity = require("@azure/identity");
 
-var config = {
-    server: 'your_server.database.windows.net',		//update me
-    authentication: {
+var password;
+var conn;
+
+async function GetSecret(){
+	console.log("Getting secret...");
+  	// DefaultAzureCredential expects the following three environment variables:
+  	// - AZURE_TENANT_ID: The tenant ID in Azure Active Directory
+  	// - AZURE_CLIENT_ID: The application (client) ID registered in the AAD tenant
+  	// - AZURE_CLIENT_SECRET: The client secret for the registered application
+  	const credential = new Identity.DefaultAzureCredential();
+
+	const vaultName = process.env["KEY_VAULT_NAME"] || "your_keyvault_name";
+  	const url = `https://${vaultName}.vault.azure.net`;
+
+	const client = new KeyVaultSecrets.SecretClient(url, credential);
+
+	try {
+	  secret = await client.getSecret('AppSecret').then((secret) => { 
+		password = secret.value;
+		});
+	}
+	catch (error) {
+		console.log("Error connecting to key vault: " + error);
+	}
+}
+
+async function GetConnection(){
+   var config = {
+     server: 'your_server.database.windows.net',  // update me
+     authentication: {
         type: 'default',
         options: {
-            userName: 'your_user', 			// update me
-            password: 'your_password' 			// update me
+            userName: 'your_user', 		// update me
+            password: password 			// will be retrieved
         }
-    },
-    options: {
-      encrypt: true, 
-      database: 'your_database',			// update me
-      trustServerCertificate: true
-    }
-    
-};
+      },
+      options: {
+	encrypt: true, 
+	trustServerCertificate: true,
+	database: 'your_database'		// update me
+      }
+    };
 
-
-var connection = new Connection(config);
-connection.connect();
+  conn = new Connection(config);
+  conn.connect();
+}
 
 function exec(sql) {
     var timerName = "QueryTime";
@@ -86,17 +116,33 @@ function exec(sql) {
             console.log("Sum: " +  column.value);
         });
     });
-        console.time(timerName);
-    connection.execSql(request);
+    console.time(timerName);
+    conn.execSql(request);
 }
-// Open connection and execute query
-connection.on('connect', function(err) {
+
+async function Main() {
+
+  await GetSecret();
+  await GetConnection();
+
+	console.log("Got connection");
+
+  conn.on('connect', function(err) {
+    if (err) {
+     console.log(err);
+    } else {
+      console.log('Connected');
+
+    // Execute all functions in the array serially
     async.waterfall([
         function(){
-            exec('SELECT SUM(Price) FROM Table_with_3M_rows');
-        },
-    ]);
-});
+            exec('SELECT SUM(Price) FROM Table_with_3M_rows');},
+        ]);
+     }});
+
+}
+
+Main();
 ```
 
 ## Step 3.3 Measure how long it takes to run the query

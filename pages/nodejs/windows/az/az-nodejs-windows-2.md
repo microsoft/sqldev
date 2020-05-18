@@ -371,10 +371,8 @@ async function GetSecret(){
 
 	console.log("got default cred");
 
-	const vaultName = process.env["KEYVAULT_NAME"] || "your_keyvault_name";
+	const vaultName = process.env["KEY_VAULT_NAME"] || "your_keyvault_name";
   	const url = `https://${vaultName}.vault.azure.net`;
-
-	console.log("connecting to vault: " + vaultName + " at: " + url);
 
 	const client = new KeyVaultSecrets.SecretClient(url, credential);
 
@@ -384,7 +382,7 @@ async function GetSecret(){
 		});
 	}
 	catch (error) {
-		console.log("Error connecting to key vault: " + err);
+		console.log("Error connecting to key vault: " + error);
 	}
 }
 
@@ -407,10 +405,8 @@ async function GetConnection(){
   		}
 	}
 	connection = new Connection(config);
-	console.log("connecting with secret: " + pwd);
 	await connection.connect();
 	console.log("Connected");
-	
 }
 
 function Start(callback) {
@@ -572,7 +568,7 @@ d. Save and close orm.js
 
 ```javascript
     var Sequelize = require('sequelize');
- const KeyVaultSecrets = require("@azure/keyvault-secrets");
+    const KeyVaultSecrets = require("@azure/keyvault-secrets");
     const Identity = require("@azure/identity");
 
 
