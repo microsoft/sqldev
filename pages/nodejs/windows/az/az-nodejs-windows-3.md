@@ -74,7 +74,7 @@ async function GetSecret(){
   	// - AZURE_CLIENT_SECRET: The client secret for the registered application
   	const credential = new Identity.DefaultAzureCredential();
 
-	const vaultName = process.env["KEYVAULT_NAME"] || "your_keyvault_name";
+	const vaultName = process.env["KEY_VAULT_NAME"] || "your_keyvault_name";
   	const url = `https://${vaultName}.vault.azure.net`;
 
 	console.log("connecting to vault: " + vaultName + " at: " + url);
@@ -87,7 +87,7 @@ async function GetSecret(){
 		});
 	}
 	catch (error) {
-		console.log("Error connecting to key vault: " + err);
+		console.log("Error connecting to key vault: " + error);
 	}
 }
 
