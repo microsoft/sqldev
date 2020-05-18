@@ -307,7 +307,249 @@ Reading rows from the Table...
 Done!
 ```
 
-## Step 2.3 Create a Node.js app that connects to Azure SQL using the popular Sequelize ORM
+## Step 2.3 Secure your credentials using Azure Key vault
+
+**Create an Azure Key Vault and put your Secret into it.**
+
+{% include partials/create_key_vault_and_store_creds.md %} 
+
+**Add required dependencies to allow the program to connect.**
+
+```terminal
+  npm install @azure/keyvault-secrets
+  npm install @azure/identity
+```
+
+**Set up your environment to Authenticate to Azure Key Vault**
+
+This section takes you through the steps described [**on this site**](https://docs.microsoft.com/en-us/azure/key-vault/quick-create-java) to set up your machine for authentication to the key vault.  You need to do this to use the **DefaultAzureCredentialBuilder()**.
+
+1. Open a command window and execute **az login** if you have not already.
+1. Create a service prinicpal (make sure you take note of the output, as you will use it in the next two steps.):
+
+```terminal
+az ad sp create-for-rbac -n "http://mySP" --sdk-auth
+```
+
+1. Give the serpvice prinicpal access to your key vault.
+
+```terminal
+az keyvault set-policy -n <your-unique-keyvault-name> --spn <clientId-of-your-service-principal> --secret-permissions delete get list set --key-permissions create decrypt delete encrypt get list unwrapKey wrapKey
+```
+
+1. Set environment variables.  You can do this from the command line in the following way:
+
+```terminal
+setx AZURE_CLIENT_ID <your_client_id>
+setx AZURE_CLIENT_SECRET <your_client_secret>
+setx AZURE_TENANT_ID <your_tenantID>
+setx KEY_VAULT_NAME <your_key_vault_name>
+```
+
+**Update your crud.js to use the Key Vault for Authentication** 
+
+Now, you need to update your code to talk to KeyVault.  Because the Key Vault calls are asyncronous, wrap the main logic of the previous program in a main method, and then call it.  
+
+```javascript
+var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+var TYPES = require('tedious').TYPES;
+var async = require('async');
+const KeyVaultSecrets = require("@azure/keyvault-secrets");
+const Identity = require("@azure/identity");
+
+var pwd;
+var connection;
+
+async function GetSecret(){
+	console.log("Getting secret...");
+  	// DefaultAzureCredential expects the following three environment variables:
+  	// - AZURE_TENANT_ID: The tenant ID in Azure Active Directory
+  	// - AZURE_CLIENT_ID: The application (client) ID registered in the AAD tenant
+  	// - AZURE_CLIENT_SECRET: The client secret for the registered application
+  	const credential = new Identity.DefaultAzureCredential();
+
+	console.log("got default cred");
+
+	const vaultName = process.env["KEYVAULT_NAME"] || "your_keyvault_name";
+  	const url = `https://${vaultName}.vault.azure.net`;
+
+	console.log("connecting to vault: " + vaultName + " at: " + url);
+
+	const client = new KeyVaultSecrets.SecretClient(url, credential);
+
+	try {
+	secret = await client.getSecret('AppSecret').then((secret) => {
+		pwd = secret.value
+		});
+	}
+	catch (error) {
+		console.log("Error connecting to key vault: " + err);
+	}
+}
+
+async function GetConnection(){
+	
+	// Create connection to database
+	var config = {
+  		server: 'your_server.database.windows.net',	// update me
+	  	authentication: {
+	      		type: 'default',
+	      		options: {
+        	  		userName: 'your_user', 		// update me
+	          		password: pwd			// fetched from key vault
+      			}
+  		},
+	 	options: {
+	 	   	database: 'your_database',		// update me
+			trustServerCertificate: true,
+			encrypt: true
+  		}
+	}
+	connection = new Connection(config);
+	console.log("connecting with secret: " + pwd);
+	await connection.connect();
+	console.log("Connected");
+	
+}
+
+function Start(callback) {
+    console.log('Starting...');
+    callback(null, 'Jake', 'United States');
+}
+
+function Insert(name, location, callback) {
+    console.log("Inserting '" + name + "' into Table...");
+
+    request = new Request(
+        'INSERT INTO TestSchema.Employees (Name, Location) OUTPUT INSERTED.Id VALUES (@Name, @Location);',
+        function(err, rowCount, rows) {
+        if (err) {
+            callback(err);
+        } else {
+            console.log(rowCount + ' row(s) inserted');
+            callback(null, 'Nikita', 'United States');
+        }
+        });
+    request.addParameter('Name', TYPES.NVarChar, name);
+    request.addParameter('Location', TYPES.NVarChar, location);
+
+    // Execute SQL statement
+    connection.execSql(request);
+}
+
+function Update(name, location, callback) {
+    console.log("Updating Location to '" + location + "' for '" + name + "'...");
+
+    // Update the employee record requested
+    request = new Request(
+    'UPDATE TestSchema.Employees SET Location=@Location WHERE Name = @Name;',
+    function(err, rowCount, rows) {
+        if (err) {
+        callback(err);
+        } else {
+        console.log(rowCount + ' row(s) updated');
+        callback(null, 'Jared');
+        }
+    });
+    request.addParameter('Name', TYPES.NVarChar, name);
+    request.addParameter('Location', TYPES.NVarChar, location);
+
+    // Execute SQL statement
+    connection.execSql(request);
+}
+
+function Delete(name, callback) {
+    console.log("Deleting '" + name + "' from Table...");
+
+    // Delete the employee record requested
+    request = new Request(
+        'DELETE FROM TestSchema.Employees WHERE Name = @Name;',
+        function(err, rowCount, rows) {
+        if (err) {
+            callback(err);
+        } else {
+            console.log(rowCount + ' row(s) deleted');
+            callback(null);
+        }
+        });
+    request.addParameter('Name', TYPES.NVarChar, name);
+
+    // Execute SQL statement
+    connection.execSql(request);
+}
+
+function Read(callback) {
+    console.log('Reading rows from the Table...');
+
+    // Read all rows from table
+    request = new Request(
+    'SELECT Id, Name, Location FROM TestSchema.Employees;',
+    function(err, rowCount, rows) {
+    if (err) {
+        callback(err);
+    } else {
+        console.log(rowCount + ' row(s) returned');
+        callback(null);
+    }
+    });
+
+    // Print the rows read
+    var result = "";
+    request.on('row', function(columns) {
+        columns.forEach(function(column) {
+            if (column.value === null) {
+                console.log('NULL');
+            } else {
+                result += column.value + " ";
+            }
+        });
+        console.log(result);
+        result = "";
+    });
+
+    // Execute SQL statement
+    connection.execSql(request);
+}
+
+function Complete(err, result) {
+    if (err) {
+       throw err;
+    } else {
+        console.log("Done!");
+    }
+}
+
+
+async function Main() {
+
+// Attempt to connect and execute queries if connection goes through
+  console.log('Starting');
+
+  await GetSecret();
+  await GetConnection();
+
+  connection.on('connect', function(err) {
+    if (err) {
+     console.log(err);
+    } else {
+      console.log('Connected');
+
+    // Execute all functions in the array serially
+    async.waterfall([
+	Start,
+        Insert,
+        Update,
+        Delete,
+        Read
+    ], Complete);
+   }});
+}
+
+Main();
+```
+
+## Step 2.4 Create a Node.js app that connects to Azure SQL using the popular Sequelize ORM
 
 Create the app directory and initialize Node dependencies.
 
@@ -319,6 +561,8 @@ Create the app directory and initialize Node dependencies.
     #Install tedious and Sequelize module in your project folder
     npm install tedious
     npm install sequelize
+    npm install @azure/keyvault-secrets
+    npm install @azure/identity
 ```
 
 a. Open your favourite text editor and create the file orm.js in the directory AzreSqlSequelizeSample. 
@@ -328,10 +572,49 @@ d. Save and close orm.js
 
 ```javascript
     var Sequelize = require('sequelize');
+ const KeyVaultSecrets = require("@azure/keyvault-secrets");
+    const Identity = require("@azure/identity");
+
+
     var userName = 'your_user';     			// update me
-    var password = 'your_password'; 			// update me
+    var password = 'fetch_from_key_vault';		// fetched from key vault
     var hostName = 'your_server.database.windows.net';  // update me
     var sampleDbName = 'your_database';  		//update me
+   
+
+async function GetSecret(){
+	console.log("Getting secret...");
+  	// DefaultAzureCredential expects the following three environment variables:
+  	// - AZURE_TENANT_ID: The tenant ID in Azure Active Directory
+  	// - AZURE_CLIENT_ID: The application (client) ID registered in the AAD tenant
+  	// - AZURE_CLIENT_SECRET: The client secret for the registered application
+  	const credential = new Identity.DefaultAzureCredential();
+
+	console.log("got default cred");
+
+	const vaultName = process.env["KEYVAULT_NAME"] || "your_key_vault_name";
+  	const url = `https://${vaultName}.vault.azure.net`;
+
+	console.log("connecting to vault: " + vaultName + " at: " + url);
+
+	const client = new KeyVaultSecrets.SecretClient(url, credential);
+
+	try {
+	secret = await client.getSecret('AppSecret').then((secret) => {
+		password = secret.value
+		});
+	}
+	catch (error) {
+		console.log("Error connecting to key vault: "+ err);
+	}
+}
+
+async function Main() {
+
+// Attempt to connect and execute queries if connection goes through
+  console.log('Starting');
+
+  await GetSecret();
 
     // Initialize Sequelize to connect to sample DB
     var sampleDb = new Sequelize(sampleDbName, userName, password, {
@@ -432,6 +715,9 @@ d. Save and close orm.js
             })
         })
     })
+}
+
+Main();
 ```
 
 Run the orm.js app
