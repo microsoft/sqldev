@@ -476,7 +476,7 @@ This section takes you through the steps described [**on this site**](https://do
 az ad sp create-for-rbac -n "http://mySP" --sdk-auth
 ```
 
-1. Give the serpvice prinicpal access to your key vault.
+1. Give the service prinicpal access to your key vault.
 
 ```terminal
 az keyvault set-policy -n <your-unique-keyvault-name> --spn <clientId-of-your-service-principal> --secret-permissions delete get list set --key-permissions create decrypt delete encrypt get list unwrapKey wrapKey
