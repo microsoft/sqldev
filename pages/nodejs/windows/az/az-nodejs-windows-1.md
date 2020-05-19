@@ -51,4 +51,4 @@ Chocolatey installed 1/1 packages. 0 packages failed.
 
 {% include partials/download_azure_cli.md %}
 
-> You have now installed authenticated your machine to Azure.  
+> You have now authenticated your machine to Azure.  
