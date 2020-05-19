@@ -25,9 +25,9 @@ Using your favorite text editor, create a new file called columnstore.py in the 
 ```python
 import pyodbc
 import datetime
-server = 'websitetestingserver.database.windows.net'
-database = 'websitetestingdb'
-username = 'katsmith'
+server = 'your_server.database.windows.net'
+database = 'your_database'
+username = 'your_user'
 
 
 from azure.identity import DefaultAzureCredential
@@ -35,7 +35,7 @@ from azure.keyvault.secrets import SecretClient
 
 credential = DefaultAzureCredential()
 
-secret_client = SecretClient(vault_url="https://websitekeyvaultkatsmith.vault.azure.net", credential=credential)
+secret_client = SecretClient(vault_url="https://<your_key_vault_name>.vault.azure.net", credential=credential)
 
 # NOTE: please replace the ("<your-secret-name>") with the name of the secret in your vault
 secret = secret_client.get_secret("AppSecret")
