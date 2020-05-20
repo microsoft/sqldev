@@ -1,17 +1,21 @@
 
 > In this section you will create a simple Python app. The Python app will perform basic Insert, Update, Delete, and Select.
 
-## Step 2.1 Get Connection Information to use in Connection Strings, and Create a Firewall Rule.
+## Step 2.1 Install the Python driver for SQL Server
 
-{% include partials/get_azure_sql_connection_info.md %}
+```terminal
+sudo apt-get install unixodbc-dev (TODO: was in last step?)
+sudo apt-get install python-pip
+pip install pyodbc
+```
 
-## Step 2.2 Create a Python app that connects to Azure SQL and executes queries
+## Step 2.2 Create a Python app that connects to Azure SQLand executes queries
 
 Create a new folder for the sample
 
 ```terminal
 mkdir AzureSqlSample
-cd SqlServerSample
+cd AzureSqlSample
 ```
 
 Execute the T-SQL scripts below in the terminal with sqlcmd to a table and insert some row.
@@ -21,12 +25,12 @@ sqlcmd -S your_server.database.windows.net -U your_user -P your_password -d your
 sqlcmd -S your_server.database.windows.net -U your_user -P your_password -d your_database -Q "INSERT INTO Employees (Name, Location) VALUES (N'Jared', N'Australia'), (N'Nikita', N'India'), (N'Tom', N'Germany');"
 ```
 
-Using your favorite text editor, create a new file called crud.py in the AzureSqlSample folder. Paste the code below inside into the new file and update the connection information. This will insert, update, delete, and read a few rows.
+Using your favorite text editor, create a new file called crud.py in the AzureSqlSample folder. Paste the code below inside into the new file. This will insert, update, delete, and read a few rows.
 
 ```python
 import pyodbc
 server = 'your_server.database.windows.net'
-database = 'your_database'	
+database = 'your_database'
 username = 'your_user'
 password = 'your_password'
 cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
@@ -80,6 +84,7 @@ Reading data from table
 Jake United States
 ```
 
+
 ## Step 2.3 Secure your credentials using Azure Key Vault
 
 
@@ -127,7 +132,6 @@ setx AZURE_TENANT_ID <your_tenantID>
 ```
 
 **Update your crud.py to use the Key Vault for Authentication** 
-
 
 Copy the following into your crud.py, replacing the old, and being sure to update your connection information and your keyvault name:
 
