@@ -37,7 +37,7 @@ v8.10.0
 
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
-{% include partials/install_sqlcmd_linux_ubuntu.md %}
+{% include partials/az-install_sqlcmd_linux_ubuntu.md %}
 
 ## Step 1.4 Install The Azure CLI and Login to Azure
 
