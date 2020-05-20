@@ -476,7 +476,7 @@ This section takes you through the steps described [**on this site**](https://do
 az ad sp create-for-rbac -n "http://mySP" --sdk-auth
 ```
 
-1. Give the serpvice prinicpal access to your key vault.
+1. Give the service prinicpal access to your key vault.
 
 ```terminal
 az keyvault set-policy -n <your-unique-keyvault-name> --spn <clientId-of-your-service-principal> --secret-permissions delete get list set --key-permissions create decrypt delete encrypt get list unwrapKey wrapKey
@@ -485,13 +485,13 @@ az keyvault set-policy -n <your-unique-keyvault-name> --spn <clientId-of-your-se
 1. Set environment variables.  You can do this from the command line in the following way:
 
 ```terminal
-export AZURE_CLIENT_ID=9d937378-9ce7-4a62-8c62-c106f838b09d
+export AZURE_CLIENT_ID=your_client_id
 
-export AZURE_CLIENT_SECRET=6053cef4-3fe2-437c-b101-65ef56b28172
+export AZURE_CLIENT_SECRET=your_client_secret
 
-export AZURE_TENANT_ID=72f988bf-86f1-41af-91ab-2d7cd011db47
+export AZURE_TENANT_ID=your_tenant_id
 
-export KEY_VAULT_NAME=websitekeyvaultkatsmith
+export KEY_VAULT_NAME=your_keyvault_name
 ```
 
 **Update your App.java to use the Key Vault for Authentication**
