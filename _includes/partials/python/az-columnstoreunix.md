@@ -63,8 +63,8 @@ python columnstore.py
 ```
 
 ```results
-Sum: 30000000
-QueryTime: 844106 ms
+('Sum:', '30000000')
+('QueryTime:', 870974, 'ms')
 ```
 
 ## Step 3.4 Add a columnstore index to your table.
@@ -80,8 +80,8 @@ python columnstore.py
 ```
 
 ```results
-Sum: 30000000
-QueryTime: 78325 ms
+('Sum:', '30000000')
+('QueryTime:', 67888, 'ms')
 ```
 
 > Congratulations! You just made your Python app faster using Columnstore Indexes!
