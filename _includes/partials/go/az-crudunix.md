@@ -16,20 +16,14 @@ Create a new project directory and install Go dependencies.
     mkdir AzureSqlSample
     cd AzureSqlSample
 
-    # Get and install the SQL Server driver for Go
+    # Get and install the Azure SQL DB driver for Go
     go get github.com/denisenkom/go-mssqldb
     go install github.com/denisenkom/go-mssqldb
 ```
 
-Create a database that will be used for the rest of this tutorial by connecting to SQL Server using sqlcmd and executing the following command. Don't forget to update the username and password with your own.
+Now you will create a simple Go app that connects to Azure SQL DB.
 
-```terminal
-    sqlcmd -S 127.0.0.1 -U sa -P your_password -Q "CREATE DATABASE SampleDB;"
-```
-
-Now you will create a simple Go app that connects to SQL Server.
-
-Using [your favorite text editor](https://code.visualstudio.com/), create a file named connect.go in the SqlServerSample folder. Copy and paste the below contents into the file. Don't forget to update the username and password with your own.
+Using [your favorite text editor](https://code.visualstudio.com/), create a file named connect.go in the AzureSqlSample folder. Copy and paste the below contents into the file. Don't forget to update the username and password with your own.
 
 This sample uses the GoLang Context methods to ensure that there's an active connection to the database server.
 
@@ -45,10 +39,10 @@ import (
 )
 
 // Replace with your own connection parameters
-var server = "localhost"
-var port = 1433
-var user = "sa"
+var server = "your_server.database.windows.net"
+var user = "your_user"
 var password = "your_password"
+var database = "your_database"
 
 var db *sql.DB
 
@@ -56,8 +50,8 @@ func main() {
     var err error
 
     // Create connection string
-    connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d",
-        server, user, password, port)
+    connString := fmt.Sprintf("server=%s;user id=%s;password=%s;database=%s",
+        server, user, password, database)
 
     // Create connection pool
     db, err = sql.Open("sqlserver", connString)
@@ -87,7 +81,7 @@ func SelectVersion(){
     var result string
 
     // Run query and scan for result
-    err = db.QueryRowContext(ctx, "SELECT @@version").Scan(&result)
+    err = db.QueryRowContext(ctx, "SELECT @@version").coScan(&result)
     if err != nil {
         log.Fatal("Scan failed:", err.Error())
     }
@@ -102,14 +96,14 @@ go run connect.go
 ```
 
 ```results
-Connected!
-Microsoft SQL Server 2017 (CTP2.1) - 14.0.600.250 (X64)
-        May 10 2017 12:21:23
-        Copyright (C) 2017 Microsoft Corporation. All rights reserved.
-        Developer Edition (64-bit) on Linux (Ubuntu 16.04.2 LTS)
+2020/06/02 09:34:05 Connected!
+Microsoft SQL Azure (RTM) - 12.0.2000.8 
+	May 15 2020 00:47:08 
+	Copyright (C) 2019 Microsoft Corporation
+
 ```
 
-Using your favorite text editor, create a file called CreateTestData.sql in the SqlServerSample folder. Copy and paste the following the T-SQL code inside it. This will create a schema, table, and insert a few rows.
+Using your favorite text editor, create a file called CreateTestData.sql in the AzureSqlSample folder. Copy and paste the following the T-SQL code inside it. This will create a schema, table, and insert a few rows.
 
 ```sql
 CREATE SCHEMA TestSchema;
@@ -135,39 +129,21 @@ GO
 Connect to the database using sqlcmd and run the SQL script to create the schema, table, and insert some rows.
 
 ```terminal
-sqlcmd -S 127.0.0.1 -U sa -P your_password -d SampleDB -i ./CreateTestData.sql
+sqlcmd -S your_server.database.windows.net -U your_user -P your_password -d your_database -i ./CreateTestData.sql
 ```
 
 ```results
-CREATE SCHEMA TestSchema;
+(3 rows affected)
+Id          Name                                               Location
+----------- -------------------------------------------------- --------------------------------------------------
+          1 Jared                                              Australia
+          2 Nikita                                             India
+          3 Tom                                                Germany
 
-Executed in 0 ms
-CREATE TABLE TestSchema.Employees (
-  Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  Name NVARCHAR(50),
-  Location NVARCHAR(50)
-);
-
-Executed in 0 ms
-INSERT INTO TestSchema.Employees (Name, Location) VALUES
-(N'Jared', N'Australia'),
-(N'Nikita', N'India'),
-(N'Tom', N'Germany');
-
-Executed in 0 ms
-SELECT * FROM TestSchema.Employees;
-Id  Name    Location
---  ------  ---------
-1   Jared   Australia
-2   Nikita  India
-3   Tom     Germany
-
-3 row(s) returned
-
-Executed in 1 ms
+(3 rows affected)
 ```
 
-Using your favorite text editor, create a new file called crud.go in the SqlServerSample folder. Copy and paste the following code inside it. This will insert, update, delete, and read a few rows.
+Using your favorite text editor, create a new file called crud.go in the AzureSqlSample folder. Copy and paste the following code inside it. This will insert, update, delete, and read a few rows.
 
 ```go
 package main
@@ -183,16 +159,17 @@ import (
 
 var db *sql.DB
 
-var server = "localhost"
-var port = 1433
-var user = "sa"
+// Replace with your own connection parameters
+var server = "your_server.database.windows.net"
+var user = "your_user"
 var password = "your_password"
-var database = "SampleDB"
+var database = "your_database"
+
 
 func main() {
     // Build connection string
-    connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;",
-        server, user, password, port, database)
+    connString := fmt.Sprintf("server=%s;user id=%s;password=%s;database=%s;",
+        server, user, password, database)
 
     var err error
 
@@ -379,18 +356,22 @@ Updated 1 row(s) successfully.
 Deleted 1 row(s) successfully.
 ```
 
-## Step 2.2 Create a Go app that connects to SQL Server using the popular GORM
+## Step 2.2 Create a Go app that connects to Azure SQL DB using the popular GORM
 
 Create the app directory and initialize Go dependencies.
 
 ```terminal
     cd ~/
-    mkdir SqlServerGormSample
-    cd SqlServerGormSample
+    mkdir AzureSqlGormSample
+    cd AzureSqlGormSample
 
     # Get and install the SQL Server driver for Go
     go get github.com/denisenkom/go-mssqldb
     go install github.com/denisenkom/go-mssqldb
+
+   # Get and install GORM
+   go get github.com/jinzhu/gorm
+   go install github.com/jinzhu/gorm
 ```
 
 Paste the contents below into a file called `orm.go`. Make sure to replace the password variable to your own.
@@ -405,11 +386,10 @@ Paste the contents below into a file called `orm.go`. Make sure to replace the p
         "log"
     )
 
-    var server = "localhost"
-    var port = 1433
-    var user = "sa"
+    var server = "your_server.database.windows.net"
+    var user = "your_user"
     var password = "your_password"
-    var database = "SampleDB"
+    var database = "your_database"
 
     // Define a User model struct
     type User struct {
@@ -458,8 +438,8 @@ Paste the contents below into a file called `orm.go`. Make sure to replace the p
     }
 
     func main() {
-        connectionString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s",
-                                            server, user, password, port, database)
+        connectionString := fmt.Sprintf("server=%s;user id=%s;password=%s;database=%s",
+                                            server, user, password, database)
         db, err := gorm.Open("mssql", connectionString)
 
         if err != nil {
@@ -481,13 +461,13 @@ Paste the contents below into a file called `orm.go`. Make sure to replace the p
         // Create appropriate Tasks for each user
         fmt.Println("Creating new appropriate tasks...")
         db.Create(&Task{
-            Title: "Do laundry", DueDate: "2017-03-30", IsComplete: false, UserID: 1})
+            Title: "Do laundry", DueDate: "2021-03-30", IsComplete: false, UserID: 1})
         db.Create(&Task{
-            Title: "Mow the lawn", DueDate: "2017-03-30", IsComplete: false, UserID: 2})
+            Title: "Mow the lawn", DueDate: "2021-03-30", IsComplete: false, UserID: 2})
         db.Create(&Task{
-            Title: "Do more laundry", DueDate: "2017-03-30", IsComplete: false, UserID: 3})
+            Title: "Do more laundry", DueDate: "2021-03-30", IsComplete: false, UserID: 3})
         db.Create(&Task{
-            Title: "Watch TV", DueDate: "2017-03-30", IsComplete: false, UserID: 3})
+            Title: "Watch TV", DueDate: "2021-03-30", IsComplete: false, UserID: 3})
 
         // Read
         fmt.Println("\nReading all the tasks...")
@@ -509,7 +489,6 @@ Run the orm.go app
 ```
 
 ```results
-[info] removing callback `mssql:set_identity_insert` from C:/Projects/golang-experiments/tutorials/orm.go:70
 Migrating models...
 Creating awesome users...
 Creating new appropriate tasks...
@@ -517,29 +496,29 @@ Creating new appropriate tasks...
 Reading all the tasks...
 Andrea Lam's tasks:
 Title: Do laundry
-DueDate: 2017-03-30
+DueDate: 2021-03-30
 IsComplete:false
 
 Meet Bhagdev's tasks:
 Title: Mow the lawn
-DueDate: 2017-03-30
+DueDate: 2021-03-30
 IsComplete:false
 
 Luis Bosquez's tasks:
 Title: Do more laundry
-DueDate: 2017-03-30
+DueDate: 2021-03-30
 IsComplete:false
 
 Title: Watch TV
-DueDate: 2017-03-30
+DueDate: 2021-03-30
 IsComplete:false
 
 Updating Andrea's task...
 Title: Buy donuts for Luis
-DueDate: 2017-03-30
+DueDate: 2021-03-30
 IsComplete:false
 
 Deleted all tasks for user 3
 ```
 
-> Congratulations! You created your first three Go apps with SQL Server! Check out the next section to learn about how you can make your apps faster with SQL Server’s Columnstore feature.
+> Congratulations! You created your first three Go apps with AzureSQL DB! Check out the next section to learn about how you can make your apps faster with Azure SQL DB’s Columnstore feature.

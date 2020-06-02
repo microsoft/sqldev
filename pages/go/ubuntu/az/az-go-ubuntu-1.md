@@ -36,6 +36,8 @@ If you already have Go installed on your machine, skip this step. To install GoL
     export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
     ```
 
+You may also have to [install git](https://git-scm.com/downloads) on your machine, to make future calls to "go get" work.
+
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
 {% include partials/install_sqlcmd_linux_ubuntu.md %}

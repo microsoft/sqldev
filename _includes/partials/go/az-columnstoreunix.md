@@ -1,32 +1,32 @@
-{% include partials/step3/title.md %}
+{% include partials/step3/az-title.md %}
 
-## Step 3.1 Create a new table with 5 million using sqlcmd
+## Step 3.1 Create a new table with 3 million rows using sqlcmd
 
 Change to your home directory and create a folder for your project.
 
 ```terminal
 cd ~/
-mkdir SqlServerColumnstoreSample
-cd SqlServerColumnstoreSample
+mkdir AzureSqlColumnstoreSample
+cd AzureSqlColumnstoreSample
 ```
 
-Using your favorite text editor, create a new file called CreateSampleTable.sql in the folder SqlServerColumnstoreSample. Paste the T-SQL code below into your new SQL file. Save and close the file.
+Using your favorite text editor, create a new file called CreateSampleTable.sql in the folder AzureSqlColumnstoreSample. Paste the T-SQL code below into your new SQL file. Save and close the file.
 
 ```SQL
 WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a))
-SELECT TOP(5000000)
+SELECT TOP(3000000)
 ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId
 ,a.a + b.a + c.a + d.a + e.a + f.a + g.a + h.a AS OrderId
 ,a.a * 10 AS Price
 ,CONCAT(a.a, N' ', b.a, N' ', c.a, N' ', d.a, N' ', e.a, N' ', f.a, N' ', g.a, N' ', h.a) AS ProductName
-INTO Table_with_5M_rows
+INTO Table_with_3M_rows
 FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;
 ```
 
-Connect to the database using sqlcmd and run the SQL script to create the table with 5 million rows. This may take a few minutes to run.
+Connect to the database using sqlcmd and run the SQL script to create the table with 3 million rows. This may take a few minutes to run.
 
 ```terminal
-  sqlcmd -S 127.0.0.1 -U sa -P your_password -d SampleDB -i ./CreateSampleTable.sql
+  sqlcmd -S your_server.database.windows.net -U your_user -P your_password -d your_database -i ./CreateSampleTable.sql
 ```
 
 ## Step 3.2 Create a Go app that queries this tables and measures the time taken
@@ -52,11 +52,10 @@ import (
     "time"
 )
 
-var server = "localhost"
-var port = 1433
-var user = "sa"
+var server = "your_server.database.windows.net"
+var user = "your_user"
 var password = "your_password"
-var database = "SampleDB"
+var database = "your_database"
 
 var db *sql.DB
 
@@ -74,7 +73,7 @@ func ExecuteAggregateStatement(db *sql.DB) {
     var result string
 
     // Execute long non-query to aggregate rows
-    err = db.QueryRowContext(ctx, "SELECT SUM(Price) as sum FROM Table_with_5M_rows").Scan(&result)
+    err = db.QueryRowContext(ctx, "SELECT SUM(Price) as sum FROM Table_with_3M_rows").Scan(&result)
     if err != nil {
         log.Fatal("Error executing query: " + err.Error())
     }
@@ -84,8 +83,8 @@ func ExecuteAggregateStatement(db *sql.DB) {
 
 func main() {
     // Connect to database
-    connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;",
-                                server, user, password, port, database)
+    connString := fmt.Sprintf("server=%s;user id=%s;password=%s;database=%s;",
+                                server, user, password, database)
     var err error
 
     // Create connection pool
@@ -117,9 +116,9 @@ Run your Go app from the terminal.
 
 ```results
 Connected!
-Start time: 2017-06-05 16:33:50.0340976 -0700 PDT
-Sum: 50000000
-The query took: 601.7463ms
+Start time: 2020-06-02 10:34:19.954332394 -0700 PDT m=+0.004582781
+Sum: 30000000
+The query took: 1.789332897s
 ```
 
 ## Step 3.4 Add a columnstore index to your table using SQLCMD.
@@ -127,7 +126,7 @@ The query took: 601.7463ms
 Run this command to create a Columnstore Index on your table:
 
 ```terminal
-sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE CLUSTERED COLUMNSTORE INDEX Columnstoreindex ON Table_with_5M_rows;"
+sqlcmd -S your_server.database.windows.net -U your_user -P your_password -d your_database -Q "CREATE CLUSTERED COLUMNSTORE INDEX Columnstoreindex ON Table_with_3M_rows;"
 ```
 
 ## Step 3.5 Re-run the columnstore.go script and notice how long the query took to complete this time.
@@ -138,9 +137,9 @@ sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE CLUSTERED COLU
 
 ```results
 Connected!
-Start time: 2017-06-05 16:35:02.5409285 -0700 PDT
-Sum: 50000000
-The query took: 86.9826ms
+Start time: 2020-06-02 10:36:00.800563452 -0700 PDT m=+0.004828082
+Sum: 30000000
+The query took: 607.94028ms
 ```
 
 > Congratulations! You just made your Go app faster using Columnstore Indexes!
