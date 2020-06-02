@@ -1,15 +1,21 @@
 
 > In this section you will create a simple Python app. The Python app will perform basic Insert, Update, Delete, and Select.
 
-## Step 2.1 Install the Python driver for SQL Server
+
+## Step 2.1 Get Connection Information to use in Connection Strings, and Create a Firewall Rule.
+
+{% include partials/get_azure_sql_connection_info.md %}
+
+
+## Step 2.2 Install the Python driver for SQL Server
 
 ```terminal
-sudo apt-get install unixodbc-dev (TODO: was in last step?)
+sudo apt-get install unixodbc-dev 
 sudo apt-get install python-pip
 pip install pyodbc
 ```
 
-## Step 2.2 Create a Python app that connects to Azure SQLand executes queries
+## Step 2.3 Create a Python app that connects to Azure SQLand executes queries
 
 Create a new folder for the sample
 
@@ -85,7 +91,7 @@ Jake United States
 ```
 
 
-## Step 2.3 Secure your credentials using Azure Key Vault
+## Step 2.4 Secure your credentials using Azure Key Vault
 
 
 **Create an Azure Key Vault and put your Secret into it.**
