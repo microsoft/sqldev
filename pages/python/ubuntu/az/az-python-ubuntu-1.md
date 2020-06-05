@@ -9,7 +9,7 @@ redirect_from:
   - /python/ubuntu/az/step/1
 ---
 
-> In this section, you create an Azure Hosted SQL Database. After that you will install the necessary dependencies to create Python apps with Azure SQL. 
+> In this section, you create an Azure Hosted SQL Database. After that you will install the necessary dependencies to create Python apps with Azure SQL DB. 
 
 ## Step 1.1 Create Azure Hosted SQL Database
 
@@ -25,10 +25,10 @@ sudo apt-get install python python-pip gcc g++ build-essential
 
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
-{% include partials/install_sqlcmd_linux_ubuntu.md %}
+{% include partials/az-install_sqlcmd_linux_ubuntu.md %}
 
 ## Step 1.4 Install The Azure CLI and Login to Azure
 
 {% include partials/download_azure_cli.md %}
 
-> You have successfully installed the Python Driver on your Ubuntu machine. You now have everything you need to start writing Python apps with Azure SQL!
+> You have successfully installed the Python Driver on your Ubuntu machine. You now have everything you need to start writing Python apps with Azure SQL DB!

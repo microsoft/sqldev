@@ -44,12 +44,13 @@ sqlcmd -S your_server.database.windows.net -U your_user -P your_password -d your
 ```
 
 ```results
---------------------------------------------------------
-{% include partials/sql_server_version.md %}    on Linux (Ubuntu 16.04)
+------------------------------------------------------------
+Microsoft SQL Azure (RTM) - 12.0.2000.8 
+	May 15 2020 00:47:08 
+	Copyright (C) 2019 Microsoft Corporation
+                                                                                                                                                                                                  
 
-1 rows(s) returned
-
-Executed in 1 ns
+(1 rows affected)
 ```
 
 > You have successfully installed SQL Server Command Line Utilities on your Ubuntu machine!
