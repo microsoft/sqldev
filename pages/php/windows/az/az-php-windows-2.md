@@ -7,11 +7,15 @@ permalink: /php/windows/az/step/2
 
 > In this section you will create a simple PHP app. The PHP app will perform basic Insert, Update, Delete, and Select.
 
-## Step 2.1 Install the PHP Drivers for SQL Server
+## Step 2.1 Get Connection Information to use in Connection Strings, and Create a Firewall Rule.
 
-Download the Microsoft PHP Drivers for SQL Server from the [download page](https://docs.microsoft.com/sql/connect/php/download-drivers-php-sql-server).
+{% include partials/get_azure_sql_connection_info.md %}
 
-Pick the appropriate dll - for example **php_pdo_sqlsrv_74_nts.dll** for the **PDO Driver** and **php_sqlsrv_74_nts.dll** for the **SQLSRV driver**.
+## Step 2.2 Install the PHP Drivers for Azure SQL DB
+
+Download the Microsoft PHP Drivers for Azure SQL DB from the [download page](https://docs.microsoft.com/sql/connect/php/download-drivers-php-sql-server).
+
+Pick the appropriate dll - for example **php_pdo_sqlsrv_74_nts_x64.dll** for the **PDO Driver** and **php_sqlsrv_74_nts_x64.dll** for the **SQLSRV driver**.
 
 Copy the dll files to the **C:\Program Files\iis express\PHP\v7.4\ext** folder.
 
@@ -19,33 +23,25 @@ Register the dll files in the **php.ini** file.
 
 ```terminal
     cd C:\Program^ Files\iis^ express\PHP\v7.4\ext
-    echo extension=php_sqlsrv_74_nts.dll >> C:\Program^ Files\iis^ express\PHP\v7.4\php.ini
-    echo extension=php_pdo_sqlsrv_74_nts.dll >> C:\Program^ Files\iis^ express\PHP\v7.4\php.ini
+    echo extension=php_sqlsrv_74_nts_x64.dll >> C:\Program^ Files\iis^ express\PHP\v7.4\php.ini
+    echo extension=php_pdo_sqlsrv_74_nts_64.dll >> C:\Program^ Files\iis^ express\PHP\v7.4\php.ini
 ```
-    
-## Step 2.2 Create a database for your application 
 
-Create the database using sqlcmd.
+## Step 2.3 Create a PHP app that connects to Azure SQL DB and executes queries
 
 ```terminal
-sqlcmd -S localhost -U sa -P your_password -Q "CREATE DATABASE SampleDB;"
+mkdir AzureSqlSample
+cd AzureSqlSample
 ```
 
-## Step 2.3 Create a PHP app that connects to SQL Server and executes queries
-
-```terminal
-mkdir SqlServerSample
-cd SqlServerSample
-```
-
-Using your favorite text editor, create a new file called connect.php in the SqlServerSample folder. Paste the code below inside into the new file.
+Using your favorite text editor, create a new file called connect.php in the AzureSqlSample folder. Paste the code below inside into the new file.
 
 ```php
 <?php
-    $serverName = "localhost";
+    $serverName = "your_server.database.windows.net";
     $connectionOptions = array(
-        "Database" => "SampleDB",
-        "Uid" => "sa",
+        "Database" => "your_database",
+        "Uid" => "your_user",
         "PWD" => "your_password"
     );
     //Establishes the connection
@@ -68,21 +64,21 @@ Connected!
 Execute the T-SQL scripts below in the terminal with sqlcmd to create a schema, table, and insert a few rows.
 
 ```terminal
-sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE SCHEMA TestSchema;"
-sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE TABLE TestSchema.Employees (Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, Name NVARCHAR(50), Location NVARCHAR(50));"
-sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "INSERT INTO TestSchema.Employees (Name, Location) VALUES (N'Jared', N'Australia'), (N'Nikita', N'India'), (N'Tom', N'Germany');"
-sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "SELECT * FROM TestSchema.Employees;"
+sqlcmd -S your_server.database.windows.net -U your_user -P your_password -d your_database -Q "CREATE SCHEMA TestSchema;"
+sqlcmd -S your_server.database.windows.net -U your_user -P your_password -d your_database -Q "CREATE TABLE TestSchema.Employees (Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, Name NVARCHAR(50), Location NVARCHAR(50));"
+sqlcmd -S your_server.database.windows.net -U your_user -P your_password -d your_database -Q "INSERT INTO TestSchema.Employees (Name, Location) VALUES (N'Jared', N'Australia'), (N'Nikita', N'India'), (N'Tom', N'Germany');"
+sqlcmd -S your_server.database.windows.net -U your_user -P your_password -d your_database -Q "SELECT * FROM TestSchema.Employees;"
 ```
 
 Using your favorite text editor, create a new file called crud.php in the SqlServerSample folder. Paste the code below inside into the new file. This will insert, update, delete, and read a few rows. 
 
 ```php
 <?php
-$serverName = "localhost";
-$connectionOptions = array(
-    "Database" => "SampleDB",
-    "Uid" => "sa",
-    "PWD" => "your_password"
+ $serverName = "your_server.database.windows.net";
+    $connectionOptions = array(
+        "Database" => "your_database",
+        "Uid" => "your_user",
+        "PWD" => "your_password"
 );
 
 //Establishes the connection
@@ -172,4 +168,4 @@ Reading data from table
 4 Jake United States
 ```
 
-> Congratulations! You have created your first PHP app with SQL Server! Check out the next section to learn about how you can make your PHP faster with SQL Server's Columnstore feature.
+> Congratulations! You have created your first PHP app with Azure SQL DB! Check out the next section to learn about how you can make your PHP faster with Azure SQL DB's Columnstore feature.

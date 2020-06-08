@@ -7,44 +7,44 @@ permalink: /php/windows/az/step/3
 
 > In this section we will show you a simple example of [Columnstore Indexes](https://docs.microsoft.com/en-us/sql/relational-databases/indexes/columnstore-indexes-overview) and how they can improve data processing speeds. Columnstore Indexes can achieve up to 100x better performance on analytical workloads and up to 10x better data compression than traditional rowstore indexes.
 
-## Step 3.1 Create a new table with 5 million rows using sqlcmd
+## Step 3.1 Create a new table with 3 million rows using sqlcmd
 
 ```terminal
-sqlcmd -S localhost -U sa -P your_password -d SampleDB -t 60000 -Q "WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a))
-SELECT TOP(5000000)
+sqlcmd -S your_server.database.windows.net -U your_user -P your_password -d your_database -t 60000 -Q "WITH a AS (SELECT * FROM (VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10)) AS a(a))
+SELECT TOP(3000000)
 ROW_NUMBER() OVER (ORDER BY a.a) AS OrderItemId
 ,a.a + b.a + c.a + d.a + e.a + f.a + g.a + h.a AS OrderId
 ,a.a * 10 AS Price
 ,CONCAT(a.a, N' ', b.a, N' ', c.a, N' ', d.a, N' ', e.a, N' ', f.a, N' ', g.a, N' ', h.a) AS ProductName
-INTO Table_with_5M_rows
+INTO Table_with_3M_rows
 FROM a, a AS b, a AS c, a AS d, a AS e, a AS f, a AS g, a AS h;"
 ```
 
 ## Step 3.2 Create a PHP app that queries this table and measures the time taken
 
 ```terminal
-cd ~/
-mkdir SqlServerColumnstoreSample
-cd SqlServerColumnstoreSample
+cd C:/Users/User
+mkdir AzureSqlColumnstoreSample
+cd AzureSqlColumnstoreSample
 ```
 
-Using your favorite text editor, create a new file called columnstore.php in the SqlServerColumnstoreSample folder. Paste the following code inside it.
+Using your favorite text editor, create a new file called columnstore.php in the AzureSqlColumnstoreSample folder. Paste the following code inside it.
 
 ```php
 <?php
 $time_start = microtime(true);
 
-$serverName = "localhost";
-$connectionOptions = array(
-    "Database" => "SampleDB",
-    "Uid" => "sa",
-    "PWD" => "your_password"
+$serverName = "your_server.database.windows.net";
+    $connectionOptions = array(
+        "Database" => "your_database",
+        "Uid" => "your_user",
+        "PWD" => "your_password"
 );
 //Establishes the connection
 $conn = sqlsrv_connect($serverName, $connectionOptions);
 
 //Read Query
-$tsql= "SELECT SUM(Price) as sum FROM Table_with_5M_rows";
+$tsql= "SELECT SUM(Price) as sum FROM Table_with_3M_rows";
 $getResults= sqlsrv_query($conn, $tsql);
 echo ("Sum: ");
 if ($getResults == FALSE)
@@ -84,14 +84,14 @@ php columnstore.php
 ```
 
 ```results
-Sum: 50000000
-QueryTime: 363ms
+Sum: 30000000
+QueryTime: 1403.2 ms
 ```
 
 ## Step 3.4 Add a columnstore index to your table
 
 ```terminal
-sqlcmd -S localhost -U sa -P your_password -d SampleDB -Q "CREATE CLUSTERED COLUMNSTORE INDEX Columnstoreindex ON Table_with_5M_rows;"
+sqlcmd -S your_server.database.windows.net -U your_user -P your_password -d your_database -Q "CREATE CLUSTERED COLUMNSTORE INDEX Columnstoreindex ON Table_with_3M_rows;"
 ```
 
 ## Step 3.5 Measure how long it takes to run the query with a columnstore index
@@ -101,8 +101,8 @@ php columnstore.php
 ```
 
 ```results
-Sum: 50000000
-QueryTime: 5ms
+Sum: 30000000
+QueryTime: 490.17 ms
 ```
 
 > Congratulations! You just made your PHP app faster using Columnstore Indexes!
