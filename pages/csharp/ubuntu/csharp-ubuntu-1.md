@@ -9,7 +9,7 @@ redirect_from:
   - /csharp/ubuntu/step/1
 ---
 
-> In this section, you will get SQL Server 2017 on Ubuntu. After that you will install the necessary dependencies to create .NET Core apps with SQL Server.
+> In this section, you will get SQL Server 2019 on Ubuntu. After that you will install the necessary dependencies to create .NET Core apps with SQL Server.
 
 ## Step 1.1 Install SQL Server
 
@@ -20,9 +20,11 @@ redirect_from:
 If you already have .NET Core installed on your machine, skip this step. Otherwise, install it using the following commands.
 
 ```terminal
-curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
-sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-xenial-prod xenial main" > /etc/apt/sources.list.d/dotnetdev.list'
+wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+sudo add-apt-repository universe
+sudo apt-get update
+sudo apt-get install apt-transport-https
 sudo apt-get update
 sudo apt-get install dotnet-sdk-3.1
 ```
