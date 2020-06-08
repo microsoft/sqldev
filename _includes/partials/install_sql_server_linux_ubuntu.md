@@ -4,15 +4,15 @@ If you need to get Ubuntu, check out the Ubuntu Downloads website.
 1. Register the Microsoft Linux repositories and add their keys.
 
     ```terminal
-    curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-    curl https://packages.microsoft.com/config/ubuntu/16.04/mssql-server-2017.list | sudo tee /etc/apt/sources.list.d/mssql-server-2017.list
+    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+    sudo add-apt-repository "$(wget -qO- https://packages.microsoft.com/config/ubuntu/18.04/mssql-server-2019.list)"
     ```
 
 2. Install SQL Server.
 
     ```terminal
     sudo apt-get update
-    sudo apt-get install mssql-server
+    sudo apt-get install -y mssql-server
     ```
 
     ```results
