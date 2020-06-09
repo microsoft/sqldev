@@ -20,10 +20,8 @@ redirect_from:
 If you already have .NET Core installed on your machine, skip this step. Otherwise, install it using the following commands.
 
 ```terminal
-sudo zypper install libunwind libicu
-curl -sSL -o dotnet.tar.gz https://aka.ms/dotnet-sdk-2.0.0-linux-x64
-mkdir -p ~/dotnet && tar zxf dotnet.tar.gz -C ~/dotnet
-export PATH=$PATH:$HOME/dotnet
+sudo rpm -Uvh https://packages.microsoft.com/config/sles/12/packages-microsoft-prod.rpm
+sudo zypper install dotnet-sdk-3.1
 ```
 
 ## Step 1.3 Install The Azure CLI and Login to Azure
