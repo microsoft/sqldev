@@ -322,7 +322,7 @@ Done!
 
 **Set up your environment to Authenticate to Azure Key Vault**
 
-This section takes you through the steps described [**on this site**](https://docs.microsoft.com/en-us/azure/key-vault/quick-create-java) to set up your machine for authentication to the key vault.  You need to do this to use the **DefaultAzureCredentialBuilder()**.
+This section takes you through the steps described [**on this site**](https://docs.microsoft.com/en-us/azure/key-vault/secrets/quick-create-node) to set up your machine for authentication to the key vault.  You need to do this to use the **DefaultAzureCredentialBuilder()**.
 
 1. Open a command window and execute **az login** if you have not already.
 1. Create a service prinicpal (make sure you take note of the output, as you will use it in the next two steps.):

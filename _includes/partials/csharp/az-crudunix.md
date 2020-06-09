@@ -142,7 +142,7 @@ dotnet restore
 ```
 
 ````results
-Restore completed in 2.1 sec for /home/kate/AzureSqlSample/AzureSqlSample.csproj.
+Restore completed in 2.1 sec for /home/user/AzureSqlSample/AzureSqlSample.csproj.
 ````
 
 And we also have to add the following code to access the Key Vault from our app.  Note the asyncrony:
@@ -327,7 +327,7 @@ namespace AzureSqlEFSample
 
         static async System.Threading.Tasks.Task DoWork(string[] args)
         {
-            Console.WriteLine("** C# CRUD sample with Entity Framework and Azure SQL **\n");
+            Console.WriteLine("** C# CRUD sample with Entity Framework and Azure SQL DB**\n");
 
             // Build connection string
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
