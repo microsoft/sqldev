@@ -3,7 +3,7 @@ Note: To ensure optimal performance of SQL Server, your machine should have at l
 1. Register the Microsoft Linux repository and add they keys.
 
     ```terminal
-        sudo zypper addrepo -fc https://packages.microsoft.com/config/sles/12/mssql-server-2017.repo
+        sudo zypper addrepo -fc https://packages.microsoft.com/config/sles/12/mssql-server-2019.repo
         sudo zypper --gpg-auto-import-keys refresh
     ```
 
