@@ -42,7 +42,7 @@ Connecting to Azure SQL DB
 Done.
 ```
 
-Using your favorite text editor, create a new file called **crud.rb** in the SqlServerSample folder. Copy and paste the following code inside it. This will insert, update, delete, and read a few rows. Don't forget to update the username and password with your own. Save and close the file.
+Using your favorite text editor, create a new file called **crud.rb** in the AzureSqlSample folder. Copy and paste the following code inside it. This will insert, update, delete, and read a few rows. Don't forget to update the username and password with your own. Save and close the file.
 
 ```ruby
 require 'tiny_tds'
