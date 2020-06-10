@@ -1,10 +1,14 @@
 Note: To ensure optimal performance of SQL Server, your machine should have at least 4 GB of memory.
 
+Note: In case of RHEL8, Python 2 required for running SQL Server is not pre-installed, so please execute the installation and set it to the interpreter.
+
 1. Register the Microsoft Linux repository.
 
     ```terminal
-    curl https://packages.microsoft.com/config/rhel/7/mssql-server-2017.repo | sudo tee /etc/yum.repos.d/mssql-server-2017.repo
+    sudo curl -o /etc/yum.repos.d/mssql-server.repo https://packages.microsoft.com/config/rhel/8/mssql-server-2019.repo
     ```
+
+    Note: If you are using RHEL 7, change `/rhel/8` in the above path to `/rhel/7`.
 
 2. Install SQL Server.
 
