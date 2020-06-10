@@ -22,29 +22,37 @@ If you already have .NET Core installed on your machine, skip this step. Install
 You also need to ensure that your system supports enabling software collections via the [scl tool](https://access.redhat.com/documentation/en-US/Red_Hat_Developer_Toolset/1/html-single/Software_Collections_Guide/#sect-Enabling_the_Software_Collection).
 
 1. Enable the .NET Core Channel. 
-For help registering your machine to get access to the channel see [Chapter 1 of the .NET Core Getting Started Guide](https://access.redhat.com/documentation/en/net-core/1.0/getting-started-guide/chapter-1-install-net-core-100-on-red-hat-enterprise-linux).
+  For help registering your machine to get access to the channel see [Chapter 1 of the .NET Core Getting Started Guide](https://access.redhat.com/documentation/en/net-core/1.0/getting-started-guide/chapter-1-install-net-core-100-on-red-hat-enterprise-linux).
 
-```terminal
-subscription-manager repos --enable=rhel-7-server-dotnet-rpms
-```
+  Note: For RHEL 8, .NET Core 3.1 is included in the AppStream repository, this action is unnecessary.
+
+  ```terminal
+  subscription-manager repos --enable=rhel-7-server-dotnet-rpms
+  ```
 
 2. Install scl-tools
+  Note: For RHEL 8, this action is unnecessary.
 
-```terminal
-yum install scl-utils
-```
+  ```terminal
+  yum install scl-utils
+  ```
 
 3. Install .NET Core
 
-```terminal
-yum install rh-dotnetcore20
-```
+  ```terminal:RHEL8
+  sudo yum install dotnet-sdk-3.1 -y
+  ```
+
+  ```terminal:RHEL7
+  sudo yum install rh-dotnet31 -y
+  ```
 
 4. Enable the .NET Core software collection
+  Note: For RHEL 8, this action is unnecessary.
 
-```terminal
-scl enable rh-dotnetcore20 bash
-```
+  ```terminal
+  scl enable rh-dotnetcore20 bash
+  ```
 
 ## Step 1.3 Install The Azure CLI and Login to Azure
 
