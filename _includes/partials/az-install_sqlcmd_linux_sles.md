@@ -1,4 +1,4 @@
-[SQLCMD](https://docs.microsoft.com/sql/linux/sql-server-linux-connect-and-query-sqlcmd){:target="_blank"} is a command line tool that enables you to connect to SQL Server and run queries.
+[SQLCMD](https://docs.microsoft.com/sql/linux/sql-server-linux-connect-and-query-sqlcmd){:target="_blank"} is a command line tool that enables you to connect to Azure SQL DB and run queries.
 
 ```terminal
 sudo su
@@ -29,10 +29,10 @@ source ~/.bashrc
 sudo zypper install unixODBC-devel
 ```
 
-After installing SQLCMD, you can connect to SQL Server using the following command:
+After installing SQLCMD, you can connect to Azure SQL DB using the following command:
 
 ```terminal
-sqlcmd -S your_database.database.windows.net -U your_user -P your_password -d your_database
+sqlcmd -S your_server.database.windows.net -U your_user -P your_password -d your_database
 1> # You're connected! Type your T-SQL statements here. Use the keyword 'GO' to execute each batch of statements.
 ```
 
