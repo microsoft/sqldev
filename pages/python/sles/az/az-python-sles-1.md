@@ -28,8 +28,4 @@ sudo zypper install python-pip python-devel gcc gcc-c++
 
 {% include partials/az-install_sqlcmd_linux_sles.md %}
 
-## Step 1.4 Install The Azure CLI and Login to Azure
-
-{% include partials/download_azure_cli.md %}
-
 > You have successfully installed the Python Driver on your SLES machine. You now have everything you need to start writing Python apps with Azure SQL DB!

@@ -29,7 +29,3 @@ sudo yum group install "Development tools"
 
 {% include partials/az-install_sqlcmd_linux_rhel.md %}
 
-
-## Step 1.4 Install The Azure CLI and Login to Azure
-
-{% include partials/download_azure_cli.md %}

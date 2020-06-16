@@ -1,12 +1,12 @@
 ---
 layout: page-steps
 language: Go
-title: Ubuntu
-permalink: /go/ubuntu/az/
+title: RHEL
+permalink: /go/rhel/az/
 
 redirect_from:
-  - /go/ubuntu/az/step/
-  - /go/ubuntu/az/step/1
+  - /go/rhel/az/step/
+  - /go/rhel/az/step/1
 ---
 
 > In this section, you create an Azure Hosted SQL Database, and then you will install the necessary dependencies to run GoLang.
@@ -17,7 +17,7 @@ redirect_from:
 
 ## Step 1.2 Install GoLang
 
-If you already have Go installed on your machine, skip this step. To install GoLang, follow these commands:
+If you already have GoLang installed on your machine, skip this step. To install GoLang, follow these commands:
 
 1. Run the following commands:
 
@@ -35,15 +35,15 @@ If you already have Go installed on your machine, skip this step. To install GoL
     export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
     ```
 
-You may also have to [install git](https://git-scm.com/downloads) on your machine, to make future calls to "go get" work.
+Then reload your profile, and confirm that go is on the path:
 
-## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
+    ```terminal
+    source .profile
+    which go
+    ```
 
-{% include partials/install_sqlcmd_linux_ubuntu.md %}
+## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for Azure SQL DB
 
-## Step 1.4 Install The Azure CLI and Login to Azure
+{% include partials/az-install_sqlcmd_linux_rhel.md %}
 
-{% include partials/download_azure_cli.md %}
-
-
-> You have successfully installed and setup GoLang and mssql-tools on your Ubuntu computer. You now have everything you need to start writing your Go apps with Azure SQL!
+> You have successfully installed and setup GoLang and mssql-tools on your RHEL computer. You now have everything you need to start writing your Go apps with Azure SQL DB!
