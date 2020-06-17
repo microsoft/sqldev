@@ -63,4 +63,8 @@ OS name: "linux", version: "4.18.0-193.el8.x86_64", arch: "amd64", family: "unix
 Note: If you're using an older version of Java, such as 1.7, your results above may differ slightly. If you want to use an updated version of Java, please update your Java home variable.
 
 
+## Step 1.4 Install The Azure CLI and Login to Azure
+
+{% include partials/download_azure_cli_linux.md %}
+
 > You have successfully installed Java and Maven on your Red Hat machine. You now have everything you need to start writing your Java apps with Azure SQL DB!

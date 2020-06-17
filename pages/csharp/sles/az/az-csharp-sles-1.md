@@ -1,7 +1,7 @@
 ---
 layout: page-steps
 language: C#
-title: SLES and Azure SQL
+title: SLES
 permalink: /csharp/sles/az/
 redirect_from:
   - /sles/az/
@@ -9,7 +9,7 @@ redirect_from:
   - /csharp/sles/az/step/1
 ---
 
-> In this section, you will get setup an Azure SQL instance. After that you will install the necessary dependencies to create .NET Core apps with Auzre SQL.
+> In this section, you will get setup an Azure SQL DB instance. After that you will install the necessary dependencies to create .NET Core apps with Auzre SQL DB.
 
 ## Step 1.1 Create Azure Hosted SQL Database
 
@@ -30,4 +30,4 @@ export PATH=$PATH:$HOME/dotnet
 
 {% include partials/download_azure_cli.md %}
 
-> You have successfully installed .NET Core on your SLES machine, and authenticated to Azure. You now have everything you need to start writing your C# apps with Azure SQL!
+> You have successfully installed .NET Core on your SLES machine, and authenticated to Azure. You now have everything you need to start writing your C# apps with Azure SQL DB!
