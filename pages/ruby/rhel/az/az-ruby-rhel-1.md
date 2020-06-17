@@ -1,27 +1,29 @@
 ---
 layout: page-steps
 language: Ruby
-title: Ubuntu
-permalink: /ruby/ubuntu/az/
+title: RHEL
+permalink: /ruby/rhel/az/
 redirect_from:
-  - /ruby/az/
-  - /ruby/ubuntu/az/step/
-  - /ruby/ubuntu/az/step/1
+  - /ruby/rhel/az/step/
+  - /ruby/rhel/az/step/1
 ---
+
 > In this section, you will get setup an Azure SQL instance. After that you will install the necessary dependencies to create Ruby apps with Azure SQL DB.
 
 ## Step 1.1 Create Azure Hosted SQL Database
 
 {% include partials/setup_azure_sql_instance.md %}
 
+
 ## Step 1.2 Install prerequisites for Ruby
 
-Use the commands below to install prerequisites.
+Add [Extra Packages for Enterprise Linux (EPEL)](https://fedoraproject.org/wiki/EPEL) to your list of repos and install the prerequisites.
 
 ```terminal
-sudo apt-get update
-sudo apt-get install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm-dev
-sudo apt-get install git
+wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+sudo rpm -ivh epel-release-latest-7.noarch.rpm
+sudo yum update
+sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel
 ```
 
 ## Step 1.3 Install rbenv and ruby-build
@@ -50,21 +52,20 @@ ruby -v
 ```
 
 ```results
-ruby 2.7.0p0 (2019-12-25 revision 647ee6f091) [x86_64-linux] 
+ruby 2.7.0p0 (2019-12-25 revision 647ee6f091) [x86_64-linux]
 ```
 
 ## Step 1.5 Install FreeTDS
 
-FreeTDS is a driver that enables you to connect to Azure SQL DB. It is a prerequisite for the connector you'll get later in the tutorial to connect to SQL Server. Run the following commands to install FreeTDS:
+FreeTDS is a driver that enables you to connect to SQL Server. It is a prerequisite for the connector you'll get later in the tutorial to connect to SQL Server. Run the following commands to install FreeTDS:
 
 ```terminal
 wget ftp://ftp.freetds.org/pub/freetds/stable/freetds-1.00.27.tar.gz
 tar -xzf freetds-1.00.27.tar.gz
 cd freetds-1.00.27
 ./configure --prefix=/usr/local --with-tdsver=7.3
-sudo make
-sudo make install
+make
+make install
 ```
 
-
-> You have successfully installed Ruby on your Ubuntu machine. You now have everything you need to start writing your Ruby apps with Azure SQL!
+> You have successfully installed Ruby on your RHEL machine. You now have everything you need to start writing your Ruby apps with SQL Server!
