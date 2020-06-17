@@ -62,4 +62,8 @@ Check that you have Maven properly installed by running the following command.
 
 Note: If you're using an older version of Java, such as 1.7, your results above may differ slightly. If you want to use an updated version of Java, please update your Java home variable.
 
+## Step 1.4 Install The Azure CLI and Login to Azure
+
+{% include partials/download_azure_cli_linux.md %}
+
 > You have successfully installed Java and Maven on SLES. You now have everything you need to start writing your Java apps with Azure SQL DB!

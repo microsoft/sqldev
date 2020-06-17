@@ -28,6 +28,6 @@ sudo apt-get install dotnet-sdk-3.1
 
 ## Step 1.3 Install The Azure CLI and Login to Azure
 
-{% include partials/download_azure_cli.md %}
+{% include partials/download_azure_cli_linux.md %}
 
 > You have successfully installed .NET Core on your Ubuntu machine, and authenticated to Azure. You now have everything you need to start writing your C# apps with Azure SQL!
