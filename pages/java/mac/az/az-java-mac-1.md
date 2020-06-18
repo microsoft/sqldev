@@ -14,54 +14,40 @@ redirect_from:
 
 {% include partials/setup_azure_sql_instance.md %}
 
-## Step 1.2 Install Homebrew and Java
+## Step 1.2 Install Azul Java
 
-If you already have Java installed on your machine, skip this step. Install Homebrew, cask, and Java using the following commands. Once you have installed Homebrew, make sure to restart the terminal session.
+If you already have Java installed on your machine, skip this step. Install the Azul Zulu JDK's for Mac.  Follow instructions [here](https://docs.microsoft.com/en-us/java/azure/jdk/java-jdk-install?view=azure-java-stable).
 
-{% include partials/install_homebrew.md %}
+[Download the 64-bit Azul Zulu JDK 8 as a ZIP file](https://repos.azul.com/azure-only/zulu/packages/zulu-11/11.0.3/zulu-11-azure-jdk_11.31.11-11.0.3-macosx_x64.zip) to a location on your client, such as /Library/Java/JavaVirtualMachines/. (.DMG packages are also provided on Azul's Azure downloads page.)
 
-For Homebrew to work, you need to restart the terminal session by closing and opening the terminal. Once you have opened a new session, update Homebrew and install Java.
+Launch Finder, navigate to the download directory, and double-click the ZIP file. Alternatively, you can launch a terminal command window, navigate to the directory, and run:
 
 ```terminal
-brew update
-brew cask install java
+unzip <name_of_zulu_package>.zip
 ```
 
-```results
-==> Tapping caskroom/cask
-Cloning into '/usr/local/Homebrew/Library/Taps/caskroom/homebrew-cask'...
-...
-==> Creating Caskroom at /usr/local/Caskroom
-==> Caveats
-...
-==> Downloading http://download.oracle.com/otn-pub/java/jdk/8u102-b14/jdk-8u102-macosx-x64.dmg
-######################################################################## 100.0%
-==> Verifying checksum for Cask java
-==> Running installer for java; your password may be necessary.
-==> Package installers may write to any location; options such as --appdir are ignored.
-==> installer: Package name is JDK 8 Update 102
-==> installer: Upgrading at base path /
-==> installer: The upgrade was successful.
-     java was successfully installed!
-```
-
-> You have sucessfully install Homebrew and Java on your macOS! 
+> You have sucessfully installed Java on your macOS! 
 
 ## Step 1.3 Install Maven
 
 [Maven](https://maven.apache.org/) can be used to help manage dependencies, build, test and run your Java project.
 
+
+Download the latest version of Maven from [here](https://maven.apache.org/), selecting the binary tar.gz file.  Extract the archive to your desired location.
+
 ```terminal
-brew install maven
+sudo su
+chown -R root:wheel Downloads/apache-maven*
+mv Downloads/apache-maven* /opt/apache-maven
+exit
 ```
 
-```results
-==> Using the sandbox
-==> Downloading https://www.apache.org/dyn/closer.cgi?path=maven/maven-3/3.3.9/binaries/apache-maven-3
-==> Best Mirror http://www-eu.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.
-######################################################################## 100.0%
-     /usr/local/Cellar/maven/3.3.9: 95 files, 9.6M, built in 6 seconds
+Now using your favorite text editor to add the following to your /.profile.  This will add the Maven binaries to your path:
+
+```terminal
+export PATH=$PATH:/opt/apache-maven/bin
 ```
+
 
 Check that you have Maven properly installed by running the following command.
 
@@ -82,4 +68,4 @@ OS name: "mac os x", version: "10.11.6", arch: "x86_64", family: "mac"
 
 {% include partials/download_azure_cli.md %}
 
-> You have successfully installed Java and Maven on your Mac, and authenticated to Azure. You now have everything you need to start writing your Java apps with Azure SQL!
+> You have successfully installed Java and Maven on your Mac, and authenticated to Azure. You now have everything you need to start writing your Java apps with Azure SQL DB!
