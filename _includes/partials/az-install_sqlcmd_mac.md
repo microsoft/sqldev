@@ -6,7 +6,7 @@ brew update
 HOMEBREW_NO_ENV_FILTERING=1 ACCEPT_EULA=Y brew install msodbcsql17 mssql-tools
 ```
 
-After installing SQLCMD, you can connect to SQL Server using the following command:
+After installing SQLCMD, you can connect to Azure SQL DB using the following command:
 
 ```terminal
 sqlcmd -S your_database.database.windows.net -U your_user -P your_password -d your_database
