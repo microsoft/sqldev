@@ -2,7 +2,7 @@
 layout: page-steps
 language: Java
 title: Windows and Azure SQL
-permalink: /java/windows/az
+permalink: /java/windows/az/
 redirect_from:
   - /java/windows/az/step/
   - /java/windows/az/step/1

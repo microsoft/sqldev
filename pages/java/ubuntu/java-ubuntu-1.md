@@ -4,7 +4,6 @@ language: Java
 title: Ubuntu
 permalink: java/ubuntu/server/
 redirect_from:
-  - /java/
   - /java/ubuntu/
   - /java/ubuntu/step/
   - /java/ubuntu/step/1

@@ -2,10 +2,11 @@
 layout: page-steps
 language: Python
 title: macOS
-permalink: /python/mac/az/
+permalink: /python/macos/az/
 redirect_from:
-  - /python/mac/az/step/
-  - /python/mac/az/step/1
+  - /python/macos/az/step/
+  - /python/macos/az/step/1
+  - /python/macos/az/1
 ---
 
 > In this section, you create an Azure Hosted SQL Database. After that you will install the necessary dependencies to create Python apps with Azure SQL DB. 

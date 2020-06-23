@@ -2,10 +2,11 @@
 layout: page-steps
 language: Node.js
 title: macOS
-permalink: /node/mac/az/
+permalink: /node/macos/az/
 redirect_from:
-  - /node/mac/az/step/
-  - /node/mac/az/step/1
+  - /node/macos/az/step/
+  - /node/macos/az/step/1
+  - /node/macos/az/1
 ---
 
 > In this section, you create an Azure Hosted SQL Database, and then you will install the necessary dependencies to run Node.
