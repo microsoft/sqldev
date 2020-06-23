@@ -2,9 +2,10 @@
 layout: page-steps
 language: Node.js
 title: Windows
-permalink: /node/windows/
+permalink: node/windows/server/
 redirect_from:
   - /node/
+  - /node/windows
   - /node/windows/step/
   - /node/windows/step/1
 ---

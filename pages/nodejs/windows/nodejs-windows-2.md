@@ -2,7 +2,7 @@
 layout: page-steps
 language: Node.js
 title: Windows
-permalink: /node/windows/step/2
+permalink: /node/windows/server/step/2
 ---
 
 > In this section you will create two simple Node.js apps. One of them will perform basic Insert, Update, Delete, and Select, while the second one will make use of Sequelize, one of the most popular Node.js Object-relational mappers, to execute the same operations.

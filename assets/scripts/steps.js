@@ -91,7 +91,7 @@
     };
 
     var generateCopyButton = function () {
-        var $btn = $('<div/>');
+        var $btn = $('<button/>');
         $btn.html(texts.copy);
         $btn.addClass(classes.copy);
         return $btn;
@@ -110,9 +110,6 @@
 */
     var checkContent = function ($container) {
         // Terminal
-
-        console.log(window.location.href);
-        console.log("test");
         var path = window.location.href;
         var windows = "windows";
         var isWindows;
@@ -133,12 +130,17 @@
         // Clipboard
         $container
             .find('.highlighter-rouge pre')
+            .attr('tabindex', '0')
             .append(generateCopyButton());
+
+        $container
+            .find('.language-results')
+            .parent()
+            .attr('tabindex', '0');
 
         return $container;
     };
 
-  
     // Init Sticky
     initSticky();
 

@@ -1,10 +1,10 @@
 ---
 layout: page-steps
 language: C#
-title: Windows and Azure SQL
-permalink: /csharp/win/az/step/1
+title: Windows 
+permalink: /csharp/win/az/
 redirect_from:
-  - /csharp/win/az
+  - /csharp/win/az/step/1
   - /csharp/win/az/step/
   - /csharp/win/az/1
 ---

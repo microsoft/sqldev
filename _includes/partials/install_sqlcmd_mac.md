@@ -1,4 +1,4 @@
-[SQLCMD](https://docs.microsoft.com/sql/linux/sql-server-linux-setup-tools){:target="_blank"} is a command line utility that enables you to connect to SQL Server and run queries.
+[SQLCMD](https://docs.microsoft.com/sql/linux/sql-server-linux-setup-tools){:target="_blank" rel="noopener noreferrer"} is a command line utility that enables you to connect to SQL Server and run queries.
 
 ```terminal
 brew tap microsoft/mssql-release https://github.com/Microsoft/homebrew-mssql-release

@@ -2,9 +2,11 @@
 layout: page-steps
 language: Ruby
 title: macOS
-permalink: /ruby/mac/
+permalink: ruby/macos/server/
 redirect_from:
   - /ruby/
+  - /ruby/macos/
+  - /ruby/mac/
   - /ruby/mac/step/
   - /ruby/mac/step/1
 ---

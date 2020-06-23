@@ -1,7 +1,7 @@
 ---
 layout: page-steps
 language: C#
-title: Windows and Azure SQL
+title: Windows 
 permalink: /csharp/win/az/step/3
 ---
 
