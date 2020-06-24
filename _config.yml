@@ -1,6 +1,6 @@
 # Site settings
 # Access it in the templates via {{ site.myvariable }}.
-title: Build an app with Azure SQL DB or SQL Server
+title: Build an app with Azure SQL or SQL Server
 description: > 
   Get started with Azure SQL DB on the cloud or SQL Server on macOS, Linux, and Windows.
 url: https://sqlchoice.azurewebsites.net

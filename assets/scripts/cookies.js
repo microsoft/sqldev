@@ -56,7 +56,6 @@
             eventCategory: window.location.pathname,
             eventAction: "copy_code"
           });
-          console.log("Copy");
         },
 
         cut: function(event) {

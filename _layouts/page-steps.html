@@ -13,17 +13,17 @@ layout: default-menutop
         <select id="sql-steps-host" class="sql-page_steps-dropdown">
             {% if page.permalink contains '/az' %}
                 <option value="server">SQL Server</option>
-                <option value="azure" selected>Azure SQL DB</option>
+                <option value="azure" selected>Azure SQL</option>
             {% else %}
                 <option value="server" selected>SQL Server</option>
-                <option value="azure">Azure SQL DB</option>
+                <option value="azure">Azure SQL</option>
             {% endif %}
         </select>
     </div>
 
     {% if page.permalink contains '/az' %}
     <h1 class="sql-page_steps-hero">
-        Create {{page.language}} apps using Azure SQL DB on {{page.title}}
+        Create {{page.language}} apps using Azure SQL on {{page.title}}
     </h1>
     {% else %}
     <h1 class="sql-page_steps-hero">
