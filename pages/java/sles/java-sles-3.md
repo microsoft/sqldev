@@ -2,7 +2,7 @@
 layout: page-steps
 language: Java
 title: SLES
-permalink: /java/sles/step/3
+permalink: /java/sles/server/step/3
 ---
 
 {% include partials/java/columnstoreunix.md %}

@@ -2,10 +2,11 @@
 layout: page-steps
 language: PHP
 title: macOS
-permalink: /php/mac/az/
+permalink: /php/macos/az/
 redirect_from:
-  - /php/mac/az/step/
-  - /php/mac/az/step/1
+  - /php/macos/az/step/
+  - /php/macos/az/step/1
+  - /php/macos/az/1
 ---
 
 > In this section, you create an Azure Hosted SQL Database After that you will install the necessary dependencies to create PHP apps with Azure SQL DB.

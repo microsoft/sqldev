@@ -4,6 +4,7 @@ language: Java
 title: RHEL
 permalink: /java/rhel/az/
 redirect_from:
+  - /java/rhel/az/1
   - /java/rhel/az/step/
   - /java/rhel/az/step/1
 ---

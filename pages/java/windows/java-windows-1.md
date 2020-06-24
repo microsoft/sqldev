@@ -2,9 +2,9 @@
 layout: page-steps
 language: Java
 title: Windows
-permalink: /java/windows/
+permalink: java/windows/server/
 redirect_from:
-  - /java/
+  - /java/windows/
   - /java/windows/step/
   - /java/windows/step/1
 ---

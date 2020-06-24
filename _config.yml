@@ -1,8 +1,8 @@
 # Site settings
 # Access it in the templates via {{ site.myvariable }}.
-title: Build an app using SQL Server
+title: Build an app with Azure SQL or SQL Server
 description: > 
-  Get started with SQL Server on macOS, Linux, and Windows.
+  Get started with Azure SQL DB on the cloud or SQL Server on macOS, Linux, and Windows.
 url: https://sqlchoice.azurewebsites.net
 destination: ../wwwroot/en-us/sql-server/developer-get-started
 baseurl: /en-us/sql-server/developer-get-started
@@ -14,64 +14,64 @@ gitter: https://gitter.im/Microsoft/mssql-developers
 
 steps:
   1: Set up your environment
-  2: Create $$ application with SQL server
+  2: Create $$ application with
   3: Make your $$ app up to 100x faster
 
 menu:
   C#:
     logo: csharp.png
     pages:
-      macOS: csharp/macos
-      RHEL: csharp/rhel
-      SLES: csharp/sles
-      Ubuntu: csharp/ubuntu
-      Windows: csharp/win
+      macOS: csharp/macos/server
+      RHEL: csharp/rhel/server
+      SLES: csharp/sles/server
+      Ubuntu: csharp/ubuntu/server
+      Windows: csharp/win/server
   Java:
     logo: java.png
     pages:
-      macOS: java/mac
-      RHEL: java/rhel
-      SLES: java/sles
-      Ubuntu: java/ubuntu
-      Windows: java/windows
+      macOS: java/macos/server
+      RHEL: java/rhel/server
+      SLES: java/sles/server
+      Ubuntu: java/ubuntu/server
+      Windows: java/windows/server
   Node.js:
     logo: node.png
     pages:
-      macOS: node/mac
-      RHEL: node/rhel
-      SLES: node/sles
-      Ubuntu: node/ubuntu
-      Windows: node/windows
+      macOS: node/macos/server
+      RHEL: node/rhel/server
+      SLES: node/sles/server
+      Ubuntu: node/ubuntu/server
+      Windows: node/windows/server
   PHP:
     logo: php.png
     pages:
-      macOS: php/mac
-      RHEL: php/rhel
-      SLES: php/sles
-      Ubuntu: php/ubuntu
-      Windows: php/windows
+      macOS: php/macos/server
+      RHEL: php/rhel/server
+      SLES: php/sles/server
+      Ubuntu: php/ubuntu/server
+      Windows: php/windows/server
   Python:
     logo: python.png
     pages:
-      macOS: python/mac
-      RHEL: python/rhel
-      SLES: python/sles
-      Ubuntu: python/ubuntu
-      Windows: python/windows
+      macOS: python/macos/server
+      RHEL: python/rhel/server
+      SLES: python/sles/server
+      Ubuntu: python/ubuntu/server
+      Windows: python/windows/server
   Ruby:
     logo: ruby.png
     pages:
-      macOS: ruby/mac
-      RHEL: ruby/rhel
-      Ubuntu: ruby/ubuntu
+      macOS: ruby/macos/server
+      RHEL: ruby/rhel/server
+      Ubuntu: ruby/ubuntu/server
   Go:
     logo: golang.png
     pages:
-      macOS: go/mac
-      RHEL: go/rhel
-      SLES: go/sles
-      Ubuntu: go/ubuntu
-      Windows: go/windows
+      macOS: go/macos/server
+      RHEL: go/rhel/server
+      SLES: go/sles/server
+      Ubuntu: go/ubuntu/server
+      Windows: go/windows/server
       
 resources:
   sqlserver-csharp:

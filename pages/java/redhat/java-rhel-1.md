@@ -2,9 +2,10 @@
 layout: page-steps
 language: Java
 title: RHEL
-permalink: /java/rhel/
+permalink: java/rhel/server/
 redirect_from:
   - /java/
+  - /java/rhel/
   - /java/rhel/step/
   - /java/rhel/step/1
 ---

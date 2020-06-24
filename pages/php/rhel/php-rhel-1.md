@@ -2,9 +2,10 @@
 layout: page-steps
 language: PHP
 title: RHEL
-permalink: /php/rhel/
+permalink: php/rhel/server/
 redirect_from:
   - /php/
+  - /php/rhel/
   - /php/rhel/step/
   - /php/rhel/step/1
 ---

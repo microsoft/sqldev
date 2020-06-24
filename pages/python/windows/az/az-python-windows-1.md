@@ -30,7 +30,7 @@ Next, add Python to your path
 
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
-{% include partials/az-install_sqlcmd-windows.md %}
+{% include partials/az-install_sqlcmd_windows.md %}
 
 ## Step 1.4 Install The Azure CLI and Login to Azure
 

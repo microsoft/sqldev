@@ -2,7 +2,7 @@
 layout: page-steps
 language: Java
 title: Windows
-permalink: /java/windows/step/3
+permalink: /java/windows/server/step/3
 ---
 
 {% include partials/java/columnstorewindows.md %}

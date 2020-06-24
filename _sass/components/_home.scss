@@ -75,10 +75,18 @@
             padding-top: .5rem;
             width: 9rem;
         }
+
+        &--block-sql {
+            background-color: transparent;
+            display: block;
+            height: auto;
+            width: 9rem;
+            margin-top: 1.5rem;
+        }
     }
 
     &-link {
-        color: $color-secondary-bright;
+        color: $color-home-link;
         text-align: center;
 
         &:hover {

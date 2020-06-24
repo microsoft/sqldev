@@ -2,10 +2,10 @@
 layout: page-steps
 language: Go
 title: macOS
-permalink: /go/mac/az/
+permalink: /go/macos/az/
 redirect_from:
-  - /go/mac/az/step/
-  - /go/mac/az/step/1
+  - /go/macos/az/step/
+  - /go/macos/az/step/1
 ---
 
 > In this section, you create an Azure Hosted SQL Database, and then you will install the necessary dependencies to run GoLang.
