@@ -2,9 +2,10 @@
 layout: page-steps
 language: C#
 title: SLES
-permalink: /csharp/sles/
+permalink: csharp/sles/server/
 redirect_from:
   - /sles/
+  - /csharp/sles/
   - /csharp/sles/step/
   - /csharp/sles/step/1
 ---

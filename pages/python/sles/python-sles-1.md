@@ -2,9 +2,10 @@
 layout: page-steps
 language: Python
 title: SLES
-permalink: /python/sles/
+permalink: python/sles/server/
 redirect_from:
   - /python/
+  - /python/sles/
   - /python/sles/step/
   - /python/sles/step/1
 ---

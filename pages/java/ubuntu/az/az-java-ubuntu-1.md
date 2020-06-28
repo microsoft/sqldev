@@ -2,8 +2,9 @@
 layout: page-steps
 language: Java
 title: Ubuntu
-permalink: /java/ubuntu/az
+permalink: /java/ubuntu/az/
 redirect_from:
+  - /java/ubuntu/az/1
   - /java/ubuntu/az/step/
   - /java/ubuntu/az/step/1
 ---
@@ -88,6 +89,6 @@ OS name: "linux", version: "5.0.0-25-generic", arch: "amd64", family: "unix"
 
 ## Step 1.5 Install The Azure CLI and Login to Azure
 
-{% include partials/download_azure_cli.md %}
+{% include partials/download_azure_cli_linux.md %}
 
 > You have successfully installed Java and Maven on your Ubuntu machine, and authenticated to Azure. You now have everything you need to start writing your Java apps with Azure SQL!

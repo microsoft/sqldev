@@ -2,9 +2,10 @@
 layout: page-steps
 language: Python
 title: Windows
-permalink: /python/windows/
+permalink: python/windows/server/
 redirect_from:
   - /python/
+  - /python/windows/
   - /python/windows/step/
   - /python/windows/step/1
 ---

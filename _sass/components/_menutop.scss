@@ -9,7 +9,7 @@
     background-color: $color-brand;
     display: flex;
     justify-content: space-between;
-    margin-top: 2rem;
+    margin-top: 5rem;
     padding-left: $margin-logo;
 
     &-link {
@@ -104,6 +104,11 @@
                 opacity: 1;
             }
         }
+    }
+    
+          
+    &-sub:focus-within &-items {
+        display: block;
     }
 
     &-sub:hover &-link {

@@ -2,7 +2,7 @@
 layout: page-steps
 language: GO
 title: Windows
-permalink: /go/windows/step/2
+permalink: /go/windows/server/step/2
 ---
 
 > After getting SQL Server and GoLang installed, you can now proceed to create your new Go projects. Here we will explore three simple applications. One of them will connect and print the SQL Server version of your database server, the other one will perform basic Insert, Update, Delete, and Select operations, and the third one will make use of [GORM](http://jinzhu.me/gorm/), a popular object relational mapping (ORM) framework for Go to execute the same operations.

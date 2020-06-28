@@ -2,7 +2,7 @@
 layout: page-steps
 language: PHP
 title: Windows
-permalink: /php/windows/step/2
+permalink: /php/windows/server/step/2
 ---
 
 > In this section you will create a simple PHP app. The PHP app will perform basic Insert, Update, Delete, and Select.

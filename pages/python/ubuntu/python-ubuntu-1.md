@@ -2,9 +2,10 @@
 layout: page-steps
 language: Python
 title: Ubuntu
-permalink: /python/ubuntu/
+permalink: python/ubuntu/server/
 redirect_from:
   - /python/
+  - /python/ubuntu/
   - /python/ubuntu/step/
   - /python/ubuntu/step/1
 ---

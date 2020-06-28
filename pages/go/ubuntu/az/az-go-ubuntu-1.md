@@ -5,7 +5,6 @@ title: Ubuntu
 permalink: /go/ubuntu/az/
 
 redirect_from:
-  - /go/az/
   - /go/ubuntu/az/step/
   - /go/ubuntu/az/step/1
 ---

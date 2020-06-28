@@ -1,10 +1,12 @@
 ---
 layout: page-steps
 language: Java
-title: Windows and Azure SQL
-permalink: /java/windows/az/step/1
+title: Windows 
+permalink: /java/windows/az/
 redirect_from:
+  - /java/windows/az/1
   - /java/windows/az/step/
+  - /java/windows/az/step/1
 ---
 
 > In this section, you create an Azure Hosted SQL Database. After that you will install the necessary dependencies to create .NET Framework apps with Azure SQL. 

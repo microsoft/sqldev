@@ -8,7 +8,7 @@ redirect_from:
   - /ruby/ubuntu/az/step/
   - /ruby/ubuntu/az/step/1
 ---
-> In this section, you will get setup an Azure SQL instance. After that you will install the necessary dependencies to create Ruby apps with Azure SQL DBr.
+> In this section, you will get setup an Azure SQL instance. After that you will install the necessary dependencies to create Ruby apps with Azure SQL DB.
 
 ## Step 1.1 Create Azure Hosted SQL Database
 
@@ -65,10 +65,6 @@ cd freetds-1.00.27
 sudo make
 sudo make install
 ```
-
-## Step 1.6 Install The Azure CLI and Login to Azure
-
-{% include partials/download_azure_cli.md %}
 
 
 > You have successfully installed Ruby on your Ubuntu machine. You now have everything you need to start writing your Ruby apps with Azure SQL!
