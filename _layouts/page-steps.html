@@ -9,7 +9,7 @@ layout: default-menutop
     {% assign baseNumber = baseLink[1] | times: 1 %}
 
     <div class="sql-page_steps-dropdown-container">
-        <label class="sql-page_steps-dropdown-title">SQL instruction with</label>
+        <label for="sql-steps-host" class="sql-page_steps-dropdown-title">SQL instruction with</label>
         <select id="sql-steps-host" class="sql-page_steps-dropdown">
             {% if page.permalink contains '/az' %}
                 <option value="server">SQL Server</option>
