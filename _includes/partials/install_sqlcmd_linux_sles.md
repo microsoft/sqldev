@@ -46,9 +46,7 @@ sqlcmd -S localhost -U sa -P yourpassword -Q "SELECT @@VERSION"
 --------------------------------------------------------
 {% include partials/sql_server_version.md %}    on Linux (SUSE Linux Enterprise Server 12 SP2)
 
-1 rows(s) returned
-
-Executed in 1 ns
+(1 rows affected)
 ```
 
-> You have successfully installed SQL Server Command Line Utilities on your SLES machine! 
+> You have successfully installed SQL Server Command Line Utilities on your SLES machine!

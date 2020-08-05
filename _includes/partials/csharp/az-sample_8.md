@@ -1,12 +1,12 @@
 ```csharp
-using System;
-using System.Data.SqlClient;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.KeyVault.Models;
 using Microsoft.Azure.Services.AppAuthentication;
-using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AzureSqlEFSample
 {
@@ -15,7 +15,7 @@ namespace AzureSqlEFSample
         static void Main(string[] args)
         {
             System.Threading.Tasks.Task task = Program.DoWork(args);
-            // Becuase this program takes user input, have a long wait.		
+            // Because this program takes user input, have a long wait.
             var result = task.Wait(TimeSpan.FromMinutes(30));
         }
 
@@ -23,7 +23,7 @@ namespace AzureSqlEFSample
         {
             string sql;
             Console.WriteLine("** C# CRUD sample with Entity Framework and Azure SQL **\n");
-            
+
             // Build connection string
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
             builder.DataSource = "your_server.database.windows.net";   // update me

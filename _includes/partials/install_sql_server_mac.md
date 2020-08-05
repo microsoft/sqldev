@@ -3,8 +3,8 @@
 3. Next, start a new **Terminal prompt** and use the following commands to download and start the **SQL Server on Linux** Docker image. Make sure to use a strong password with special characters.
 
 ```terminal
-sudo docker pull microsoft/mssql-server-linux:2017-latest
-docker run -e 'HOMEBREW_NO_ENV_FILTERING=1' -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=yourStrong(!)Password' -p 1433:1433 -d microsoft/mssql-server-linux
+sudo docker pull mcr.microsoft.com/mssql/server:2019-latest
+docker run -e 'HOMEBREW_NO_ENV_FILTERING=1' -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=yourStrong(!)Password' -p 1433:1433 -d mcr.microsoft.com/mssql/server
 ```
 
 > You now have SQL Server running locally in Docker! Check out the next section to continue installing prerequisites.

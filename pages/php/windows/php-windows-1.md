@@ -10,7 +10,7 @@ redirect_from:
   - /php/windows/step/1
 ---
 
-> In this section, you will get SQL Server 2017 on Windows. After that you will install the necessary dependencies to create PHP apps with SQL Server
+> In this section, you will get SQL Server 2019 on Windows. After that you will install the necessary dependencies to create PHP apps with SQL Server
 
 ## Step 1.1 Install SQL Server
 

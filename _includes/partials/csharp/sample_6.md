@@ -1,7 +1,7 @@
 ```csharp
+using Microsoft.Data.SqlClient;
 using System;
 using System.Linq;
-using System.Data.SqlClient;
 using System.Collections.Generic;
 
 namespace SqlServerEFSample

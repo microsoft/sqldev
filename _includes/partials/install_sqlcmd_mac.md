@@ -21,11 +21,9 @@ sqlcmd -S 127.0.0.1 -U sa -P your_password -Q "SELECT @@VERSION"
 
 ```results
 --------------------------------------------------------
-{% include partials/sql_server_version.md %}    on Linux (Ubuntu 16.04)
+{% include partials/sql_server_version.md %}    on Linux (Ubuntu 18.04)
 
-1 rows(s) returned
-
-Executed in 1 ns
+(1 rows affected)
 ```
 
 > You have successfully installed SQL Server Command Line Utilities on your macOS machine!
