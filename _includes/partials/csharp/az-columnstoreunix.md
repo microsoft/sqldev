@@ -24,7 +24,7 @@ Open this file in your favorite text editor and replace the contents with the co
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Data.SqlClient" Version="4.4.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="2.0.0" />
   </ItemGroup>
 
 </Project>
@@ -38,8 +38,8 @@ Open this file in your favorite text editor and replace the contents with the co
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.KeyVault.Models;
 using Microsoft.Azure.Services.AppAuthentication;
+using Microsoft.Data.SqlClient;
 using System;
-using System.Data.SqlClient;
 using System.Text;
 using System.Threading.Tasks;
 

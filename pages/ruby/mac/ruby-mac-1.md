@@ -11,13 +11,13 @@ redirect_from:
   - /ruby/mac/step/1
 ---
 
-> In this section, you will get SQL Server 2017 running on Docker. After that you will install the necessary dependencies to create Ruby apps with SQL Server.
+> In this section, you will get SQL Server 2019 running on Docker. After that you will install the necessary dependencies to create Ruby apps with SQL Server.
 
 ## Step 1.1 Install SQL Server
 
 {% include partials/install_sql_server_mac.md %}
 
-## Step 1.2 Install Homebrew 
+## Step 1.2 Install Homebrew
 
 Ruby is already installed on your Mac. If you already have Homebrew on your machine, skip this step. Install Homebrew using the following commands. Once you have installed Homebrew, make sure to restart the terminal session.
 

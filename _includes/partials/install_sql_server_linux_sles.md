@@ -3,34 +3,60 @@ Note: To ensure optimal performance of SQL Server, your machine should have at l
 1. Register the Microsoft Linux repository and add they keys.
 
     ```terminal
-        sudo zypper addrepo -fc https://packages.microsoft.com/config/sles/12/mssql-server-2017.repo
-        sudo zypper --gpg-auto-import-keys refresh
+    sudo zypper addrepo -fc https://packages.microsoft.com/config/sles/12/mssql-server-2019.repo
+    sudo zypper --gpg-auto-import-keys refresh
     ```
 
 2. Install SQL Server.
 
     ```terminal
-        sudo zypper update
-        sudo zypper install mssql-server
+    sudo zypper update
+    sudo zypper install -y mssql-server
     ```
 
 3. Setup your SQL Server.
 
     ```terminal
-        sudo /opt/mssql/bin/mssql-conf setup
+    sudo /opt/mssql/bin/mssql-conf setup
     ```
 
-```results
-Microsoft(R) SQL Server(R) Setup
+    ```results
+    Choose an edition of SQL Server:
+      1) Evaluation (free, no production use rights, 180-day limit)
+      2) Developer (free, no production use rights)
+      3) Express (free)
+      4) Web (PAID)
+      5) Standard (PAID)
+      6) Enterprise (PAID) - CPU Core utilization restricted to 20 physical/40 hyperthreaded
+      7) Enterprise Core (PAID) - CPU Core utilization up to Operating System Maximum
+      8) I bought a license through a retail sales channel and have a product key to enter.
 
-To abort setup at anytime, press Ctrl-C.
+    Details about editions can be found at
+    https://go.microsoft.com/fwlink/?LinkId=2109348&clcid=0x409
 
-The license terms for this product can be downloaded from http://go.microsoft.com/fwlink/?LinkId=746388 and
-found in /usr/share/doc/mssql-server/LICENSE.TXT.
+    Use of PAID editions of this software requires separate licensing through a
+    Microsoft Volume Licensing program.
+    By choosing a PAID edition, you are verifying that you have the appropriate
+    number of licenses in place to install and run this software.
 
-Do you accept the license terms? If so, please type YES:
-Please enter a password for the system administrator (SA) account:
-Please confirm the password for the system administrator (SA) account:
-```
+    Enter your edition(1-8): 2
+    The license terms for this product can be found in
+    /usr/share/doc/mssql-server or downloaded from:
+    https://go.microsoft.com/fwlink/?LinkId=2104294&clcid=0x409
+
+    The privacy statement can be viewed at:
+    https://go.microsoft.com/fwlink/?LinkId=853010&clcid=0x409
+
+    Do you accept the license terms? [Yes/No]:Yes
+
+    Enter the SQL Server system administrator password:
+    Confirm the SQL Server system administrator password:
+    Configuring SQL Server...
+
+    ForceFlush is enabled for this instance.
+    ForceFlush feature is enabled for log durability.
+    Created symlink /etc/systemd/system/multi-user.target.wants/mssql-server.service → /lib/systemd/system/mssql-server.service.
+    Setup has completed successfully. SQL Server is now starting.
+    ```
 
 > You now have SQL Server running locally on your SLES machine! Check out the next section to continue installing prerequisites.

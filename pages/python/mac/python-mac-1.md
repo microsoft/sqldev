@@ -11,7 +11,7 @@ redirect_from:
   - /python/mac/step/1
 ---
 
-> In this section, you will get SQL Server 2017 running on Docker. After that you will install the necessary dependencies to create Python apps with SQL Server
+> In this section, you will get SQL Server 2019 running on Docker. After that you will install the necessary dependencies to create Python apps with SQL Server
 
 ## Step 1.1 Install SQL Server
 

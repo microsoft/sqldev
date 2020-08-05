@@ -1,7 +1,7 @@
 ```csharp
+using Microsoft.Data.SqlClient;
 using System;
 using System.Text;
-using System.Data.SqlClient;
 
 namespace AzureSqlSample
 {
@@ -15,8 +15,8 @@ namespace AzureSqlSample
                 SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
                 builder.DataSource = "your_server.database.database.windows.net";   // update me
                 builder.UserID = "your_user";              // update me
-                builder.Password = "your_password";      // update me
-                builder.InitialCatalog = "your_database";	// update me
+                builder.Password = "your_password";        // update me
+                builder.InitialCatalog = "your_database";  // update me
 
                 // Connect to Azure SQL
                 Console.Write("Connecting to Azure SQL ... ");

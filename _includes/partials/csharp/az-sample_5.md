@@ -1,10 +1,10 @@
 ```csharp
-using System;
-using System.Text;
-using System.Data.SqlClient;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.KeyVault.Models;
 using Microsoft.Azure.Services.AppAuthentication;
+using Microsoft.Data.SqlClient;
+using System;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace AzureSQLSample
@@ -14,14 +14,14 @@ namespace AzureSQLSample
         static void Main(string[] args)
         {
             Task task = Program.DoWork(args);
-            // Becuase this program takes user input, have a long wait.		
+            // Because this program takes user input, have a long wait.
             var result = task.Wait(TimeSpan.FromMinutes(30));
         }
 
         static async Task DoWork(string[] args)
         {
             string sql;
-            
+
             // Build connection string
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
             builder.DataSource = "your_server_name.database.windows.net";   // update me
@@ -46,7 +46,6 @@ namespace AzureSQLSample
                         command.ExecuteNonQuery();
                         Console.WriteLine("Done.");
                     }
-
 
                     // Create a Table and insert some sample data
                     Console.Write("Creating sample table with data, press any key to continue...");
@@ -158,5 +157,5 @@ namespace AzureSQLSample
             return secret.Value;
         }
     }
-} 
+}
 ```

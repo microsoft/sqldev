@@ -1,10 +1,10 @@
 ```csharp
-using System;
-using System.Text;
-using System.Data.SqlClient;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.KeyVault.Models;
 using Microsoft.Azure.Services.AppAuthentication;
+using Microsoft.Data.SqlClient;
+using System;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace AzureSQLSample

@@ -18,14 +18,9 @@ sqlcmd -S localhost -U sa -P yourpassword -Q "SELECT @@VERSION"
 
 ```results
 --------------------------------------------------------
-Microsoft SQL Server 2016 (RTM) - 13.0.1601.5 (X64)
-  Apr 29 2016 23:23:58
-  Copyright (c) Microsoft Corporation
-  Developer Edition (64-bit)
+{% include partials/sql_server_version.md %} on Windows 10
 
-1 rows(s) returned
-
-Executed in 1 ns.
+(1 rows affected)
 ```
 
-> You have successfully installed SQL Server Command Line Utilities on your Windows machine! 
+> You have successfully installed SQL Server Command Line Utilities on your Windows machine!

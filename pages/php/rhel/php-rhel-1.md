@@ -10,7 +10,7 @@ redirect_from:
   - /php/rhel/step/1
 ---
 
-> In this section, you will get SQL Server 2017 running on Red Hat Enterprise Linux (RHEL). After that you will install the necessary dependencies to create PHP apps with SQL Server
+> In this section, you will get SQL Server 2019 running on Red Hat Enterprise Linux (RHEL). After that you will install the necessary dependencies to create PHP apps with SQL Server
 
 ## Step 1.1 Install SQL Server
 

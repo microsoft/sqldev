@@ -44,9 +44,7 @@ sqlcmd -S localhost -U sa -P yourpassword -Q "SELECT @@VERSION"
 --------------------------------------------------------
 {% include partials/sql_server_version.md %}    on Linux (Red Hat Enterprise Linux)
 
-1 rows(s) returned
-
-Executed in 1 ns
+(1 rows affected)
 ```
 
-> You have successfully installed SQL Server Command Line Utilities on your Red Hat machine! 
+> You have successfully installed SQL Server Command Line Utilities on your Red Hat machine!

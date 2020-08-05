@@ -10,7 +10,7 @@ redirect_from:
   - /python/windows/step/1
 ---
 
-> In this section, you will get SQL Server 2017 on Windows. After that you will install the necessary dependencies to create Python apps with SQL Server. 
+> In this section, you will get SQL Server 2019 on Windows. After that you will install the necessary dependencies to create Python apps with SQL Server.
 
 ## Step 1.1 Install SQL Server
 
@@ -22,9 +22,9 @@ Download and run the installer [**here**](https://www.python.org/downloads/)
 
 Next, add Python to your path
 
-1. Press start 
-2. Search for "Advanced System Settings" 
-3. Click on the "Environment Variables" button 
+1. Press start
+2. Search for "Advanced System Settings"
+3. Click on the "Environment Variables" button
 4. Add the location of the Python27 folder to the PATH variable in System Variables. The following is a typical value for the PATH variable C:\Python27
 
 > You have succesfully installed Python on your machine!

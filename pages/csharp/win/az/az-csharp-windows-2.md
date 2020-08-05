@@ -33,7 +33,7 @@ Connecting to Azure SQL ... Done.
 Press any key to finish...
 ```
 
-Now replace the code in **Program.cs** by copying and pasting the code below into the file. This will create a database and a table, and will [insert](https://msdn.microsoft.com/en-us/library/ms174335.aspx), [update](https://msdn.microsoft.com/en-us/library/ms177523.aspx), [delete](https://msdn.microsoft.com/en-us/library/ms189835.aspx), and read a few rows. Don't forget to update the username and password with your own. Save and close the file.
+Now replace the code in **Program.cs** by copying and pasting the code below into the file. This will create a database and a table, and will [insert](https://docs.microsoft.com/en-us/sql/t-sql/statements/insert-transact-sql), [update](https://docs.microsoft.com/en-us/sql/t-sql/queries/update-transact-sql), [delete](https://docs.microsoft.com/en-us/sql/t-sql/statements/delete-transact-sql), and read a few rows. Don't forget to update the username and password with your own. Save and close the file.
   
 {% include partials/csharp/az-sample_2.md %}
 
