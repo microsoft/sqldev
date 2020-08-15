@@ -10,12 +10,11 @@ redirect_from:
   - /ruby/rhel/step/1
 ---
 
-> In this section, you will get SQL Server 2017 running on Red Hat Enterprise Linux (RHEL). After that you will install the necessary dependencies to create Ruby apps with SQL Server.
+> In this section, you will get SQL Server 2019 running on Red Hat Enterprise Linux (RHEL). After that you will install the necessary dependencies to create Ruby apps with SQL Server.
 
 ## Step 1.1 Install SQL Server
 
 {% include partials/install_sql_server_linux_rhel.md %}
-
 
 ## Step 1.2 Install prerequisites for Ruby
 

@@ -10,18 +10,22 @@ redirect_from:
   - /csharp/sles/step/1
 ---
 
-> In this section, you will get SQL Server 2019 on SUSE Linux Enterprise Server (SLES). After that you will install the necessary dependencies to create .NET Core apps with SQL Server.
+> In this section, you will get SQL Server 2019 on SUSE Linux Enterprise Server (SLES) 15. After that you will install the necessary dependencies to create .NET Core apps with SQL Server.
 
 ## Step 1.1 Install SQL Server
 
 {% include partials/install_sql_server_linux_sles.md %}
 
-## Step 1.2 Install .NET Core
+## Step 1.2 Install .NET Core SDK
 
-If you already have .NET Core installed on your machine, skip this step. Otherwise, install it using the following commands.
+If you already have .NET Core SDK installed on your machine, skip this step. Otherwise, install it using the following commands.
 
 ```terminal
-sudo rpm -Uvh https://packages.microsoft.com/config/sles/12/packages-microsoft-prod.rpm
+sudo zypper install libicu
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+wget https://packages.microsoft.com/config/opensuse/15/prod.repo
+sudo mv prod.repo /etc/zypp/repos.d/microsoft-prod.repo
+sudo chown root:root /etc/zypp/repos.d/microsoft-prod.repo
 sudo zypper install dotnet-sdk-3.1
 ```
 

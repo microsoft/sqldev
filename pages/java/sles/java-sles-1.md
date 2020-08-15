@@ -10,7 +10,7 @@ redirect_from:
   - /java/sles/step/1
 ---
 
-> In this section, you will get SQL Server 2017 on SUSE Linux Enterprise Server (SLES). After that you will install the necessary dependencies to create Java apps with SQL Server.
+> In this section, you will get SQL Server 2019 on SUSE Linux Enterprise Server (SLES). After that you will install the necessary dependencies to create Java apps with SQL Server.
 
 ## Step 1.1 Install SQL Server
 

@@ -10,7 +10,7 @@ redirect_from:
   - /node/rhel/step/1
 ---
 
-> In this section, you will get SQL Server 2017 running on Red Hat Enterprise Linux. After that you will install the necessary dependencies to create Node.js apps with SQL Server
+> In this section, you will get SQL Server 2019 running on Red Hat Enterprise Linux. After that you will install the necessary dependencies to create Node.js apps with SQL Server
 
 ## Step 1.1 Install SQL Server
 

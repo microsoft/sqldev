@@ -35,7 +35,7 @@ sqlcmd -S localhost -U sa -P yourpassword
 1> # You're connected! Type your T-SQL statements here. Use the keyword 'GO' to execute each batch of statements.
 ```
 
-This how to run a basic inline query. The results will be printed to the STDOUT.
+This how to run a basic inline query. The results will be printed to STDOUT.
 
 ```terminal
 sqlcmd -S localhost -U sa -P yourpassword -Q "SELECT @@VERSION"
@@ -43,11 +43,9 @@ sqlcmd -S localhost -U sa -P yourpassword -Q "SELECT @@VERSION"
 
 ```results
 --------------------------------------------------------
-{% include partials/sql_server_version.md %}    on Linux (Ubuntu 16.04)
+{% include partials/sql_server_version.md %} on Linux (Ubuntu 18.04)
 
-1 rows(s) returned
-
-Executed in 1 ns
+(1 rows affected)
 ```
 
 > You have successfully installed SQL Server Command Line Utilities on your Ubuntu machine!

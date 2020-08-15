@@ -9,7 +9,7 @@ redirect_from:
   - /java/windows/step/1
 ---
 
-> In this section, you will get SQL Server 2017 running on Windows. After that you will install the necessary dependencies to create Java apps with SQL Server. 
+> In this section, you will get SQL Server 2019 running on Windows. After that you will install the necessary dependencies to create Java apps with SQL Server.
 
 ## Step 1.1 Install SQL Server
 
@@ -36,15 +36,15 @@ Add the JDK to your PATH environment variable
 
 [Maven](https://maven.apache.org/) can be used to help manage dependencies, build, test and run your Java project. Follow the instructions below to install Maven.
 
-1. Download the [Maven binary](http://www-us.apache.org/dist/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.zip)
+1. Download the [Maven binary](http://www-us.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip)
 2. Unzip the installer to a file location on your computer
 
 Add the Maven bin directory to your PATH environment variable and add the JRE to the JAVA_HOME environment variable
 
-1. Press start 
-2. Search for "Advanced System Settings" 
-3. Click on the "Environment Variables" button 
-4. Add the location of the bin folder of the Maven installation to the PATH variable 
+1. Press start
+2. Search for "Advanced System Settings"
+3. Click on the "Environment Variables" button
+4. Add the location of the bin folder of the Maven installation to the PATH variable
 5. Create a new System Variable for "JAVA_HOME" and point it to the JDK folder (ex. C:\Program Files\Java\jdk1.8.0_102)
 6. Check that Maven was installed properly by running the following command.
 
@@ -53,12 +53,12 @@ Add the Maven bin directory to your PATH environment variable and add the JRE to
 ```
 
 ```results
-Apache Maven 3.3.9 (bb52d8502b132ec0a5a3f4c09453c07478323dc5; 2015-11-10T08:41:47-08:00)
-Maven home: C:\apache-maven-3.3.9\bin\..
-Java version: 1.8.0_102, vendor: Oracle Corporation
-Java home: C:\Program Files\Java\jdk1.8.0_102
+Apache Maven 3.6.3 (cecedd343002696d0abb50b32b541b8a6ba2883f)
+Maven home: C:\apache-maven-3.6.3\bin\..
+Java version: 1.8.0_261, vendor: Oracle Corporation
+Java home: C:\Program Files\Java\jdk1.8.0_261
 Default locale: en_US, platform encoding: Cp1252
-OS name: "windows 10", version: "10.0", arch: "amd64", family: "dos"
+OS name: "windows 10", version: "10.0", arch: "amd64", family: "windows"
 ```
 
 > You have successfully installed Java and Maven on Windows. You now have everything you need to start writing your Java apps with SQL Server!

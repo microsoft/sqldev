@@ -11,7 +11,7 @@ redirect_from:
   - /php/mac/step/1
 ---
 
-> In this section, you will get SQL Server 2017 running on Docker. After that you will install the necessary dependencies to create PHP apps with SQL Server
+> In this section, you will get SQL Server 2019 running on Docker. After that you will install the necessary dependencies to create PHP apps with SQL Server
 
 ## Step 1.1 Install SQL Server
 
@@ -30,7 +30,7 @@ redirect_from:
 > To install PHP 7.2 or 7.3, replace `php@7.4` with `php@7.2` or `php@7.3` respectively in the following commands.
 
 ```terminal
-    brew tap 
+    brew tap
     brew tap homebrew/core
     brew install php@7.4
 ```

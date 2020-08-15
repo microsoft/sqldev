@@ -38,9 +38,9 @@ You should already have a file called **Program.cs** in your .NET Core project l
 Open this file in your favorite text editor and replace the contents with the code below. Don't forget to replace the username and password with your own. Save and close the file.
 
 ```csharp
+using Microsoft.Data.SqlClient;
 using System;
 using System.Text;
-using System.Data.SqlClient;
 
 namespace SqlServerSample
 {
@@ -112,9 +112,9 @@ All done. Press any key to finish...
 Now replace the code in **Program.cs** by opening the file in your favorite text editor and copying and pasting the code below into the file. This will create a database and a table, and will insert, update, delete, and read a few rows. Don't forget to update the username and password with your own. Save and close the file.
 
 ```csharp
+using Microsoft.Data.SqlClient;
 using System;
 using System.Text;
-using System.Data.SqlClient;
 
 namespace SqlServerSample
 {
@@ -290,8 +290,8 @@ Open this file in your favorite text editor and replace the contents with the co
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
   </ItemGroup>
 
 </Project>
@@ -383,9 +383,9 @@ Replace the code in the **Program.cs** file in your .NET Core project located at
 Open this file in your favorite text editor and replace the contents with the code below. Don't forget to update the username and password with your own. Save and close the file.
 
 ```csharp
+using Microsoft.Data.SqlClient;
 using System;
 using System.Linq;
-using System.Data.SqlClient;
 using System.Collections.Generic;
 
 namespace SqlServerEFSample
