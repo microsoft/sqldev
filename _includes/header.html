@@ -14,10 +14,10 @@
       
       {% if site.menu %}
       <div class="sql-menu">
-        <h2 class="sql-menu-title">Choose a language and operating system below</h2>
+        <h2 id="chooselanguage"class="sql-menu-title">Choose a language and operating system below</h2>
         <div class="sql-menu-dropdown-container">
-          <label class="sql-menu-dropdown-title">Follow instruction with</label>
-          <select id="sql-host" class="sql-menu-dropdown">
+          <label for="sql-host" class="sql-menu-dropdown-title">Follow instruction with</label>
+          <select id="sql-host" class="sql-menu-dropdown" aria-describedby="chooselanguage">
             <option value="server">SQL Server</option>
             <option value="azure" selected>Azure SQL</option>
           </select>
@@ -27,7 +27,7 @@
               {% assign submenu_name = submenu[0] %}
               {% assign submenu_options = submenu[1] %}
 
-              <div class="sql-menu-sub">
+              <div class="sql-menu-sub" tabindex="0">
                   {%if submenu_options %}
                     {% for option in submenu_options %}
                       {% assign key = option[0] %}

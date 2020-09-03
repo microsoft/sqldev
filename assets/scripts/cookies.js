@@ -79,14 +79,12 @@
   if (cookie) {
     banner.classList.add("hide");
     banner.classList.remove("active");
+    initGA();
   }
 
   if (!cookie) {
     banner.classList.add("active");
     banner.classList.remove("hide");
-  }
-
-  if (close) {
     close.addEventListener("click", function() {
       banner.classList.add("hide");
       banner.classList.remove("active");
@@ -94,4 +92,5 @@
       initGA();
     });
   }
+
 })();
