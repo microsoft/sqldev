@@ -3,9 +3,7 @@
 title: Build an app with Azure SQL or SQL Server
 description: > 
   Get started with Azure SQL DB on the cloud or SQL Server on macOS, Linux, and Windows.
-url: https://sqlchoice.azurewebsites.net
-destination: ../wwwroot/en-us/sql-server/developer-get-started
-baseurl: /en-us/sql-server/developer-get-started
+
 
 disqus:
   shortname: sqlchoice
