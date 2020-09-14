@@ -3,4 +3,4 @@ Go to this [**site**](https://docs.microsoft.com/en-us/azure/sql-database/sql-da
 
 1.  Perform the Prerequisites steps.
 
-2. Follow steps 1-17 from the section: "Create a Single Database".
+2. Follow steps 1-17 from the section: **Create a Single Database**.
