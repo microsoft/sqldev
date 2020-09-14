@@ -11,7 +11,7 @@ Create a new folder for the sample
 
 ```terminal
 mkdir AzureSqlSample
-cd SqlServerSample
+cd AzureSqlSample
 ```
 
 Execute the T-SQL scripts below in the terminal with sqlcmd to a table and insert some row.

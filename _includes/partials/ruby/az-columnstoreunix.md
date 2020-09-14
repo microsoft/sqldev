@@ -7,7 +7,7 @@ Create a new directory for your project and install [TinyTDS](https://github.com
 ```terminal
 cd ~/
 mkdir AzrueSqlColumnstoreSample
-cd AzureSqlSample
+cd AzureSqlColumnstoreSample
 gem install tiny_tds
 ```
 
