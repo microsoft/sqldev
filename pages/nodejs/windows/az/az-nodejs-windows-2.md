@@ -561,7 +561,7 @@ Create the app directory and initialize Node dependencies.
     npm install @azure/identity
 ```
 
-a. Open your favourite text editor and create the file orm.js in the directory AzreSqlSequelizeSample. 
+a. Open your favourite text editor and create the file orm.js in the directory AzureSqlSequelizeSample. 
 b. Paste the contents below into orm.js 
 c. Update the connection information to point to your server and database. 
 d. Save and close orm.js

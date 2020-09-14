@@ -6,7 +6,7 @@
 {% include partials/get_azure_sql_connection_info.md %}
 
 
-## Step 2.2 Create a Ruby app that connects to SQL Server and executes queries
+## Step 2.2 Create a Ruby app that connects to Azure SQL and executes queries
 
 Create a new project directory and install [TinyTDS](https://github.com/rails-sqlserver/tiny_tds). TinyTDS is used to connect Ruby applications to Azure SQL DB.
 
@@ -24,7 +24,7 @@ Using your favorite editor, create a file named **connect.rb** in the AzureSqlSa
 @client = TinyTds::Client.new username: 'your_user@your_server', password: 'your_password',
     dataserver: 'your_server.database.windows.net', database: 'your_database', azure: true
 
-puts 'Connecting to Azure SQL DB'
+puts 'Connecting to Azure SQL'
 
 if @client.active? == true then puts 'Done' end
 
