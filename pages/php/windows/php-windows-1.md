@@ -16,19 +16,17 @@ redirect_from:
 
 {% include partials/install_sql_server_windows.md %}
 
-## Step 1.2 Install PHP and Chocolatey
+## Step 1.2 Install PHP and Composer
 
-You can download PHP using the [**Web Platform Installer**](https://www.microsoft.com/web/downloads/platform.aspx). Once you download Web PI, open it up and download the entry which says **'PHP 7.4.1 (x64) for IIS Express'**.
+For full details of installing PHP you can reference this [**site**](https://www.php.net/manual/en/install.windows.php).
 
-Next, install Chocolatey. Chocolatey is a package manager like apt-get and yum for Windows. We will use Chocolatey later in the tutorial. Use an elevated Command-line session (run as administrator):
+To use PHP with IIS or IIS Express, you can install [**Web Platform Installer**](https://www.microsoft.com/web/downloads/platform.aspx). With Web Platform Installer, after you have selected what to install, click the "Add" button on the right and the "Install" button at the bottom. Then click the "I Accept" button after reviewing the license terms. It takes care of installing the dependencies when you choose to install PHP versions and/or the corresponding Microsoft Drivers for PHP for SQL Server.
 
-```powershell
-@powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
-```
+For example, select the entry **'PHP 8.0.0 (x64)'** if you want the 64-bit (Non Thread Safe) PHP 8.0.0 without the drivers. If you also want the drivers, select **'Microsoft Drivers 5.9 (x64) for PHP 8.0 for SQL Server in IIS'**, which will install PHP 8.0 as well as configure IIS to use PHP drivers 5.9 for SQL Server. 
 
-For Chocolatey to work, you now need to restart the terminal session by closing and opening the terminal.
+The advanced users may want to click the "Direct Download link" instead of the "I Accept" button, in which case they have to configure PHP for IIS or take care of installing the dependencies themselves. PHP requires the Visual C++ Redistributable for Visual Studio 2015-2019 [x64](https://aka.ms/vs/16/release/VC_redist.x64.exe) or [x86](https://aka.ms/vs/16/release/VC_redist.x86.exe), depending on whether you are running the 64-bit or 32-bit PHP executables, and Microsoft Drivers for PHP for SQL Server requires the Microsoft ODBC Driver.
 
-> You have succesfully installed PHP and Chocolatey on your machine!
+If you are experienced PHP users, you may skip Web Platform Installer and directly download the PHP zip binary distribution from [PHP for Windows: Binaries and Sources](https://windows.php.net/download/).
 
 ## Step 1.3 Install the ODBC Driver and SQL Command Line Utility for SQL Server
 
