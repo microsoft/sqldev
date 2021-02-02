@@ -16,7 +16,7 @@ For example, if you have downloaded **'PHP 8.0.0 (x64)'** using the Web Platform
 Enable Microsoft PHP Drivers for SQL Server by modifying the **php.ini** file. First, navigate to **C:\Program Files\PHP\v8.0**. If you do not find the **php.ini** file, make a copy of either **php.ini-development** or **php.ini-production** (depending on whether your system is a development environment or production environment) and rename it **php.ini**.
 
 ```terminal
-    cd C:\Program^ Files\PHP\v8.0
+    cd "C:\Program Files\PHP\v8.0"
     echo extension=php_sqlsrv_80_nts.dll >> php.ini
     echo extension=php_pdo_sqlsrv_80_nts.dll >> php.ini
 ```

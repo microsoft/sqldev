@@ -27,7 +27,7 @@ redirect_from:
 
 3. Install PHP.
 
-> To install PHP 7.4 or 7.3, replace php@8.0 with php@7.4 or php@7.3 respectively in the following commands.
+> To install PHP 7.4 or 7.3, replace `php@8.0` with `php@7.4` or `php@7.3` respectively in the following commands.
 
 ```terminal
     brew tap
