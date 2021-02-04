@@ -18,7 +18,7 @@ redirect_from:
 
 To install PHP on Red Hat 7, run the following:
 
-> To install PHP 7.2 or 7.3, replace `remi-php74` with `remi-php72` or `remi-php73` respectively in the following commands.
+> To install PHP 7.4 or 7.3, replace `remi-php80` with `remi-php74` or `remi-php73` respectively in the following commands.
 
 ```terminal
     sudo su
@@ -26,14 +26,15 @@ To install PHP on Red Hat 7, run the following:
     yum install https://rpms.remirepo.net/enterprise/remi-release-7.rpm
     subscription-manager repos --enable=rhel-7-server-optional-rpms
     yum install yum-utils
-    yum-config-manager --enable remi-php74
+    yum-config-manager --enable remi-php80
     yum update
+    # Note: The php-pdo package is required only for the PDO_SQLSRV driver
     yum install php php-pdo php-xml php-pear php-devel re2c gcc-c++ gcc
 ```
 
 To install PHP on Red Hat 8, run the following:
 
-> To install PHP 7.2 or 7.3, replace `remi-7.4` with `remi-7.2` or `remi-7.3` respectively in the following commands.
+> To install PHP 7.4 or 7.3, replace `remi-8.0` with `remi-7.4` or `remi-7.3` respectively in the following commands.
 
 ```terminal
     sudo su
@@ -41,9 +42,10 @@ To install PHP on Red Hat 8, run the following:
     dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
     dnf install yum-utils
     dnf module reset php
-    dnf module install php:remi-7.4
+    dnf module install php:remi-8.0
     subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
     dnf update
+    # Note: The php-pdo package is required only for the PDO_SQLSRV driver
     dnf install php-pdo php-pear php-devel
 ```
 

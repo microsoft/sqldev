@@ -16,13 +16,13 @@ redirect_from:
 
 ## Step 1.2 Install PHP and other required packages
 
-> To install PHP 7.2 or 7.3, replace `7.4` with `7.2` or `7.3` in the following commands.
+> To install PHP 7.4 or 7.3, replace `8.0` with `7.4` or `7.3` in the following commands.
 
 ```terminal
 sudo su
 add-apt-repository ppa:ondrej/php -y
 apt-get update
-apt-get install php7.4 php7.4-dev php7.4-xml -y --allow-unauthenticated
+apt-get install php8.0 php8.0-dev php8.0-xml -y --allow-unauthenticated
 ```
 
 > You have successfully installed PHP on your Ubuntu machine! 
