@@ -1,5 +1,5 @@
 
-> After getting Azure SQL DB set up and GoLang installed, you can now proceed to create your new Go projects. Here we will explore three simple applications. One of them will connect and print the Azure SQL version of your database server, the other one will perform basic Insert, Update, Delete, and Select operations, and the third one will make use of [GORM](http://jinzhu.me/gorm/), a popular object relational mapping (ORM) framework for Go to execute the same operations.
+> After getting Azure SQL DB set up and GoLang installed, you can now proceed to create your new Go projects. Here we will explore three simple applications. One of them will connect and print the Azure SQL version of your database server, the other one will perform basic Insert, Update, Delete, and Select operations, and the third one will make use of [GORM](https://github.com/jinzhu/gorm/), a popular object relational mapping (ORM) framework for Go to execute the same operations.
 
 ## Get Connection Information to use in Connection Strings, and Create a Firewall Rule.
 
@@ -16,9 +16,8 @@ Create a new project directory and install Go dependencies.
     mkdir AzureSqlSample
     cd AzureSqlSample
 
-    # Get and install the Azure SQL DB driver for Go
+    # Get the Azure SQL DB driver for Go
     go get github.com/denisenkom/go-mssqldb
-    go install github.com/denisenkom/go-mssqldb
 ```
 
 Now you will create a simple Go app that connects to Azure SQL DB.
@@ -365,13 +364,11 @@ Create the app directory and initialize Go dependencies.
     mkdir AzureSqlGormSample
     cd AzureSqlGormSample
 
-    # Get and install the SQL Server driver for Go
+    # Get the SQL Server driver for Go
     go get github.com/denisenkom/go-mssqldb
-    go install github.com/denisenkom/go-mssqldb
 
-   # Get and install GORM
+   # Get GORM
    go get github.com/jinzhu/gorm
-   go install github.com/jinzhu/gorm
 ```
 
 Paste the contents below into a file called `orm.go`. Make sure to replace the password variable to your own.

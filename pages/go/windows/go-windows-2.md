@@ -5,7 +5,7 @@ title: Windows
 permalink: /go/windows/server/step/2
 ---
 
-> After getting SQL Server and GoLang installed, you can now proceed to create your new Go projects. Here we will explore three simple applications. One of them will connect and print the SQL Server version of your database server, the other one will perform basic Insert, Update, Delete, and Select operations, and the third one will make use of [GORM](http://jinzhu.me/gorm/), a popular object relational mapping (ORM) framework for Go to execute the same operations.
+> After getting SQL Server and GoLang installed, you can now proceed to create your new Go projects. Here we will explore three simple applications. One of them will connect and print the SQL Server version of your database server, the other one will perform basic Insert, Update, Delete, and Select operations, and the third one will make use of [GORM](https://github.com/jinzhu/gorm), a popular object relational mapping (ORM) framework for Go to execute the same operations.
 
 ## Create a Go app that connects to SQL Server and executes queries
 
@@ -18,9 +18,8 @@ Create a new project directory and install Go dependencies.
     md SqlServerSample
     cd SqlServerSample
 
-    # Get and install the SQL Server driver for Go
+    # Get the SQL Server driver for Go
     go get github.com/denisenkom/go-mssqldb
-    go install github.com/denisenkom/go-mssqldb
 ```
 
 Create a database that will be used for the rest of this tutorial by connecting to SQL Server using sqlcmd and executing the following command. Don't forget to update the username and password with your own.
@@ -365,9 +364,11 @@ Create the app directory and initialize Go dependencies.
     md SqlServerGormSample
     cd SqlServerGormSample
 
-    # Get and install the SQL Server driver for Go
+    # Get the SQL Server driver for Go
     go get github.com/denisenkom/go-mssqldb
-    go install github.com/denisenkom/go-mssqldb
+
+   # Get GORM
+   go get github.com/jinzhu/gorm
 ```
 
 Paste the contents below into a file called `orm.go`. Make sure to replace the password variable to your own.
