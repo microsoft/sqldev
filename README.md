@@ -1,6 +1,6 @@
 
 # SQL Server Tutorials Documentation Contributor Guide
-You've found the GitHub repository that houses the source for the SQL Server tutorials that are published on [http://aka.ms/sqldev](http://aka.ms/sqldev).
+You've found the GitHub repository that houses the source for the SQL Server tutorials that are published on [https://aka.ms/sqldev](https://aka.ms/sqldev).
 
 
 ## Contribute to SQL Server tutorials 

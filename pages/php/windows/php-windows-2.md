@@ -9,9 +9,9 @@ permalink: /php/windows/server/step/2
 
 ## Step 2.1 Install the PHP Drivers for SQL Server
 
-If you have used the [**Web Platform Installer**](https://www.microsoft.com/web/downloads/platform.aspx) in Step 1 to install the Microsoft PHP Drivers for SQL Server, you can skip this step. Otherwise, download the drivers from the [download page](https://docs.microsoft.com/sql/connect/php/download-drivers-php-sql-server).
+If you have used the [**Web Platform Installer**](https://www.microsoft.com/web/downloads/platform.aspx) in Step 1 to install the Microsoft PHP Drivers for SQL Server, you can skip this step. Otherwise, download the drivers from the [download page](https://aka.ms/downloadmsphpsql).
 
-For example, if you have downloaded **'PHP 8.0.0 (x64)'** using the Web Platform Installer, select **php_pdo_sqlsrv_80_nts.dll** for the **PDO_SQLSRV Driver** and/or **php_sqlsrv_80_nts.dll** for the **SQLSRV driver**. Copy the dll file(s) to the **C:\Program Files\PHP\v8.0\ext** folder. 
+For example, if you have downloaded **'PHP 8.0.0 (x64)'** using the Web Platform Installer, select **php_pdo_sqlsrv_80_nts.dll** for the **PDO_SQLSRV Driver** and/or **php_sqlsrv_80_nts.dll** for the **SQLSRV driver**. Copy the dll file(s) to the **C:\Program Files\PHP\v8.0\ext** folder.
 
 Enable Microsoft PHP Drivers for SQL Server by modifying the **php.ini** file. First, navigate to **C:\Program Files\PHP\v8.0**. If you do not find the **php.ini** file, make a copy of either **php.ini-development** or **php.ini-production** (depending on whether your system is a development environment or production environment) and rename it **php.ini**.
 
